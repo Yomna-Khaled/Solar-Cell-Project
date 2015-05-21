@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Material Vendors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Material</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @material_vendors.each do |material_vendor| %>
+      <tr>
+        <td><%= material_vendor.vendor %></td>
+        <td><%= material_vendor.material %></td>
+        <td><%= material_vendor.date %></td>
+        <td><%= link_to 'Show', material_vendor %></td>
+        <td><%= link_to 'Edit', edit_material_vendor_path(material_vendor) %></td>
+        <td><%= link_to 'Destroy', material_vendor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Material vendor', new_material_vendor_path %>

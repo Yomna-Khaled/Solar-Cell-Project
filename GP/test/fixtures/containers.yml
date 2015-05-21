@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  width: 1.5
+  height: 1.5
+  serialNo: MyString
+  capacity: 1
+  price: 1.5
+  total_power: 1.5
+
+two:
+  width: 1.5
+  height: 1.5
+  serialNo: MyString
+  capacity: 1
+  price: 1.5
+  total_power: 1.5

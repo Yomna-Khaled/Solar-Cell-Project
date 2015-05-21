@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Production date:</strong>
+  <%= @solar_panel.production_date %>
+</p>
+
+<p>
+  <strong>Expire date:</strong>
+  <%= @solar_panel.expire_date %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @solar_panel.height %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @solar_panel.width %>
+</p>
+
+<p>
+  <strong>Power:</strong>
+  <%= @solar_panel.power %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @solar_panel.type %>
+</p>
+
+<p>
+  <strong>Subtype:</strong>
+  <%= @solar_panel.subtype %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @solar_panel.price %>
+</p>
+
+<p>
+  <strong>Serialno:</strong>
+  <%= @solar_panel.serialNo %>
+</p>
+
+<p>
+  <strong>Container:</strong>
+  <%= @solar_panel.container %>
+</p>
+
+<%= link_to 'Edit', edit_solar_panel_path(@solar_panel) %> |
+<%= link_to 'Back', solar_panels_path %>

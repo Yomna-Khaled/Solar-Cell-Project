@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @vendor_container.vendor %>
+</p>
+
+<p>
+  <strong>Container:</strong>
+  <%= @vendor_container.container %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @vendor_container.date %>
+</p>
+
+<%= link_to 'Edit', edit_vendor_container_path(@vendor_container) %> |
+<%= link_to 'Back', vendor_containers_path %>

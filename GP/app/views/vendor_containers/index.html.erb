@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Vendor Containers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Container</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vendor_containers.each do |vendor_container| %>
+      <tr>
+        <td><%= vendor_container.vendor %></td>
+        <td><%= vendor_container.container %></td>
+        <td><%= vendor_container.date %></td>
+        <td><%= link_to 'Show', vendor_container %></td>
+        <td><%= link_to 'Edit', edit_vendor_container_path(vendor_container) %></td>
+        <td><%= link_to 'Destroy', vendor_container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vendor container', new_vendor_container_path %>

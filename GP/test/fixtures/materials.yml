@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  quantity: 1
+  price: 1.5
+  Min_Number: 1
+  stockNo: MyString
+  shelfNo: MyString
+  production_date: 2015-05-21
+  expiration_date: 2015-05-21
+  quantity_id: 
+
+two:
+  name: MyString
+  quantity: 1
+  price: 1.5
+  Min_Number: 1
+  stockNo: MyString
+  shelfNo: MyString
+  production_date: 2015-05-21
+  expiration_date: 2015-05-21
+  quantity_id: 

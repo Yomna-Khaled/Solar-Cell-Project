@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @material_vendor.vendor %>
+</p>
+
+<p>
+  <strong>Material:</strong>
+  <%= @material_vendor.material %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @material_vendor.date %>
+</p>
+
+<%= link_to 'Edit', edit_material_vendor_path(@material_vendor) %> |
+<%= link_to 'Back', material_vendors_path %>

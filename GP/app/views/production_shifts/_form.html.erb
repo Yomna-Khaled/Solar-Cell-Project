@@ -1,0 +1,37 @@
+<%= form_for(@production_shift) do |f| %>
+  <% if @production_shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@production_shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
+
+      <ul>
+      <% @production_shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :material_id %><br>
+    <%= f.text_field :material_id %>
+  </div>
+  <div class="field">
+    <%= f.label :crew_id %><br>
+    <%= f.text_field :crew_id %>
+  </div>
+  <div class="field">
+    <%= f.label :solar_panel_id %><br>
+    <%= f.text_field :solar_panel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_shift %><br>
+    <%= f.date_select :start_shift %>
+  </div>
+  <div class="field">
+    <%= f.label :end_shift %><br>
+    <%= f.date_select :end_shift %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

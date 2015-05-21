@@ -1,0 +1,2 @@
+module VendorSparesHelper
+end

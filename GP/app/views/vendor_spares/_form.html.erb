@@ -1,0 +1,29 @@
+<%= form_for(@vendor_spare) do |f| %>
+  <% if @vendor_spare.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vendor_spare.errors.count, "error") %> prohibited this vendor_spare from being saved:</h2>
+
+      <ul>
+      <% @vendor_spare.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :vendor_id %><br>
+    <%= f.text_field :vendor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :spare_part_id %><br>
+    <%= f.text_field :spare_part_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

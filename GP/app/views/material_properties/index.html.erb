@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Material Properties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Material</th>
+      <th>Property</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @material_properties.each do |material_property| %>
+      <tr>
+        <td><%= material_property.material %></td>
+        <td><%= material_property.property %></td>
+        <td><%= link_to 'Show', material_property %></td>
+        <td><%= link_to 'Edit', edit_material_property_path(material_property) %></td>
+        <td><%= link_to 'Destroy', material_property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Material property', new_material_property_path %>

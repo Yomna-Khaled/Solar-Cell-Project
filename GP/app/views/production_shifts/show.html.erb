@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Material:</strong>
+  <%= @production_shift.material %>
+</p>
+
+<p>
+  <strong>Crew:</strong>
+  <%= @production_shift.crew %>
+</p>
+
+<p>
+  <strong>Solar panel:</strong>
+  <%= @production_shift.solar_panel %>
+</p>
+
+<p>
+  <strong>Start shift:</strong>
+  <%= @production_shift.start_shift %>
+</p>
+
+<p>
+  <strong>End shift:</strong>
+  <%= @production_shift.end_shift %>
+</p>
+
+<%= link_to 'Edit', edit_production_shift_path(@production_shift) %> |
+<%= link_to 'Back', production_shifts_path %>

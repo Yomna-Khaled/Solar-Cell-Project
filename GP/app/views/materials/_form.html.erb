@@ -1,0 +1,53 @@
+<%= form_for(@material) do |f| %>
+  <% if @material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@material.errors.count, "error") %> prohibited this material from being saved:</h2>
+
+      <ul>
+      <% @material.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :Min_Number %><br>
+    <%= f.number_field :Min_Number %>
+  </div>
+  <div class="field">
+    <%= f.label :stockNo %><br>
+    <%= f.text_field :stockNo %>
+  </div>
+  <div class="field">
+    <%= f.label :shelfNo %><br>
+    <%= f.text_field :shelfNo %>
+  </div>
+  <div class="field">
+    <%= f.label :production_date %><br>
+    <%= f.date_select :production_date %>
+  </div>
+  <div class="field">
+    <%= f.label :expiration_date %><br>
+    <%= f.date_select :expiration_date %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_id %><br>
+    <%= f.text_field :quantity_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

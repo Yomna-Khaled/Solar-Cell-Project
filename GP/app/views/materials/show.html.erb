@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @material.name %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @material.quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @material.price %>
+</p>
+
+<p>
+  <strong>Min number:</strong>
+  <%= @material.Min_Number %>
+</p>
+
+<p>
+  <strong>Stockno:</strong>
+  <%= @material.stockNo %>
+</p>
+
+<p>
+  <strong>Shelfno:</strong>
+  <%= @material.shelfNo %>
+</p>
+
+<p>
+  <strong>Production date:</strong>
+  <%= @material.production_date %>
+</p>
+
+<p>
+  <strong>Expiration date:</strong>
+  <%= @material.expiration_date %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @material.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_material_path(@material) %> |
+<%= link_to 'Back', materials_path %>

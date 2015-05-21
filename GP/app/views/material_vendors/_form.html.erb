@@ -1,0 +1,29 @@
+<%= form_for(@material_vendor) do |f| %>
+  <% if @material_vendor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@material_vendor.errors.count, "error") %> prohibited this material_vendor from being saved:</h2>
+
+      <ul>
+      <% @material_vendor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :vendor_id %><br>
+    <%= f.text_field :vendor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :material_id %><br>
+    <%= f.text_field :material_id %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

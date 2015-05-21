@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @vendor_spare.date %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @vendor_spare.vendor %>
+</p>
+
+<p>
+  <strong>Spare part:</strong>
+  <%= @vendor_spare.spare_part %>
+</p>
+
+<%= link_to 'Edit', edit_vendor_spare_path(@vendor_spare) %> |
+<%= link_to 'Back', vendor_spares_path %>

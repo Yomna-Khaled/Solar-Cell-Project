@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @container.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @container.height %>
+</p>
+
+<p>
+  <strong>Serialno:</strong>
+  <%= @container.serialNo %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @container.capacity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @container.price %>
+</p>
+
+<p>
+  <strong>Total power:</strong>
+  <%= @container.total_power %>
+</p>
+
+<%= link_to 'Edit', edit_container_path(@container) %> |
+<%= link_to 'Back', containers_path %>
