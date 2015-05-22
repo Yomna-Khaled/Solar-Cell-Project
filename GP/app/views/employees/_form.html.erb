@@ -1,53 +1,111 @@
+
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
+
+.field_with_errors {
+    background-color: white;
+}
+.container{
+margin-left: 500px;
+width:500px;
+
+}
+</style>
+<div class="container">
 <%= form_for(@employee) do |f| %>
+
   <% if @employee.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
-
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@employee.errors.count, "error") %>.
+         <ul>
+      <% @employee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
+     
     </div>
   <% end %>
+ 
+  <% if @flag_new==1 %>
+    <h1 class="page-header text-primary">Add Employee</h1>
+  <% end %>
 
-  <div class="field">
+
+  <% if @flag_new==0 %>
+    <h1 class="page-header text-primary">Edit Employee</h1>
+  <% end %>
+
+  <div class="form-group">
     <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, class: 'form-control' , placeholder: "Enter First Name" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, class: 'form-control' , placeholder: "Enter Last Name" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :salary %><br>
-    <%= f.text_field :salary %>
+    <%= f.text_field :salary, class: 'form-control' , placeholder: "Enter Salary" %>
   </div>
-  <div class="field">
-    <%= f.label :houre_rate %><br>
-    <%= f.text_field :houre_rate %>
-  </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :education_level %><br>
-    <%= f.text_area :education_level %>
+    <%= f.text_area :education_level, class: 'form-control' , placeholder: "Enter Education Level" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :Governamental_ID %><br>
-    <%= f.text_field :Governamental_ID %>
+    <%= f.text_field :Governamental_ID, class: 'form-control' , placeholder: "Enter Governamental_ID" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :position %><br>
-    <%= f.text_field :position %>
+    <%= f.text_field :position, class: 'form-control' , placeholder: "Enter Position" %>
   </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+  <div class="form-group">
+    <%= f.label :category_id %><br>
+    <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
   </div>
-  <div class="field">
+  <% if @flag_new==1  %>
+    <div id="notnormal">
+      <div class="form-group">
+        <%= f.label :password %><br>
+        <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :user_name %><br>
+        <%= f.text_field :user_name, class: 'form-control' , placeholder: "Enter User Name Which Login with it" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="form-group">
     <%= f.label :crew_id %><br>
-    <%= f.text_field :crew_id %>
+    <%= f.select(:crew_id, options_from_collection_for_select(Crew.all, 'id' ,'id')) %>
   </div>
+  <%= f.file_field :image %>
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :submit, class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
+
+
+<script type="text/javascript">
+ var category = document.getElementById('employee_category_id');
+  if (category) {
+   target = document.getElementById('notnormal'); //div of input password
+   if (category.text == 'Normal') target.style.display='none';
+   category.onchange=function() {
+    var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
+    if (type == 'Normal') {
+                     target.style.display = 'none';
+                  } else {
+              target.style.display= '';
+    }
+   }
+  }
+ </script>
