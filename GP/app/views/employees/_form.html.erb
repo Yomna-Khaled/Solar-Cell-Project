@@ -9,13 +9,9 @@
 .field_with_errors {
     background-color: white;
 }
-.container{
-margin-left: 500px;
-width:500px;
 
-}
 </style>
-<div class="container">
+
 <%= form_for(@employee) do |f| %>
 
   <% if @employee.errors.any? %>
@@ -91,7 +87,7 @@ width:500px;
     <%= f.submit :submit, class: "btn btn-primary" %>
   </div>
 <% end %>
-</div>
+
 
 
 <script type="text/javascript">

@@ -6,10 +6,8 @@
   <thead>
     <tr>
       <th>Material</th>
-      <th>Crew</th>
-      <th>Solar panel</th>
-      <th>Start shift</th>
-      <th>End shift</th>
+      <th>Shift</th>
+      <th>Material quantity</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,10 +16,8 @@
     <% @production_shifts.each do |production_shift| %>
       <tr>
         <td><%= production_shift.material %></td>
-        <td><%= production_shift.crew %></td>
-        <td><%= production_shift.solar_panel %></td>
-        <td><%= production_shift.start_shift %></td>
-        <td><%= production_shift.end_shift %></td>
+        <td><%= production_shift.shift %></td>
+        <td><%= production_shift.material_quantity %></td>
         <td><%= link_to 'Show', production_shift %></td>
         <td><%= link_to 'Edit', edit_production_shift_path(production_shift) %></td>
         <td><%= link_to 'Destroy', production_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,3 +1,3 @@
 class SparePart < ActiveRecord::Base
-  belongs_to :material
+  belongs_to :machine
 end

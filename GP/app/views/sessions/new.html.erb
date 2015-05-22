@@ -1,12 +1,4 @@
-<style>
-.container{
-margin-left: 550px;
-width:500px;
 
-
-}
-</style>
-<div class="container">
     <h1 class="page-header text-primary">Login</h1>
     <%= form_for(:session, url: login_path) do |f| %>
 
@@ -18,4 +10,4 @@ width:500px;
 <br>
       <%= f.submit "Log in", class: "btn btn-primary" %>
     <% end %>
- </div>
+

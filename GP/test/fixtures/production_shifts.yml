@@ -2,14 +2,10 @@
 
 one:
   material_id: 
-  crew_id: 
-  solar_panel_id: 
-  start_shift: 2015-05-21
-  end_shift: 2015-05-21
+  shift_id: 
+  material_quantity: 1.5
 
 two:
   material_id: 
-  crew_id: 
-  solar_panel_id: 
-  start_shift: 2015-05-21
-  end_shift: 2015-05-21
+  shift_id: 
+  material_quantity: 1.5
