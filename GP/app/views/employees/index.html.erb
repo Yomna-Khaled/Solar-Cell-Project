@@ -1,43 +1,43 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Employees</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Salary</th>
-      <th>Houre rate</th>
-      <th>Education level</th>
-      <th>Governamental id</th>
-      <th>Position</th>
-      <th>Type</th>
-      <th>Crew</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @employees.each do |employee| %>
-      <tr>
-        <td><%= employee.first_name %></td>
-        <td><%= employee.last_name %></td>
-        <td><%= employee.salary %></td>
-        <td><%= employee.houre_rate %></td>
-        <td><%= employee.education_level %></td>
-        <td><%= employee.Governamental_ID %></td>
-        <td><%= employee.position %></td>
-        <td><%= employee.type %></td>
-        <td><%= employee.crew %></td>
-        <td><%= link_to 'Show', employee %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <br>
+  <table class="table table-striped">
+        <thead>
+          <tr>
+            <th text-align="center">Image</th>
+            <th text-align="center">First Name</th>
+            <th text-align="center">Last Name</th>
+            <th text-align="center">User Name</th>
+            <th text-align="center">Salary</th>
+            <th text-align="center">Houre Rate</th>
+            <th text-align="center">Education Level</th>
+            <th text-align="center">Governamental ID</th>
+            <th text-align="center">Position</th>
+            <th text-align="center">Category</th>
+            <th text-align="center">Crew</th>
+            <th text-align="center">Show</th>
+            <th text-align="center">Edit</th>
+            <th text-align="center">Delete</th>
 
-<%= link_to 'New Employee', new_employee_path %>
+          </tr>
+        </thead>
+        <tbody>
+        <% @employees.each do |employee| %>
+          <tr>
+            <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
+            <td><%= employee.first_name %></td>
+            <td><%= employee.last_name %></td>
+            <td><%= employee.user_name %></td>
+            <td><%= employee.salary %></td>
+            <td><%= employee.houre_rate %></td>
+            <td><%= employee.education_level %></td>
+            <td><%= employee.Governamental_ID %></td>
+            <td><%= employee.position %></td>
+            <% category=Category.find_by(id: employee.category_id )%>
+            <td><%= category.category %></td>
+            <td><%= employee.crew_id %></td>
+            <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
+            <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
+            <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+          </tr>
+          <% end %>
+      </table>
+
