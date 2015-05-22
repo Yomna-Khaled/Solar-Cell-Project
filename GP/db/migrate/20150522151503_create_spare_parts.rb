@@ -4,7 +4,7 @@ class CreateSpareParts < ActiveRecord::Migration
       t.string :name
       t.integer :quantity
       t.float :price
-      t.references :material, index: true, foreign_key: true
+      t.references :machine, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -69,6 +69,6 @@ class SparePartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spare_part_params
-      params.require(:spare_part).permit(:name, :quantity, :price, :material_id)
+      params.require(:spare_part).permit(:name, :quantity, :price, :machine_id)
     end
 end

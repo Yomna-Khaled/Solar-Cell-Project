@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522140137) do
+ActiveRecord::Schema.define(version: 20150522152319) do
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24
@@ -173,15 +173,15 @@ ActiveRecord::Schema.define(version: 20150522140137) do
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
 
   create_table "spare_parts", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "quantity",    limit: 4
-    t.float    "price",       limit: 24
-    t.integer  "material_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",       limit: 255
+    t.integer  "quantity",   limit: 4
+    t.float    "price",      limit: 24
+    t.integer  "machine_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "spare_parts", ["material_id"], name: "index_spare_parts_on_material_id", using: :btree
+  add_index "spare_parts", ["machine_id"], name: "index_spare_parts_on_machine_id", using: :btree
 
   create_table "vendor_containers", force: :cascade do |t|
     t.integer  "vendor_id",    limit: 4
@@ -235,7 +235,7 @@ ActiveRecord::Schema.define(version: 20150522140137) do
   add_foreign_key "shifts", "crews"
   add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"
-  add_foreign_key "spare_parts", "materials"
+  add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"
   add_foreign_key "vendor_phones", "vendors"
