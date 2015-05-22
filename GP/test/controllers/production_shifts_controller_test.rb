@@ -18,7 +18,7 @@ class ProductionShiftsControllerTest < ActionController::TestCase
 
   test "should create production_shift" do
     assert_difference('ProductionShift.count') do
-      post :create, production_shift: { crew_id: @production_shift.crew_id, end_shift: @production_shift.end_shift, material_id: @production_shift.material_id, solar_panel_id: @production_shift.solar_panel_id, start_shift: @production_shift.start_shift }
+      post :create, production_shift: { material_id: @production_shift.material_id, material_quantity: @production_shift.material_quantity, shift_id: @production_shift.shift_id }
     end
 
     assert_redirected_to production_shift_path(assigns(:production_shift))
@@ -35,7 +35,7 @@ class ProductionShiftsControllerTest < ActionController::TestCase
   end
 
   test "should update production_shift" do
-    patch :update, id: @production_shift, production_shift: { crew_id: @production_shift.crew_id, end_shift: @production_shift.end_shift, material_id: @production_shift.material_id, solar_panel_id: @production_shift.solar_panel_id, start_shift: @production_shift.start_shift }
+    patch :update, id: @production_shift, production_shift: { material_id: @production_shift.material_id, material_quantity: @production_shift.material_quantity, shift_id: @production_shift.shift_id }
     assert_redirected_to production_shift_path(assigns(:production_shift))
   end
 

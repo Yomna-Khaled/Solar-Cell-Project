@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :production_shifts
+  resources :shifts
+  resources :production_shifts
   resources :employee_managers
   resources :employee_phones
   resources :employees
