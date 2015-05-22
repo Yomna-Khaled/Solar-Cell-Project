@@ -18,7 +18,7 @@ class SparePartsControllerTest < ActionController::TestCase
 
   test "should create spare_part" do
     assert_difference('SparePart.count') do
-      post :create, spare_part: { material_id: @spare_part.material_id, name: @spare_part.name, price: @spare_part.price, quantity: @spare_part.quantity }
+      post :create, spare_part: { machine_id: @spare_part.machine_id, name: @spare_part.name, price: @spare_part.price, quantity: @spare_part.quantity }
     end
 
     assert_redirected_to spare_part_path(assigns(:spare_part))
@@ -35,7 +35,7 @@ class SparePartsControllerTest < ActionController::TestCase
   end
 
   test "should update spare_part" do
-    patch :update, id: @spare_part, spare_part: { material_id: @spare_part.material_id, name: @spare_part.name, price: @spare_part.price, quantity: @spare_part.quantity }
+    patch :update, id: @spare_part, spare_part: { machine_id: @spare_part.machine_id, name: @spare_part.name, price: @spare_part.price, quantity: @spare_part.quantity }
     assert_redirected_to spare_part_path(assigns(:spare_part))
   end
 

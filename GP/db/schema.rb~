@@ -11,9 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150521193016) do
+=======
 ActiveRecord::Schema.define(version: 20150522152319) do
-
+>>>>>>> 8b0eb5713c9c63337d7f0e3528178a662c6fc518
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24

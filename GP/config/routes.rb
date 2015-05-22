@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :vendor_spares
+  resources :vendor_spares
+  resources :vendor_spares
+  resources :spare_parts
   resources :production_shifts
   resources :shifts
   resources :production_shifts
