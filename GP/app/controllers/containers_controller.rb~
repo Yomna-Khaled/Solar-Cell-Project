@@ -72,7 +72,4 @@ class ContainersController < ApplicationController
     def container_params
       params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
     end
- def vendor_params
-      params.require(:group).permit(:vendor_id)
-     end
 end

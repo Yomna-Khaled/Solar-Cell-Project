@@ -16,7 +16,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/new
   def new
     @spare_part = SparePart.new
-    @vendors = Vendor.all
+    @vendors = Vendor.new
   end
 
   # GET /spare_parts/1/edit
