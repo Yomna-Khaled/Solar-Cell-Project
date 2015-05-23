@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<p>
+  <%= image_tag @employee.image.url(:thumb) %>
+</p>
 <p>
   <strong>First name:</strong>
   <%= @employee.first_name %>
@@ -36,13 +38,13 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @employee.type %>
+  <strong>Category:</strong>
+  <%= @employee.category_id %>
 </p>
 
 <p>
   <strong>Crew:</strong>
-  <%= @employee.crew %>
+  <%= @employee.crew_id %>
 </p>
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |

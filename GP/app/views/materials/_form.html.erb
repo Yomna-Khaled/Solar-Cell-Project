@@ -1,6 +1,6 @@
 <%= form_for(@material) do |f| %>
   <% if @material.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="form-group" >
       <h2><%= pluralize(@material.errors.count, "error") %> prohibited this material from being saved:</h2>
 
       <ul>
@@ -11,43 +11,85 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.number_field :quantity %>
+  <div class="form-group">
+    <%= f.label :quantity_value %><br>
+    <%= f.number_field :quantity_value, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.text_field :price, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :Min_Number %><br>
-    <%= f.number_field :Min_Number %>
+    <%= f.number_field :Min_Number, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :stockNo %><br>
-    <%= f.text_field :stockNo %>
+    <%= f.text_field :stockNo, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :shelfNo %><br>
-    <%= f.text_field :shelfNo %>
+    <%= f.text_field :shelfNo, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :production_date %><br>
-    <%= f.date_select :production_date %>
+    <%= f.date_select :production_date, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :expiration_date %><br>
-    <%= f.date_select :expiration_date %>
+    <%= f.date_select :expiration_date, :html=>{:class => "form-control"} %>
   </div>
-  <div class="field">
-    <%= f.label :quantity_id %><br>
-    <%= f.text_field :quantity_id %>
+  <div class="form-group">
+    <!-- this is for quantity type -->
+    <%= f.hidden_field :quantity_id, class: "form-control",
+    :value => @quantites.first.id, :id => 'quantity_id_selected' %>
+  </div>
+    <!-- to get all properties to select one of them -->
+  <div class="form-group">
+  <%= f.label :Quantity %><br>
+  <select onchange='getquantityid()' id="quantity" name="quantity" class="form-control">
+    <% @quantites.each do |quantity| %>
+      <option value="<%= quantity.id %>"><%= quantity.unit_name %></option>
+    <% end -%>
+  </select>
+  </div>
+  <!-- for get all vendors to select one of them -->
+  <div class="form-group">
+  <%= f.label :Vendor %><br>
+  <select id="vendor" name="vendor" class="form-control">
+    <% @vendors.each do |vendor| %>
+      <option value="<%= vendor.id %>"><%= vendor.name %></option>
+    <% end -%>
+  </select>
+  </div>
+  <!-- this for properties -->
+  <div id="property">
+    <label>Property</label><br>
+    <table>
+      <% @properties.each do |property| %>
+        <tr>
+          <td>
+            <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
+            onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
+          </td>
+          <td id="value_<%= property.id %>" style="display:none;" 
+          onkeyup="propertyvalue(this)">
+            <label style="margin-left:200px;">value</label>
+            <input type="text">
+          </td>
+        </tr>   
+     <% end -%>
+      <tr><a id="link" class="btn btn-link">Add new Property</a></tr>
+    </table> 
+  </div>
+  <div class="form-group">
+    <%= f.file_field :avatar %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-success' %>
   </div>
 <% end %>

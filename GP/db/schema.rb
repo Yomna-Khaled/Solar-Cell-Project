@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522152319) do
+
+ActiveRecord::Schema.define(version: 20150522190219) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "category",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24
@@ -52,19 +59,26 @@ ActiveRecord::Schema.define(version: 20150522152319) do
   add_index "employee_phones", ["employee_id"], name: "index_employee_phones_on_employee_id", using: :btree
 
   create_table "employees", force: :cascade do |t|
-    t.string   "first_name",       limit: 255
-    t.string   "last_name",        limit: 255
-    t.float    "salary",           limit: 24
-    t.float    "houre_rate",       limit: 24
-    t.text     "education_level",  limit: 65535
-    t.string   "Governamental_ID", limit: 255
-    t.string   "position",         limit: 255
-    t.string   "type",             limit: 255
-    t.integer  "crew_id",          limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "first_name",         limit: 255
+    t.string   "last_name",          limit: 255
+    t.float    "salary",             limit: 24
+    t.float    "houre_rate",         limit: 24
+    t.text     "education_level",    limit: 65535
+    t.string   "Governamental_ID",   limit: 255
+    t.string   "position",           limit: 255
+    t.integer  "crew_id",            limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "password",           limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "category_id",        limit: 4
+    t.string   "user_name",          limit: 255
   end
 
+  add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree
   add_index "employees", ["crew_id"], name: "index_employees_on_crew_id", using: :btree
 
   create_table "machines", force: :cascade do |t|
@@ -76,8 +90,9 @@ ActiveRecord::Schema.define(version: 20150522152319) do
   create_table "material_properties", force: :cascade do |t|
     t.integer  "material_id", limit: 4
     t.integer  "property_id", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "value",       limit: 255
   end
 
   add_index "material_properties", ["material_id"], name: "index_material_properties_on_material_id", using: :btree
@@ -95,17 +110,21 @@ ActiveRecord::Schema.define(version: 20150522152319) do
   add_index "material_vendors", ["vendor_id"], name: "index_material_vendors_on_vendor_id", using: :btree
 
   create_table "materials", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.integer  "quantity",        limit: 4
-    t.float    "price",           limit: 24
-    t.integer  "Min_Number",      limit: 4
-    t.string   "stockNo",         limit: 255
-    t.string   "shelfNo",         limit: 255
+    t.string   "name",                limit: 255
+    t.integer  "quantity_value",      limit: 4
+    t.float    "price",               limit: 24
+    t.integer  "Min_Number",          limit: 4
+    t.string   "stockNo",             limit: 255
+    t.string   "shelfNo",             limit: 255
     t.date     "production_date"
     t.date     "expiration_date"
-    t.integer  "quantity_id",     limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "quantity_id",         limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree
@@ -133,6 +152,8 @@ ActiveRecord::Schema.define(version: 20150522152319) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "properties", ["name"], name: "index_properties_on_name", unique: true, using: :btree
 
   create_table "quantities", force: :cascade do |t|
     t.string   "unit_name",  limit: 255
@@ -209,6 +230,7 @@ ActiveRecord::Schema.define(version: 20150522152319) do
   add_foreign_key "employee_managers", "crews"
   add_foreign_key "employee_managers", "employees"
   add_foreign_key "employee_phones", "employees"
+  add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
