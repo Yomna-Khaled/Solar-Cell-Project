@@ -10,14 +10,14 @@
 <body>
 	<% if logged_in? %> 
 		<%= link_to 'Logout', logout_path, method: "delete" %>
-		<% if current_category.category == "HR" %>
+		
 			<ul class="nav nav-tabs">
 			  <li class="active"><%= link_to 'Add Employee', new_employee_path %></li>
 			  <li><%= link_to 'All Employee', employees_path %></li>
 			  <li><%= link_to 'Add Crew', new_crew_path %></li>
 			  <li><%= link_to 'All Crews', crews_path %></li>
 			</ul>
-		<% end %>
+	
 	<% end %>
 
     <% flash.each do |key, value| %>

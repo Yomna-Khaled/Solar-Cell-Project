@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   resources :production_shifts
   resources :shifts
+  resources :shifts
+  resources :production_shifts
+  resources :shifts
   resources :categories
   get 'sessions/new'
 
