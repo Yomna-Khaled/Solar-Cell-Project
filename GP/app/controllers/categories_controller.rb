@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
-
+    @category.category = @category.category.strip
     respond_to do |format|
       if @category.save
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
@@ -60,6 +60,12 @@ class CategoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def get_employees
+      @employees = Employee.all
+      render :partial => "employees", :object => @employees
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
