@@ -3,6 +3,6 @@ class SparePart < ActiveRecord::Base
   belongs_to :machine
   validates :name, :presence => true
   validates :quantity, :presence => true
-  validates :price, :presence => true 
+  validates :price, :presence => true , :numericality => true
 
 end
