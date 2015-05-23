@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @shift.employee %>
+</p>
+
+<p>
+  <strong>Crew:</strong>
+  <%= @shift.crew %>
+</p>
+
+<p>
+  <strong>Start shift date:</strong>
+  <%= @shift.start_shift_date %>
+</p>
+
+<p>
+  <strong>End shift date:</strong>
+  <%= @shift.end_shift_date %>
+</p>
+
+<p>
+  <strong>Start shift time:</strong>
+  <%= @shift.start_shift_time %>
+</p>
+
+<p>
+  <strong>End shift time:</strong>
+  <%= @shift.end_shift_time %>
+</p>
+
+<p>
+  <strong>Production rate:</strong>
+  <%= @shift.production_rate %>
+</p>
+
+<%= link_to 'Edit', edit_shift_path(@shift) %> |
+<%= link_to 'Back', shifts_path %>

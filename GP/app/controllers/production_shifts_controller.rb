@@ -69,6 +69,6 @@ class ProductionShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def production_shift_params
-      params.require(:production_shift).permit(:material_id, :crew_id, :solar_panel_id, :start_shift, :end_shift)
+      params.require(:production_shift).permit(:material_id, :shift_id, :material_quantity)
     end
 end

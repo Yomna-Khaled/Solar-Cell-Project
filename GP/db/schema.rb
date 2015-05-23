@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523103156) do
+
+ActiveRecord::Schema.define(version: 20150522190219) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "category",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24
@@ -52,19 +59,26 @@ ActiveRecord::Schema.define(version: 20150523103156) do
   add_index "employee_phones", ["employee_id"], name: "index_employee_phones_on_employee_id", using: :btree
 
   create_table "employees", force: :cascade do |t|
-    t.string   "first_name",       limit: 255
-    t.string   "last_name",        limit: 255
-    t.float    "salary",           limit: 24
-    t.float    "houre_rate",       limit: 24
-    t.text     "education_level",  limit: 65535
-    t.string   "Governamental_ID", limit: 255
-    t.string   "position",         limit: 255
-    t.string   "type",             limit: 255
-    t.integer  "crew_id",          limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "first_name",         limit: 255
+    t.string   "last_name",          limit: 255
+    t.float    "salary",             limit: 24
+    t.float    "houre_rate",         limit: 24
+    t.text     "education_level",    limit: 65535
+    t.string   "Governamental_ID",   limit: 255
+    t.string   "position",           limit: 255
+    t.integer  "crew_id",            limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "password",           limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "category_id",        limit: 4
+    t.string   "user_name",          limit: 255
   end
 
+  add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree
   add_index "employees", ["crew_id"], name: "index_employees_on_crew_id", using: :btree
 
   create_table "machines", force: :cascade do |t|
@@ -123,18 +137,15 @@ ActiveRecord::Schema.define(version: 20150523103156) do
   end
 
   create_table "production_shifts", force: :cascade do |t|
-    t.integer  "material_id",    limit: 4
-    t.integer  "crew_id",        limit: 4
-    t.integer  "solar_panel_id", limit: 4
-    t.date     "start_shift"
-    t.date     "end_shift"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "material_id",       limit: 4
+    t.integer  "shift_id",          limit: 4
+    t.float    "material_quantity", limit: 24
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
-  add_index "production_shifts", ["crew_id"], name: "index_production_shifts_on_crew_id", using: :btree
   add_index "production_shifts", ["material_id"], name: "index_production_shifts_on_material_id", using: :btree
-  add_index "production_shifts", ["solar_panel_id"], name: "index_production_shifts_on_solar_panel_id", using: :btree
+  add_index "production_shifts", ["shift_id"], name: "index_production_shifts_on_shift_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -149,6 +160,21 @@ ActiveRecord::Schema.define(version: 20150523103156) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "shifts", force: :cascade do |t|
+    t.integer  "employee_id",      limit: 4
+    t.integer  "crew_id",          limit: 4
+    t.date     "start_shift_date"
+    t.date     "end_shift_date"
+    t.time     "start_shift_time"
+    t.time     "end_shift_time"
+    t.float    "production_rate",  limit: 24
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "shifts", ["crew_id"], name: "index_shifts_on_crew_id", using: :btree
+  add_index "shifts", ["employee_id"], name: "index_shifts_on_employee_id", using: :btree
 
   create_table "solar_panels", force: :cascade do |t|
     t.date     "production_date"
@@ -168,15 +194,15 @@ ActiveRecord::Schema.define(version: 20150523103156) do
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
 
   create_table "spare_parts", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "quantity",    limit: 4
-    t.float    "price",       limit: 24
-    t.integer  "material_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",       limit: 255
+    t.integer  "quantity",   limit: 4
+    t.float    "price",      limit: 24
+    t.integer  "machine_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "spare_parts", ["material_id"], name: "index_spare_parts_on_material_id", using: :btree
+  add_index "spare_parts", ["machine_id"], name: "index_spare_parts_on_machine_id", using: :btree
 
   create_table "vendor_containers", force: :cascade do |t|
     t.integer  "vendor_id",    limit: 4
@@ -219,17 +245,19 @@ ActiveRecord::Schema.define(version: 20150523103156) do
   add_foreign_key "employee_managers", "crews"
   add_foreign_key "employee_managers", "employees"
   add_foreign_key "employee_phones", "employees"
+  add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
   add_foreign_key "material_vendors", "materials"
   add_foreign_key "material_vendors", "vendors"
   add_foreign_key "materials", "quantities"
-  add_foreign_key "production_shifts", "crews"
   add_foreign_key "production_shifts", "materials"
-  add_foreign_key "production_shifts", "solar_panels"
+  add_foreign_key "production_shifts", "shifts"
+  add_foreign_key "shifts", "crews"
+  add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"
-  add_foreign_key "spare_parts", "materials"
+  add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"
   add_foreign_key "vendor_phones", "vendors"

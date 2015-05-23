@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+
+  resources :production_shifts
+  resources :shifts
+  resources :categories
+  get 'sessions/new'
+
+  resources :vendor_spares
+  resources :vendor_spares
+  resources :vendor_spares
+  resources :spare_parts
+  resources :production_shifts
+  resources :shifts
   resources :production_shifts
   resources :employee_managers
   resources :employee_phones
@@ -24,6 +36,11 @@ Rails.application.routes.draw do
   resources :properties
   resources :materials
   resources :quantities
+
+  root 'sessions#new'
+  get 'login' => 'sessions#new' 
+  post 'login' => 'sessions#create' 
+  delete 'logout' => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
