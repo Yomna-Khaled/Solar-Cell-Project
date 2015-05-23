@@ -27,7 +27,7 @@
   </div>
   <div class="field form-group">
     <%= f.label :price %><br>
-    <%= f.number_field :price ,step:0.1 , class: 'form-control' %>
+    <%= f.number_field :price ,class: 'form-control' %>
   </div>
 
   <div class="field form-group">

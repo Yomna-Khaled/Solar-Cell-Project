@@ -19,7 +19,7 @@
 
   <div class="field form-group">
     <%= f.label :width %><br>
-    <%= f.number_field :width ,step:0.1 ,class: 'form-control' %>
+    <%= f.number_field :width ,step:0.1 %>
   </div>
   <div class="field form-group">
     <%= f.label :height %><br>
