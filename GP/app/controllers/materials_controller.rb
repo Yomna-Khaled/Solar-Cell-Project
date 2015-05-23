@@ -15,6 +15,9 @@ class MaterialsController < ApplicationController
   # GET /materials/new
   def new
     @material = Material.new
+    @vendors = Vendor.all
+    @quantites = Quantity.all
+    @properties = Property.all
   end
 
   # GET /materials/1/edit
@@ -24,10 +27,21 @@ class MaterialsController < ApplicationController
   # POST /materials
   # POST /materials.json
   def create
+    @vendor_id = params['vendor']; #to get vendor of certain material 
+    @selected_properties = params['propertycheck']; #it is an array of selected properties
+    # render plain: @selected_properties
     @material = Material.new(material_params)
 
     respond_to do |format|
       if @material.save
+        material_id = @material.id
+        @selected_properties.each do |selected_property|
+          propertyid = selected_property.split(":")[0]
+          propertyvalue = selected_property.split(":")[1]
+          @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
+          @materialproperty.save
+        end
+
         format.html { redirect_to @material, notice: 'Material was successfully created.' }
         format.json { render :show, status: :created, location: @material }
       else
@@ -69,6 +83,6 @@ class MaterialsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def material_params
-      params.require(:material).permit(:name, :quantity, :price, :Min_Number, :stockNo, :shelfNo, :production_date, :expiration_date, :quantity_id)
+      params.require(:material).permit(:name, :quantity_value, :price, :Min_Number, :stockNo, :shelfNo, :production_date, :expiration_date, :quantity_id, :avatar)
     end
 end
