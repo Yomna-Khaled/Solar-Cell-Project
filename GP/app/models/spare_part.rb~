@@ -1,8 +1,8 @@
 class SparePart < ActiveRecord::Base
-<<<<<<< HEAD
-  belongs_to :material
   has_many :vendors, through: :vendorspare
-=======
   belongs_to :machine
->>>>>>> 8b0eb5713c9c63337d7f0e3528178a662c6fc518
+  validates :name, :presence => true
+  validates :quantity, :presence => true
+  validates :price, :presence => true , :numericality => true
+
 end

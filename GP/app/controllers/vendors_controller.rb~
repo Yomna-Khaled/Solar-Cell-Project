@@ -32,7 +32,20 @@ class VendorsController < ApplicationController
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
-	 end    
+	 end
+	
+  
+   
+  #  respond_to do |format|
+   #   if @vendor.save
+	
+        #   arreach do |c|
+        
+        #  puts c
+        #   @vendorphone = VendorPhone.new(phone: @vendor_id, vendor_id: @vendor.id) 
+         #  @vendorphone.save 
+       #   end
+      
         format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
         format.json { render :show, status: :created, location: @vendor }
      else

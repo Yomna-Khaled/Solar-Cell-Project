@@ -16,7 +16,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/new
   def new
     @spare_part = SparePart.new
-    @vendors = Vendor.new
+    @vendors = Vendor.all
   end
 
   # GET /spare_parts/1/edit
@@ -27,11 +27,14 @@ class SparePartsController < ApplicationController
   # POST /spare_parts.json
   def create
     @spare_part = SparePart.new(spare_part_params)
-
-    respond_to do |format|
+    @vendor_id = params['vendor'];
+  respond_to do |format|
       if @spare_part.save
+         @vendorspare = VendorSpare.new(vendor_id: @vendor_id, spare_part_id: @spare_part.id )
+         @vendorspare.save
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully created.' }
         format.json { render :show, status: :created, location: @spare_part }
+ 
       else
         format.html { render :new }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
@@ -67,10 +70,12 @@ class SparePartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_spare_part
       @spare_part = SparePart.find(params[:id])
+      @vendor_id = params['vendor'];
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spare_part_params
-      params.require(:spare_part).permit(:name, :quantity, :price, :material_id)
+      params.require(:spare_part).permit(:name, :quantity, :price, :machine_id)
     end
+    
 end
