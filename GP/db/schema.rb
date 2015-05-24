@@ -11,9 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150522150219) do
-=======
 ActiveRecord::Schema.define(version: 20150523103156) do
 
   create_table "categories", force: :cascade do |t|
@@ -21,7 +18,6 @@ ActiveRecord::Schema.define(version: 20150523103156) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
->>>>>>> 2cd586b4c59c2be944f758d138837899cd5a1b40
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24
