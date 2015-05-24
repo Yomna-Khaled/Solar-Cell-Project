@@ -43,6 +43,11 @@
     <%= f.label :expiration_date %><br>
     <%= f.date_select :expiration_date, :html=>{:class => "form-control"} %>
   </div>
+<<<<<<< HEAD
+  <div class="field">
+    <%= f.label :quantity_id %><br>
+    <%= f.number_field :quantity_id %>
+=======
   <div class="form-group">
     <!-- this is for quantity type -->
     <%= f.hidden_field :quantity_id, class: "form-control",
@@ -88,6 +93,7 @@
   </div>
   <div class="form-group">
     <%= f.file_field :avatar %>
+>>>>>>> 2cd586b4c59c2be944f758d138837899cd5a1b40
   </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>
