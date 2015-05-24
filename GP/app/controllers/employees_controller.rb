@@ -2,33 +2,40 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   # GET /employees
-  # GET /employees.json
   def index
     @employees = Employee.all
   end
 
   # GET /employees/1
-  # GET /employees/1.json
   def show
   end
 
   # GET /employees/new
   def new
-    @employee = Employee.new
+    if logged_in? and current_category.category=="HR"
+      @flag_new=1 #display password field in from
+      @employee = Employee.new
+    else
+      redirect_to login_path  
+    end 
   end
 
   # GET /employees/1/edit
   def edit
+    @flag_new=0
   end
 
   # POST /employees
-  # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
-
+    if @employee.salary != nil
+      @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
+      @employee.salary=0.0
+    end
+    @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+        format.html { redirect_to @employee }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new }
@@ -38,11 +45,11 @@ class EmployeesController < ApplicationController
   end
 
   # PATCH/PUT /employees/1
-  # PATCH/PUT /employees/1.json
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        flash[:success] = 'Employee was successfully updated.'
+        format.html { redirect_to @employee }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }
@@ -52,11 +59,11 @@ class EmployeesController < ApplicationController
   end
 
   # DELETE /employees/1
-  # DELETE /employees/1.json
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
+      flash[:danger] = 'Employee was successfully destroyed.'
+      format.html { redirect_to employees_url }
       format.json { head :no_content }
     end
   end
@@ -69,6 +76,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:first_name, :last_name, :salary, :houre_rate, :education_level, :Governamental_ID, :position, :type, :crew_id)
+      params.require(:employee).permit(:first_name, :last_name, :user_name, :salary, :education_level, :Governamental_ID, :position, :category_id, :crew_id, :image, :password)
     end
 end

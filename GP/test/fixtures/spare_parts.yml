@@ -4,10 +4,10 @@ one:
   name: MyString
   quantity: 1
   price: 1.5
-  material_id: 
+  machine_id: 
 
 two:
   name: MyString
   quantity: 1
   price: 1.5
-  material_id: 
+  machine_id: 

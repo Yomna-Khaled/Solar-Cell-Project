@@ -1,3 +1,4 @@
+<div class="container text-center">
 <%= form_for(@container) do |f| %>
   <% if @container.errors.any? %>
     <div id="error_explanation">
@@ -11,29 +12,38 @@
     </div>
   <% end %>
 
-  <div class="field">
+
+<div class="panel panel-success" style="margin-top: 50px">
+<div class="panel-body">
+
+
+  <div class="field form-group">
     <%= f.label :width %><br>
-    <%= f.text_field :width %>
+    <%= f.number_field :width ,step:0.1 ,class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :height %><br>
-    <%= f.text_field :height %>
+    <%= f.number_field :height ,step:0.1 ,class: 'form-control'%>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :serialNo %><br>
-    <%= f.text_field :serialNo %>
+    <%= f.text_field :serialNo ,class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :capacity %><br>
-    <%= f.number_field :capacity %>
+    <%= f.number_field :capacity ,class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.number_field :price ,step:0.1 ,class: 'form-control' %>
   </div>
+
   <%= f.label :Vendor_Name %><br>
 <%= select_tag "vendor_id" , options_from_collection_for_select(@vendors, "id", "name") , include_blank: true  %>
   <div class="actions">
     <%= f.submit %>
+
   </div>
 <% end %>
+</div>
+

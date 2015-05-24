@@ -1,21 +1,73 @@
-<%= form_for(@crew) do |f| %>
-  <% if @crew.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
 
-      <ul>
-      <% @crew.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+
+<h1 class="page-header text-primary">Add Crew</h1>
+<%= form_for(@crew) do |f| %>
+  <% if  @crew.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize( @crew.errors.count, "error") %>.
+         <ul>
+      <%  @crew.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :no_of_workers %><br>
-    <%= f.text_field :no_of_workers %>
+    <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" %>
   </div>
+  <div id="versionsDiv">
+  </div>
+  <br>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  var input = document.createElement("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", "workers");
+  input.setAttribute("id", "workers");
+  document.getElementById("versionsDiv").appendChild(input);
+    $( "#no_of_workers" ).on( "blur", function() {
+
+          var no_workers = $( "#no_of_workers" ).val();
+          if( no_workers % 1 === 0 ){
+              var posting = $.get( "get_employees" );
+              for(var i = 0 ; i < Number(no_workers) ; i++){
+                     posting.done(function( data ) {
+                       $("#versionsDiv").append(data);
+                  });         
+              } 
+          }else{
+            alert("Please insert a number")
+          }
+
+    });
+});
+
+function get_value(elem){
+   val = elem.value
+   elem.parentElement.style.display = 'none';
+   workers = document.getElementById('workers');
+   workers.value = workers.value + "," + val;
+}
+</script>
+

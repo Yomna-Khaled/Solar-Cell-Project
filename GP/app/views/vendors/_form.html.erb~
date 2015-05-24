@@ -1,0 +1,80 @@
+<div class="container text-center">
+<%= form_for(@vendor) do |f| %>
+  <% if @vendor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+
+      <ul>
+      <% @vendor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="panel panel-success" style="margin-top: 50px">
+<div class="panel-body">
+
+
+  <div class="field form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+
+
+<div class="field form-group">
+  <%= fields_for :vendor_phones do |p| %>	
+    <%= p.label :phone %><br>
+	<%= p.text_field :phone , id:"phone", value:"" ,readonly%><br>
+<% end %>
+</div>
+
+<a href="#" onclick="add()">Add</a>
+
+<div id="phones">
+    
+</div>
+
+
+
+
+
+  <div class="actions form-group">
+    <%= f.submit "Submit", class: "btn btn-success" %>
+  </div>
+</div>
+</div>
+<% end %>
+</div>
+
+
+
+<script>
+var x=1;
+var allValues = '';
+var add = function() {
+   
+    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+    x=x+1;
+    $( "#OK" ).click(function() {
+	   
+	  var value = $("#1").val();
+		if (allValues != ''){
+		allValues =  allValues + ',' + value
+		}else{
+		 allValues =  allValues + value		
+		}
+		$("#phone").val(allValues);
+
+		$("#1").val('');		
+	  
+	});
+
+};
+
+</script>
