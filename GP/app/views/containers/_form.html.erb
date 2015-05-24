@@ -31,10 +31,8 @@
     <%= f.label :price %><br>
     <%= f.text_field :price %>
   </div>
-  <div class="field">
-    <%= f.label :total_power %><br>
-    <%= f.text_field :total_power %>
-  </div>
+  <%= f.label :Vendor_Name %><br>
+<%= select_tag "vendor_id" , options_from_collection_for_select(@vendors, "id", "name") , include_blank: true  %>
   <div class="actions">
     <%= f.submit %>
   </div>

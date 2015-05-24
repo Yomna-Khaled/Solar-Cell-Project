@@ -5,8 +5,8 @@ one:
   crew_id: 
   start_shift_date: 2015-05-22
   end_shift_date: 2015-05-22
-  start_shift_time: 2015-05-22 16:58:31
-  end_shift_time: 2015-05-22 16:58:31
+  start_shift_time: 2015-05-22 18:01:41
+  end_shift_time: 2015-05-22 18:01:41
   production_rate: 1.5
 
 two:
@@ -14,6 +14,6 @@ two:
   crew_id: 
   start_shift_date: 2015-05-22
   end_shift_date: 2015-05-22
-  start_shift_time: 2015-05-22 16:58:31
-  end_shift_time: 2015-05-22 16:58:31
+  start_shift_time: 2015-05-22 18:01:41
+  end_shift_time: 2015-05-22 18:01:41
   production_rate: 1.5

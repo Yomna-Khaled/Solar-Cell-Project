@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522140137) do
+ActiveRecord::Schema.define(version: 20150522150219) do
 
   create_table "containers", force: :cascade do |t|
     t.float    "width",       limit: 24
