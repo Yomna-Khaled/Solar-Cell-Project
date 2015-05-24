@@ -30,6 +30,17 @@
 			  <li><%= link_to 'All Palet', containers_path %></li>
 			</ul>
 		<% end %>
+		<% if current_category.category == "Stock Keeper" %>
+		<ul class="nav nav-tabs">
+			<li><%= link_to 'All Materials', materials_path %></li>
+			 <li><%= link_to 'Un accepted requests', spare_parts_path %></li>
+			 <li><%= link_to 'All Spare Parts', spare_parts_path %></li>
+
+		</ul>	
+
+
+		<% end %>
+
 	<% end %>
 
     <% flash.each do |key, value| %>

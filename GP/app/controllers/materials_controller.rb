@@ -4,7 +4,7 @@ class MaterialsController < ApplicationController
   # GET /materials
   # GET /materials.json
   def index
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
       @materials = Material.all
     else
       redirect_to login_path  
@@ -37,6 +37,10 @@ class MaterialsController < ApplicationController
       @vendors = Vendor.all
       @quantites = Quantity.all
       @properties = Property.all
+      if logged_in? and current_category.category=="Stock Keeper"
+        @flag_stock=0
+      end
+
   end
 
   # POST /materials
