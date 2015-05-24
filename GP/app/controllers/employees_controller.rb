@@ -3,7 +3,11 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @employees = Employee.all
+    if logged_in? and current_category.category=="HR"
+      @employees = Employee.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /employees/1

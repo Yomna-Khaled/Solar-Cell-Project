@@ -4,7 +4,12 @@ class MaterialsController < ApplicationController
   # GET /materials
   # GET /materials.json
   def index
-    @materials = Material.all
+    if logged_in? and current_category.category=="Sales"
+      @materials = Material.all
+    else
+      redirect_to login_path  
+    end   
+   
   end
 
   # GET /materials/1
@@ -14,14 +19,24 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-    @material = Material.new
-    @vendors = Vendor.all
-    @quantites = Quantity.all
-    @properties = Property.all
+    if logged_in? and current_category.category=="Sales"
+      @flag_new=1 #display password field in from
+      @material = Material.new
+      @vendors = Vendor.all
+      @quantites = Quantity.all
+      @properties = Property.all
+    else
+      redirect_to login_path  
+    end   
+
   end
 
   # GET /materials/1/edit
   def edit
+      @flag_new=0
+      @vendors = Vendor.all
+      @quantites = Quantity.all
+      @properties = Property.all
   end
 
   # POST /materials

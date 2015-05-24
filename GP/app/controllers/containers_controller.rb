@@ -30,8 +30,8 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       if @container.save
-@vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )
-@vendorcontainer.save
+        @vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )
+        @vendorcontainer.save
         format.html { redirect_to @container, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }
 

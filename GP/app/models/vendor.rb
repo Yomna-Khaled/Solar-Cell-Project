@@ -1,5 +1,5 @@
 class Vendor < ActiveRecord::Base
-<<<<<<< HEAD
+
 has_many :spareparts, through: :vendorspare
 has_many :containers, through: :vendorcontainer
 has_many :vendorphones
