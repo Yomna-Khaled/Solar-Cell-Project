@@ -1,58 +1,87 @@
-<%= form_for(@crew) do |f| %>
-  <% if @crew.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
 
-      <ul>
-      <% @crew.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+
+<h1 class="page-header text-primary">Add Crew</h1>
+<%= form_for(@crew) do |f| %>
+  <% if  @crew.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize( @crew.errors.count, "error") %>.
+         <ul>
+      <%  @crew.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :no_of_workers %><br>
-   <%= f.text_field :no_of_workers , id: "member", name: "member", value: "" %>
-   
+    <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" %>
   </div>
-
-
+  <div id="versionsDiv">
+  </div>
+  <div id="Div">
+  </div>
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :submit, class: 'btn btn-primary' %>
   </div>
-
-<a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
-    <div id="containe"/>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <% end %>
+  <h2 class="page-header text-primary">Names of employees</h2>
+  <div id="Woker_names">
+  </div>
+ 
+<script type="text/javascript">
 
+$(document).ready(function(){
+  var input = document.createElement("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", "workers");
+  input.setAttribute("id", "workers");
+  document.getElementById("Div").appendChild(input);
+    $( "#no_of_workers" ).on( "blur", function() {
+          var myNode = document.getElementById("versionsDiv");
+          myNode.innerHTML = '';
+          var no_workers = $( "#no_of_workers" ).val();
+          if(no_workers){
+             if( no_workers % 1 === 0 ){
+                var posting = $.get( "get_employees" );
+                for(var i = 0 ; i < Number(no_workers) ; i++){
+                       posting.done(function( data ) {
+                         $("#versionsDiv").append(data);
+                    });         
+                } 
+              }
+              else{
+                alert("Please insert a number")
+              }
+          }else{
+            myNode.innerHTML = '';
+          }
+    });
+});
 
-<script type='text/javascript'>
-        function addFields(){
-            // Number of inputs to create
-            var number = document.getElementById("member").value;
-            // Container <div> where dynamic content will be placed
-            var containe = document.getElementById("containe");
-            // Clear previous contents of the container
-            while (containe.hasChildNodes()) {
-                containe.removeChild(containe.lastChild);
-            }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                containe.appendChild(document.createTextNode("Member " + (i+1)));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("select");
-                input.type = "text";
-                input.name = "member" + i;
-                containe.appendChild(input);
-                // Append a line break 
-                containe.appendChild(document.createElement("br"));
-            }
-        }
-    </script>
+function get_value(elem){
+   val = elem.value
+   console.log(elem);
+   elem.parentElement.style.display = 'none';
+   var para = document.createElement("p");
+   var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+   para.appendChild(node);
+   document.getElementById("Woker_names").appendChild(para)
+   workers = document.getElementById('workers');
+   workers.value = workers.value + "," + val;
+}
+</script>
+

@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   resources :shifts
   resources :categories
   get 'sessions/new'
-
+  get "crews/get_employees"
   resources :vendor_spares
 
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts

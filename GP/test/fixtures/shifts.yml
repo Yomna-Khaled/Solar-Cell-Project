@@ -5,8 +5,13 @@ one:
   crew_id: 
   start_shift_date: 2015-05-22
   end_shift_date: 2015-05-22
+<<<<<<< HEAD
+  start_shift_time: 2015-05-22 18:01:41
+  end_shift_time: 2015-05-22 18:01:41
+=======
   start_shift_time: 2015-05-22 22:00:03
   end_shift_time: 2015-05-22 22:00:03
+>>>>>>> 2cd586b4c59c2be944f758d138837899cd5a1b40
   production_rate: 1.5
 
 two:
@@ -14,6 +19,11 @@ two:
   crew_id: 
   start_shift_date: 2015-05-22
   end_shift_date: 2015-05-22
+<<<<<<< HEAD
+  start_shift_time: 2015-05-22 18:01:41
+  end_shift_time: 2015-05-22 18:01:41
+=======
   start_shift_time: 2015-05-22 22:00:03
   end_shift_time: 2015-05-22 22:00:03
+>>>>>>> 2cd586b4c59c2be944f758d138837899cd5a1b40
   production_rate: 1.5

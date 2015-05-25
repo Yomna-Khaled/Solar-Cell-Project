@@ -15,23 +15,29 @@ class ContainersController < ApplicationController
   # GET /containers/new
   def new
     @container = Container.new
+
     @vendors = Vendor.all
+
   end
 
   # GET /containers/1/edit
   def edit
+    @vendors = Vendor.all
   end
 
   # POST /containers
   # POST /containers.json
   def create
     @container = Container.new(container_params)
-    @vendor_id = params['vendor'];
+    
+
 
     respond_to do |format|
-      if @container.save
-@vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )
-@vendorcontainer.save
+      if @container.save       
+        @vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )        
+        @container_id=Container.maximum('id')
+        @vendor_id = params['vendor_id'];
+        @vendorcontainer.save
         format.html { redirect_to @container, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }
 
