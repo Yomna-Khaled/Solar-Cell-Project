@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523103156) do
+ActiveRecord::Schema.define(version: 20150525170103) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150523103156) do
     t.string   "no_of_workers", limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "name",          limit: 255
   end
 
   create_table "employee_managers", force: :cascade do |t|
@@ -58,8 +59,6 @@ ActiveRecord::Schema.define(version: 20150523103156) do
   add_index "employee_phones", ["employee_id"], name: "index_employee_phones_on_employee_id", using: :btree
 
   create_table "employees", force: :cascade do |t|
-    t.string   "first_name",         limit: 255
-    t.string   "last_name",          limit: 255
     t.float    "salary",             limit: 24
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
@@ -75,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150523103156) do
     t.datetime "image_updated_at"
     t.integer  "category_id",        limit: 4
     t.string   "user_name",          limit: 255
+    t.string   "full_name",          limit: 255
   end
 
   add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 20150523103156) do
     t.float    "height",          limit: 24
     t.float    "width",           limit: 24
     t.float    "power",           limit: 24
-    t.string   "type",            limit: 255
+    t.string   "celltype",        limit: 255
     t.string   "subtype",         limit: 255
     t.float    "price",           limit: 24
     t.integer  "serialNo",        limit: 4

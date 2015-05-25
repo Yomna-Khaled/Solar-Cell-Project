@@ -1,15 +1,15 @@
-<p id="notice"><%= notice %></p>
+<br>
 
-<h1>Listing Spare Parts</h1>
-
-<table>
+<table  class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Machine</th>
-      <th colspan="3"></th>
+      <th text-align="center">Name</th>
+      <th text-align="center">Quantity</th>
+      <th text-align="center">Price</th>
+      <th text-align="center">Machine</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
+      <th text-align="center">Delete</th>
     </tr>
   </thead>
 
@@ -20,9 +20,9 @@
         <td><%= spare_part.quantity %></td>
         <td><%= spare_part.price %></td>
         <td><%= spare_part.machine %></td>
-        <td><%= link_to 'Show', spare_part %></td>
-        <td><%= link_to 'Edit', edit_spare_part_path(spare_part) %></td>
-        <td><%= link_to 'Destroy', spare_part, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
+        <td><%= link_to 'Destroy', spare_part, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Spare part', new_spare_part_path %>
+

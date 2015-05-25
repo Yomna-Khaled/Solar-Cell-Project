@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+<% if @flag_new==1 %>
   <div class="field">
     <%= f.label :production_date %><br>
     <%= f.date_select :production_date %>
@@ -32,8 +32,8 @@
     <%= f.text_field :power %>
   </div>
   <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.label :celltype %><br>
+    <%= f.text_field :celltype %>
   </div>
   <div class="field">
     <%= f.label :subtype %><br>
@@ -51,6 +51,12 @@
     <%= f.label :container_id %><br>
     <%= f.text_field :container_id %>
   </div>
+  <% elsif @flag_new==0 and current_category.category == "Sales" %>
+    <div class="field">
+      <%= f.label :price %><br>
+      <%= f.text_field :price %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

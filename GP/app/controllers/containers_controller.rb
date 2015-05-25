@@ -4,7 +4,11 @@ class ContainersController < ApplicationController
   # GET /containers
   # GET /containers.json
   def index
-    @containers = Container.all
+    if logged_in? and current_category.category=="Sales"
+     @containers = Container.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /containers/1
@@ -14,14 +18,17 @@ class ContainersController < ApplicationController
 
   # GET /containers/new
   def new
-    @container = Container.new
-
-    @vendors = Vendor.all
-
+    if logged_in? and current_category.category=="Sales"
+       @container = Container.new
+       @vendors = Vendor.all
+    else
+      redirect_to login_path  
+    end 
   end
 
   # GET /containers/1/edit
   def edit
+    @vendors = Vendor.all
   end
 
   # POST /containers

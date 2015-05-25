@@ -36,14 +36,9 @@
   <% if @flag_new==0 %>
     <h1 class="page-header text-primary">Edit Employee</h1>
   <% end %>
-
   <div class="form-group">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name, class: 'form-control' , placeholder: "Enter First Name" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name, class: 'form-control' , placeholder: "Enter Last Name" %>
+    <%= f.label :full_name %><br>
+    <%= f.text_field :full_name, class: 'form-control' , placeholder: "Enter Full Name" %>
   </div>
   <div class="form-group">
     <%= f.label :salary %><br>
@@ -65,7 +60,7 @@
     <%= f.label :category_id %><br>
     <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
   </div>
-  <% if @flag_new==1  %>
+
     <div id="notnormal">
       <div class="form-group">
         <%= f.label :password %><br>
@@ -76,7 +71,7 @@
         <%= f.text_field :user_name, class: 'form-control' , placeholder: "Enter User Name Which Login with it" %>
       </div>
     </div>
-  <% end %>
+
   <div class="form-group">
     <%= f.label :crew_id %><br>
     <%= f.select(:crew_id, options_from_collection_for_select(Crew.all, 'id' ,'id')) %>
@@ -91,6 +86,7 @@
 
 
 <script type="text/javascript">
+console.log("hello");
  var category = document.getElementById('employee_category_id');
   if (category) {
    target = document.getElementById('notnormal'); //div of input password

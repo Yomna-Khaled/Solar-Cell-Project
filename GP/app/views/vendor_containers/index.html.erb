@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<br>
 
-<h1>Listing Vendor Containers</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Vendor</th>
-      <th>Container</th>
-      <th>Date</th>
-      <th colspan="3"></th>
+      <th text-align="center">Vendor</th>
+      <th text-align="center">Container</th>
+      <th text-align="center">Date</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
+      <th text-align="center">Delete</th>
     </tr>
   </thead>
 
@@ -18,9 +18,9 @@
         <td><%= vendor_container.vendor %></td>
         <td><%= vendor_container.container %></td>
         <td><%= vendor_container.date %></td>
-        <td><%= link_to 'Show', vendor_container %></td>
-        <td><%= link_to 'Edit', edit_vendor_container_path(vendor_container) %></td>
-        <td><%= link_to 'Destroy', vendor_container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', vendor_container, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_vendor_container_path(vendor_container), class:"btn btn-default" %></td>
+        <td><%= link_to 'Destroy', vendor_container, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,3 @@
 
 <br>
 
-<%= link_to 'New Vendor container', new_vendor_container_path %>

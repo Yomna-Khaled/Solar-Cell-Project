@@ -20,7 +20,6 @@ class MaterialsController < ApplicationController
   # GET /materials/new
   def new
     if logged_in? and current_category.category=="Sales"
-      @flag_new=1 #display password field in from
       @material = Material.new
       @vendors = Vendor.all
       @quantites = Quantity.all
@@ -33,7 +32,6 @@ class MaterialsController < ApplicationController
 
   # GET /materials/1/edit
   def edit
-      @flag_new=0
       @vendors = Vendor.all
       @quantites = Quantity.all
       @properties = Property.all
