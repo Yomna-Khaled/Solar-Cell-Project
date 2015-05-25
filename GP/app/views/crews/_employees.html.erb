@@ -1,0 +1,5 @@
+<div>
+<%= label_tag :worker_Name %><br>
+<%= select_tag "employee_id" , options_from_collection_for_select(@employees, "id", "first_name"), :onchange => "get_value(this)" , include_blank: true  %>
+<br>
+</div>

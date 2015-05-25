@@ -15,21 +15,32 @@ class ContainersController < ApplicationController
   # GET /containers/new
   def new
     @container = Container.new
+
+    @vendors = Vendor.all
+
   end
 
   # GET /containers/1/edit
   def edit
+    @vendors = Vendor.all
   end
 
   # POST /containers
   # POST /containers.json
   def create
     @container = Container.new(container_params)
+    
+
 
     respond_to do |format|
-      if @container.save
+      if @container.save       
+        @vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )        
+        @container_id=Container.maximum('id')
+        @vendor_id = params['vendor_id'];
+        @vendorcontainer.save
         format.html { redirect_to @container, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }
+
       else
         format.html { render :new }
         format.json { render json: @container.errors, status: :unprocessable_entity }
@@ -71,4 +82,5 @@ class ContainersController < ApplicationController
     def container_params
       params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
     end
+ 
 end

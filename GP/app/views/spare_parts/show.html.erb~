@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @spare_part.name %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @spare_part.quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @spare_part.price %>
+</p>
+
+<p>
+  <strong>Machine:</strong>
+  <%= @spare_part.machine %>
+</p>
+
+<%= link_to 'Edit', edit_spare_part_path(@spare_part) %> |
+<%= link_to 'Back', spare_parts_path %>

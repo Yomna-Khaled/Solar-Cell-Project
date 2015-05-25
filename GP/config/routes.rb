@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   resources :shifts
   resources :categories
   get 'sessions/new'
+  get "crews/get_employees"
+  resources :vendor_spares
 
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts
@@ -21,22 +23,22 @@ Rails.application.routes.draw do
   resources :employees
   resources :crews
   resources :vendor_containers
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
+
+
   resources :solar_panels
   resources :containers
   resources :machines
-  resources :spare_parts
+
   resources :material_vendors
-  resources :vendor_phones
-  resources :vendors
+ 
+  resources :vendors do 
+	 resources :vendor_phones
+  end
   resources :material_properties
-  resources :material_properties
-  resources :spare_parts
-  resources :vendors
-  resources :vendors
-  resources :material_properties
+
+
+
+
   resources :properties
   resources :materials
   resources :quantities

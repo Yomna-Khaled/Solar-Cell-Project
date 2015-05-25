@@ -1,29 +1,40 @@
-<%= form_for(@production_shift) do |f| %>
-  <% if @production_shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@production_shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
 
-      <ul>
-      <% @production_shift.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="container">
+  <h1 class="page-header">Order your Materials</h1>
+  
+   <%= form_tag("/production_shifts/", :method => "post")%>
 
-  <div class="field">
-    <%= f.label :material_id %><br>
-    <%= f.text_field :material_id %>
-  </div>
-  <div class="field">
-    <%= f.label :shift_id %><br>
-    <%= f.text_field :shift_id %>
-  </div>
-  <div class="field">
-    <%= f.label :material_quantity %><br>
-    <%= f.text_field :material_quantity %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% @materials.each do |material| %>
+  <%= check_box_tag  "material_id[]",material.id %> <%= material.name %>
+  amount:<%= text_field_tag  material.id  %>
+ <br>
+
+  <% end %> 
+ <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order") %>
+   
+ 
+        
+</div> 
+
+<script>
+var task = {
+  name: 'Start taking advantage of WebSockets',
+  completed: false
+}
+
+var dispatcher = new WebSocketRails('localhost:3000/websocket');
+$("#order").click(function(){
+	console.log("hello");
+dispatcher.trigger('tasks.order', task);
+
+
+dispatcher.bind('tasks.create_success', function(task) {
+  console.log('successfully created ' + task.name);
+  console.log("hello");
+});
+dispatcher.bind('tasks.create_fail', function(task) {
+  //console.log('successfully created ' + task.name);
+  console.log("helloooooo");
+});
+});
+</script>
