@@ -15,10 +15,7 @@
     <%= f.label :production_date %><br>
     <%= f.date_select :production_date %>
   </div>
-  <div class="field">
-    <%= f.label :expire_date %><br>
-    <%= f.date_select :expire_date %>
-  </div>
+  
   <div class="field">
     <%= f.label :height %><br>
     <%= f.text_field :height %>
@@ -32,12 +29,18 @@
     <%= f.text_field :power %>
   </div>
   <div class="field">
-    <%= f.label :celltype %><br>
-    <%= f.text_field :celltype %>
+
+    <%= f.label :type %><br>
+    <%= f.select :celltype , options_for_select([['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']])%>
+ 
+
   </div>
+
   <div class="field">
     <%= f.label :subtype %><br>
-    <%= f.text_field :subtype %>
+ 
+    <%= f.select :subtype , options_for_select([['two pathpar','two pathpar'],['three pathpar','three pathpar']])%>
+ 
   </div>
   <div class="field">
     <%= f.label :price %><br>
@@ -48,8 +51,9 @@
     <%= f.number_field :serialNo %>
   </div>
   <div class="field">
-    <%= f.label :container_id %><br>
-    <%= f.text_field :container_id %>
+    <%= f.label :containerserialno %><br>
+        <%= f.select(:container_id, @containerids) %>
+   </div>
   </div>
   <% elsif @flag_new==0 and current_category.category == "Sales" %>
     <div class="field">

@@ -10,6 +10,7 @@ class Employee < ActiveRecord::Base
   validates_presence_of :user_name, :if => :not_normal?
 
   validates  :image , :education_level, :Governamental_ID, :position, :crew_id, :category_id, presence: true
+
   validates :salary, :numericality => { :greater_than_or_equal_to => 0 }, presence: true
 
   validates :Governamental_ID, :numericality => { :greater_than_or_equal_to => 0 }, :length => { :within => 12..12 }

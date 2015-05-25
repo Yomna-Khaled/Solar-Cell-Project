@@ -3,6 +3,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+
       <th text-align="center">Production date</th>
       <th text-align="center">Expire date</th>
       <th text-align="center">Height</th>
@@ -16,6 +17,7 @@
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
       <th text-align="center">Delete</th>
+
     </tr>
   </thead>
 
@@ -23,7 +25,6 @@
     <% @solar_panels.each do |solar_panel| %>
       <tr>
         <td><%= solar_panel.production_date %></td>
-        <td><%= solar_panel.expire_date %></td>
         <td><%= solar_panel.height %></td>
         <td><%= solar_panel.width %></td>
         <td><%= solar_panel.power %></td>

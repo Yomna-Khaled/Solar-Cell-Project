@@ -28,7 +28,8 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/1/edit
   def edit
-    @vendors = Vendor.all
+     @vendors = Vendor.all
+
   end
 
   # POST /spare_parts
@@ -44,6 +45,8 @@ class SparePartsController < ApplicationController
         format.json { render :show, status: :created, location: @spare_part }
  
       else
+	    @vendors = Vendor.all
+        
         format.html { render :new }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
       end
@@ -54,8 +57,12 @@ class SparePartsController < ApplicationController
   # PATCH/PUT /spare_parts/1.json
   def update
     respond_to do |format|
+<<<<<<< HEAD
       if @spare_part.update(spare_part_params)
         vendor_id = params['vendor'];
+=======
+      if @spare_part.update(spare_part_params)   
+>>>>>>> 4a6f15c722175cfcae99477ccbbd3d187ed563e3
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
         format.json { render :show, status: :ok, location: @spare_part }
       else
@@ -68,11 +75,11 @@ class SparePartsController < ApplicationController
   # DELETE /spare_parts/1
   # DELETE /spare_parts/1.json
   def destroy
-    @spare_part.destroy
-    respond_to do |format|
-      format.html { redirect_to spare_parts_url, notice: 'Spare part was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+     @spare_part.destroy
+       respond_to do |format|
+       format.html { redirect_to spare_parts_url, notice: 'Spare part was successfully destroyed.' }
+       format.json { head :no_content }
+     end
   end
 
   private
@@ -84,7 +91,7 @@ class SparePartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spare_part_params
-      params.require(:spare_part).permit(:name, :quantity, :price, :machine_id)
+      params.require(:spare_part).permit(:name, :quantity, :price, :machine_id, :avatar)
     end
     
 end

@@ -167,9 +167,9 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.date     "end_shift_date"
     t.time     "start_shift_time"
     t.time     "end_shift_time"
-    t.float    "production_rate",  limit: 24
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.float    "production_rate",  limit: 24, default: 0.0
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "shifts", ["crew_id"], name: "index_shifts_on_crew_id", using: :btree
@@ -177,7 +177,6 @@ ActiveRecord::Schema.define(version: 20150525170103) do
 
   create_table "solar_panels", force: :cascade do |t|
     t.date     "production_date"
-    t.date     "expire_date"
     t.float    "height",          limit: 24
     t.float    "width",           limit: 24
     t.float    "power",           limit: 24
@@ -188,17 +187,24 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.integer  "container_id",    limit: 4
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "shift_id",        limit: 4
+    t.integer  "cellno",          limit: 4
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
+  add_index "solar_panels", ["shift_id"], name: "index_solar_panels_on_shift_id", using: :btree
 
   create_table "spare_parts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "quantity",   limit: 4
-    t.float    "price",      limit: 24
-    t.integer  "machine_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",                limit: 255
+    t.integer  "quantity",            limit: 4
+    t.float    "price",               limit: 24
+    t.integer  "machine_id",          limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   add_index "spare_parts", ["machine_id"], name: "index_spare_parts_on_machine_id", using: :btree
@@ -256,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150525170103) do
   add_foreign_key "shifts", "crews"
   add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"
+  add_foreign_key "solar_panels", "shifts"
   add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"

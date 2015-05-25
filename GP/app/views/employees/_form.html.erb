@@ -27,6 +27,9 @@
      
     </div>
   <% end %>
+
+
+
  
   <% if @flag_new==1 %>
     <h1 class="page-header text-primary">Add Employee</h1>
@@ -60,7 +63,7 @@
     <%= f.label :category_id %><br>
     <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
   </div>
-
+<% if @flag_new == 1 %>
     <div id="notnormal">
       <div class="form-group">
         <%= f.label :password %><br>
@@ -71,11 +74,14 @@
         <%= f.text_field :user_name, class: 'form-control' , placeholder: "Enter User Name Which Login with it" %>
       </div>
     </div>
-
+<% end %>
   <div class="form-group">
     <%= f.label :crew_id %><br>
-    <%= f.select(:crew_id, options_from_collection_for_select(Crew.all, 'id' ,'id')) %>
+    <%= f.select(:crew_id, options_from_collection_for_select(Crew.all, 'id' ,'name')) %>
   </div>
+
+  
+
   <%= f.file_field :image %>
   <br>
   <div class="actions">

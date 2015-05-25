@@ -30,7 +30,7 @@
 <div class="field form-group">
   <%= fields_for :vendor_phones do |p| %>	
     <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" ,readonly%><br>
+	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
 <% end %>
 </div>
 

@@ -42,7 +42,7 @@ class ContainersController < ApplicationController
       if @container.save       
         @vendorcontainer = VendorContainer.new(vendor_id: @vendor_id, container_id: @container.id )        
         @container_id=Container.maximum('id')
-        @vendor_id = params['vendor'];
+        @vendor_id = params['vendor_id'];
         @vendorcontainer.save
         format.html { redirect_to @container, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }

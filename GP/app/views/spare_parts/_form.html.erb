@@ -1,9 +1,25 @@
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
+
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+
+
+
+
 <div class="container text-center">
 <%= form_for(@spare_part) do |f| %>
   <% if @spare_part.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@spare_part.errors.count, "error") %> prohibited this spare_part from being saved:</h2>
-
+     <div class="alert alert-danger">
+      <h2><%= pluralize(@spare_part.errors.count, "error") %>. 
       <ul>
       <% @spare_part.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -45,6 +61,11 @@
     <% end -%>
   </select>
 </div>
+
+
+<div class="form-group">
+    <%= f.file_field :avatar %>
+  </div>
 
 
 

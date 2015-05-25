@@ -56,6 +56,14 @@ class VendorsController < ApplicationController
   def update
     respond_to do |format|
       if @vendor.update(vendor_params)
+      arr= params[:vendor_phones][:phone].split(",")
+	 arr.each do |c|
+		puts c	
+           @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+           @vendorphone.save 
+	 end    
+
+
         format.html { redirect_to @vendor, notice: 'Vendor was successfully updated.' }
         format.json { render :show, status: :ok, location: @vendor }
       else
@@ -68,6 +76,8 @@ class VendorsController < ApplicationController
   # DELETE /vendors/1
   # DELETE /vendors/1.json
   def destroy
+   
+    
     @vendor.destroy
     respond_to do |format|
       format.html { redirect_to vendors_url, notice: 'Vendor was successfully destroyed.' }
