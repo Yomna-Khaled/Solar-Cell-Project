@@ -15,7 +15,7 @@
             <th text-align="center">Crew</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
-            <th text-align="center">Delete</th>
+        
 
           </tr>
         </thead>
@@ -36,7 +36,7 @@
             <td><%= employee.crew_id %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
             <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-            <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+           
           </tr>
           <% end %>
       </table>

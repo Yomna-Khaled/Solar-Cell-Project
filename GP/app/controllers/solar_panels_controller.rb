@@ -24,7 +24,7 @@ class SolarPanelsController < ApplicationController
    
     @containerids = Container.all.map{|c| [Container.where("capacity > ?",SolarPanel.where("container_id = ?", c.id ).count)]}
    
-    @containerids.all  
+    # @containerids.all  
     puts @containerids;
 
   end
