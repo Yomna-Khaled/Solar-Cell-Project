@@ -1,0 +1,79 @@
+<h3></h3>
+<div class="container">
+
+<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1>end shift</h1>
+		</div>
+		<div class="panel-body">
+		<center>
+<%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+  <%= f.check_box  :id ,{ checked:false} %>
+  <%= f.label(:id, "did this shift produce panels") %>
+  </div>
+ 
+   
+<script>
+$( "#shift_id" ).click(function() {
+    var $this = $(this);
+     
+    if ($this.is(':checked')) {
+          var my_sec_input_element = $('<div><%= f.text_field :production_rate %></div>').insertAfter( 'label[for=shift_id]' );
+    
+          var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:") %></div>').insertAfter( 'label[for=shift_id]' );
+          $( "#shift_production_rate" ).keyup(function(event) {
+         
+          if (<%= @inserted_panels %> == $('#shift_production_rate').val() ){  
+                        
+             if($('#submit').length == 0){
+                  $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
+                  $('#warnmsg').remove();  
+              }
+             
+          }
+          else{
+               if($('#warnmsg').length == 0){
+               $('<div id="warnmsg">please make sure of insert this number of panels </div>' ).insertAfter( '#shift_production_rate' );
+               } 
+              if($('#submit').length != 0){
+                  $('#submit').remove();
+             }
+          }
+         });                   
+  
+     } else {
+                 
+        
+        $('label[for=shift_production_rate]').remove();  
+        $("#shift_production_rate").remove();
+     }
+});
+
+</script>
+
+  <%= f.hidden_field :end_shift_date , :value => Date.today %>
+  <%= f.hidden_field :end_shift_time , :value => Time.now %>
+  <script>
+  if($('#submit').length == 0){
+                  $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( 'label[for=shift_id]' );
+             }   
+  </script> 
+<% end %>
+
+<%= link_to 'Back', production_shifts_path %>
+</center>
+		</div>
+	</div>
+</div>

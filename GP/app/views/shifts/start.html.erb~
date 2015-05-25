@@ -1,0 +1,47 @@
+<h3></h3>
+<div class="container">
+
+<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1>start shift</h1>
+		</div>
+		<div class="panel-body">
+		<center>
+
+<%= form_for @shift , :url=>shifts_startshift_path do |f| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+      
+		
+                <div class="field">
+                  <h4>shift manager name:   </h4>
+		  <h5><%= current_user.user_name %> </h5>
+		</div>
+       
+        <div class="field">
+	<%= f.label ('enter crew id') %><br>
+	<%= f.select(:crew_id, @crews) %>
+	</div>
+
+  <%= f.hidden_field :start_shift_date , :value => Date.today %>
+  <%= f.hidden_field :start_shift_time , :value => Time.now %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<%= link_to 'Back', production_shifts_path %>
+</center>
+		</div>
+	</div>
+</div>
+

@@ -22,6 +22,7 @@
     <% @solar_panels.each do |solar_panel| %>
       <tr>
         <td><%= solar_panel.production_date %></td>
+
         <td><%= solar_panel.height %></td>
         <td><%= solar_panel.width %></td>
         <td><%= solar_panel.power %></td>
