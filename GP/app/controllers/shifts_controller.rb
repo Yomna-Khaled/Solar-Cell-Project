@@ -3,12 +3,35 @@ class ShiftsController < ApplicationController
 
   # GET /shifts
   # GET /shifts.json
-  def index
-    @shifts = Shift.all
+  
+  def report
+    @shift = Shift.where("start_shift_date= ?", "2015-05-26")
+    @manager = Employee.find(@shift.read_attribute("employee_id"));
+    puts "----------------------"
+    puts @manager
+
+    @pannels_produced = SolarPanel.where("shift_id=?" , "1");
+    #loop through @pannels_produced to sum all power and send it to the pdf
+
+    @matirals_used = ProductionShift.where("shift_id=?" , "1");
+     
+
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = Prawn::Document.new
+        pdf = ReportPdf.new(@shift)
+        send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
+      end
+    end
+  end
+
+  def index
+    @shifts = Shift.all
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReportPdf.new(@shifts)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end

@@ -40,27 +40,38 @@
 
 <script type="text/javascript">
 
+
+
 $(document).ready(function(){
   var input = document.createElement("input");
   input.setAttribute("type", "hidden");
   input.setAttribute("name", "workers");
   input.setAttribute("id", "workers");
   document.getElementById("versionsDiv").appendChild(input);
-    $( "#no_of_workers" ).on( "blur", function() {
+   
+   $( "#no_of_workers" ).on( "blur", function() {
+    var myNode = document.getElementById("versionsDiv");
+     myNode.innerHTML = ''; 
+     var no_workers = $( "#no_of_workers" ).val(); 
+     if(no_workers){ if( no_workers % 1 === 0 ){ 
+      var posting = $.get( "get_employees" ); 
+      for(var i = 0 ; i < Number(no_workers) ; i++){ 
+        posting.done(function( data ) {
+         $("#versionsDiv").append(data);
+          }); 
+      }
+       }
+        else{ 
+          alert("Please insert a number") 
+        } 
+      }else{
+       myNode.innerHTML = ''; 
+     }
+      });
 
-          var no_workers = $( "#no_of_workers" ).val();
-          if( no_workers % 1 === 0 ){
-              var posting = $.get( "get_employees" );
-              for(var i = 0 ; i < Number(no_workers) ; i++){
-                     posting.done(function( data ) {
-                       $("#versionsDiv").append(data);
-                  });         
-              } 
-          }else{
-            alert("Please insert a number")
-          }
 
-    });
+
+
 });
 
 function get_value(elem){
