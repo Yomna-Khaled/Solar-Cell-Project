@@ -31,13 +31,17 @@
   </div>
   <div id="versionsDiv">
   </div>
+  <div id="Div">
+  </div>
   <br>
-
   <div class="actions">
     <%= f.submit :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
-
+  <h2 class="page-header text-primary">Names of employees</h2>
+  <div id="Woker_names">
+  </div>
+ 
 <script type="text/javascript">
 
 
@@ -47,36 +51,39 @@ $(document).ready(function(){
   input.setAttribute("type", "hidden");
   input.setAttribute("name", "workers");
   input.setAttribute("id", "workers");
-  document.getElementById("versionsDiv").appendChild(input);
-   
-   $( "#no_of_workers" ).on( "blur", function() {
-    var myNode = document.getElementById("versionsDiv");
-     myNode.innerHTML = ''; 
-     var no_workers = $( "#no_of_workers" ).val(); 
-     if(no_workers){ if( no_workers % 1 === 0 ){ 
-      var posting = $.get( "get_employees" ); 
-      for(var i = 0 ; i < Number(no_workers) ; i++){ 
-        posting.done(function( data ) {
-         $("#versionsDiv").append(data);
-          }); 
-      }
-       }
-        else{ 
-          alert("Please insert a number") 
-        } 
-      }else{
-       myNode.innerHTML = ''; 
-     }
-      });
 
-
-
+  document.getElementById("Div").appendChild(input);
+    $( "#no_of_workers" ).on( "blur", function() {
+          var myNode = document.getElementById("versionsDiv");
+          myNode.innerHTML = '';
+          var no_workers = $( "#no_of_workers" ).val();
+          if(no_workers){
+             if( no_workers % 1 === 0 ){
+                var posting = $.get( "get_employees" );
+                for(var i = 0 ; i < Number(no_workers) ; i++){
+                       posting.done(function( data ) {
+                         $("#versionsDiv").append(data);
+                    });         
+                } 
+              }
+              else{
+                alert("Please insert a number")
+              }
+          }else{
+            myNode.innerHTML = '';
+          }
+    });
 
 });
 
 function get_value(elem){
    val = elem.value
+   console.log(elem);
    elem.parentElement.style.display = 'none';
+   var para = document.createElement("p");
+   var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+   para.appendChild(node);
+   document.getElementById("Woker_names").appendChild(para)
    workers = document.getElementById('workers');
    workers.value = workers.value + "," + val;
 }

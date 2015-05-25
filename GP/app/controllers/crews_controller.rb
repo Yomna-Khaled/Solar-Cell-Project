@@ -36,12 +36,14 @@ class CrewsController < ApplicationController
       if @crew.save
         last_id = Crew.maximum('id')
         array = params[:workers].split(',')
-    
-        array.size.times do |i|
+
+        array.each_with_index do |item,i|
+
            @employee = Employee.find_by(id: array[i])
             if @employee 
                   puts("+++++++++++++++++")
                   puts(@employee.first_name)
+                  puts(array[i])
                   @employee.update_attributes(:crew_id => last_id)
             end
         end

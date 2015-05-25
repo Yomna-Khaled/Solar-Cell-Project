@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-
+  post '/shifts/startshift', to: 'shifts#startshift'
+  get '/shifts/showstartshift', to: 'shifts#showstartshift'
+  post '/shifts/:id/endshift', to: 'shifts#endshift'
+  get '/shifts/showendshift', to: 'shifts#showendshift'
+ 
   resources :production_shifts
   resources :shifts
   resources :shifts
@@ -13,6 +17,9 @@ Rails.application.routes.draw do
   resources :vendor_spares
 
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts

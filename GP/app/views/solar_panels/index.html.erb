@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Production date</th>
-      <th>Expire date</th>
       <th>Height</th>
       <th>Width</th>
       <th>Power</th>
@@ -23,11 +22,10 @@
     <% @solar_panels.each do |solar_panel| %>
       <tr>
         <td><%= solar_panel.production_date %></td>
-        <td><%= solar_panel.expire_date %></td>
         <td><%= solar_panel.height %></td>
         <td><%= solar_panel.width %></td>
         <td><%= solar_panel.power %></td>
-        <td><%= solar_panel.type %></td>
+        <td><%= solar_panel.celltype %></td>
         <td><%= solar_panel.subtype %></td>
         <td><%= solar_panel.price %></td>
         <td><%= solar_panel.serialNo %></td>

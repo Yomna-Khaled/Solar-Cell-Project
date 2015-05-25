@@ -1,0 +1,57 @@
+<h3></h3>
+<div class="container">
+
+<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1>end shift</h1>
+		</div>
+		<div class="panel-body">
+		<center>
+<%= form_for @shift , :url => shifts_endshift_path ,:html => { :id => "my_form_id" }  do |f| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+  <%= f.check_box  :id ,{ checked:false} %>
+  <%= f.label(:id, "did this shift produce panels") %>
+  </div>
+ 
+   
+<script>
+$( "#shift_id" ).click(function() {
+    var $this = $(this);
+     
+    if ($this.is(':checked')) {
+      
+          var my_new_input_element = $('<%= f.label( :production_rate , "enter no of produced panels") %>').insertBefore( "#submit" );
+         var my_sec_input_element = $('<%= f.text_field :production_rate %>').insertBefore( "#submit" );
+    
+     } else {
+        
+        
+        $('label[for=shift_production_rate]').remove();  
+        $("#shift_production_rate").remove();
+     }
+});
+</script>
+
+  <%= f.hidden_field :end_shift_date , :value => Date.today %>
+  <%= f.hidden_field :end_shift_time , :value => Time.now %>
+  <div class="actions">
+    <%= f.submit :id=>'submit' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', production_shifts_path %>
+</center>
+		</div>
+	</div>
+</div>

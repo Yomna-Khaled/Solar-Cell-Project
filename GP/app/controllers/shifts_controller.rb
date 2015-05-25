@@ -1,6 +1,7 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_shift, only: [:show,:edit, :update, :destroy]
+  before_action :end_set_shift, only: [:showendshift,:endshift] #showendshift render end view
+  
   # GET /shifts
   # GET /shifts.json
   
@@ -41,8 +42,9 @@ class ShiftsController < ApplicationController
   # GET /shifts/1
   # GET /shifts/1.json
   def show
+      
   end
-
+ 
   # GET /shifts/new
   def new
     @shift = Shift.new
@@ -92,12 +94,65 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def showstartshift
+     @shift = Shift.new
+     @crews = Crew.all.map{|c| [c.id]} 
+     if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
+          redirect_to  shifts_showendshift_path 
+      else 
+          render :showstartshift
+      end 
+  end
+
+
+  def startshift
+    @shift = Shift.new(start_shift_params)
+    respond_to do |format|
+      if @shift.save
+        format.html { redirect_to @shift, notice: 'shift was successfully created.' }
+        format.json { render :show, status: :created, location: @shift }
+      else
+        format.html { render :showstartshift }
+        format.json { render json: @shift.errors, status: :unprocessable_entity }
+      end
+    end 
+
+  end
+
+  def showendshift
+     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
+     @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
+   
+  end
+  def endshift
+    
+    respond_to do |format|
+     if @shift.update(end_shift_params)
+        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+        format.json { render :show, status: :ok, location: @shift }
+      else
+        format.html { render :showendshift }
+        format.json { render json: @shift.errors, status: :unprocessable_entity }
+     end
+   end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shift
       @shift = Shift.find(params[:id])
     end
-
+    def end_set_shift
+      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
+    end
+   
+    def start_shift_params  
+      params.require(:shift).permit( :crew_id,:start_shift_date,:start_shift_time).merge(:employee_id => current_user.id)
+    end
+    def end_shift_params
+      params.require(:shift).permit(:production_rate,:end_shift_date,:end_shift_time)
+    end 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
       params.require(:shift).permit(:employee_id, :crew_id, :start_shift_date, :end_shift_date, :start_shift_time, :end_shift_time, :production_rate)

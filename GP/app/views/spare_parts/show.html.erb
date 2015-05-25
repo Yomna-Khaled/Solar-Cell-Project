@@ -20,5 +20,7 @@
   <%= @spare_part.machine %>
 </p>
 
+<%= image_tag @spare_part.avatar.url %>
+
 <%= link_to 'Edit', edit_spare_part_path(@spare_part) %> |
 <%= link_to 'Back', spare_parts_path %>
