@@ -5,11 +5,14 @@ class VendorsController < ApplicationController
   # GET /vendors.json
   def index
     @vendors = Vendor.all
+    @vendor = Vendor.find(params[:id])
+    @vendor_phone = VendorPhone.all.where("vendor_id = ?", params[:id])  
   end
 
   # GET /vendors/1
   # GET /vendors/1.json
   def show
+   
   end
 
   # GET /vendors/new
@@ -48,9 +51,7 @@ class VendorsController < ApplicationController
   def update
     respond_to do |format|
       if @vendor.update(vendor_params)
-
-
-         arr= params[:vendor_phones][:phone].split(",")
+      arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
