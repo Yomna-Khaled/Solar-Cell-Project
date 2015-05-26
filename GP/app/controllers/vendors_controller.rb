@@ -4,8 +4,13 @@ class VendorsController < ApplicationController
   # GET /vendors
   # GET /vendors.json
   def index
-    @vendors = Vendor.all
-   
+
+    if logged_in? and current_category.category=="Sales"
+         @vendors = Vendor.all
+    else
+      redirect_to login_path  
+    end     
+
   end
 
   # GET /vendors/1
@@ -16,7 +21,11 @@ class VendorsController < ApplicationController
 
   # GET /vendors/new
   def new
-    @vendor = Vendor.new
+    if logged_in? and current_category.category=="Sales"
+      @vendor = Vendor.new
+    else
+      redirect_to login_path  
+    end
   end
 
   # GET /vendors/1/edit

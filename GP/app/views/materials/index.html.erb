@@ -1,3 +1,9 @@
+<style>
+.thumbnail{
+    width: 100px;
+    height: 100px;
+}
+</style>
 <br>
 <table class="table table-striped">
   <thead>
@@ -23,7 +29,7 @@
   <tbody>
     <% @materials.each do |material| %>
       <tr>
-        <td text-align="center"><%= image_tag  material.avatar.url(:thumb) , class: "thumbnail" %></td>
+        <td text-align="center"><%= image_tag material.avatar.url, class: "thumbnail"  %></td>
         <td><%= material.name %></td>
         <% quantity=Quantity.find_by(id: material.quantity_id )%>
         <td><%= quantity.unit_name %></td>

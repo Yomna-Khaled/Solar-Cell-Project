@@ -37,10 +37,7 @@
     <%= f.label :quantity_value %><br>
     <%= f.number_field :quantity_value, class: "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :price %><br>
-    <%= f.text_field :price, class: "form-control" %>
-  </div>
+
   <div class="form-group">
     <%= f.label :Min_Number %><br>
     <%= f.number_field :Min_Number, class: "form-control" %>
@@ -105,9 +102,12 @@
       <tr><a id="link" class="btn btn-link">Add new Property</a></tr>
     </table> 
   </div>
+    <div class="form-group">
+    <%= f.label :price %><br>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
   <div class="form-group">
     <%= f.file_field :avatar %>
-
   </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>
