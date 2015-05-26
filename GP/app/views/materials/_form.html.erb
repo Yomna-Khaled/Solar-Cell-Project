@@ -110,21 +110,6 @@
     <%= f.label :expiration_date %><br>
     <%= f.date_select :expiration_date %>
   </div>
-
-  <div class="form-group">
-    <!-- this is for quantity type -->
-    <%= f.hidden_field :quantity_id, class: "form-control",
-    :value => @quantites.first.id, :id => 'quantity_id_selected' %>
-  </div>
-    <!-- to get all quantities to select one of them -->
-  <div class="form-group">
-  <%= f.label :Quantity %><br>
-  <select onchange='getquantityid()' id="quantity" name="quantity" class="form-control">
-    <% @quantites.each do |quantity| %>
-      <option value="<%= quantity.id %>"><%= quantity.unit_name %></option>
-    <% end -%>
-  </select>
-  </div>
   <!-- for get all vendors to select one of them -->
   <div class="form-group">
   <%= f.label :Vendor %><br>

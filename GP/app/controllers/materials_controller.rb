@@ -103,12 +103,15 @@ def update
       @material_properties_last.each do |materialproperty_last|
         materialproperty_last.destroy
       end
-      @selected_properties.each do |selected_property|
-        propertyid = selected_property.split(":")[0]
-        propertyvalue = selected_property.split(":")[1]
-        @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
-        @materialproperty.save
+      if @selected_properties
+        @selected_properties.each do |selected_property|
+          propertyid = selected_property.split(":")[0]
+          propertyvalue = selected_property.split(":")[1]
+          @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
+          @materialproperty.save
+        end  
       end
+
       format.html { redirect_to @material, notice: 'Material was successfully updated.' }
       format.json { render :show, status: :ok, location: @material }
     else
