@@ -68,8 +68,10 @@ class MaterialsController < ApplicationController
         @selected_properties.each do |selected_property|
           propertyid = selected_property.split(":")[0]
           propertyvalue = selected_property.split(":")[1]
-          @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
-          @materialproperty.save
+          if propertyvalue
+            @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
+            @materialproperty.save
+          end
         end
         @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
         @materialvendor.save
@@ -93,7 +95,7 @@ def update
   @vendoredit_id = params['vendor']; #to get vendor of certain material 
   @selected_properties = params['propertycheck']; #it is an array of selected properties
   @vendororiginal_id = MaterialVendor.where("material_id=?",@material.id)[0].vendor_id
-  # render plain: @selected_properties[0].split(":")[1]
+  # render plain: @selected_properties.inspect
   respond_to do |format|
     if @material.update(material_params)
       if @vendoredit_id != @vendororiginal_id
@@ -108,8 +110,11 @@ def update
         @selected_properties.each do |selected_property|
           propertyid = selected_property.split(":")[0]
           propertyvalue = selected_property.split(":")[1]
-          @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
-          @materialproperty.save
+          if propertyvalue 
+            @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
+            @materialproperty.save
+          end
+
         end  
       end
 

@@ -18,7 +18,6 @@ function propertyvalue (value) {
 	var property_value = document.getElementById(property_id+"_value").value;
 	if (property_value == "") {
 		alert("Enter Property Value ");
-		console.log(document.getElementById(property_id));
 		document.getElementById(property_id).checked= false;
 		document.getElementById(value_id).style.display= "none";
 	};
