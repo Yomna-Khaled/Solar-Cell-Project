@@ -40,11 +40,15 @@ end
   # POST /crews.json
   def create
     @crew = Crew.new(crew_params)
+
     respond_to do |format|
+    
       if @crew.save
         last_id = Crew.maximum('id')
         array = params[:workers].split(',')
+
         array.each_with_index do |item,i|
+
            @employee = Employee.find_by(id: array[i])
             if @employee 
                   puts("+++++++++++++++++")
@@ -53,6 +57,7 @@ end
                   @employee.update_attributes(:crew_id => last_id)
             end
         end
+    
         format.html { redirect_to @crew, notice: 'Crew was successfully created.' }
         format.json { render :show, status: :created, location: @crew }
       else

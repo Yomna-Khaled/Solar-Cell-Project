@@ -6,9 +6,14 @@ Rails.application.routes.draw do
  
   resources :production_shifts
   resources :shifts
+  resources :shifts
+  resources :production_shifts
+  resources :shifts
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"
+  
+
   resources :vendor_spares
 
   resources :spare_parts
@@ -44,7 +49,8 @@ Rails.application.routes.draw do
   resources :quantities
 
   root 'sessions#new'
-  get 'login' => 'sessions#new' 
+  get 'login' => 'sessions#new'
+  get 'report' => 'shifts#report'  
   post 'login' => 'sessions#create' 
   delete 'logout' => 'sessions#destroy'
  get '/crews/home' => 'crews#home'

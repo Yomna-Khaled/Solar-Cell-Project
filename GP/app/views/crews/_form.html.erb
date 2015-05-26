@@ -44,11 +44,14 @@
  
 <script type="text/javascript">
 
+
+
 $(document).ready(function(){
   var input = document.createElement("input");
   input.setAttribute("type", "hidden");
   input.setAttribute("name", "workers");
   input.setAttribute("id", "workers");
+
   document.getElementById("Div").appendChild(input);
     $( "#no_of_workers" ).on( "blur", function() {
           var myNode = document.getElementById("versionsDiv");
@@ -70,6 +73,7 @@ $(document).ready(function(){
             myNode.innerHTML = '';
           }
     });
+
 });
 
 function get_value(elem){
