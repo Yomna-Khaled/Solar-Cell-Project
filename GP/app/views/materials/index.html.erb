@@ -36,7 +36,12 @@
  <!-- @material_vendor.find(material.id).vendor_id -->
         <tbody>
           <% @materials.each do |material| %>
+          <% if material.Min_Number == 5 %>
+            <tr class="danger">
+          <% else %>
             <tr>
+          <%end %>
+            
               <td class="text-center"><%= material.name %></td>
               <td class="text-center"><%= material.serial_number %></td>
               <td class="text-center"><%= material.quantity_value %></td>
