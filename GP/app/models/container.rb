@@ -1,8 +1,6 @@
 class Container < ActiveRecord::Base
 
-  has_many :solarpanels
-
-
+ has_many :solar_panels
  has_many :vendors, through: :vendorcontainer
  validates :width, :presence => true 
  validates :height, :presence => true 

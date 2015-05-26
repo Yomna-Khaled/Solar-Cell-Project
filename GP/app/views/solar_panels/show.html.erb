@@ -44,8 +44,9 @@
 
 <p>
   <strong>Container:</strong>
-  <%= @solar_panel.container %>
+  <%= @solar_panel.container.serialNo %>
 </p>
+<%= button_to "Back", solar_panels_path ,method: :get%> 
+<%= button_to "Edit", edit_solar_panel_path(@solar_panel) ,method: :get%> 
+       
 
-<%= link_to 'Edit', edit_solar_panel_path(@solar_panel) %> |
-<%= link_to 'Back', solar_panels_path %>
