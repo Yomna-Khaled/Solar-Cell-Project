@@ -5,8 +5,8 @@
    <%= form_tag("/production_shifts/", :method => "post")%>
 
   <% @materials.each do |material| %>
-  <%= check_box_tag  "material_id[]",material.id %> <%= material.name %>
-  amount:<%= text_field_tag  material.id  %>
+<%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}"} %> <%= material.name %>
+  amount:<%= text_field_tag  material.id , '$0.00',options={:style=>"display:none"} %>
  <br>
 
   <% end %> 
@@ -17,24 +17,36 @@
 </div> 
 
 <script>
-var task = {
-  name: 'Start taking advantage of WebSockets',
-  completed: false
+function matvalue(ptr){
+  
+  var field_id=ptr.id.split("_")[2];
+  console.log(field_id);
+  $("#"+field_id).show();
+
+  
+
+
 }
+// var task = {
+//   name: 'Start taking advantage of WebSockets',
+//   completed: false
+// }
 
-var dispatcher = new WebSocketRails('localhost:3000/websocket');
-$("#order").click(function(){
-	console.log("hello");
-dispatcher.trigger('tasks.order', task);
+// var dispatcher = new WebSocketRails('localhost:3000/websocket');
+// $("#order").click(function(){
+// 	console.log("hello");
+// dispatcher.trigger('tasks.order', task);
 
 
-dispatcher.bind('tasks.create_success', function(task) {
-  console.log('successfully created ' + task.name);
-  console.log("hello");
-});
-dispatcher.bind('tasks.create_fail', function(task) {
-  //console.log('successfully created ' + task.name);
-  console.log("helloooooo");
-});
-});
+// dispatcher.bind('tasks.create_success', function(task) {
+//   console.log('successfully created ' + task.name);
+//   console.log("hello");
+// });
+// dispatcher.bind('tasks.create_fail', function(task) {
+//   //console.log('successfully created ' + task.name);
+//   console.log("helloooooo");
+// });
+// });
+
+
 </script>
