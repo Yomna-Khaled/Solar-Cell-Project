@@ -141,6 +141,7 @@ function propertyajax () {
 			'" name="propertycheck[]" onchange="checkproperty(this)" value='+propertyid+'/>'
 			+propertyname+'</td><td id="value_'+propertyid+
 			'" style="display:none" onkeyup="propertyvalue(this)"><label style="margin-left:200px;">value</label><input type="text" id="'+propertyid+'_value" ></td></tr>');
+			$("#propertyname").val("");
 		}
 	});
 	}
