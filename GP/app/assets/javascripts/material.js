@@ -42,7 +42,7 @@ function vendorajax () {
 	if (re.test(vendoremail)) {
     $.ajax({
         method: "POST",
-        url: '/vendors',
+        url: '/materialvendorcreate',
 		dataType: "JSON",
 		data: { 'vendorname': vendorname ,'vendoremail': vendoremail},
 		complete: function(data)
