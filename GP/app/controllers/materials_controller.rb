@@ -88,6 +88,7 @@ class MaterialsController < ApplicationController
 
   # PATCH/PUT /materials/1
   # PATCH/PUT /materials/1.json
+
 def update
   @vendoredit_id = params['vendor']; #to get vendor of certain material 
   @selected_properties = params['propertycheck']; #it is an array of selected properties
@@ -131,7 +132,7 @@ end
   def destroy
     @material.destroy
     respond_to do |format|
-      format.html { redirect_to materials_url, notice: 'Material was successfully destroyed.' }
+      format.html { redirect_to materials_url  }
       format.json { head :no_content }
     end
   end

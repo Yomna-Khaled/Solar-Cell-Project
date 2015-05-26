@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
-<%= @shift.inspect %>
+
 <p>
   <strong>Employee:</strong>
-  <%= @shift.employee %>
+  <%= @shift.employee.user_name %>
 </p>
 
 <p>
   <strong>Crew:</strong>
-  <%= @shift.crew %>
+  <%= @shift.crew.id %>
 </p>
 
 <p>
