@@ -30,7 +30,7 @@ $( "#shift_id" ).click(function() {
     var $this = $(this);
      
     if ($this.is(':checked')) {
-          var my_sec_input_element = $('<div><%= f.text_field :production_rate %></div>').insertAfter( 'label[for=shift_id]' );
+          var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true %></div>').insertAfter( 'label[for=shift_id]' );
     
           var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:") %></div>').insertAfter( 'label[for=shift_id]' );
           $( "#shift_production_rate" ).keyup(function(event) {

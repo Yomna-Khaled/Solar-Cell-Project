@@ -28,7 +28,7 @@ class VendorSparesController < ApplicationController
 
     respond_to do |format|
       if @vendor_spare.save
-        format.html { redirect_to @vendor_spare, notice: 'Vendor spare was successfully created.' }
+        format.html { redirect_to @vendor_spare}
         format.json { render :show, status: :created, location: @vendor_spare }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class VendorSparesController < ApplicationController
   def update
     respond_to do |format|
       if @vendor_spare.update(vendor_spare_params)
-        format.html { redirect_to @vendor_spare, notice: 'Vendor spare was successfully updated.' }
+        format.html { redirect_to @vendor_spare }
         format.json { render :show, status: :ok, location: @vendor_spare }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class VendorSparesController < ApplicationController
   def destroy
       @vendor_spare.destroy
       respond_to do |format|
-      format.html { redirect_to vendor_spares_url, notice: 'Vendor spare was successfully destroyed.' }
+      format.html { redirect_to vendor_spares_url }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class EmployeeManagersController < ApplicationController
 
     respond_to do |format|
       if @employee_manager.save
-        format.html { redirect_to @employee_manager, notice: 'Employee manager was successfully created.' }
+        format.html { redirect_to @employee_manager }
         format.json { render :show, status: :created, location: @employee_manager }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class EmployeeManagersController < ApplicationController
   def update
     respond_to do |format|
       if @employee_manager.update(employee_manager_params)
-        format.html { redirect_to @employee_manager, notice: 'Employee manager was successfully updated.' }
+        format.html { redirect_to @employee_manager  }
         format.json { render :show, status: :ok, location: @employee_manager }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class EmployeeManagersController < ApplicationController
   def destroy
     @employee_manager.destroy
     respond_to do |format|
-      format.html { redirect_to employee_managers_url, notice: 'Employee manager was successfully destroyed.' }
+      format.html { redirect_to employee_managers_url }
       format.json { head :no_content }
     end
   end

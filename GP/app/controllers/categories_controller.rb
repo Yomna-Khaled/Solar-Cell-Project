@@ -4,7 +4,12 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    if logged_in? and current_category.category=="HR"
+      @categories = Category.all
+    else
+      redirect_to login_path  
+    end  
+    
   end
 
   # GET /categories/1
@@ -14,7 +19,12 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    @category = Category.new
+    if logged_in? and current_category.category=="HR"
+      @category = Category.new
+    else
+      redirect_to login_path  
+    end  
+    
   end
 
   # GET /categories/1/edit
@@ -28,7 +38,7 @@ class CategoriesController < ApplicationController
     @category.category = @category.category.strip
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.html { redirect_to @category }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
@@ -42,7 +52,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
+        format.html { redirect_to @category }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
@@ -56,7 +66,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
     respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
+      format.html { redirect_to categories_url  }
       format.json { head :no_content }
     end
   end
@@ -77,4 +87,5 @@ class CategoriesController < ApplicationController
     def category_params
       params.require(:category).permit(:category)
     end
+
 end

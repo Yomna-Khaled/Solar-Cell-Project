@@ -17,10 +17,15 @@
 
 <p>
   <strong>Machine:</strong>
-  <%= @spare_part.machine %>
+
+   <% machine = Machine.find_by(id: @spare_part.machine_id) %>
+        <td><%= machine.name %></td>
 </p>
 
+<p>
+  <strong>Vendor:</strong>
+        <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
+        <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
+        <td><%= vendor.name %></td>
+ </p>       
 <%= image_tag @spare_part.avatar.url %>
-
-<%= link_to 'Edit', edit_spare_part_path(@spare_part) %> |
-<%= link_to 'Back', spare_parts_path %>

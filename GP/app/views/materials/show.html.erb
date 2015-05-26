@@ -1,8 +1,19 @@
+<style>
+.thumbnail{
+    width: 200px;
+    height: 200px;
+}
+</style>
 <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Name:</strong>
   <%= @material.name %>
+</p>
+
+<p>
+  <strong>Serial_Number:</strong>
+  <%= @material.serial_number %>
 </p>
 
 <p>
@@ -47,8 +58,5 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag @material.avatar.url %>
+  <%= image_tag @material.avatar.url, class: "thumbnail" %>
 </p>
-
-<%= link_to 'Edit', edit_material_path(@material) %> |
-<%= link_to 'Back', materials_path %>

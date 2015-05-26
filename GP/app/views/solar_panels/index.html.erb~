@@ -1,28 +1,32 @@
-<p id="notice"><%= notice %></p>
+<br>
 
-<h1>Listing Solar Panels</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Production date</th>
-      <th>Height</th>
-      <th>Width</th>
-      <th>Power</th>
-      <th>Type</th>
-      <th>Subtype</th>
-      <th>Price</th>
-      <th>Serialno</th>
-      <th>Container</th>
-      <th colspan="3"></th>
+
+
+      <th text-align="center">Production date</th>
+      <th text-align="center">Expire date</th>
+      <th text-align="center">Height</th>
+      <th text-align="center" >Width</th>
+      <th text-align="center">Power</th>
+      <th text-align="center">Type</th>
+      <th text-align="center">Subtype</th>
+      <th text-align="center">Price</th>
+      <th text-align="center">Serialno</th>
+      <th text-align="center">Container</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
+      <th text-align="center">Delete</th>
+
     </tr>
   </thead>
 
   <tbody>
+
     <% @solar_panels.each do |solar_panel| %>
       <tr>
         <td><%= solar_panel.production_date %></td>
-
         <td><%= solar_panel.height %></td>
         <td><%= solar_panel.width %></td>
         <td><%= solar_panel.power %></td>
@@ -30,15 +34,25 @@
         <td><%= solar_panel.subtype %></td>
         <td><%= solar_panel.price %></td>
         <td><%= solar_panel.serialNo %></td>
-        <td><%= solar_panel.container %></td>
-        <td><%= link_to 'Show', solar_panel %></td>
-        <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel) %></td>
-        <td><%= link_to 'Destroy', solar_panel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= solar_panel.container.serialNo %></td>
+        <td><%= solar_panel.container_id %></td>
+        
+        <td><%= button_to "show", solar_panel_path(solar_panel) ,method: :get%></td>  
+        <td><%= button_to "edit", edit_solar_panel_path(solar_panel) ,method: :get%></td>  
+       </tr>
+        
     <% end %>
+
   </tbody>
 </table>
 
 <br>
+<%= button_to "New", new_solar_panel_path ,method: :get%>
 
-<%= link_to 'New Solar panel', new_solar_panel_path %>
+
+<% if logged_in? %> 
+  <% if current_category.category == "Shift Manager" %>
+    <%= link_to 'New Solar panel', new_solar_panel_path %>
+  <% end %>
+<% end %>
+
