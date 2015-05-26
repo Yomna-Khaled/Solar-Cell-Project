@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+
+<% @crew_name.each do |f| %>
+
+<p>
+  <strong>first:</strong>
+  <%= f.first_name %>
+</p>
+
+<p>
+  <strong>last:</strong>
+  <%= f.last_name %>
+</p>
+
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_crew_path(@crew) %> |
+<%= link_to 'Back', crews_path %>

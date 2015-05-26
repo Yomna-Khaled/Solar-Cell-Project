@@ -14,6 +14,7 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/new
   def new
+if logged_in? and current_category.category=="Shift Manager"
     @solar_panel  = SolarPanel.new
     #@containerids = Container.all.map{|c| [Employee.find(e.employee_id).first_name ,Employee.find(e.employee_id).id  ]}
     #@containerids = Solarpanel.where("container_id =? ").first
@@ -24,8 +25,12 @@ class SolarPanelsController < ApplicationController
    
     @containerids = Container.all.map{|c| [Container.where("capacity > ?",SolarPanel.where("container_id = ?", c.id ).count)]}
    
-    @containerids.all  
+    # @containerids.all  
     puts @containerids;
+
+ else
+       redirect_to login_path  
+     end 
 
   end
 

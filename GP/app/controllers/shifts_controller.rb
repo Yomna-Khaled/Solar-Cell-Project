@@ -16,6 +16,7 @@ class ShiftsController < ApplicationController
  
   # GET /shifts/new
   def new
+
     @shift = Shift.new
   end
 
@@ -75,7 +76,8 @@ class ShiftsController < ApplicationController
 
 
   def startshift
-    @shift = Shift.new(start_shift_params)
+if logged_in? and current_category.category=="Shift Manager" 
+      @shift = Shift.new(start_shift_params)
     respond_to do |format|
       if @shift.save
         format.html { redirect_to @shift, notice: 'shift was successfully created.' }
@@ -85,16 +87,21 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
       end
     end 
+     else
+       redirect_to login_path  
+     end 
+    
 
   end
 
   def showendshift
+
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
      @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
    
   end
   def endshift
-    
+   if logged_in? and current_category.category=="Shift Manager"  
     respond_to do |format|
      if @shift.update(end_shift_params)
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -104,6 +111,11 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
      end
    end
+
+
+ else
+       redirect_to login_path  
+     end
 
   end
 

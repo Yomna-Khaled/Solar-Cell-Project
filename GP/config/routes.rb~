@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
@@ -9,15 +8,13 @@ Rails.application.routes.draw do
   resources :shifts
   resources :categories
   get 'sessions/new'
-
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
-=======
+  get "crews/get_employees"
   resources :vendor_spares
 
->>>>>>> 175abbb5d3b71008d6f4826ac31ec92f8cdc306f
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts
@@ -26,32 +23,6 @@ Rails.application.routes.draw do
   resources :employees
   resources :crews
   resources :vendor_containers
-<<<<<<< HEAD
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :solar_panels
-  resources :containers
-  resources :machines
-  resources :spare_parts
-  resources :material_vendors
-  resources :vendor_phones
-  resources :vendors
-  resources :material_properties
-  resources :material_properties
-  resources :spare_parts
-  resources :vendors
-  resources :vendors
-  resources :material_properties
-  resources :properties
-  resources :materials
-  resources :quantities
-
-  root 'sessions#new'
-  get 'login' => 'sessions#new' 
-  post 'login' => 'sessions#create' 
-  delete 'logout' => 'sessions#destroy'
-=======
 
 
   resources :solar_panels
@@ -71,7 +42,12 @@ Rails.application.routes.draw do
   resources :properties
   resources :materials
   resources :quantities
->>>>>>> 175abbb5d3b71008d6f4826ac31ec92f8cdc306f
+
+  root 'sessions#new'
+  get 'login' => 'sessions#new' 
+  post 'login' => 'sessions#create' 
+  delete 'logout' => 'sessions#destroy'
+ get 'crews/home' => 'crews#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

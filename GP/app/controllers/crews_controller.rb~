@@ -31,7 +31,7 @@ class CrewsController < ApplicationController
 def home
   @employee_crew = EmployeeManager.where("employee_id = ? ", session[:user_id]).select([:crew_id])
   @employee_crew.each do |emp|
-  @crew_name = Employee.where("crew_id = ? ", emp.crew_id ).select([:first_name, :last_name])
+  @crew_name = Employee.where("crew_id = ? ", emp.id ).select([:first_name, :last_name])
 end
       
 end

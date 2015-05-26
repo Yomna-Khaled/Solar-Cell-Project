@@ -5,7 +5,5 @@
   <%= @crew.no_of_workers %>
 </p>
 
-
-
 <%= link_to 'Edit', edit_crew_path(@crew) %> |
 <%= link_to 'Back', crews_path %>
