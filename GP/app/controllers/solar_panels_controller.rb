@@ -55,7 +55,7 @@ class SolarPanelsController < ApplicationController
      
     respond_to do |format|
       if @solar_panel.save
-       format.html { redirect_to @solar_panel, notice: 'Solar panel was successfully created.' }
+       format.html { redirect_to @solar_panel }
        format.json { render :show, status: :created, location: @solar_panel }
       else
         format.html { render :new }
@@ -69,7 +69,7 @@ class SolarPanelsController < ApplicationController
   def update
     respond_to do |format|
       if @solar_panel.update(solar_panel_params)
-        format.html { redirect_to @solar_panel, notice: 'Solar panel was successfully updated.' }
+        format.html { redirect_to @solar_panel}
         format.json { render :show, status: :ok, location: @solar_panel }
       else
         format.html { render :edit }
@@ -83,7 +83,7 @@ class SolarPanelsController < ApplicationController
   def destroy
     @solar_panel.destroy
     respond_to do |format|
-      format.html { redirect_to solar_panels_url, notice: 'Solar panel was successfully destroyed.' }
+      format.html { redirect_to solar_panels_url }
       format.json { head :no_content }
     end
   end

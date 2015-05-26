@@ -61,7 +61,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :new }
@@ -75,7 +75,7 @@ class ShiftsController < ApplicationController
   def update
     respond_to do |format|
       if @shift.update(shift_params)
-        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :ok, location: @shift }
       else
         format.html { render :edit }
@@ -89,7 +89,7 @@ class ShiftsController < ApplicationController
   def destroy
     @shift.destroy
     respond_to do |format|
-      format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
+      format.html { redirect_to shifts_url }
       format.json { head :no_content }
     end
   end
@@ -109,7 +109,7 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(start_shift_params)
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'shift was successfully created.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :showstartshift }
@@ -128,7 +128,7 @@ class ShiftsController < ApplicationController
     
     respond_to do |format|
      if @shift.update(end_shift_params)
-        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :ok, location: @shift }
       else
         format.html { render :showendshift }

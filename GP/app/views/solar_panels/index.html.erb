@@ -17,7 +17,7 @@
       <th text-align="center">Container</th>
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
-      <th text-align="center">Delete</th>
+   
 
     </tr>
   </thead>
@@ -36,7 +36,6 @@
         <td><%= solar_panel.container_id %></td>
         <td><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
         <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
-        <td><%= link_to 'Destroy', solar_panel, method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-danger"%></td>
       </tr>
     <% end %>
   </tbody>

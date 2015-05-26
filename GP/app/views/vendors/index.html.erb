@@ -7,7 +7,6 @@
       <th text-align="center">Email</th>
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
-      <th text-align="center">Delete</th>
     </tr>
   </thead>
 
@@ -18,7 +17,6 @@
         <td><%= vendor.email %></td>
         <td><%= link_to 'Show', vendor, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-default" %></td>
-        <td><%= link_to 'Destroy', vendor, method: :delete, data: { confirm: 'Are you sure?' } , class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

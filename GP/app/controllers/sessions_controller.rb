@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_filter :authenticate
    def new
     if logged_in?
       flash[:success] = 'You are already logged_in' # Not quite right!    
