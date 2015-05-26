@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+<% if @flag_new==1 %>
   <div class="field">
     <%= f.label :production_date %><br>
     <%= f.date_select :production_date %>
@@ -29,9 +29,11 @@
     <%= f.text_field :power %>
   </div>
   <div class="field">
+
     <%= f.label :type %><br>
     <%= f.select :celltype , options_for_select([['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']])%>
  
+
   </div>
 
   <div class="field">
@@ -53,6 +55,12 @@
         <%= f.select(:container_id, @containerids) %>
    </div>
   </div>
+  <% elsif @flag_new==0 and current_category.category == "Sales" %>
+    <div class="field">
+      <%= f.label :price %><br>
+      <%= f.text_field :price %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

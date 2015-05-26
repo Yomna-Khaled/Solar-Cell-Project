@@ -4,7 +4,11 @@ class SolarPanelsController < ApplicationController
   # GET /solar_panels
   # GET /solar_panels.json
   def index
-    @solar_panels = SolarPanel.all
+    if logged_in? and current_category.category=="Sales"
+       @solar_panels = SolarPanel.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /solar_panels/1
@@ -14,6 +18,10 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/new
   def new
+    if logged_in? and current_category.category=="Sales"
+      @flag_new=1
+      @solar_panel = SolarPanel.new
+
     @solar_panel  = SolarPanel.new
     #@containerids = Container.all.map{|c| [Employee.find(e.employee_id).first_name ,Employee.find(e.employee_id).id  ]}
     #@containerids = Solarpanel.where("container_id =? ").first
@@ -26,11 +34,15 @@ class SolarPanelsController < ApplicationController
    
     # @containerids.all  
     puts @containerids;
+        else
+      redirect_to login_path  
+    end 
 
   end
 
   # GET /solar_panels/1/edit
   def edit
+    @flag_new=0
   end
 
   # POST /solar_panels
@@ -84,9 +96,13 @@ class SolarPanelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
+
+      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
+
       @solarhash=params.require(:solar_panel).permit(:production_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
       @container_id = Container.where("serialNo = ?", @solarhash[:container_id] ).first
       @solarhash.except!(:container_id).merge!(:container_id =>@container_id.id)
          
+
     end
 end
