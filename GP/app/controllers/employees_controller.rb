@@ -15,7 +15,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=="HR"
+    if logged_in? and current_category.category=='HR'
       @flag_new=1 #display password field in from
       @employee = Employee.new
     else
@@ -32,9 +32,11 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.salary != nil
+
       @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
       @employee.salary=0.0
     end
+
     @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
     respond_to do |format|
       if @employee.save

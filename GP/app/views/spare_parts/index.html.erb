@@ -1,6 +1,10 @@
-<br>
 
-<table  class="table table-striped">
+<p id="notice"><%= notice %></p>
+
+<h1 class="page-header">Listing Spare Parts</h1>
+
+<table class="table table-striped">
+
   <thead>
     <tr>
       <th text-align="center">Name</th>
@@ -19,15 +23,14 @@
         <td><%= spare_part.name %></td>
         <td><%= spare_part.quantity %></td>
         <td><%= spare_part.price %></td>
+
         <td><%= spare_part.machine %></td>
         <td><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
         <td><%= link_to 'Destroy', spare_part, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
 

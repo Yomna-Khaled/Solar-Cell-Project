@@ -32,7 +32,7 @@ class SolarPanelsController < ApplicationController
    
     @containerids = Container.all.map{|c| [Container.where("capacity > ?",SolarPanel.where("container_id = ?", c.id ).count)]}
    
-    @containerids.all  
+    # @containerids.all  
     puts @containerids;
         else
       redirect_to login_path  
@@ -96,13 +96,13 @@ class SolarPanelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
-<<<<<<< HEAD
+
       params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
-=======
+
       @solarhash=params.require(:solar_panel).permit(:production_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
       @container_id = Container.where("serialNo = ?", @solarhash[:container_id] ).first
       @solarhash.except!(:container_id).merge!(:container_id =>@container_id.id)
          
->>>>>>> 4a6f15c722175cfcae99477ccbbd3d187ed563e3
+
     end
 end

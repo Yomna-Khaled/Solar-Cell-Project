@@ -29,7 +29,6 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/1/edit
   def edit
      @vendors = Vendor.all
-
   end
 
   # POST /spare_parts
@@ -57,12 +56,7 @@ class SparePartsController < ApplicationController
   # PATCH/PUT /spare_parts/1.json
   def update
     respond_to do |format|
-<<<<<<< HEAD
-      if @spare_part.update(spare_part_params)
-        vendor_id = params['vendor'];
-=======
       if @spare_part.update(spare_part_params)   
->>>>>>> 4a6f15c722175cfcae99477ccbbd3d187ed563e3
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
         format.json { render :show, status: :ok, location: @spare_part }
       else

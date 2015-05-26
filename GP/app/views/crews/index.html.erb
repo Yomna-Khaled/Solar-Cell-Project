@@ -8,6 +8,7 @@
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
       <th text-align="center">Delete</th>
+
     </tr>
   </thead>
 
@@ -16,13 +17,13 @@
       <tr>
         <td><%= crew.name %></td>
         <td><%= crew.no_of_workers %></td>
+
         <td><%= link_to 'Show', crew, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_crew_path(crew), class:"btn btn-default"  %></td>
         <td><%= link_to 'Destroy', crew, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-

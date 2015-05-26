@@ -20,7 +20,7 @@
       <th text-align="center">Expiration date</th>  
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
-      <th text-align="center">Delete</th>
+      
 
       <th colspan="3"></th>
     </tr>
@@ -42,7 +42,7 @@
         <td><%= material.expiration_date %></td>      
         <td><%= link_to 'Show', material, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
-        <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
+        
       </tr>
     <% end %>
   </tbody>
