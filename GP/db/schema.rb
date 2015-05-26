@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20150522190219) do
+ActiveRecord::Schema.define(version: 20150524115758) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -125,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150522190219) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "serial_number",       limit: 255
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree

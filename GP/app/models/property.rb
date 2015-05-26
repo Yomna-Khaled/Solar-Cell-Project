@@ -1,3 +1,4 @@
 class Property < ActiveRecord::Base
-	has_many :materials, through: :materialproperty
+	has_many :materialproperty
+	has_many :materials, through: :materialproperty, dependent: :destroy
 end

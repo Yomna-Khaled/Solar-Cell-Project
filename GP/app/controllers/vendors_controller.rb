@@ -24,17 +24,20 @@ class VendorsController < ApplicationController
   # POST /vendors
   # POST /vendors.json
   def create
-    @vendor = Vendor.new(vendor_params)
-
-    respond_to do |format|
-      if @vendor.save
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
-        format.json { render :show, status: :created, location: @vendor }
-      else
-        format.html { render :new }
-        format.json { render json: @vendor.errors, status: :unprocessable_entity }
-      end
-    end
+    @vendorname=params[:vendorname]
+    @vendoremail = params[:vendoremail];
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
+    @vendor.save
+    render json: @vendor
+    # respond_to do |format|
+    #   if @vendor.save
+    #     format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
+    #     format.json { render :show, status: :created, location: @vendor }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @vendor.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /vendors/1
