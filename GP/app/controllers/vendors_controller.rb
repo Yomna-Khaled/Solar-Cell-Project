@@ -4,7 +4,11 @@ class VendorsController < ApplicationController
   # GET /vendors
   # GET /vendors.json
   def index
-    @vendors = Vendor.all
+    if logged_in? and current_category.category=="Sales"
+         @vendors = Vendor.all
+    else
+      redirect_to login_path  
+    end     
   end
 
   # GET /vendors/1
@@ -14,7 +18,11 @@ class VendorsController < ApplicationController
 
   # GET /vendors/new
   def new
-    @vendor = Vendor.new
+    if logged_in? and current_category.category=="Sales"
+      @vendor = Vendor.new
+    else
+      redirect_to login_path  
+    end
   end
 
   # GET /vendors/1/edit
@@ -23,24 +31,32 @@ class VendorsController < ApplicationController
 
   # POST /vendors
   # POST /vendors.json
-  def create
-	@vendor = Vendor.new(vendor_params)
-      respond_to do |format|
-      if @vendor.save
-         arr= params[:vendor_phones][:phone].split(",")
-	 arr.each do |c|
-		puts c	
-           @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
-           @vendorphone.save 
-	 end    
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
-        format.json { render :show, status: :created, location: @vendor }
-     else
-        format.html { render :new }
-        format.json { render json: @vendor.errors, status: :unprocessable_entity }
-      end
-  end
+  def materialvendorcreate
 
+    @vendorname=params[:vendorname]
+    @vendoremail = params[:vendoremail];
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
+    @vendor.save
+    render json: @vendor
+  end 
+
+  def create
+  	@vendor = Vendor.new(vendor_params)
+        respond_to do |format|
+        if @vendor.save
+           arr= params[:vendor_phones][:phone].split(",")
+  	 arr.each do |c|
+  		puts c	
+             @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+             @vendorphone.save 
+  	 end    
+          format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
+          format.json { render :show, status: :created, location: @vendor }
+       else
+          format.html { render :new }
+          format.json { render json: @vendor.errors, status: :unprocessable_entity }
+        end
+    end
   end
 
   # PATCH/PUT /vendors/1

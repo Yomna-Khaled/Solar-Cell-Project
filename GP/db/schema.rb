@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150526131213) do
+
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -34,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150526131213) do
     t.string   "no_of_workers", limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "name",          limit: 255
   end
 
   create_table "employee_managers", force: :cascade do |t|
@@ -58,8 +61,6 @@ ActiveRecord::Schema.define(version: 20150526131213) do
   add_index "employee_phones", ["employee_id"], name: "index_employee_phones_on_employee_id", using: :btree
 
   create_table "employees", force: :cascade do |t|
-    t.string   "first_name",         limit: 255
-    t.string   "last_name",          limit: 255
     t.float    "salary",             limit: 24
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150526131213) do
     t.datetime "image_updated_at"
     t.integer  "category_id",        limit: 4
     t.string   "user_name",          limit: 255
+    t.string   "full_name",          limit: 255
   end
 
   add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree
@@ -124,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150526131213) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "serial_number",       limit: 255
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree

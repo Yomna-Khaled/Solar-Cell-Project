@@ -31,6 +31,7 @@ class ProductionShiftsController < ApplicationController
    params[:material_id].each_with_index do |item,i|
 
   @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  @production_shift.save
 end
     # respond_to do |format|
     #   if @production_shift.save

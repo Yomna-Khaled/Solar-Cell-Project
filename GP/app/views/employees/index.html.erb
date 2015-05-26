@@ -3,8 +3,7 @@
         <thead>
           <tr>
             <th text-align="center">Image</th>
-            <th text-align="center">First Name</th>
-            <th text-align="center">Last Name</th>
+            <th text-align="center">Full Name</th>
             <th text-align="center">User Name</th>
             <th text-align="center">Salary</th>
             <th text-align="center">Houre Rate</th>
@@ -15,7 +14,7 @@
             <th text-align="center">Crew</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
-            <th text-align="center">Delete</th>
+        
 
           </tr>
         </thead>
@@ -23,8 +22,7 @@
         <% @employees.each do |employee| %>
           <tr>
             <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
-            <td><%= employee.first_name %></td>
-            <td><%= employee.last_name %></td>
+            <td><%= employee.full_name %></td>
             <td><%= employee.user_name %></td>
             <td><%= employee.salary %></td>
             <td><%= employee.houre_rate %></td>
@@ -36,7 +34,7 @@
             <td><%= employee.crew_id %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
             <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-            <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+           
           </tr>
           <% end %>
       </table>

@@ -5,7 +5,11 @@ class SolarPanelsController < ApplicationController
   # GET /solar_panels
   # GET /solar_panels.json
   def index
-    @solar_panels = SolarPanel.all
+    if logged_in? and current_category.category=="Sales"
+       @solar_panels = SolarPanel.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /solar_panels/1
@@ -15,26 +19,30 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/new
   def new
+if logged_in? and current_category.category=="Sales"
+     @flag_new=1
      @flag=false
      @solar_panel  = SolarPanel.new
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
      if @shift.exists? 
-         
      else 
        redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
      end
+     else
+      redirect_to login_path  
+    end 
   end
 
   # GET /solar_panels/1/edit
   def edit
+    @flag_new=0
     @flag=true
     @container=Container.find(@solar_panel.container_id)
     @mycrt=[@container.serialNo,@container.id]
     unless @containersopt.include?(@mycrt)
        @containersopt.push(@mycrt)
     end 
-   
-  end
+ end
 
   # POST /solar_panels
   # POST /solar_panels.json
@@ -106,9 +114,13 @@ class SolarPanelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
+
+      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
+
       @solarhash=params.require(:solar_panel).permit(:production_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
       
          
+
     end
     def set_controller_serial_ids
          @containersopt=[]       

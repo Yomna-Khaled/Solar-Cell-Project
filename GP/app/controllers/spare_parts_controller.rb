@@ -4,8 +4,11 @@ class SparePartsController < ApplicationController
   # GET /spare_parts
   # GET /spare_parts.json
   def index
-    @spare_parts = SparePart.all
-    
+    if logged_in? and current_category.category=="Sales"
+        @spare_parts = SparePart.all
+    else
+      redirect_to login_path  
+    end    
   end
 
   # GET /spare_parts/1
@@ -15,8 +18,12 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/new
   def new
-    @spare_part = SparePart.new
-    @vendors = Vendor.all
+    if logged_in? and current_category.category=="Sales"      
+        @spare_part = SparePart.new
+        @vendors = Vendor.all
+    else
+      redirect_to login_path  
+    end 
   end
 
   # GET /spare_parts/1/edit
@@ -29,7 +36,7 @@ class SparePartsController < ApplicationController
   def create
     @spare_part = SparePart.new(spare_part_params)
     @vendor_id = params['vendor'];
-  respond_to do |format|
+    respond_to do |format|
       if @spare_part.save
          @vendorspare = VendorSpare.new(vendor_id: @vendor_id, spare_part_id: @spare_part.id )
          @vendorspare.save
