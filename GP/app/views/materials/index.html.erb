@@ -4,50 +4,63 @@
     height: 100px;
 }
 </style>
-<br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th text-align="center">Image</th>
-      <th text-align="center">Name</th>
-      <th text-align="center">Unit</th>
-      <th text-align="center">Quantity Value</th>
-      <th text-align="center">Price</th>
-      <th text-align="center">Min number</th>
-      <th text-align="center">Stockno</th>
-      <th text-align="center">Shelfno</th>
-      <th text-align="center">Production date</th>
-      <th text-align="center">Expiration date</th>  
-      <th text-align="center">Show</th>
-      <th text-align="center">Edit</th>
-      
-
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @materials.each do |material| %>
-      <tr>
-        <td text-align="center"><%= image_tag material.avatar.url, class: "thumbnail"  %></td>
-        <td><%= material.name %></td>
-        <% quantity=Quantity.find_by(id: material.quantity_id )%>
-        <td><%= quantity.unit_name %></td>
-        <td><%= material.quantity_value %></td>
-        <td><%= material.price %></td>
-        <td><%= material.Min_Number %></td>
-        <td><%= material.stockNo %></td>
-        <td><%= material.shelfNo %></td>
-        <td><%= material.production_date %></td>
-        <td><%= material.expiration_date %></td>      
-        <td><%= link_to 'Show', material, class:"btn btn-primary" %></td>
-        <td><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-
+<div class="row">
+  <p id="notice"><%= notice %></p>
+  <div class="col-md-offset-10 ">
+    <%= link_to 'New Material', new_material_path %>
+  </div>
+  <div class="col-md-12">
+    <h1>
+      <span class="label label-default">Listing Materials</span>
+    </h1>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr class="info">
+            <th class="text-center">Name</th>
+            <th class="text-center">Serial Number</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Min number</th>
+            <th class="text-center">Stockno</th>
+            <th class="text-center">Shelfno</th>
+            <th class="text-center">Production date</th>
+            <th class="text-center">Expiration date</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Vendor</th>
+            <th class="text-center">Material_Photo</th>
+            <th class="text-center">Show</th>
+            <th class="text-center">Edit</th>
+          </tr>
+        </thead>
+ <!-- @material_vendor.find(material.id).vendor_id -->
+        <tbody>
+          <% @materials.each do |material| %>
+          <% if material.Min_Number == 5 %>
+            <tr class="danger">
+          <% else %>
+            <tr>
+          <%end %>
+            
+              <td class="text-center"><%= material.name %></td>
+              <td class="text-center"><%= material.serial_number %></td>
+              <td class="text-center"><%= material.quantity_value %></td>
+              <td class="text-center"><%= material.price %></td>
+              <td class="text-center"><%= material.Min_Number %></td>
+              <td class="text-center"><%= material.stockNo %></td>
+              <td class="text-center"><%= material.shelfNo %></td>
+              <td class="text-center"><%= material.production_date %></td>
+              <td class="text-center"><%= material.expiration_date %></td>
+              <td class="text-center"><%= material.quantity.unit_name %></td>
+              <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
+              <td text-align="center"><%= image_tag material.avatar.url, class: "thumbnail"  %></td>
+              <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
+              <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
+      <!--         <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      </div>
+      </div>

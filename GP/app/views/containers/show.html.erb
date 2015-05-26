@@ -29,4 +29,47 @@
   <strong>Total power:</strong>
   <%= @container.total_power %>
 </p>
+================================================================================
+<% @container.solar_panels.each do |solarpanel| %>
+  <p>
+    <strong>Production Date:</strong>
+    <%= solarpanel.production_date %>
+  </p>
+ <p>
+    <strong>Height:</strong>
+    <%= solarpanel.height %>
+  </p>
+  <p>
+    <strong>Width:</strong>
+    <%= solarpanel.width %>
+  </p>
+  <p>
+    <strong>power:</strong>
+    <%= solarpanel.power %>
+  </p>
+ 
+  <p>
+    <strong>cell type:</strong>
+    <%= solarpanel.celltype %>
+  </p>
+  <p>
+    <strong>sub type:</strong>
+    <%= solarpanel.subtype %>
+  </p>
+  <p>
+    <strong>price:</strong>
+    <%= solarpanel.price %>
+  </p>
+  <p>
+    <strong>serial No:</strong>
+    <%= solarpanel.serialNo %>
+  </p>
+  <p>
+    <strong>number of cells:</strong>
+    <%= solarpanel.cellno %>
+  </p>
+  
+ 
+****************************************
+<% end %>
 

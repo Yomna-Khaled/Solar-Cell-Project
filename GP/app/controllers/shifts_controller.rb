@@ -106,6 +106,7 @@ class ShiftsController < ApplicationController
 
 
   def startshift
+    @crews = Crew.all.map{|c| [c.id]} 
     @shift = Shift.new(start_shift_params)
     respond_to do |format|
       if @shift.save
@@ -120,17 +121,27 @@ class ShiftsController < ApplicationController
   end
 
   def showendshift
-     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
-     @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
-   
-  end
-  def endshift
+     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+     
+     if @shift.exists?
+      @shift = @shift.first 
+      @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
+      render :showendshift
     
-    respond_to do |format|
+     else 
+      redirect_to  shifts_showstartshift_path 
+     end  
+  end
+
+  def endshift
+     
+     respond_to do |format|
      if @shift.update(end_shift_params)
-        format.html { redirect_to @shift }
+        puts @shift.inspect
+        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
         format.json { render :show, status: :ok, location: @shift }
       else
+        @inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
         format.html { render :showendshift }
         format.json { render json: @shift.errors, status: :unprocessable_entity }
      end

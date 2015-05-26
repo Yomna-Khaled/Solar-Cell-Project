@@ -24,17 +24,10 @@ class PropertiesController < ApplicationController
   # POST /properties
   # POST /properties.json
   def create
-    @property = Property.new(property_params)
-
-    respond_to do |format|
-      if @property.save
-        format.html { redirect_to @property }
-        format.json { render :show, status: :created, location: @property }
-      else
-        format.html { render :new }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
-      end
-    end
+    @propertyname=params[:propertyname]
+    @property = Property.new(name: @propertyname)
+    @property.save
+    render json: @property
   end
 
   # PATCH/PUT /properties/1

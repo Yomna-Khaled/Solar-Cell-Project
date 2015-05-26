@@ -6,7 +6,7 @@ has_many :vendorphones
 validates :name, :presence => true
 validates :email, :presence => true
 validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+has_many :materialvendor
 has_many :materials, through: :materialvendor
-
 
 end
