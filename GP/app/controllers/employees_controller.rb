@@ -1,9 +1,12 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-
   # GET /employees
   def index
-    @employees = Employee.all
+    if logged_in? and current_category.category=="HR"
+      @employees = Employee.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /employees/1
@@ -12,7 +15,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=="HR"
+    if logged_in? and current_category.category=='HR'
       @flag_new=1 #display password field in from
       @employee = Employee.new
     else
@@ -28,10 +31,13 @@ class EmployeesController < ApplicationController
   # POST /employees
   def create
     @employee = Employee.new(employee_params)
-    @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
-    @employee.salary=0.0
-    @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+    if @employee.salary != nil
 
+      @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
+      @employee.salary=0.0
+    end
+
+    @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee }
@@ -75,6 +81,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:first_name, :last_name, :user_name, :salary, :education_level, :Governamental_ID, :position, :category_id, :crew_id, :image, :password)
+      params.require(:employee).permit( :user_name, :salary, :education_level, :Governamental_ID, :position, :category_id, :crew_id, :image, :password , :full_name)
     end
 end

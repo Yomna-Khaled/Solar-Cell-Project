@@ -54,8 +54,8 @@ class VendorSparesController < ApplicationController
   # DELETE /vendor_spares/1
   # DELETE /vendor_spares/1.json
   def destroy
-    @vendor_spare.destroy
-    respond_to do |format|
+      @vendor_spare.destroy
+      respond_to do |format|
       format.html { redirect_to vendor_spares_url, notice: 'Vendor spare was successfully destroyed.' }
       format.json { head :no_content }
     end

@@ -1,21 +1,113 @@
-<%= form_for(@crew) do |f| %>
-  <% if @crew.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
 
-      <ul>
-      <% @crew.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+<% if @flag_new==1 %>
+    <h1 class="page-header text-primary">Add Crew</h1>
+<% end %>
+<% if @flag_new==0 %>
+    <h1 class="page-header text-primary">Edit Crew</h1>
+<% end %>
+<%= form_for(@crew) do |f| %>
+  <% if  @crew.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize( @crew.errors.count, "error") %>.
+         <ul>
+      <%  @crew.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control' , placeholder: "Enter crew name" ,id: "crew"%>
+  </div>
   <div class="field">
     <%= f.label :no_of_workers %><br>
-    <%= f.text_field :no_of_workers %>
+    <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
   </div>
+  <div id="versionsDiv">
+  </div>
+  <div id="Div">
+  </div>
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :submit, class: 'btn btn-primary' , disabled: true , id:"btn" %>
   </div>
 <% end %>
+  <h2 class="page-header text-primary">Names of employees</h2>
+  <div id="Woker_names">
+  </div>
+ 
+<script type="text/javascript">
+var counter = 0;
+var no_workers = 0 ;
+
+
+function addworkers () {
+  console.log("here");
+    var input = document.createElement("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", "workers");
+  input.setAttribute("id", "workers");
+  document.getElementById("Div").appendChild(input)
+  
+          var myNode = document.getElementById("versionsDiv");
+          myNode.innerHTML = '';
+          no_workers = $( "#no_of_workers" ).val();
+          console.log(no_workers);
+          if(no_workers){
+             if( no_workers % 1 === 0 ){
+                var posting = $.get( "get_employees" );
+                console.log("abl posting");
+                console.log(posting);
+                for(var i = 0 ; i < Number(no_workers) ; i++){
+                   console.log("in for");
+                       posting.done(function( data ) {
+                        //alert(data);
+                         $("#versionsDiv").append(data);
+                    });         
+                } 
+              }
+              else{
+                alert("Please insert a number")
+              }
+          }else{
+            myNode.innerHTML = '';
+          }
+
+    }
+
+
+function get_value(elem){
+   counter = counter + 1;
+   val = elem.value
+   console.log(elem);
+   elem.parentElement.style.display = 'none';
+   var para = document.createElement("p");
+   var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+   para.appendChild(node);
+   document.getElementById("Woker_names").appendChild(para)
+   workers = document.getElementById('workers');
+   workers.value = workers.value + "," + val;
+   if(counter == no_workers)
+   {
+    document.getElementById("btn").disabled = false;
+
+   }
+
+}
+</script>
+
+<%= javascript_include_tag "application" %>

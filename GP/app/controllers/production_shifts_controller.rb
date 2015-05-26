@@ -4,7 +4,8 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts
   # GET /production_shifts.json
   def index
-    @production_shifts = ProductionShift.all
+    #@production_shifts = ProductionShift.all
+    @materials = Material.all
   end
 
   # GET /production_shifts/1
@@ -15,6 +16,7 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts/new
   def new
     @production_shift = ProductionShift.new
+    @materials = Material.all
   end
 
   # GET /production_shifts/1/edit
@@ -24,18 +26,24 @@ class ProductionShiftsController < ApplicationController
   # POST /production_shifts
   # POST /production_shifts.json
   def create
-    @production_shift = ProductionShift.new(production_shift_params)
+  #   @production_shift = ProductionShift.new(production_shift_params)
+ # render plain:  params[params[:material_id][0]]
+   params[:material_id].each_with_index do |item,i|
 
-    respond_to do |format|
-      if @production_shift.save
-        format.html { redirect_to @production_shift, notice: 'Production shift was successfully created.' }
-        format.json { render :show, status: :created, location: @production_shift }
-      else
-        format.html { render :new }
-        format.json { render json: @production_shift.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  @production_shift.save
+end
+    # respond_to do |format|
+    #   if @production_shift.save
+    #     format.html { redirect_to @production_shift, notice: 'Production shift was successfully created.' }
+    #     format.json { render :show, status: :created, location: @production_shift }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @production_shift.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    redirect_to "new"
+   end
 
   # PATCH/PUT /production_shifts/1
   # PATCH/PUT /production_shifts/1.json

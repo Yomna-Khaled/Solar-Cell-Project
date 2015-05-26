@@ -1,0 +1,55 @@
+<div class="container text-center">
+<%= form_for(@spare_part) do |f| %>
+  <% if @spare_part.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@spare_part.errors.count, "error") %> prohibited this spare_part from being saved:</h2>
+
+      <ul>
+      <% @spare_part.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="panel panel-success" style="margin-top: 50px">
+<div class="panel-body">
+
+
+  <div class="field form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name ,class: 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity ,class: 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :price %><br>
+    <%= f.text_field :price ,class: 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :material_id %><br>
+    <%= f.text_field :material_id ,class: 'form-control' %>
+  </div>
+
+<div class="form-group">
+  <%= f.label :Vendor %><br>
+  <select id="vendor" class="form-control">
+    <% @vendors.each do |vendor| %>
+      <option value="<%= vendor.name %>"><%= vendor.name %></option>
+    <% end -%>
+  </select>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit "Submit", class: "btn btn-success" %>
+  </div>
+</div>
+
+</div>
+<% end %>
+</div>
+
+

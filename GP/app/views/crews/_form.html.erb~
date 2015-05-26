@@ -1,0 +1,58 @@
+<%= form_for(@crew) do |f| %>
+  <% if @crew.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+
+      <ul>
+      <% @crew.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :no_of_workers %><br>
+   <%= f.text_field :no_of_workers , id: "member", name: "member", value: "" %>
+   
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+    <div id="containe"/>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% end %>
+
+
+<script type='text/javascript'>
+        function addFields(){
+            // Number of inputs to create
+            var number = document.getElementById("member").value;
+            // Container <div> where dynamic content will be placed
+            var containe = document.getElementById("containe");
+            // Clear previous contents of the container
+            while (containe.hasChildNodes()) {
+                containe.removeChild(containe.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                containe.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("select");
+                input.type = "text";
+                input.name = "member" + i;
+                containe.appendChild(input);
+                // Append a line break 
+                containe.appendChild(document.createElement("br"));
+            }
+        }
+    </script>

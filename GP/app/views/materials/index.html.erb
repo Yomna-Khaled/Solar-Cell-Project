@@ -1,3 +1,9 @@
+<style>
+.thumbnail{
+    width: 100px;
+    height: 100px;
+}
+</style>
 <div class="row">
   <p id="notice"><%= notice %></p>
   <div class="col-md-offset-10 ">
@@ -22,6 +28,7 @@
             <th class="text-center">Expiration date</th>
             <th class="text-center">Quantity</th>
             <th class="text-center">Vendor</th>
+            <th class="text-center">Material_Photo</th>
             <th class="text-center">Show</th>
             <th class="text-center">Edit</th>
           </tr>
@@ -41,8 +48,9 @@
               <td class="text-center"><%= material.expiration_date %></td>
               <td class="text-center"><%= material.quantity.unit_name %></td>
               <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
-              <td class="text-center"><%= link_to 'Show', material %></td>
-              <td class="text-center"><%= link_to 'Edit', edit_material_path(material) %></td>
+              <td text-align="center"><%= image_tag material.avatar.url, class: "thumbnail"  %></td>
+              <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
+              <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
       <!--         <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
             </tr>
           <% end %>
@@ -51,6 +59,3 @@
       </div>
       </div>
       </div>
-<br>
-
-

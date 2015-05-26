@@ -3,9 +3,13 @@ class MaterialsController < ApplicationController
 
   # GET /materials
   # GET /materials.json
-  def index
-    @materials = Material.all
-    @material_vendor = MaterialVendor.all
+  def index    
+    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+      @materials = Material.all
+      @material_vendor = MaterialVendor.all
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /materials/1
@@ -15,11 +19,16 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-    @material = Material.new
-    @vendors = Vendor.all
-    @quantites = Quantity.all
-    @properties = Property.all
-    @flag = "new"
+
+    if logged_in? and current_category.category=="Sales"
+      @material = Material.new
+      @vendors = Vendor.all
+      @quantites = Quantity.all
+      @properties = Property.all
+      @flag = "new"
+    else
+      redirect_to login_path  
+    end   
   end
 
   # GET /materials/1/edit
@@ -40,6 +49,9 @@ class MaterialsController < ApplicationController
       @materialproperties_selected_ids.push(id)
     end
     @flag = "edit"
+      if logged_in? and current_category.category=="Stock Keeper"
+        @flag_stock=0
+      end
   end
 
   # POST /materials

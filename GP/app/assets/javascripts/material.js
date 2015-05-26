@@ -147,3 +147,4 @@ function canceladdproperty(){
 	$("#addnewproperty").css("display", "none");
 	$("#propertylink").css("display", "block");	
 }
+

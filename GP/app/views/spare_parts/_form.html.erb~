@@ -1,0 +1,98 @@
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
+
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+
+
+
+
+<%= form_for(@employee) do |f| %>
+
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@employee.errors.count, "error") %>.
+         <ul>
+      <% @employee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+ </div>
+  <% end %>
+
+
+
+<div class="container text-center">
+<%= form_for(@spare_part) do |f| %>
+  <% if @spare_part.errors.any? %>
+    <div id="error_explanation">
+     <div class="alert alert-danger">
+      <h2><%= pluralize(@spare_part.errors.count, "error") %>. 
+      <ul>
+      <% @spare_part.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="panel panel-success" style="margin-top: 50px">
+<div class="panel-body">
+
+
+  <div class="field form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name ,class: 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity ,class: 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :price %><br>
+    <%= f.number_field :price ,step:0.1 , class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :machine_id %><br>
+    <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
+  </div>
+
+
+
+<div class="form-group">
+  <%= f.label :Vendor %><br>
+  <select id="vendor" name="vendor" class="form-control">
+    <% @vendors.each do |vendor| %>
+      <option value="<%= vendor.id %>"><%= vendor.name %></option>
+    <% end -%>
+  </select>
+</div>
+
+
+<div class="form-group">
+    <%= f.file_field :avatar %>
+  </div>
+
+
+
+<div class="actions form-group">
+    <%= f.submit "Submit", class: "btn btn-success" %>
+  </div>
+</div>
+
+</div>
+<% end %>
+</div>
+
+

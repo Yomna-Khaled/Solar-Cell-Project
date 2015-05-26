@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
-
+  post '/shifts/startshift', to: 'shifts#startshift'
+  get '/shifts/showstartshift', to: 'shifts#showstartshift'
+  post '/shifts/:id/endshift', to: 'shifts#endshift'
+  get '/shifts/showendshift', to: 'shifts#showendshift'
+ 
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :categories
   get 'sessions/new'
+  get "crews/get_employees"
+  
 
   resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
+
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts
@@ -17,28 +28,29 @@ Rails.application.routes.draw do
   resources :employees
   resources :crews
   resources :vendor_containers
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
+
+
   resources :solar_panels
   resources :containers
   resources :machines
-  resources :spare_parts
+
   resources :material_vendors
-  resources :vendor_phones
-  resources :vendors
+ 
+  resources :vendors do 
+	 resources :vendor_phones
+  end
   resources :material_properties
-  resources :material_properties
-  resources :spare_parts
-  resources :vendors
-  resources :vendors
-  resources :material_properties
+
+
+
+
   resources :properties
   resources :materials
   resources :quantities
 
   root 'sessions#new'
-  get 'login' => 'sessions#new' 
+  get 'login' => 'sessions#new'
+  get 'report' => 'shifts#report'  
   post 'login' => 'sessions#create' 
   delete 'logout' => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
