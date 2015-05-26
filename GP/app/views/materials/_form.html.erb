@@ -170,8 +170,9 @@
         </tr>   
     <% else %>
       <tr>
+
         <% if @materialproperties_selected_ids.include? property.id %>
-          <%=property_value =  @material_property.where("material_id = ? AND property_id = ?", @material.id, property.id)[0].value %>
+          <% property_value =  @material_property.where("material_id = ? AND property_id = ?", @material.id, property.id)[0].value %>
           <td>
             <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
             onchange="checkproperty(this)" value="<%=property.id%>:<%=property_value%>" checked="true" /><%=property.name%>      

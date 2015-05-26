@@ -121,7 +121,19 @@ def update
       @vendors = Vendor.all
       @quantites = Quantity.all
       @properties = Property.all
-      @flag = "new"
+      @material_property = MaterialProperty.all
+          # to select the latest vendor for material 
+      @materialvendor = MaterialVendor.where("material_id=?",@material.id)
+      @materialvendor_sorted = @materialvendor.order(updated_at: :desc)
+      @vendor_id =  @materialvendor_sorted[0].vendor_id
+      # to select all properties for material
+      @materialproperties_selected_ids = Array.new 
+      @materialproperties_selected = MaterialProperty.where("material_id=?",@material.id)
+      @materialproperties_selected.each do |materialproperty_selected|
+      id = materialproperty_selected.property_id
+      @materialproperties_selected_ids.push(id)
+    end
+      @flag = "edit"
     end
   end
 
