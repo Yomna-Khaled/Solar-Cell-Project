@@ -28,17 +28,6 @@ class QuantitiesController < ApplicationController
     @quantity = Quantity.new(unit_name: @unitname)
     @quantity.save
     render json: @quantity
-    # @quantity = Quantity.new(quantity_params)
-
-    # respond_to do |format|
-    #   if @quantity.save
-    #     format.html { redirect_to @quantity, notice: 'Quantity was successfully created.' }
-    #     format.json { render :show, status: :created, location: @quantity }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @quantity.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /quantities/1

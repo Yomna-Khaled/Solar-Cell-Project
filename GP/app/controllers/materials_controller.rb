@@ -59,7 +59,7 @@ class MaterialsController < ApplicationController
   def create
     @vendor_id = params['vendor']; #to get vendor of certain material 
     @selected_properties = params['propertycheck']; #it is an array of selected properties
-    # render plain: material_params
+    # render plain: @selected_properties
     @material = Material.new(material_params)
 
     respond_to do |format|
@@ -70,9 +70,9 @@ class MaterialsController < ApplicationController
           propertyvalue = selected_property.split(":")[1]
           @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
           @materialproperty.save
-          @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
-          @materialvendor.save
         end
+        @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
+        @materialvendor.save
         format.html { redirect_to @material, notice: 'Material was successfully created.' }
         format.json { render :show, status: :created, location: @material }
       else
@@ -92,7 +92,7 @@ def update
   @vendoredit_id = params['vendor']; #to get vendor of certain material 
   @selected_properties = params['propertycheck']; #it is an array of selected properties
   @vendororiginal_id = MaterialVendor.where("material_id=?",@material.id)[0].vendor_id
-  # render plain: @selected_properties
+  # render plain: @selected_properties[0].split(":")[1]
   respond_to do |format|
     if @material.update(material_params)
       if @vendoredit_id != @vendororiginal_id
