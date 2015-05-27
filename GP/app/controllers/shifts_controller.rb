@@ -62,7 +62,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :new }
@@ -76,7 +76,7 @@ class ShiftsController < ApplicationController
   def update
     respond_to do |format|
       if @shift.update(shift_params)
-        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :ok, location: @shift }
       else
         format.html { render :edit }
@@ -90,7 +90,7 @@ class ShiftsController < ApplicationController
   def destroy
     @shift.destroy
     respond_to do |format|
-      format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
+      format.html { redirect_to shifts_url }
       format.json { head :no_content }
     end
   end
@@ -107,11 +107,16 @@ class ShiftsController < ApplicationController
 
 
   def startshift
+<<<<<<< HEAD
 if logged_in? and current_category.category=="Shift Manager" 
       @shift = Shift.new(start_shift_params)
+=======
+    @crews = Crew.all.map{|c| [c.id]} 
+    @shift = Shift.new(start_shift_params)
+>>>>>>> 3758c3a4c0a1a95332b7531a9a42603e5b680562
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'shift was successfully created.' }
+        format.html { redirect_to @shift }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :showstartshift }
@@ -126,18 +131,27 @@ if logged_in? and current_category.category=="Shift Manager"
   end
 
   def showendshift
-
-     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
-     @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
-   
+     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+     
+     if @shift.exists?
+      @shift = @shift.first 
+      @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
+      render :showendshift
+    
+     else 
+      redirect_to  shifts_showstartshift_path 
+     end  
   end
+
   def endshift
    if logged_in? and current_category.category=="Shift Manager"  
     respond_to do |format|
      if @shift.update(end_shift_params)
+        puts @shift.inspect
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
         format.json { render :show, status: :ok, location: @shift }
       else
+        @inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
         format.html { render :showendshift }
         format.json { render json: @shift.errors, status: :unprocessable_entity }
      end

@@ -3,30 +3,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th text-align="center">Width</th>
-      <th text-align="center">Height</th>
       <th text-align="center">Serialno</th>
       <th text-align="center">Capacity</th>
       <th text-align="center">Price</th>
       <th text-align="center">Total power</th>
       <th text-align="center">Show</th>
       <th text-align="center">Edit</th>
-      <th text-align="center">Delete</th>
     </tr>
   </thead>
 
   <tbody>
     <% @containers.each do |container| %>
       <tr>
-        <td><%= container.width %></td>
-        <td><%= container.height %></td>
         <td><%= container.serialNo %></td>
         <td><%= container.capacity %></td>
         <td><%= container.price %></td>
         <td><%= container.total_power %></td>
         <td><%= link_to 'Show', container, class:"btn btn-primary" %></td>
         <td><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
-        <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -15,10 +15,15 @@ default: &default
   pool: 5
   username: root
 <<<<<<< HEAD
+<<<<<<< HEAD
   password: butterfly
 =======
   password: nona
 >>>>>>> 1a598486c2fcaa9ee4df2e3b81fd7a42be352a5a
+=======
+
+  password: 01228675292
+>>>>>>> 3758c3a4c0a1a95332b7531a9a42603e5b680562
 
   socket: /var/run/mysqld/mysqld.sock
 

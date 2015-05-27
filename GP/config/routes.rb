@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"
+  get "crews/:id/get_employees"=>"crews#get_employees"
   
 
   resources :vendor_spares
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
  
+  post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

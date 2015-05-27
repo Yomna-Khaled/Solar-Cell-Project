@@ -28,7 +28,7 @@ class MaterialPropertiesController < ApplicationController
 
     respond_to do |format|
       if @material_property.save
-        format.html { redirect_to @material_property, notice: 'Material property was successfully created.' }
+        format.html { redirect_to @material_property }
         format.json { render :show, status: :created, location: @material_property }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MaterialPropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @material_property.update(material_property_params)
-        format.html { redirect_to @material_property, notice: 'Material property was successfully updated.' }
+        format.html { redirect_to @material_property  }
         format.json { render :show, status: :ok, location: @material_property }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MaterialPropertiesController < ApplicationController
   def destroy
     @material_property.destroy
     respond_to do |format|
-      format.html { redirect_to material_properties_url, notice: 'Material property was successfully destroyed.' }
+      format.html { redirect_to material_properties_url  }
       format.json { head :no_content }
     end
   end

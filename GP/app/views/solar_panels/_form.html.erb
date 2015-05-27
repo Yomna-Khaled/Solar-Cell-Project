@@ -1,3 +1,4 @@
+
 <%= form_for(@solar_panel) do |f| %>
   <% if @solar_panel.errors.any? %>
     <div id="error_explanation">
@@ -18,20 +19,20 @@
   
   <div class="field">
     <%= f.label :height %><br>
-    <%= f.text_field :height %>
+    <%= f.number_field :height ,min:"0",step:0.01 ,required:true ,class: 'field' %>
   </div>
   <div class="field">
     <%= f.label :width %><br>
-    <%= f.text_field :width %>
+    <%= f.number_field :width,min:"0" ,step:0.01 ,required:true ,class: 'field' %>
   </div>
   <div class="field">
     <%= f.label :power %><br>
-    <%= f.text_field :power %>
+    <%= f.number_field :power ,min:"0",step:0.01 ,required:true ,class: 'field' %>
   </div>
   <div class="field">
 
     <%= f.label :type %><br>
-    <%= f.select :celltype , options_for_select([['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']])%>
+    <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
  
 
   </div>
@@ -39,20 +40,24 @@
   <div class="field">
     <%= f.label :subtype %><br>
  
-    <%= f.select :subtype , options_for_select([['two pathpar','two pathpar'],['three pathpar','three pathpar']])%>
+    <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
  
   </div>
+
+  <% if @flag %>
   <div class="field">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.number_field :price ,min:"0",step:0.01 ,required:true ,class: 'field' %>
   </div>
+  <% end %>
   <div class="field">
     <%= f.label :serialNo %><br>
-    <%= f.number_field :serialNo %>
+    <%= f.text_field :serialNo ,required:true %>
   </div>
+
   <div class="field">
     <%= f.label :containerserialno %><br>
-        <%= f.select(:container_id, @containerids) %>
+        <%= f.select :container_id, @containersopt %>
    </div>
   </div>
   <% elsif @flag_new==0 and current_category.category == "Sales" %>

@@ -16,6 +16,7 @@ default: &default
   username: root
   password: butterfly
 
+
   socket: /var/run/mysqld/mysqld.sock
 
 development:

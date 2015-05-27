@@ -31,10 +31,9 @@ end
   # POST /vendor_phones.json
   def create
     @vendor_phone = VendorPhone.new(vendor_phone_params)
-
     respond_to do |format|
       if @vendor_phone.save
-        format.html { redirect_to @vendor_phone, notice: 'Vendor phone was successfully created.' }
+        format.html { redirect_to @vendor_phone }
         format.json { render :show, status: :created, location: @vendor_phone }
       else
         format.html { render :new }
@@ -48,7 +47,7 @@ end
   def update
     respond_to do |format|
       if @vendor_phone.update(vendor_phone_params)
-        format.html { redirect_to @vendor_phone, notice: 'Vendor phone was successfully updated.' }
+        format.html { redirect_to @vendor_phone }
         format.json { render :show, status: :ok, location: @vendor_phone }
       else
         format.html { render :edit }
@@ -65,7 +64,7 @@ end
 
     @vendor_phone.destroy
     respond_to do |format|
-      format.html { redirect_to vendor_phones_url, notice: 'Vendor phone was successfully destroyed.' }
+      format.html { redirect_to vendor_phones_url }
       format.json { head :no_content }
     end
   end

@@ -1,5 +1,6 @@
 class ContainersController < ApplicationController
   before_action :set_container, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:show, :edit, :update, :destroy,:index,:new,:create]
 
   # GET /containers
   # GET /containers.json
@@ -50,7 +51,7 @@ class ContainersController < ApplicationController
         @container_id=Container.maximum('id')
         @vendor_id = params['vendor_id'];
         @vendorcontainer.save
-        format.html { redirect_to @container, notice: 'Container was successfully created.' }
+        format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
 
       else
@@ -78,7 +79,6 @@ class ContainersController < ApplicationController
          format.json { render json: @container.errors, status: :unprocessable_entity }
        end
      end
-   
   end
 
   # DELETE /containers/1
@@ -86,7 +86,7 @@ class ContainersController < ApplicationController
   def destroy
     @container.destroy
     respond_to do |format|
-      format.html { redirect_to containers_url, notice: 'Container was successfully destroyed.' }
+      format.html { redirect_to containers_url }
       format.json { head :no_content }
     end
   end
@@ -100,6 +100,12 @@ class ContainersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
       params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
+    end
+    
+    def authenticate
+        if !logged_in?
+          redirect_to login_path
+        end 
     end
  
 end

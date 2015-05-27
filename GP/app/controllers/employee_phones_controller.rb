@@ -25,10 +25,9 @@ class EmployeePhonesController < ApplicationController
   # POST /employee_phones.json
   def create
     @employee_phone = EmployeePhone.new(employee_phone_params)
-
     respond_to do |format|
       if @employee_phone.save
-        format.html { redirect_to @employee_phone, notice: 'Employee phone was successfully created.' }
+        format.html { redirect_to @employee_phone  }
         format.json { render :show, status: :created, location: @employee_phone }
       else
         format.html { render :new }
@@ -42,7 +41,7 @@ class EmployeePhonesController < ApplicationController
   def update
     respond_to do |format|
       if @employee_phone.update(employee_phone_params)
-        format.html { redirect_to @employee_phone, notice: 'Employee phone was successfully updated.' }
+        format.html { redirect_to @employee_phone  }
         format.json { render :show, status: :ok, location: @employee_phone }
       else
         format.html { render :edit }
@@ -56,7 +55,7 @@ class EmployeePhonesController < ApplicationController
   def destroy
     @employee_phone.destroy
     respond_to do |format|
-      format.html { redirect_to employee_phones_url, notice: 'Employee phone was successfully destroyed.' }
+      format.html { redirect_to employee_phones_url  }
       format.json { head :no_content }
     end
   end

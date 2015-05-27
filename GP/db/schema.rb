@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525170103) do
+ActiveRecord::Schema.define(version: 20150526131213) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.float    "height",      limit: 24
     t.string   "serialNo",    limit: 255
     t.integer  "capacity",    limit: 4
-    t.float    "price",       limit: 24
+    t.float    "price",       limit: 24,  default: 0.0
     t.float    "total_power", limit: 24
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "crews", force: :cascade do |t|
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.string   "serial_number",       limit: 255
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree
@@ -182,11 +183,11 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.float    "power",           limit: 24
     t.string   "celltype",        limit: 255
     t.string   "subtype",         limit: 255
-    t.float    "price",           limit: 24
-    t.integer  "serialNo",        limit: 4
+    t.float    "price",           limit: 24,  default: 0.0
+    t.string   "serialNo",        limit: 255
     t.integer  "container_id",    limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "shift_id",        limit: 4
     t.integer  "cellno",          limit: 4
   end
@@ -234,7 +235,6 @@ ActiveRecord::Schema.define(version: 20150525170103) do
     t.integer  "vendor_id",     limit: 4
     t.integer  "spare_part_id", limit: 4
     t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
   end
 
   add_index "vendor_spares", ["spare_part_id"], name: "index_vendor_spares_on_spare_part_id", using: :btree

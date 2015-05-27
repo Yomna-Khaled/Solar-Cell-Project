@@ -56,14 +56,41 @@ end
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
 	 end    
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
+        format.html { redirect_to @vendor }
         format.json { render :show, status: :created, location: @vendor }
      else
         format.html { render :new }
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
   end
+end
 
+  def materialvendorcreate
+    @vendorname=params[:vendorname]
+    @vendoremail = params[:vendoremail]
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
+    @vendor.save
+    render json: @vendor
+  end 
+
+
+  def create
+  	@vendor = Vendor.new(vendor_params)
+        respond_to do |format|
+        if @vendor.save
+           arr= params[:vendor_phones][:phone].split(",")
+  	 arr.each do |c|
+  		puts c	
+             @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+             @vendorphone.save 
+  	 end    
+          format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
+          format.json { render :show, status: :created, location: @vendor }
+       else
+          format.html { render :new }
+          format.json { render json: @vendor.errors, status: :unprocessable_entity }
+        end
+    end
   end
 
   # PATCH/PUT /vendors/1
@@ -80,7 +107,7 @@ end
 	 end    
 
 
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully updated.' }
+        format.html { redirect_to @vendor }
         format.json { render :show, status: :ok, location: @vendor }
       else
         format.html { render :edit }
@@ -96,7 +123,7 @@ end
     
     @vendor.destroy
     respond_to do |format|
-      format.html { redirect_to vendors_url, notice: 'Vendor was successfully destroyed.' }
+      format.html { redirect_to vendors_url }
       format.json { head :no_content }
     end
   end
