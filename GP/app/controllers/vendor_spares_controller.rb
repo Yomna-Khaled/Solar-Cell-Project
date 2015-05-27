@@ -15,10 +15,12 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares/new
   def new
     @vendor_spare = VendorSpare.new
+
   end
 
   # GET /vendor_spares/1/edit
   def edit
+   
   end
 
   # POST /vendor_spares

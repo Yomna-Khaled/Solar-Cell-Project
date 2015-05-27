@@ -20,10 +20,11 @@ class SolarPanelsController < ApplicationController
   # GET /solar_panels/new
   def new
 
+
   if logged_in? and( current_category.category=="Shift Manager" or current_category.category=="Sales")
      
      @flag= true
-     @solar_panel  = SolarPanel.new
+    @solar_panel  = SolarPanel.new
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
      if @shift.exists? 
      else 
