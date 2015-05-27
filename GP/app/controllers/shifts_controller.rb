@@ -7,10 +7,10 @@ class ShiftsController < ApplicationController
   
   def report
     @shift = Shift.where("start_shift_date= ?", "2015-05-26")
-    @manager = Employee.find(@shift.read_attribute("employee_id"));
-    puts "----------------------"
+    @manager = current_user.name;
+   
     puts current_user.id
-    puts "=========================="
+   
 
     @pannels_produced = SolarPanel.where("shift_id=?" , "1");
     #loop through @pannels_produced to sum all power and send it to the pdf

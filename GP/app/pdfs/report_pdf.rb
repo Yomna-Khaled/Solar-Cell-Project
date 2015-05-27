@@ -24,6 +24,7 @@ class ReportPdf < Prawn::Document
         font "Helvetica", :style => :bold
         text "Shift start Date : #{@shifts[0].start_shift_date.to_s} @   #{start_Time} "
         text "Shift End Date : #{@shifts[0].end_shift_date.to_s}  @  #{end_Time}"
+        text "Manager Name : #{@manager}"
         font "Helvetica", :style => :normal
         text "Total Number of produced pannels : #{@shifts[0].production_rate.to_s}"
 
