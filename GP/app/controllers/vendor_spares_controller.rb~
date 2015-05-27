@@ -15,10 +15,12 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares/new
   def new
     @vendor_spare = VendorSpare.new
+
   end
 
   # GET /vendor_spares/1/edit
   def edit
+   
   end
 
   # POST /vendor_spares
@@ -54,7 +56,6 @@ class VendorSparesController < ApplicationController
   # DELETE /vendor_spares/1
   # DELETE /vendor_spares/1.json
   def destroy
-   
       @vendor_spare.destroy
       respond_to do |format|
       format.html { redirect_to vendor_spares_url, notice: 'Vendor spare was successfully destroyed.' }

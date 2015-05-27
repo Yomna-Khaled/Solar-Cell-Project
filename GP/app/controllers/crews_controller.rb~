@@ -14,27 +14,22 @@ class CrewsController < ApplicationController
 
   # GET /crews/1
   def show
-<<<<<<< HEAD
 
-=======
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
->>>>>>> 1a598486c2fcaa9ee4df2e3b81fd7a42be352a5a
+
   end
 
   # GET /crews/new
   def new
-<<<<<<< HEAD
-    @crew = Crew.new
- 
-=======
+
     if logged_in? and current_category.category=="HR"
       @flag_new=1
       @crew = Crew.new
     else
       redirect_to login_path  
     end   
->>>>>>> 1a598486c2fcaa9ee4df2e3b81fd7a42be352a5a
+
   end
 
   def get_employees
@@ -49,11 +44,8 @@ class CrewsController < ApplicationController
   end
 
 def home
-  @employee_crew = EmployeeManager.where("employee_id = ? ", session[:user_id]).select([:crew_id])
-  @employee_crew.each do |emp|
-  @crew_name = Employee.where("crew_id = ? ", emp.crew_id ).select([:first_name, :last_name])
-end
-      
+   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
+   @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:first_name, :last_name])      
 end
 
   # POST /crews

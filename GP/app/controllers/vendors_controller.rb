@@ -13,6 +13,11 @@ class VendorsController < ApplicationController
 
   end
 
+def pho
+@vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
+@vendorphones_selected[0].destroy
+end
+
   # GET /vendors/1
   # GET /vendors/1.json
   def show
@@ -23,6 +28,7 @@ class VendorsController < ApplicationController
   def new
     if logged_in? and current_category.category=="Sales"
       @vendor = Vendor.new
+      @flag="new"
     else
       redirect_to login_path  
     end
@@ -30,6 +36,12 @@ class VendorsController < ApplicationController
 
   # GET /vendors/1/edit
   def edit
+@flag="edit"
+     @vendor = Vendor.find(params[:id])
+      @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
+
+
+      
   end
 
   # POST /vendors
@@ -59,6 +71,7 @@ class VendorsController < ApplicationController
   def update
     respond_to do |format|
       if @vendor.update(vendor_params)
+
       arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	

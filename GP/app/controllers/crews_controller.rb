@@ -44,11 +44,8 @@ class CrewsController < ApplicationController
   end
 
 def home
-  @employee_crew = EmployeeManager.where("employee_id = ? ", session[:user_id]).select([:crew_id])
-  @employee_crew.each do |emp|
-  @crew_name = Employee.where("crew_id = ? ", emp.crew_id ).select([:first_name, :last_name])
-end
-      
+   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
+   @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])      
 end
 
   # POST /crews

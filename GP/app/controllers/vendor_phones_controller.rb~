@@ -5,7 +5,9 @@ class VendorPhonesController < ApplicationController
   # GET /vendor_phones.json
   def index
     @vendor_phones = VendorPhone.all
-
+puts 'hello'
+    @vendorphones_selected = params[:phone]
+render plain: @vendorphones_selected
 	
   end
 
