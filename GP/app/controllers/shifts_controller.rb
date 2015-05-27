@@ -6,22 +6,21 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   
   def report
-    @shift = Shift.where("start_shift_date= ?", "2015-05-26")
-    @manager = current_user.name;
-   
-    puts current_user.id
-   
 
-    @pannels_produced = SolarPanel.where("shift_id=?" , "1");
+    @shift = Shift.where("start_shift_date= ?", "2015-05-26")
+    @manager = "yomna"
+  
+
+    # @pannels_produced = SolarPanel.where("shift_id=?" , "1");
     #loop through @pannels_produced to sum all power and send it to the pdf
 
-    @matirals_used = ProductionShift.where("shift_id=?" , "1");
+    # @matirals_used = ProductionShift.where("shift_id=?" , "1");
      
 
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shift)
+        pdf = ReportPdf.new(@shift ,@manager)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
@@ -33,7 +32,7 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shifts)
+        pdf = ReportPdf.new(@shifts,@manager)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
