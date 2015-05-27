@@ -63,7 +63,7 @@
     <%= f.label :category_id %><br>
     <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
   </div>
-<% if @flag_new == 1 %>
+<% if @flag_new != 0 %>
     <div id="notnormal">
       <div class="form-group">
         <%= f.label :password %><br>
