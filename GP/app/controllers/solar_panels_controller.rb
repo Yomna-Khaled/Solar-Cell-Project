@@ -47,6 +47,7 @@ if logged_in? and current_category.category=="Sales"
   # POST /solar_panels
   # POST /solar_panels.json
   def create
+    @flag_new=1
     @flag=false
     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
     @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id))
@@ -69,6 +70,7 @@ if logged_in? and current_category.category=="Sales"
   # PATCH/PUT /solar_panels/1
   # PATCH/PUT /solar_panels/1.json
   def update
+    @flag_new=0
     @flag=true
     respond_to do |format|
       @old_solar_panel=SolarPanel.find(params[:id])
