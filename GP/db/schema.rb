@@ -235,7 +235,6 @@ ActiveRecord::Schema.define(version: 20150526131213) do
     t.integer  "vendor_id",     limit: 4
     t.integer  "spare_part_id", limit: 4
     t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
   end
 
   add_index "vendor_spares", ["spare_part_id"], name: "index_vendor_spares_on_spare_part_id", using: :btree
