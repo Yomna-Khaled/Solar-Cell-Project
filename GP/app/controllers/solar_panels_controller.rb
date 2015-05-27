@@ -19,17 +19,17 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/new
   def new
-if logged_in? and current_category.category=="Sales"
-     @flag_new=1
-     @flag=false
-     @solar_panel  = SolarPanel.new
-     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-     if @shift.exists? 
-     else 
-       redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
-     end
-     else
-      redirect_to login_path  
+    if logged_in? and current_category.category=="Sales"
+       @flag_new=1
+       @flag=false
+       @solar_panel  = SolarPanel.new
+       @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
+       if @shift.exists? 
+       else 
+         redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
+       end
+       else
+        redirect_to login_path  
     end 
   end
 
