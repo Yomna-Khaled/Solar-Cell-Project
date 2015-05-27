@@ -1,46 +1,13 @@
 <h1>Editing Vendor</h1>
 
-<div class="field form-group">
-  <%= fields_for :vendor_phones do |p| %>	
-    <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
-<% end %>
-</div>
-
-<a href="#" onclick="add()">Add</a>
-
-<div id="phones">
-    
-</div>
-
-
 <%= render 'form' %>
-
+<% @phones.each do |f| %>
+<p>
+  <%= f.phone %>
+</p>
+<% end %>
 <%= link_to 'Show', @vendor %> |
 <%= link_to 'Back', vendors_path %>
 
 
-<script>
-var x=1;
-var allValues = '';
-var add = function() {
-   
-    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
-    x=x+1;
-    $( "#OK" ).click(function() {
-	   
-	  var value = $("#1").val();
-		if (allValues != ''){
-		allValues =  allValues + ',' + value
-		}else{
-		 allValues =  allValues + value		
-		}
-		$("#phone").val(allValues);
 
-		$("#1").val('');		
-	  
-	});
-
-};
-
-</script>

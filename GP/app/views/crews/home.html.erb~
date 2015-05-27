@@ -1,0 +1,11 @@
+
+<strong>crew names:</strong>
+<% @crew_name.each do |f| %>
+
+<p>
+  <%= f.full_name %>
+</p>
+<% end %>
+
+
+

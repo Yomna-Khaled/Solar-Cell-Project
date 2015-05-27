@@ -28,10 +28,35 @@
 
 
 <div class="field form-group">
-  <%= fields_for :vendor_phones do |p| %>	
+
+   <% if @flag == "new" %> 
+ <%= fields_for :vendor_phones do |p| %> 	
     <%= p.label :phone %><br>
 	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+    <% end %>
+
+<%else %>
+<%= fields_for :vendor_phones do |p| %>
+
+    <%= phonn = '' %>
+   <% @phones.each do |f| %>
+     <p>
+   <% phonn = phonn + f.phone + ',' %>
+     </p>
+   <% end %>
+<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
+
+
 <% end %>
+
+
+
+
+
+
+<%end %>
+
+
 </div>
 
 <a href="#" onclick="add()">Add</a>
@@ -40,8 +65,9 @@
     
 </div>
 
-
-
+<div id="phonedel">
+    
+</div>
 
 
   <div class="actions form-group">
@@ -57,12 +83,12 @@
 <script>
 var x=1;
 var allValues = '';
+allValues=$( "#phone" ).val().slice(0,-1);
 var add = function() {
    
     $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
     x=x+1;
     $( "#OK" ).click(function() {
-	   
 	  var value = $("#1").val();
 		if (allValues != ''){
 		allValues =  allValues + ',' + value
@@ -70,11 +96,49 @@ var add = function() {
 		 allValues =  allValues + value		
 		}
 		$("#phone").val(allValues);
-
 		$("#1").val('');		
-	  
-	});
+                });
 
 };
+
+
+
+var del = function(vendorid) {
+	 var phons_num = $("#phone").val();
+	 var arr = phons_num.split(",");
+	for (var i=0 ; i< arr.length-1 ; i++){
+		 var div=document.createElement("div");
+                 var elem = document.createElement("input");
+                 elem.id =i;
+                 elem.type = 'button';
+                 elem.value = 'x'; 
+		 div.id= i;
+		 div.value=arr[i];
+                 div.innerHTML = arr[i];
+                 elem.onclick=function(){
+                   var el = document.getElementById(this.id);
+                   var dataString = el.value;
+
+
+		    $.ajax({
+			method: "POST",
+			url: '/delPhone',
+				dataType: "JSON",
+				data: { "phone": dataString},
+				complete: function(data)
+				{	
+					 el.parentNode.removeChild( el );
+				}
+			});
+
+
+		     };
+
+		    div.appendChild(elem);
+                    document.getElementById('phonedel').appendChild(div);
+	            }
+};
+
+
 
 </script>

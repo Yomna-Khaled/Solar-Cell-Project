@@ -5,7 +5,13 @@ class VendorPhonesController < ApplicationController
   # GET /vendor_phones.json
   def index
     @vendor_phones = VendorPhone.all
+
+	
   end
+
+def pho
+@vendorphones_selected = params[:phone]
+end
 
   # GET /vendor_phones/1
   # GET /vendor_phones/1.json
@@ -53,6 +59,9 @@ class VendorPhonesController < ApplicationController
   # DELETE /vendor_phones/1
   # DELETE /vendor_phones/1.json
   def destroy
+ @content = VendorPhone.find(params[:phone])
+  @content.destroy
+
     @vendor_phone.destroy
     respond_to do |format|
       format.html { redirect_to vendor_phones_url }
