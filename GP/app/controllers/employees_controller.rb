@@ -15,11 +15,12 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=='HR'
-      @flag_new=1 #display password field in from
+      if logged_in? and current_category.category=="HR"
+       @flag_new=1 #display password field in from
+
       @employee = Employee.new
-    else
-      redirect_to login_path  
+      else
+        redirect_to login_path  
     end 
   end
 

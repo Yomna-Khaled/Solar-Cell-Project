@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
@@ -7,17 +6,21 @@ Rails.application.routes.draw do
  
   resources :production_shifts
   resources :shifts
+  resources :shifts
+  resources :production_shifts
+  resources :shifts
   resources :categories
   get 'sessions/new'
+  get "crews/get_employees"
+  get "crews/:id/get_employees"=>"crews#get_employees"
+  
 
   resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
-=======
-  resources :vendor_spares
 
->>>>>>> 175abbb5d3b71008d6f4826ac31ec92f8cdc306f
   resources :spare_parts
+  resources :production_shifts
+  resources :shifts
+  resources :shifts
   resources :production_shifts
   resources :shifts
   resources :production_shifts
@@ -26,32 +29,6 @@ Rails.application.routes.draw do
   resources :employees
   resources :crews
   resources :vendor_containers
-<<<<<<< HEAD
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :vendor_spares
-  resources :solar_panels
-  resources :containers
-  resources :machines
-  resources :spare_parts
-  resources :material_vendors
-  resources :vendor_phones
-  resources :vendors
-  resources :material_properties
-  resources :material_properties
-  resources :spare_parts
-  resources :vendors
-  resources :vendors
-  resources :material_properties
-  resources :properties
-  resources :materials
-  resources :quantities
-
-  root 'sessions#new'
-  get 'login' => 'sessions#new' 
-  post 'login' => 'sessions#create' 
-  delete 'logout' => 'sessions#destroy'
-=======
 
 
   resources :solar_panels
@@ -71,7 +48,19 @@ Rails.application.routes.draw do
   resources :properties
   resources :materials
   resources :quantities
->>>>>>> 175abbb5d3b71008d6f4826ac31ec92f8cdc306f
+
+  root 'sessions#new'
+  get 'login' => 'sessions#new'
+  get 'report' => 'shifts#report'  
+  post 'login' => 'sessions#create' 
+  delete 'logout' => 'sessions#destroy'
+<<<<<<< HEAD
+  get '/crew/home' , to: 'crews#home'
+  post 'delPhone' => 'vendors#pho'
+ 
+=======
+  post 'materialvendorcreate' => 'vendors#materialvendorcreate'
+>>>>>>> 3758c3a4c0a1a95332b7531a9a42603e5b680562
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -13,23 +13,27 @@ class CrewsController < ApplicationController
 
   # GET /crews/1
   def show
+
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
+
   end
 
   # GET /crews/new
   def new
+
     if logged_in? and current_category.category=="HR"
       @flag_new=1
       @crew = Crew.new
     else
       redirect_to login_path  
     end   
+
   end
 
   def get_employees
-    @employees = Employee.all
-    puts "++++++++++++++++++++++++++++++++++++++++++++++++"
+    category = Category.where("category = ? " , "Normal")
+    @employees = Employee.where("category_id = ? " , category[0].id)
     render partial: "employees";
   end
 
@@ -37,6 +41,11 @@ class CrewsController < ApplicationController
   def edit
     @flag_new=0
   end
+
+def home
+   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
+   @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])      
+end
 
   # POST /crews
   def create

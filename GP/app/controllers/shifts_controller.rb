@@ -7,20 +7,26 @@ class ShiftsController < ApplicationController
   
   def report
 
+    @total_power=0
+
     @shift = Shift.where("start_shift_date= ?", "2015-05-26")
-    @manager = "yomna"
-  
+    @shift_produced_rate = @shift[0].production_rate
+    @manager = current_user.full_name
+    @crew_member_numbers = Crew.find(@shift[0].crew_id).no_of_workers
+    @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
-    # @pannels_produced = SolarPanel.where("shift_id=?" , "1");
-    #loop through @pannels_produced to sum all power and send it to the pdf
+    @solar_panels.each do|solar|
+      @total_power = @total_power + solar.power
+    end
 
-    # @matirals_used = ProductionShift.where("shift_id=?" , "1");
-     
+    
+
+
 
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shift ,@manager)
+        pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
@@ -28,7 +34,7 @@ class ShiftsController < ApplicationController
 
   def index
     @shifts = Shift.all
-
+     @manager = current_user.user_name
     respond_to do |format|
       format.html
       format.pdf do
@@ -47,6 +53,7 @@ class ShiftsController < ApplicationController
  
   # GET /shifts/new
   def new
+
     @shift = Shift.new
   end
 
@@ -106,8 +113,12 @@ class ShiftsController < ApplicationController
 
 
   def startshift
+
+if logged_in? and current_category.category=="Shift Manager" 
+      @shift = Shift.new(start_shift_params)
+
     @crews = Crew.all.map{|c| [c.id]} 
-    @shift = Shift.new(start_shift_params)
+
     respond_to do |format|
       if @shift.save
         format.html { redirect_to @shift }
@@ -117,6 +128,10 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
       end
     end 
+     else
+       redirect_to login_path  
+     end 
+    
 
   end
 
@@ -134,8 +149,8 @@ class ShiftsController < ApplicationController
   end
 
   def endshift
-     
-     respond_to do |format|
+   if logged_in? and current_category.category=="Shift Manager"  
+    respond_to do |format|
      if @shift.update(end_shift_params)
         puts @shift.inspect
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -146,6 +161,11 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
      end
    end
+
+
+ else
+       redirect_to login_path  
+     end
 
   end
 
