@@ -15,6 +15,7 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
+    @material_properties = MaterialProperty.where("material_id=?",@material.id)
   end
 
   # GET /materials/new

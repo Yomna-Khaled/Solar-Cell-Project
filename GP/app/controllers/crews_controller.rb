@@ -28,8 +28,8 @@ class CrewsController < ApplicationController
   end
 
   def get_employees
-    @employees = Employee.all
-    puts "++++++++++++++++++++++++++++++++++++++++++++++++"
+    category = Category.where("category = ? " , "Normal")
+    @employees = Employee.where("category_id = ? " , category[0].id)
     render partial: "employees";
   end
 
