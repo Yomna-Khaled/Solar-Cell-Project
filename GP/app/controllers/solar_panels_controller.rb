@@ -79,16 +79,11 @@ if logged_in? and current_category.category=="Sales"
       @oldcontainer.update_attributes(:total_power => @power)
      
       if @solar_panel.update(solar_panel_params)
-<<<<<<< HEAD
-        format.html { redirect_to @solar_panel}
-=======
-        @container=Container.find(@solar_panel.container_id)
-          
+        @container=Container.find(@solar_panel.container_id)     
         @power=@container.total_power+@solar_panel.power 
         @container.update_attributes(:total_power => @power)
        
         format.html { redirect_to @solar_panel, notice: 'Solar panel was successfully updated.' }
->>>>>>> 2238b47154e4fe345f500855e2b637c40cb956f4
         format.json { render :show, status: :ok, location: @solar_panel }
       else
         @container=Container.find(@solar_panel.container_id)

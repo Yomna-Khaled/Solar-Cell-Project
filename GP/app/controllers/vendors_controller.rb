@@ -48,14 +48,16 @@ class VendorsController < ApplicationController
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
   end
+end
 
   def materialvendorcreate
     @vendorname=params[:vendorname]
-    @vendoremail = params[:vendoremail];
+    @vendoremail = params[:vendoremail]
     @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
     @vendor.save
     render json: @vendor
   end 
+
 
   def create
   	@vendor = Vendor.new(vendor_params)
