@@ -40,7 +40,7 @@ class SparePartsController < ApplicationController
       if @spare_part.save
          @vendorspare = VendorSpare.new(vendor_id: @vendor_id, spare_part_id: @spare_part.id )
          @vendorspare.save
-        format.html { redirect_to @spare_part, notice: 'Spare part was successfully created.' }
+        format.html { redirect_to @spare_part }
         format.json { render :show, status: :created, location: @spare_part }
  
       else
@@ -57,9 +57,10 @@ class SparePartsController < ApplicationController
   def update
     respond_to do |format|
       if @spare_part.update(spare_part_params)   
-        format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
+        format.html { redirect_to @spare_part }
         format.json { render :show, status: :ok, location: @spare_part }
       else
+         @vendors = Vendor.all
         format.html { render :edit }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
       end
@@ -71,7 +72,7 @@ class SparePartsController < ApplicationController
   def destroy
      @spare_part.destroy
        respond_to do |format|
-       format.html { redirect_to spare_parts_url, notice: 'Spare part was successfully destroyed.' }
+       format.html { redirect_to spare_parts_url }
        format.json { head :no_content }
      end
   end

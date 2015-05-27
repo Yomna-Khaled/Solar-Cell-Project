@@ -31,17 +31,18 @@
             <th class="text-center">Material_Photo</th>
             <th class="text-center">Show</th>
             <th class="text-center">Edit</th>
+
+
           </tr>
         </thead>
  <!-- @material_vendor.find(material.id).vendor_id -->
         <tbody>
           <% @materials.each do |material| %>
-          <% if material.Min_Number == 5 %>
+          <% if material.quantity_value <= material.Min_Number %>
             <tr class="danger">
           <% else %>
             <tr>
           <%end %>
-            
               <td class="text-center"><%= material.name %></td>
               <td class="text-center"><%= material.serial_number %></td>
               <td class="text-center"><%= material.quantity_value %></td>

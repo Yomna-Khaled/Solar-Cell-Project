@@ -26,8 +26,6 @@
   </div>
   <% else %>
 
-
-
   <div class="form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name, class: "form-control" %>
@@ -38,8 +36,7 @@
       <%= f.text_field :serial_number, class: "form-control" %>
     <%else%> 
       <%= f.text_field :serial_number, class: "form-control",:readonly => true %>
-    <%end%>
-    
+    <%end%>  
   </div>
   <div class="form-group">
     <div class="col-md-6">
@@ -48,40 +45,31 @@
     </div>
       <!-- this div for quantites to be dispalayed at dropdown list-->
     <div class="col-md-6">
-    <div class="form-group">
-    <label>Quantity_Name</label><br>
-      <%= f.select(:quantity_id) do %>
-        <% @quantites.each do |quantity| %>
-          <% if @flag == "new" %>
-            <%= content_tag(:option, quantity.unit_name, value: quantity.id)%>
-          <% else %>
-            <%if @material.quantity_id == quantity.id %>
-              <%= content_tag(:option, quantity.unit_name, value: quantity.id, selected: :option)%>
-            <%else%> 
-            <%= content_tag(:option, quantity.unit_name, value: quantity.id)%>
-            <%end%>
-          <%end%>
-            
-        <% end %> 
-      <% end -%> 
-      <!-- add new quantity using ajax-->
-    <a id="unitlink" class="btn btn-link" style="text-align: left" 
-    onclick="showunitform()">Add Quantity_Unit</a>
-    <div id="addnewunit" style="display:none" class="form-group">
-         <h1>
-          <span class="label label-default">New Quantity_unit</span>
-        </h1>
-        <div class="form-group">
-          <label>Unit Name</label>
-          <input type="text" id="unitname" class="form-control">
+      <div class="form-group">
+        <label>Quantity_Name</label><br>
+        <% if @flag == "new" %>
+          <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name")%>
+        <% else %>
+          <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name",@material.quantity_id) %>
+        <%end%>
+        <!-- add new quantity using ajax-->
+        <a id="unitlink" class="btn btn-link" style="text-align: left" 
+        onclick="showunitform()">Add Quantity_Unit</a>
+        <div id="addnewunit" style="display:none" class="form-group">
+             <h1>
+              <span class="label label-default">New Quantity_unit</span>
+            </h1>
+            <div class="form-group">
+              <label>Unit Name</label>
+              <input type="text" id="unitname" class="form-control">
+            </div>
+            <div class="actions">
+              <a onclick="unitajax()" class="btn btn-success">Add Quantity</a>
+              <a onclick="canceladdunit()" class="btn btn-warning">Cancel</a>
+            </div>
         </div>
-        <div class="actions">
-          <a onclick="unitajax()" class="btn btn-success">Add Quantity</a>
-          <a onclick="canceladdunit()" class="btn btn-warning">Cancel</a>
-        </div>
-    </div>
-        <!-- end of adding new unit using ajax -->
-    </div>
+          <!-- end of adding new unit using ajax -->
+      </div>
     </div>
   <!-- end of div for quantites -->
   </div>
@@ -112,41 +100,41 @@
   </div>
   <!-- for get all vendors to select one of them -->
   <div class="form-group">
-  <%= f.label :Vendor %><br>
-  <select id="vendor" name="vendor" class="form-control">
-    <% @vendors.each do |vendor| %>
-      <% if @flag == "new" %>
-        <option value="<%= vendor.id %>"><%= vendor.name %></option>
-      <%else %>
-        <% if @vendor_id == vendor.id &&%>
-          <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-          <%else%>
+    <%= f.label :Vendor %><br>
+    <select id="vendor" name="vendor" class="form-control">
+      <% @vendors.each do |vendor| %>
+        <% if @flag == "new" %>
           <option value="<%= vendor.id %>"><%= vendor.name %></option>
-        <%end%>   
-      <%end %>
-      
-    <% end -%>
-  </select>
+        <%else %>
+          <% if @vendor_id == vendor.id &&%>
+            <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
+            <%else%>
+            <option value="<%= vendor.id %>"><%= vendor.name %></option>
+          <%end%>   
+        <%end %>
+        
+      <% end -%>
+    </select>
    <!-- add new vendor using ajax-->
-  <a id="vendorlink" class="btn btn-link" style="text-align: left"
-  onclick="showvendorform()">Add new Vendor</a>
-    <div id="addnewvendor" style="display:none" class="form-group">
-       <h1>
-        <span class="label label-default">New Vendor</span>
-      </h1>
-      <div class="form-group">
-        <label>Vendor Name</label>
-        <input type="text" id="vendorname" class="form-control">
+    <a id="vendorlink" class="btn btn-link" style="text-align: left"
+    onclick="showvendorform()">Add new Vendor</a>
+      <div id="addnewvendor" style="display:none" class="form-group">
+         <h1>
+          <span class="label label-default">New Vendor</span>
+        </h1>
+        <div class="form-group">
+          <label>Vendor Name</label>
+          <input type="text" id="vendorname" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Vendor Email</label>
+          <input type="text" id="vendoremail" class="form-control">
+        </div>
+        <div class="actions">
+          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Vendor Email</label>
-        <input type="text" id="vendoremail" class="form-control">
-      </div>
-      <div class="actions">
-        <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
-        <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
-      </div>
-    </div>
     <!-- end of adding new vendor using ajax -->
   </div>
   <!-- end of div for vendors -->
@@ -157,45 +145,42 @@
     <table id="allproperties">
       <% @properties.each do |property| %>
         <% if @flag =="new" %>
-        <tr>
-          <td>
-            <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
-            onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
-          </td>
-          <td id="value_<%= property.id %>" style="display:none;" 
-          onkeyup="propertyvalue(this)">
-            <label style="margin-left:200px;">value</label>
-            <input type="text" id="<%= property.id %>_value">
-          </td>
-        </tr>   
-    <% else %>
-      <tr>
-        <% if @materialproperties_selected_ids.include? property.id %>
-          <%=property_value =  @material_property.where("material_id = ? AND property_id = ?", @material.id, property.id)[0].value %>
-          <td>
-            <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
-            onchange="checkproperty(this)" value="<%=property.id%>:<%=property_value%>" checked="true" /><%=property.name%>      
-          </td>
-          <td id="value_<%= property.id %>" style="display:block;" 
-          onkeyup="propertyvalue(this)">
-            <label style="margin-left:200px;">value</label>
-            <input type="text" id="<%= property.id %>_value" value="<%=property_value%>">
-          </td>
+          <tr>
+            <td>
+              <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
+              onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
+            </td>
+            <td id="value_<%= property.id %>" style="display:none;" 
+            onkeyup="propertyvalue(this)">
+              <label style="margin-left:200px;">value</label>
+              <input type="text" id="<%= property.id %>_value">
+            </td>
+          </tr>   
         <% else %>
-          <td>
-            <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
-            onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
-          </td>
-          <td id="value_<%= property.id %>" style="display:none;" 
-          onkeyup="propertyvalue(this)">
-            <label style="margin-left:200px;">value</label>
-            <input type="text" id="<%= property.id %>_value">
-          </td>
+          <tr>
+            <% if @materialproperties_selected_ids.include? property.id %>
+              <% property_value =  @material_property.where("material_id = ? AND property_id = ?", @material.id, property.id)[0].value %>
+              <td>
+                <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
+                onchange="checkproperty(this)" value="<%=property.id%>:<%=property_value%>" checked="true" /><%=property.name%>      
+              </td>
+              <td id="value_<%= property.id %>" style="display:block;" onkeyup="propertyvalue(this)">
+                <label style="margin-left:200px;">value</label>
+                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>">
+              </td>
+            <% else %>
+              <td>
+                <input type="checkbox" id="<%= property.id %>" name="propertycheck[]" 
+                onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
+              </td>
+              <td id="value_<%= property.id %>" style="display:none;" onkeyup="propertyvalue(this)">
+                <label style="margin-left:200px;">value</label>
+                <input type="text" id="<%= property.id %>_value">
+              </td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-    <% end -%>
-
+      <% end -%>
     </table> 
     <!-- add new property using ajax-->
     <a id="propertylink" class="btn btn-link" style="text-align: left"
@@ -215,6 +200,7 @@
     </div>
       <!-- end of adding new property using ajax -->
   </div>
+
   <div class="form-group">
     <%= f.label :Material_Photo %><br>
     <%= f.file_field :avatar %>

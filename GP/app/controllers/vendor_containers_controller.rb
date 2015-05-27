@@ -28,7 +28,7 @@ class VendorContainersController < ApplicationController
 
     respond_to do |format|
       if @vendor_container.save
-        format.html { redirect_to @vendor_container, notice: 'Vendor container was successfully created.' }
+        format.html { redirect_to @vendor_container }
         format.json { render :show, status: :created, location: @vendor_container }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class VendorContainersController < ApplicationController
   def update
     respond_to do |format|
       if @vendor_container.update(vendor_container_params)
-        format.html { redirect_to @vendor_container, notice: 'Vendor container was successfully updated.' }
+        format.html { redirect_to @vendor_container }
         format.json { render :show, status: :ok, location: @vendor_container }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class VendorContainersController < ApplicationController
   def destroy
     @vendor_container.destroy
     respond_to do |format|
-      format.html { redirect_to vendor_containers_url, notice: 'Vendor container was successfully destroyed.' }
+      format.html { redirect_to vendor_containers_url }
       format.json { head :no_content }
     end
   end

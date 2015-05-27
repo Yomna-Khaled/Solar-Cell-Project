@@ -11,7 +11,6 @@
             <th text-align="center">Governamental ID</th>
             <th text-align="center">Position</th>
             <th text-align="center">Category</th>
-            <th text-align="center">Crew</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
         
@@ -31,7 +30,6 @@
             <td><%= employee.position %></td>
             <% category=Category.find_by(id: employee.category_id )%>
             <td><%= category.category %></td>
-            <td><%= employee.crew_id %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
             <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
            

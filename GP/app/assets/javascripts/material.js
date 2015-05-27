@@ -16,13 +16,18 @@ function propertyvalue (value) {
 	var value_id = value.id;
 	var property_id = value_id.split("_")[1]; 
 	var property_value = document.getElementById(property_id+"_value").value;
-	console.log(property_value);
+	if (property_value == "") {
+		alert("Enter Property Value ");
+		document.getElementById(property_id).checked= false;
+		document.getElementById(value_id).style.display= "none";
+	};
 	var checkproperty = document.getElementById(property_id);
 	var propertyname = checkproperty.value;
 	propertyname = propertyname+":"+property_value;
 	var arr = propertyname.split(":");
 	var len = arr.length;
 	propertyname = arr[0];
+	console.log(arr[len-1])
 	checkproperty.value = propertyname+":"+arr[len-1];
 }
 
@@ -136,6 +141,7 @@ function propertyajax () {
 			'" name="propertycheck[]" onchange="checkproperty(this)" value='+propertyid+'/>'
 			+propertyname+'</td><td id="value_'+propertyid+
 			'" style="display:none" onkeyup="propertyvalue(this)"><label style="margin-left:200px;">value</label><input type="text" id="'+propertyid+'_value" ></td></tr>');
+			$("#propertyname").val("");
 		}
 	});
 	}

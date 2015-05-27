@@ -1,6 +1,5 @@
 class CrewsController < ApplicationController
   before_action :set_crew, only: [:show, :edit, :update, :destroy]
-
   # GET /crews
   # GET /crews.json
   def index
@@ -42,13 +41,10 @@ class CrewsController < ApplicationController
   # POST /crews
   def create
     @crew = Crew.new(crew_params)
-
     respond_to do |format|
-    
       if @crew.save
         last_id = Crew.maximum('id')
         array = params[:workers].split(',')
-
         array.each_with_index do |item,i|
 
            @employee = Employee.find_by(id: array[i])
@@ -57,7 +53,7 @@ class CrewsController < ApplicationController
             end
         end
     
-        format.html { redirect_to @crew, notice: 'Crew was successfully created.' }
+        format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
         format.html { render :new }
@@ -70,7 +66,7 @@ class CrewsController < ApplicationController
   def update
     respond_to do |format|
       if @crew.update(crew_params)
-        format.html { redirect_to @crew, notice: 'Crew was successfully updated.' }
+        format.html { redirect_to @crew  }
         format.json { render :show, status: :ok, location: @crew }
       else
         format.html { render :edit }
@@ -89,7 +85,7 @@ class CrewsController < ApplicationController
     end
     @crew.destroy
     respond_to do |format|
-      format.html { redirect_to crews_url, notice: 'Crew was successfully destroyed.' }
+      format.html { redirect_to crews_url }
       format.json { head :no_content }
     end
   end
@@ -103,5 +99,5 @@ class CrewsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def crew_params
       params.require(:crew).permit(:no_of_workers , :name)
-    end
+    end    
 end

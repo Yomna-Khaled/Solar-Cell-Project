@@ -15,6 +15,7 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
+    @material_properties = MaterialProperty.where("material_id=?",@material.id)
   end
 
   # GET /materials/new
@@ -59,7 +60,7 @@ class MaterialsController < ApplicationController
   def create
     @vendor_id = params['vendor']; #to get vendor of certain material 
     @selected_properties = params['propertycheck']; #it is an array of selected properties
-    # render plain: material_params
+    # render plain: @selected_properties
     @material = Material.new(material_params)
 
     respond_to do |format|
@@ -68,11 +69,13 @@ class MaterialsController < ApplicationController
         @selected_properties.each do |selected_property|
           propertyid = selected_property.split(":")[0]
           propertyvalue = selected_property.split(":")[1]
-          @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
-          @materialproperty.save
-          @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
-          @materialvendor.save
+          if propertyvalue
+            @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
+            @materialproperty.save
+          end
         end
+        @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
+        @materialvendor.save
         format.html { redirect_to @material, notice: 'Material was successfully created.' }
         format.json { render :show, status: :created, location: @material }
       else
@@ -88,11 +91,12 @@ class MaterialsController < ApplicationController
 
   # PATCH/PUT /materials/1
   # PATCH/PUT /materials/1.json
+
 def update
   @vendoredit_id = params['vendor']; #to get vendor of certain material 
   @selected_properties = params['propertycheck']; #it is an array of selected properties
   @vendororiginal_id = MaterialVendor.where("material_id=?",@material.id)[0].vendor_id
-  # render plain: @selected_properties
+  # render plain: @selected_properties.inspect
   respond_to do |format|
     if @material.update(material_params)
       if @vendoredit_id != @vendororiginal_id
@@ -107,8 +111,11 @@ def update
         @selected_properties.each do |selected_property|
           propertyid = selected_property.split(":")[0]
           propertyvalue = selected_property.split(":")[1]
-          @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
-          @materialproperty.save
+          if propertyvalue 
+            @materialproperty = MaterialProperty.new(material_id: @material.id, property_id: propertyid, value: propertyvalue )
+            @materialproperty.save
+          end
+
         end  
       end
 
@@ -120,7 +127,19 @@ def update
       @vendors = Vendor.all
       @quantites = Quantity.all
       @properties = Property.all
-      @flag = "new"
+      @material_property = MaterialProperty.all
+          # to select the latest vendor for material 
+      @materialvendor = MaterialVendor.where("material_id=?",@material.id)
+      @materialvendor_sorted = @materialvendor.order(updated_at: :desc)
+      @vendor_id =  @materialvendor_sorted[0].vendor_id
+      # to select all properties for material
+      @materialproperties_selected_ids = Array.new 
+      @materialproperties_selected = MaterialProperty.where("material_id=?",@material.id)
+      @materialproperties_selected.each do |materialproperty_selected|
+      id = materialproperty_selected.property_id
+      @materialproperties_selected_ids.push(id)
+    end
+      @flag = "edit"
     end
   end
 
@@ -131,7 +150,7 @@ end
   def destroy
     @material.destroy
     respond_to do |format|
-      format.html { redirect_to materials_url, notice: 'Material was successfully destroyed.' }
+      format.html { redirect_to materials_url  }
       format.json { head :no_content }
     end
   end

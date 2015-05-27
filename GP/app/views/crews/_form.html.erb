@@ -53,6 +53,7 @@
 <script type="text/javascript">
 var counter = 0;
 var no_workers = 0 ;
+var ids = new Array();  
 
 
 function addworkers () {
@@ -70,12 +71,9 @@ function addworkers () {
           if(no_workers){
              if( no_workers % 1 === 0 ){
                 var posting = $.get( "get_employees" );
-                console.log("abl posting");
-                console.log(posting);
                 for(var i = 0 ; i < Number(no_workers) ; i++){
                    console.log("in for");
                        posting.done(function( data ) {
-                        //alert(data);
                          $("#versionsDiv").append(data);
                     });         
                 } 
@@ -91,21 +89,30 @@ function addworkers () {
 
 
 function get_value(elem){
-   counter = counter + 1;
    val = elem.value
-   console.log(elem);
-   elem.parentElement.style.display = 'none';
-   var para = document.createElement("p");
-   var node = document.createTextNode(elem.options[elem.selectedIndex].text);
-   para.appendChild(node);
-   document.getElementById("Woker_names").appendChild(para)
-   workers = document.getElementById('workers');
-   workers.value = workers.value + "," + val;
-   if(counter == no_workers)
+  if( ids.indexOf(val)== -1 )
    {
-    document.getElementById("btn").disabled = false;
+       counter = counter + 1;
+       ids.push(val) 
+       elem.parentElement.style.display = 'none';
+       var para = document.createElement("p");
+       var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+       para.appendChild(node);
+       document.getElementById("Woker_names").appendChild(para)
+       workers = document.getElementById('workers');
+       if(counter == no_workers)
+       {
+         document.getElementById("btn").disabled = false;
+         workers.value = ids.valueOf();
+       }
 
+    }else{
+      elem.parentElement.style.display = true;
+    alert("Employee is already in the crew");
    }
+   
+
+
 
 }
 </script>

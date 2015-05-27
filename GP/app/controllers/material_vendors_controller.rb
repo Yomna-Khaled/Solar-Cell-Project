@@ -28,7 +28,7 @@ class MaterialVendorsController < ApplicationController
 
     respond_to do |format|
       if @material_vendor.save
-        format.html { redirect_to @material_vendor, notice: 'Material vendor was successfully created.' }
+        format.html { redirect_to @material_vendor }
         format.json { render :show, status: :created, location: @material_vendor }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MaterialVendorsController < ApplicationController
   def update
     respond_to do |format|
       if @material_vendor.update(material_vendor_params)
-        format.html { redirect_to @material_vendor, notice: 'Material vendor was successfully updated.' }
+        format.html { redirect_to @material_vendor }
         format.json { render :show, status: :ok, location: @material_vendor }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MaterialVendorsController < ApplicationController
   def destroy
     @material_vendor.destroy
     respond_to do |format|
-      format.html { redirect_to material_vendors_url, notice: 'Material vendor was successfully destroyed.' }
+      format.html { redirect_to material_vendors_url }
       format.json { head :no_content }
     end
   end

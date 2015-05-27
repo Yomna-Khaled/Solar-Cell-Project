@@ -15,12 +15,13 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=='HR'
+    #if logged_in? and current_category.category=='HR'
+      
       @flag_new=1 #display password field in from
       @employee = Employee.new
-    else
-      redirect_to login_path  
-    end 
+    #else
+      #redirect_to login_path  
+    #end 
   end
 
   # GET /employees/1/edit
@@ -32,9 +33,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
     if @employee.salary != nil
-
       @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
-      @employee.salary=0.0
     end
 
     @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
@@ -51,8 +50,10 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
+       @employee.houre_rate=@employee.salary/(26*8) 
     respond_to do |format|
       if @employee.update(employee_params)
+
         flash[:success] = 'Employee was successfully updated.'
         format.html { redirect_to @employee }
         format.json { render :show, status: :ok, location: @employee }

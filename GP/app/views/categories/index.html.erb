@@ -4,8 +4,6 @@
     <tr>
       <th text-align="center">Category</th>
       <th text-align="center">Show</th>
-      <th text-align="center">Edit</th>
-      <th text-align="center">Delete</th>
     </tr>
   </thead>
 
@@ -14,9 +12,6 @@
       <tr>
         <td><%= category.category %></td>
         <td><%= link_to 'Show', category,class:"btn btn-primary" %></td>
-        <td><%= link_to 'Edit', edit_category_path(category), class:"btn btn-default" %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
-      </tr>
     <% end %>
   </tbody>
 </table>

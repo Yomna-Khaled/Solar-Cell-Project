@@ -14,6 +14,7 @@ class Material < ActiveRecord::Base
 	validates :Min_Number, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
 	validates :stockNo, presence: true
 	validates :shelfNo, presence: true
+	validates :quantity_id, presence: true
 	validates :avatar, presence: true
 	validates_uniqueness_of :serial_number, on: :create
 end

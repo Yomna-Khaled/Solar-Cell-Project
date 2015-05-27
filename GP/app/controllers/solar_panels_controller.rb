@@ -54,10 +54,12 @@ if logged_in? and current_category.category=="Sales"
      
     respond_to do |format|
       if @solar_panel.save
+
+
        @container=Container.find(@solar_panel.container_id)
        @power=@container.total_power+@solar_panel.power 
        @container.update_attributes(:total_power => @power)
-       format.html { render :show, notice: 'Solar panel was successfully created.' }
+       format.html { render :show }
        format.json { render :show, status: :created, location: @solar_panel }
       else
         format.html { render :new }
@@ -79,8 +81,7 @@ if logged_in? and current_category.category=="Sales"
       @oldcontainer.update_attributes(:total_power => @power)
      
       if @solar_panel.update(solar_panel_params)
-        @container=Container.find(@solar_panel.container_id)
-          
+        @container=Container.find(@solar_panel.container_id)     
         @power=@container.total_power+@solar_panel.power 
         @container.update_attributes(:total_power => @power)
        
@@ -103,7 +104,7 @@ if logged_in? and current_category.category=="Sales"
   def destroy
     @solar_panel.destroy
     respond_to do |format|
-      format.html { redirect_to solar_panels_url, notice: 'Solar panel was successfully destroyed.' }
+      format.html { redirect_to solar_panels_url }
       format.json { head :no_content }
     end
   end

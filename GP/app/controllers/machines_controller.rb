@@ -1,4 +1,4 @@
-class MachinesController < ApplicationController
+class MachinesController < ApplicationController  
   before_action :set_machine, only: [:show, :edit, :update, :destroy]
 
   # GET /machines
@@ -8,7 +8,6 @@ class MachinesController < ApplicationController
   end
 
   # GET /machines/1
-  # GET /machines/1.json
   def show
   end
 
@@ -28,7 +27,7 @@ class MachinesController < ApplicationController
 
     respond_to do |format|
       if @machine.save
-        format.html { redirect_to @machine, notice: 'Machine was successfully created.' }
+        format.html { redirect_to @machine  }
         format.json { render :show, status: :created, location: @machine }
       else
         format.html { render :new }
@@ -42,7 +41,7 @@ class MachinesController < ApplicationController
   def update
     respond_to do |format|
       if @machine.update(machine_params)
-        format.html { redirect_to @machine, notice: 'Machine was successfully updated.' }
+        format.html { redirect_to @machine  }
         format.json { render :show, status: :ok, location: @machine }
       else
         format.html { render :edit }
@@ -56,7 +55,7 @@ class MachinesController < ApplicationController
   def destroy
     @machine.destroy
     respond_to do |format|
-      format.html { redirect_to machines_url, notice: 'Machine was successfully destroyed.' }
+      format.html { redirect_to machines_url }
       format.json { head :no_content }
     end
   end
@@ -66,9 +65,11 @@ class MachinesController < ApplicationController
     def set_machine
       @machine = Machine.find(params[:id])
     end
+    
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def machine_params
       params.require(:machine).permit(:name)
     end
+
 end

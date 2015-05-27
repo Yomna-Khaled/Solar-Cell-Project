@@ -28,17 +28,6 @@ class QuantitiesController < ApplicationController
     @quantity = Quantity.new(unit_name: @unitname)
     @quantity.save
     render json: @quantity
-    # @quantity = Quantity.new(quantity_params)
-
-    # respond_to do |format|
-    #   if @quantity.save
-    #     format.html { redirect_to @quantity, notice: 'Quantity was successfully created.' }
-    #     format.json { render :show, status: :created, location: @quantity }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @quantity.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /quantities/1
@@ -46,7 +35,7 @@ class QuantitiesController < ApplicationController
   def update
     respond_to do |format|
       if @quantity.update(quantity_params)
-        format.html { redirect_to @quantity, notice: 'Quantity was successfully updated.' }
+        format.html { redirect_to @quantity }
         format.json { render :show, status: :ok, location: @quantity }
       else
         format.html { render :edit }
@@ -60,7 +49,7 @@ class QuantitiesController < ApplicationController
   def destroy
     @quantity.destroy
     respond_to do |format|
-      format.html { redirect_to quantities_url, notice: 'Quantity was successfully destroyed.' }
+      format.html { redirect_to quantities_url }
       format.json { head :no_content }
     end
   end

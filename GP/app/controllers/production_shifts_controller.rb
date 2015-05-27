@@ -50,7 +50,7 @@ end
   def update
     respond_to do |format|
       if @production_shift.update(production_shift_params)
-        format.html { redirect_to @production_shift, notice: 'Production shift was successfully updated.' }
+        format.html { redirect_to @production_shift }
         format.json { render :show, status: :ok, location: @production_shift }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ end
   def destroy
     @production_shift.destroy
     respond_to do |format|
-      format.html { redirect_to production_shifts_url, notice: 'Production shift was successfully destroyed.' }
+      format.html { redirect_to production_shifts_url }
       format.json { head :no_content }
     end
   end
