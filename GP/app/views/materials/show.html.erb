@@ -55,8 +55,19 @@
   <strong>Quantity:</strong>
   <%= @material.quantity.unit_name %>
 </p>
+<p>
+  <strong>Properties:</strong>
+  <% @material_properties.each do |materialproperty| %>
+    <p>
+      <strong><%= materialproperty.property.name %></strong>
+        <%= materialproperty.value %>
+    </p>
+  <%end%>
+</p>
 
 <p>
   <strong>Image:</strong>
   <%= image_tag @material.avatar.url, class: "thumbnail" %>
 </p>
+
+
