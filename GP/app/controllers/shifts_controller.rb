@@ -110,6 +110,7 @@ class ShiftsController < ApplicationController
 if logged_in? and current_category.category=="Shift Manager" 
     @crews = Crew.all.map{|c| [c.id]} 
     @shift = Shift.new(start_shift_params)
+
     respond_to do |format|
       if @shift.save
         format.html { redirect_to @shift }

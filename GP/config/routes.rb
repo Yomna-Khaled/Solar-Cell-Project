@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :shifts
   resources :categories
   get 'sessions/new'
-  get "crews/get_employees"
+  get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
   
 
