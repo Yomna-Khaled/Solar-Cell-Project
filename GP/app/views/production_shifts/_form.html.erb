@@ -6,7 +6,7 @@
 
   <% @materials.each do |material| %>
 <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}"} %> <%= material.name %>
-  amount:<%= text_field_tag  material.id , '$0.00',options={:style=>"display:none"} %>
+  <%= text_field_tag  material.id , '0.00',options={:style=>"display:none"} %>
  <br>
 
   <% end %> 
@@ -21,7 +21,15 @@ function matvalue(ptr){
   
   var field_id=ptr.id.split("_")[2];
   console.log(field_id);
-  $("#"+field_id).show();
+  if(ptr.checked==true){
+  	$("#"+field_id).show();
+  }
+  else if(ptr.checked==false){
+  
+  $("#"+field_id).hide();
+}
+  
+
 
   
 

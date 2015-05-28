@@ -14,7 +14,11 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
+<<<<<<< HEAD
   password: butterfly
+=======
+  password: 12345
+>>>>>>> 677d0605033f575b969e87675681cf27375c647a
 
 
   socket: /var/run/mysqld/mysqld.sock
