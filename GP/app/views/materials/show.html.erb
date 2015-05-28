@@ -57,12 +57,14 @@
 </p>
 <p>
   <strong>Properties:</strong>
-  <% @material_properties.each do |materialproperty| %>
-    <p>
-      <strong><%= materialproperty.property.name %></strong>
-        <%= materialproperty.value %>
-    </p>
-  <%end%>
+  <% index = 1%>
+    <% @material_properties.each do |materialproperty| %>
+      <p>
+        <strong><%=index%>-<%= materialproperty.property.name %> : </strong>
+          <%= materialproperty.value %>
+          <%index+=1%>
+      </p>
+    <%end%>   
 </p>
 
 <p>

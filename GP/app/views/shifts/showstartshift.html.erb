@@ -11,7 +11,7 @@
 <%= form_for @shift , :url=>shifts_startshift_path do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this production_shift from being saved:</h2>
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
 
       <ul>
       <% @shift.errors.full_messages.each do |message| %>
@@ -28,7 +28,7 @@
 		</div>
        
         <div class="field">
-	<%= f.label ('enter crew id') %><br>
+	<%= f.label ('enter crew name:') %><br>
 	<%= f.select(:crew_id, @crews) %>
 	</div>
 

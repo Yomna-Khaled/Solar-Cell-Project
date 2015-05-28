@@ -60,34 +60,52 @@
 
     <% end %>
   </div>
+  <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
+
  
 <script type="text/javascript">
-var counter = 0;
-var no_workers = 0 ;
-var ids = new Array();  
+    var counter = 0;
+    var no_workers = 0 ;
+    var ids = new Array(); 
+    var Woker_names = document.getElementById("Woker_names");
+
+    var number_of_normal_workers = document.getElementById("number_of_normal_workers").innerHTML;
+
 
 
 function addworkers () {
-  console.log("here");
+ 
   document.getElementById("btn").disabled = true;
   Woker_names=document.getElementById("Woker_names");
   Woker_names.innerHTML = '';
           ids = [];
           counter = 0;
   
+
+    function addworkers () { //onkeyup function of input field of number of mmbers
+         
           var myNode = document.getElementById("versionsDiv");
-          myNode.innerHTML = '';
-          no_workers = $( "#no_of_workers" ).val();
-          console.log(no_workers);
+          myNode.innerHTML = ''; //to remove all select menus on key up 
+          Woker_names.innerHTML = ''; //to clear div which appen workers name on it
+          ids = []; //to clear array 
+          counter = 0; //to reset couter
+          document.getElementById("btn").disabled = true;
+          no_workers = document.getElementById( "no_of_workers" ).value;
           if(no_workers){
              if( no_workers % 1 === 0 ){
-                var posting = $.get( "get_employees" );
-                for(var i = 0 ; i < Number(no_workers) ; i++){
-                   
-                       posting.done(function( data ) {
-                         $("#versionsDiv").append(data);
-                    });         
-                } 
+
+                  if(Number(number_of_normal_workers) < Number(no_workers)){
+                    alert("The number of normal user is "+number_of_normal_workers);
+                    document.getElementById( "no_of_workers" ).value= "";
+                  }else{
+                      var posting = $.get( "get_employees" );
+                      for(var i = 0 ; i < Number(no_workers) ; i++){
+                              posting.done(function( data ) {
+                               $("#versionsDiv").append(data);
+                          });         
+                      }                                                  
+                  }
+
               }
               else{
                 alert("Please insert a number")
@@ -95,15 +113,14 @@ function addworkers () {
           }else{
             myNode.innerHTML = '';
           }
-
     }
 
 
-function get_value(elem){
+function get_value(elem){  //onchange function of select menu
    val = elem.value
 
-   console.log(val);
-  if( ids.indexOf(val)== -1 )
+  if( ids.indexOf(val)== -1 ) //check if inserted data is a number or not
+
    {
        counter = counter + 1;
        ids.push(val) 
@@ -113,7 +130,7 @@ function get_value(elem){
        para.appendChild(node);
        document.getElementById("Woker_names").appendChild(para)
        workers = document.getElementById('workers');
-       if(counter == no_workers)
+       if(counter == no_workers)  
        {
          document.getElementById("btn").disabled = false;
          workers.value = ids.valueOf();
@@ -122,7 +139,7 @@ function get_value(elem){
 
     }else{
       elem.parentElement.style.display = true;
-    alert("Employee is already in the crew");
+      alert("Employee is already in the crew");
    }
    
 

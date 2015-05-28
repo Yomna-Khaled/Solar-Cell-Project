@@ -26,6 +26,8 @@ class CrewsController < ApplicationController
       @flag_new=1
       @disabled=true
       @crew = Crew.new
+      category = Category.where("category = ? " , "Normal")
+      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
     else
       redirect_to login_path  
     end   
@@ -35,6 +37,7 @@ class CrewsController < ApplicationController
   def get_employees
     category = Category.where("category = ? " , "Normal")
     @employees = Employee.where("category_id = ? " , category[0].id)
+    puts (@employees.count)
     render partial: "employees";
   end
 
@@ -56,16 +59,24 @@ end
     @crew = Crew.new(crew_params)
     respond_to do |format|
       if @crew.save
-        last_id = Crew.maximum('id')
-        array = params[:workers].split(',')
-        array.each_with_index do |item,i|
-        
-           @employee = Employee.find_by(id: array[i])
-            if @employee 
-                  @employee.update_attributes(:crew_id => last_id)
-            end
-        end
-    
+
+          last_id = Crew.maximum('id')
+          puts last_id
+          array = params[:workers].split(',')
+        puts "------------------------------------------"
+          array.each_with_index do |item,i|
+              puts array[i]
+                      puts "------------------------------------------"
+              @employee = Employee.find_by(id: array[i])
+              if @employee 
+                      puts @employee.crew_id
+                       puts "==========================kkkkkkk"
+                      Employee.where("id = ? ", array[i]).update_all(:crew_id => last_id )
+                      # @employee.update_attributes(:crew_id => last_id)
+                      puts "=========================="
+              end
+          end
+>>>
         format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
