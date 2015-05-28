@@ -54,8 +54,13 @@ class CrewsController < ApplicationController
   end
 
 def home
-   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
-   @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])      
+   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
+   if !@crewid 
+   	@crewid = ' ';
+    @crew_name = ' ';
+   else
+    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
+   end
 end
 
   # POST /crews
