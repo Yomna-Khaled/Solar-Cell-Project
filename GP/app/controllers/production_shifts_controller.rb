@@ -15,8 +15,10 @@ class ProductionShiftsController < ApplicationController
 
   # GET /production_shifts/new
   def new
+   
     @production_shift = ProductionShift.new
     @materials = Material.all
+   
   end
 
   # GET /production_shifts/1/edit

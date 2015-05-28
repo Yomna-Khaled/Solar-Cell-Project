@@ -111,6 +111,7 @@ class ShiftsController < ApplicationController
   def startshift
 
 if logged_in? and current_category.category=="Shift Manager" 
+
      @shift = Shift.new(start_shift_params)
      @crews = Crew.all.map{|c| [c.name,c.id]} 
 
