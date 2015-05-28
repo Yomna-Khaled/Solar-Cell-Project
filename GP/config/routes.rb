@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :saled_panels
+  resources :buyer_phones
+  resources :buyers
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
