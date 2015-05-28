@@ -44,12 +44,25 @@
 <%= fields_for :vendor_phones do |p| %>
 
     <%= phonn = '' %>
+
+
+<% if @phones.blank? %>
+
+<p> <%= phonn = '' %> </p>
+
+<% else %>
+
+
    <% @phones.each do |f| %>
      <p>
    <% phonn = phonn + f.phone + ',' %>
      </p>
    <% end %>
 <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
+
+
+<% end %> 
+
 
 
 <% end %>
@@ -121,8 +134,13 @@ var add = function() {
     x=x+1;
     $( "#OK" ).click(function() {
 	  var value = $("#1").val();
-                  if (value>1){
-                   if (allValues != ''){
+                  if (isNaN(value))
+                {
+              alert('string ');
+                 }
+                else
+                 {alert('number');
+                      if (allValues != ''){
 		allValues =  allValues + ',' + value
 		}else{
 		 allValues =  allValues + value		
@@ -130,13 +148,16 @@ var add = function() {
 		$("#phone").val(allValues);
 		$("#1").val('');		
                 });
+
+                    }
+
+
+
                 
- }
-else
-{
-alert('niiiii');
-}
                 
+ 
+              
+            
 
                
  

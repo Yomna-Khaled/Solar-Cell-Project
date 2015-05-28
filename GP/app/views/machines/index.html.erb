@@ -15,7 +15,7 @@
     <% @machines.each do |machine| %>
       <tr>
         <td><%= machine.name %></td>
-        <td><%= link_to 'Show', machine , class:"btn btn-primary" %></td>
+        
         <td><%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
       </tr>
     <% end %>
