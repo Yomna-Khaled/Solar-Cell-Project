@@ -3,8 +3,8 @@ class SparePart < ActiveRecord::Base
   has_many :vendors, through: :vendorspare
   belongs_to :machine
   validates :name, :presence => true
-  validates :quantity,:avatar, :presence => true
-  validates :price, :presence => true 
+  validates :quantity, :presence => true, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :price, :presence => true, :numericality => { :greater_than_or_equal_to => 0 } 
   has_attached_file :avatar
    validates_uniqueness_of :name
   
