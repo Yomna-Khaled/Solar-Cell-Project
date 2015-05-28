@@ -47,9 +47,9 @@
 
 <strong>Phones:</strong>
   <% index = 1%>
-    <% @employee_phones.each do |employeephone| %>
+    <% @vendor_phones.each do |vendorphone| %>
       <p>
-        <strong><%=index%>-<%= employeephone.phone %></strong>      
+        <strong><%=index%>-<%= vendorphone.phone %></strong>      
           <%index+=1%>
       </p>
     <%end%>   

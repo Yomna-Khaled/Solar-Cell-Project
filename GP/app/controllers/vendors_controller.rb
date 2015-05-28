@@ -21,7 +21,7 @@ end
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-   
+    @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
   end
 
   # GET /vendors/new
