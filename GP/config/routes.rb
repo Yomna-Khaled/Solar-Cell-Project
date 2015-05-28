@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
   post 'delPhon' => 'employees#pho'
- 
+  post 'delPhonee' => 'buyers#pho'
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -145,7 +145,7 @@ var del = function(vendorid) {
 
 		    $.ajax({
 			method: "POST",
-			url: '/delPhonee',
+			url: '/delPhone',
 				dataType: "JSON",
 				data: { "phone": dataString},
 				complete: function(data)
