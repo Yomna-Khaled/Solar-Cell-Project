@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :saled_panels
+  resources :buyer_phones
+  resources :buyers
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
@@ -13,6 +16,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
+  
   
 
   resources :vendor_spares
@@ -59,6 +63,7 @@ Rails.application.routes.draw do
   post 'delPhon' => 'employees#pho'
  
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
+  post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

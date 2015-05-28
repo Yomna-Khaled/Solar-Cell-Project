@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Buyer Phones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Buyer</th>
+      <th>Phone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @buyer_phones.each do |buyer_phone| %>
+      <tr>
+        <td><%= buyer_phone.buyer %></td>
+        <td><%= buyer_phone.phone %></td>
+        <td><%= link_to 'Show', buyer_phone %></td>
+        <td><%= link_to 'Edit', edit_buyer_phone_path(buyer_phone) %></td>
+        <td><%= link_to 'Destroy', buyer_phone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Buyer phone', new_buyer_phone_path %>

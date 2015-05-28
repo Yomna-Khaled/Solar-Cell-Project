@@ -38,6 +38,7 @@ class CrewsController < ApplicationController
     category = Category.where("category = ? " , "Normal")
     @employees = Employee.where("category_id = ? " , category[0].id)
     puts (@employees.count)
+
     render partial: "employees";
   end
 
@@ -47,6 +48,9 @@ class CrewsController < ApplicationController
     @disabled=false
     puts params[:id]
     @employees=Employee.where("crew_id = ?",params[:id])
+          category = Category.where("category = ? " , "Normal")
+
+     @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
   end
 
 def home
@@ -81,7 +85,6 @@ end
                       puts "=========================="
               end
           end
->>>
         format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
@@ -96,7 +99,7 @@ end
     respond_to do |format|
    array = params[:workers].split(',')
      @employee_old = Employee.find_by(crew_id: @crew.id) 
-      @employee_old.update_attributes(:crew_id => 1)  
+      Employee.where("id = ? ", @employee_old.id).update_all(:crew_id => 1 ) 
 
       if @crew.update(crew_params)
         
@@ -108,7 +111,7 @@ end
            @employee = Employee.find_by(id: array[i])
           
             if @employee 
-                  @employee.update_attributes(:crew_id => @crew.id)
+                  Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
             end
         end
         format.html { redirect_to @crew  }
