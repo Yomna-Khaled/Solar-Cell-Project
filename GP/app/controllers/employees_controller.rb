@@ -39,6 +39,7 @@ class EmployeesController < ApplicationController
     end
 
     @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+    @employee.password_confirmation=Digest::MD5.hexdigest(@employee.password_confirmation)
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee }
@@ -84,6 +85,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit( :user_name, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name)
+      params.require(:employee).permit( :user_name, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name, :password_confirmation)
     end
 end
