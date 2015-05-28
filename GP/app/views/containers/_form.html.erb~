@@ -32,11 +32,11 @@
 
   <div class="field form-group">
     <%= f.label :width %><br>
-    <%= f.number_field :width ,step:0.1 ,class: 'form-control' %>
+    <%= f.number_field :width ,step:0.01 ,class: 'form-control' %>
   </div>
   <div class="field form-group">
     <%= f.label :height %><br>
-    <%= f.number_field :height ,step:0.1 ,class: 'form-control'%>
+    <%= f.number_field :height ,step:0.01 ,class: 'form-control'%>
   </div>
   <div class="field form-group">
     <%= f.label :serialNo %><br>
@@ -48,11 +48,11 @@
   </div>
   <div class="field form-group">
     <%= f.label :price %><br>
-    <%= f.number_field :price ,step:0.1 ,class: 'form-control' %>
+    <%= f.number_field :price ,step:0.0000001 ,class: 'form-control' %>
   </div>
    <div class="field form-group">
     <%= f.label :total_power %><br>
-    <%= f.number_field :total_power ,step:0.1 ,class: 'form-control' %>
+    <%= f.number_field :total_power ,step:0.0000000000000000001 ,class: 'form-control' %>
   </div>
   
  
@@ -71,6 +71,30 @@
       <%end %>
     <% end -%>
   </select>
+
+
+<!-- add new vendor using ajax-->
+    <a id="vendorlink" class="btn btn-link" style="text-align: left"
+    onclick="showvendorform()">Add new Vendor</a>
+      <div id="addnewvendor" style="display:none" class="form-group">
+         <h1>
+          <span class="label label-default">New Vendor</span>
+        </h1>
+        <div class="form-group">
+          <label>Vendor Name</label>
+          <input type="text" id="vendorname" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Vendor Email</label>
+          <input type="text" id="vendoremail" class="form-control">
+        </div>
+        <div class="actions">
+          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+        </div>
+      </div>
+    <!-- end of adding new vendor using ajax -->
+
 </div>
 
 

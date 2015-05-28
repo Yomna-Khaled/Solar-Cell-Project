@@ -59,6 +59,7 @@
         <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],@employee.education_level ))  %>
       </div>
   <% end %>
+
   <div class="form-group">
     <%= f.label :education %><br>
     <%= f.text_field :education ,class: 'form-control' , placeholder: "Enter Education"   %>
@@ -67,10 +68,15 @@
     <%= f.label :Governamental_ID %><br>
     <%= f.text_field :Governamental_ID, class: 'form-control' , placeholder: "Enter Governamental_ID" %>
   </div>
+  
 <% if @flag_new == 0 %>
-  <p><strong>Category : </strong></p>
-  <p><%= Category.find_by(:id => @category_id ).category%></p>
-<% end %>  
+  <p><strong>Category : </strong><p>
+
+  <p>
+      <%= Category.find_by(:id => @category_id).category %>
+  </p>
+<% end %>    
+
 
 <% if @flag_new != 0 %>
     <div class="form-group">
