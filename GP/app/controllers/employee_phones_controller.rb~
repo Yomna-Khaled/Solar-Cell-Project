@@ -8,7 +8,7 @@ class EmployeePhonesController < ApplicationController
   end
 
   def pho
-    @employeephones_selected = params[:phone]
+    @vendorphones_selected = params[:phone]
   end
 
   # GET /employee_phones/1

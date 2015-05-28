@@ -81,7 +81,7 @@
 <% if @flag_new != 0 %>
     <div class="form-group">
       <%= f.label :category_id %><br>
-      <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
+      <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
     </div>
     <div id="notnormal">
       <div class="form-group">
@@ -175,7 +175,6 @@
        if (category.text == 'Normal') target.style.display='none';
        category.onchange=function() {
         var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
-       
         if (type == 'Normal') {
                          target.style.display = 'none';
                       } else {
