@@ -96,20 +96,23 @@ class ShiftsController < ApplicationController
   end
 
   def showstartshift
+    if logged_in? and current_category.category=="Shift Manager" 
      @shift = Shift.new
-     @crews = Crew.all.map{|c| [c.id]} 
+     @crews = Crew.all.map{|c| [c.name,c.id]} 
      if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
           redirect_to  shifts_showendshift_path 
       else 
           render :showstartshift
       end 
+     end
   end
 
 
   def startshift
 if logged_in? and current_category.category=="Shift Manager" 
-    @crews = Crew.all.map{|c| [c.id]} 
-    @shift = Shift.new(start_shift_params)
+
+     @shift = Shift.new(start_shift_params)
+     @crews = Crew.all.map{|c| [c.name,c.id]} 
 
     respond_to do |format|
       if @shift.save
@@ -128,6 +131,7 @@ if logged_in? and current_category.category=="Shift Manager"
   end
 
   def showendshift
+    if logged_in? and current_category.category=="Shift Manager"  
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
      
      if @shift.exists?
@@ -137,14 +141,15 @@ if logged_in? and current_category.category=="Shift Manager"
     
      else 
       redirect_to  shifts_showstartshift_path 
-     end  
+     end 
+    end 
   end
 
   def endshift
    if logged_in? and current_category.category=="Shift Manager"  
     respond_to do |format|
      if @shift.update(end_shift_params)
-        puts @shift.inspect
+
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
         format.json { render :show, status: :ok, location: @shift }
       else

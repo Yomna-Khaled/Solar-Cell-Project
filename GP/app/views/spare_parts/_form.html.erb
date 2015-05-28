@@ -68,12 +68,35 @@
       <%end %>
     <% end -%>
   </select>
+<!-- add new vendor using ajax-->
+    <a id="vendorlink" class="btn btn-link" style="text-align: left"
+    onclick="showvendorform()">Add new Vendor</a>
+      <div id="addnewvendor" style="display:none" class="form-group">
+         <h1>
+          <span class="label label-default">New Vendor</span>
+        </h1>
+        <div class="form-group">
+          <label>Vendor Name</label>
+          <input type="text" id="vendorname" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Vendor Email</label>
+          <input type="text" id="vendoremail" class="form-control">
+        </div>
+        <div class="actions">
+          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+        </div>
+      </div>
+    <!-- end of adding new vendor using ajax -->
+
 </div>
 
 
 
 
 <div class="form-group">
+   <%= f.label :Spare_part_Photo %><br>
     <%= f.file_field :avatar %>
   </div>
 

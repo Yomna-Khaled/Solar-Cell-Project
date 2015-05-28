@@ -29,7 +29,6 @@
 			  <li><%= link_to 'Add Spare Part', new_spare_part_path %></li>
 			  <li><%= link_to 'All Vendors', vendors_path %></li>
 			  <li><%= link_to 'Add Vendor', new_vendor_path %></li>
-			  <li><%= link_to 'Add Spare Parts', new_spare_part_path %></li>
 			  <li><%= link_to 'All Machines ', machines_path %></li>
 			  <li><%= link_to 'Add Machines ', new_machine_path %></li>
 			  <li><%= link_to 'All Palets', containers_path %></li>
@@ -42,8 +41,11 @@
                           <li class="active"><li><%= link_to 'Home', crew_home_path %></li>
 			  <li class="active"><li><%= link_to 'Start Shift', shifts_showstartshift_path %></li>
 			 <li class="active"><li><%= link_to 'End Shift', shifts_showendshift_path %></li>
-                         <li class="active"><li><%= link_to 'Add Produced Product', new_solar_panel_path %></li>
+
+                         <li class="active"><li><%= button_to  'Add Produced Product',new_solar_panel_path ,method: :get %></li>
                         <li class="active"><li><%= link_to 'Order Request', new_solar_panel_path %></li>
+                        <li class="active"><li><%= link_to 'Order Request', new_production_shift_path %></li>
+
                        <li class="active"><li><%= link_to 'Reports', new_solar_panel_path %></li>
 			</ul>
 
