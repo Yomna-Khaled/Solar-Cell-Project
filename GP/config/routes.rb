@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
   
+  
 
   resources :vendor_spares
 
