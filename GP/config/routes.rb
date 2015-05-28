@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   post 'delPhone' => 'vendors#pho'
  
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
+  post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
