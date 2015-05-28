@@ -33,7 +33,7 @@
 
 
 <div class="field form-group">
-
+   <%= f.label :Phones %><br>
    <% if @flag == "new" %> 
  <%= fields_for :vendor_phones do |p| %> 	
     <%= p.label :phone %><br>
@@ -91,12 +91,12 @@ var x=1;
 var counter=0;
 var allValues = '';
 allValues=$( "#phone" ).val().slice(0,-1);
-alert (counter);
+
 
 var add = function() {
 	if (counter === 0 ) {
 		  	 counter =  1;
-		  	 alert ('inside' + counter);
+		  	 
 		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
 		    x=x+1;
 		    $( "#OK" ).click(function() {
@@ -104,7 +104,7 @@ var add = function() {
 		    if (isNaN(value)){
 		        alert('string ');
 		    }else{
-		    	alert('number');
+		    	
 			    if (allValues != ''){
 					allValues =  allValues + ',' + value
 				}else{

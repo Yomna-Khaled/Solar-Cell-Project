@@ -101,7 +101,7 @@
 
 
 <div class="field form-group">
-
+  
    <% if @flag == "new" %> 
  <%= fields_for :employee_phones do |p| %> 	
     <%= p.label :phone %><br>
@@ -144,23 +144,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <div class="actions">
     <%= f.submit :submit, class: "btn btn-primary" %>
   </div>
@@ -184,16 +167,10 @@
        }
       }
 
-
-
-
-
 var x=1;
 var counter=0;
 var allValues = '';
 allValues=$( "#phone" ).val().slice(0,-1);
-alert (counter);
-
 var add = function() {
 	if (counter === 0 ) {
 		  	 counter =  1;
@@ -220,7 +197,7 @@ var add = function() {
 };
 
 
-var del = function(vendorid) {
+var del = function(employeeid) {
      
 	 var phons_num = $("#phone").val();
          $("#phone").val('');

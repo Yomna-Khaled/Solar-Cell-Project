@@ -33,15 +33,15 @@
 
 
 <div class="field form-group">
-
+   
    <% if @flag == "new" %> 
- <%= fields_for :vendor_phones do |p| %> 	
+ <%= fields_for :buyer_phones do |p| %> 	
     <%= p.label :phone %><br>
 	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
     <% end %>
 
 <%else %>
-<%= fields_for :vendor_phones do |p| %>
+<%= fields_for :buyer_phones do |p| %>
 
     <%= phonn = '' %>
 
@@ -58,7 +58,7 @@
    <% phonn = phonn + f.phone + ',' %>
      </p>
    <% end %>
-<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
+<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)">Delete Phone</a> <br>
 <% end %> 
 <% end %>
 <%end %>
@@ -101,7 +101,7 @@ alert (counter);
 var add = function() {
 	if (counter === 0 ) {
 		  	 counter =  1;
-		  	 alert ('inside' + counter);
+		  	 
 		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
 		    x=x+1;
 		    $( "#OK" ).click(function() {
@@ -109,7 +109,7 @@ var add = function() {
 		    if (isNaN(value)){
 		        alert('string ');
 		    }else{
-		    	alert('number');
+		    	
 			    if (allValues != ''){
 					allValues =  allValues + ',' + value
 				}else{
@@ -124,7 +124,7 @@ var add = function() {
 };
 
 
-var del = function(vendorid) {
+var del = function(buyerid) {
      
 	 var phons_num = $("#phone").val();
          $("#phone").val('');
@@ -145,7 +145,7 @@ var del = function(vendorid) {
 
 		    $.ajax({
 			method: "POST",
-			url: '/delPhone',
+			url: '/delPhonee',
 				dataType: "JSON",
 				data: { "phone": dataString},
 				complete: function(data)

@@ -15,6 +15,7 @@ class BuyersController < ApplicationController
   # GET /buyers/1
   # GET /buyers/1.json
   def show
+    @buyer_phones = BuyerPhone.where("buyer_id=?",@buyer.id)
   end
 
   # GET /buyers/new
@@ -37,6 +38,17 @@ class BuyersController < ApplicationController
 
     respond_to do |format|
       if @buyer.save
+        if params[:buyer_phones][:phone]==" "
+         @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+         @buyerphone.save  
+        else
+         arr= params[:buyer_phones][:phone].split(",")
+	 arr.each do |c|
+		puts c	
+           @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+           @buyerphone.save 
+         end
+        end 
         format.html { redirect_to @buyer, notice: 'Buyer was successfully created.' }
         format.json { render :show, status: :created, location: @buyer }
       else
@@ -51,6 +63,15 @@ class BuyersController < ApplicationController
   def update
     respond_to do |format|
       if @buyer.update(buyer_params)
+
+
+        arr= params[:buyer_phones][:phone].split(",")
+	 arr.each do |c|
+		puts c	
+           @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+           @buyerphone.save 
+	 end  
+
         format.html { redirect_to @buyer, notice: 'Buyer was successfully updated.' }
         format.json { render :show, status: :ok, location: @buyer }
       else
