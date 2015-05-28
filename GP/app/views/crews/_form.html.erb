@@ -33,6 +33,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name, class: 'form-control' , placeholder: "Enter crew name" ,id: "crew"%>
   </div>
+ 
   <div class="field">
     <%= f.label :no_of_workers %><br>
     <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
@@ -42,12 +43,22 @@
   <div id="Div">
   </div>
   <br>
+  <%= hidden_field_tag("workers", "", :id => "workers") %>
   <div class="actions">
-    <%= f.submit :submit, class: 'btn btn-primary' , disabled: true , id:"btn" %>
+    
+
+    <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
   </div>
 <% end %>
   <h2 class="page-header text-primary">Names of employees</h2>
   <div id="Woker_names">
+    <% if @flag_new==0 %>
+          <% @employees.each do |employee| %>
+              <%= employee.full_name %> <br>
+
+          <% end %>
+
+    <% end %>
   </div>
  
 <script type="text/javascript">
@@ -58,11 +69,11 @@ var ids = new Array();
 
 function addworkers () {
   console.log("here");
-    var input = document.createElement("input");
-  input.setAttribute("type", "hidden");
-  input.setAttribute("name", "workers");
-  input.setAttribute("id", "workers");
-  document.getElementById("Div").appendChild(input)
+  document.getElementById("btn").disabled = true;
+  Woker_names=document.getElementById("Woker_names");
+  Woker_names.innerHTML = '';
+          ids = [];
+          counter = 0;
   
           var myNode = document.getElementById("versionsDiv");
           myNode.innerHTML = '';
@@ -72,7 +83,7 @@ function addworkers () {
              if( no_workers % 1 === 0 ){
                 var posting = $.get( "get_employees" );
                 for(var i = 0 ; i < Number(no_workers) ; i++){
-                   console.log("in for");
+                   
                        posting.done(function( data ) {
                          $("#versionsDiv").append(data);
                     });         
@@ -90,6 +101,8 @@ function addworkers () {
 
 function get_value(elem){
    val = elem.value
+
+   console.log(val);
   if( ids.indexOf(val)== -1 )
    {
        counter = counter + 1;
@@ -104,6 +117,7 @@ function get_value(elem){
        {
          document.getElementById("btn").disabled = false;
          workers.value = ids.valueOf();
+         console.log(workers);
        }
 
     }else{
