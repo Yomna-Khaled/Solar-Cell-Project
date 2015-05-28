@@ -12,14 +12,11 @@
 </style>
 
 
-
-
-<div class="container text-center">
 <%= form_for(@spare_part) do |f| %>
   <% if @spare_part.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="form-group">
      <div class="alert alert-danger">
-      <h2><%= pluralize(@spare_part.errors.count, "error") %>. 
+      <h2><%= pluralize(@spare_part.errors.count, "error") %></h2>
       <ul>
       <% @spare_part.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -29,26 +26,40 @@
   <% end %>
 
 
-<div class="panel panel-success" style="margin-top: 50px">
-<div class="panel-body">
-
-
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name ,class: 'form-control' %>
   </div>
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.label :quantity %><br>
     <%= f.number_field :quantity ,class: 'form-control' %>
   </div>
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.label :price %><br>
     <%= f.number_field :price ,step:0.1 , class: 'form-control' %>
   </div>
 
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.label :machine_id %><br>
     <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
+
+        <!-- add new quantity using ajax-->
+    <a id="machinelink" class="btn btn-link" style="text-align: left" 
+    onclick="showmachineform()">Add Machine</a>
+    <div id="addnewmachine" style="display:none" class="form-group">
+         <h1>
+          <span class="label label-default">New Machine</span>
+        </h1>
+        <div class="form-group">
+          <label>machine Name</label>
+          <input type="text" id="machinename" class="form-control">
+        </div>
+        <div class="actions">
+          <a onclick="machineajax()" class="btn btn-success">Add Machine</a>
+          <a onclick="canceladdmachine()" class="btn btn-warning">Cancel</a>
+        </div>
+    </div>
+      <!-- end of adding new machine using ajax -->
   </div>
 
 
@@ -102,13 +113,10 @@
 
 
 
-<div class="actions form-group">
+<div class="actions">
     <%= f.submit "Submit", class: "btn btn-success" %>
-  </div>
-</div>
-
 </div>
 <% end %>
-</div>
+
 
 
