@@ -24,7 +24,10 @@ class CrewsController < ApplicationController
 
     if logged_in? and current_category.category=="HR"
       @flag_new=1
+      @disabled=true
       @crew = Crew.new
+      category = Category.where("category = ? " , "Normal")
+      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
     else
       redirect_to login_path  
     end   
@@ -34,12 +37,16 @@ class CrewsController < ApplicationController
   def get_employees
     category = Category.where("category = ? " , "Normal")
     @employees = Employee.where("category_id = ? " , category[0].id)
+    puts (@employees.count)
     render partial: "employees";
   end
 
   # GET /crews/1/edit
   def edit
     @flag_new=0
+    @disabled=false
+    puts params[:id]
+    @employees=Employee.where("crew_id = ?",params[:id])
   end
 
 def home
@@ -57,16 +64,24 @@ end
     @crew = Crew.new(crew_params)
     respond_to do |format|
       if @crew.save
-        last_id = Crew.maximum('id')
-        array = params[:workers].split(',')
-        array.each_with_index do |item,i|
 
-           @employee = Employee.find_by(id: array[i])
-            if @employee 
-                  @employee.update_attributes(:crew_id => last_id)
-            end
-        end
-    
+          last_id = Crew.maximum('id')
+          puts last_id
+          array = params[:workers].split(',')
+        puts "------------------------------------------"
+          array.each_with_index do |item,i|
+              puts array[i]
+                      puts "------------------------------------------"
+              @employee = Employee.find_by(id: array[i])
+              if @employee 
+                      puts @employee.crew_id
+                       puts "==========================kkkkkkk"
+                      Employee.where("id = ? ", array[i]).update_all(:crew_id => last_id )
+                      # @employee.update_attributes(:crew_id => last_id)
+                      puts "=========================="
+              end
+          end
+>>>
         format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
@@ -79,7 +94,23 @@ end
   # PATCH/PUT /crews/1
   def update
     respond_to do |format|
+   array = params[:workers].split(',')
+     @employee_old = Employee.find_by(crew_id: @crew.id) 
+      @employee_old.update_attributes(:crew_id => 1)  
+
       if @crew.update(crew_params)
+        
+        
+        
+        array.each_with_index do |item,i|
+          
+
+           @employee = Employee.find_by(id: array[i])
+          
+            if @employee 
+                  @employee.update_attributes(:crew_id => @crew.id)
+            end
+        end
         format.html { redirect_to @crew  }
         format.json { render :show, status: :ok, location: @crew }
       else

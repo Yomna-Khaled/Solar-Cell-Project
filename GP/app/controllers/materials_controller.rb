@@ -66,12 +66,14 @@ class MaterialsController < ApplicationController
     respond_to do |format|
       if @material.save
         material_id = @material.id
-        @selected_properties.each do |selected_property|
-          propertyid = selected_property.split(":")[0]
-          propertyvalue = selected_property.split(":")[1]
-          if propertyvalue
-            @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
-            @materialproperty.save
+        if @selected_properties != nil
+          @selected_properties.each do |selected_property|
+            propertyid = selected_property.split(":")[0]
+            propertyvalue = selected_property.split(":")[1]
+            if propertyvalue
+              @materialproperty = MaterialProperty.new(material_id: material_id, property_id: propertyid, value: propertyvalue )
+              @materialproperty.save
+            end
           end
         end
         @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
