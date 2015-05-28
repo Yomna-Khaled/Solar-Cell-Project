@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528134514) do
+ActiveRecord::Schema.define(version: 20150528142344) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -178,18 +178,6 @@ ActiveRecord::Schema.define(version: 20150528134514) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "saled_panels", force: :cascade do |t|
-    t.integer  "solar_panel_id", limit: 4
-    t.integer  "buyer_id",       limit: 4
-    t.float    "totalPrice",     limit: 24
-    t.float    "totalPower",     limit: 24
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "saled_panels", ["buyer_id"], name: "index_saled_panels_on_buyer_id", using: :btree
-  add_index "saled_panels", ["solar_panel_id"], name: "index_saled_panels_on_solar_panel_id", using: :btree
-
   create_table "shifts", force: :cascade do |t|
     t.integer  "employee_id",      limit: 4
     t.integer  "crew_id",          limit: 4
@@ -219,10 +207,24 @@ ActiveRecord::Schema.define(version: 20150528134514) do
     t.datetime "updated_at",                                null: false
     t.integer  "shift_id",        limit: 4
     t.integer  "cellno",          limit: 4
+    t.integer  "sold_panels_id",  limit: 4
+    t.integer  "sold_panel_id",   limit: 4
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
   add_index "solar_panels", ["shift_id"], name: "index_solar_panels_on_shift_id", using: :btree
+  add_index "solar_panels", ["sold_panel_id"], name: "index_solar_panels_on_sold_panel_id", using: :btree
+  add_index "solar_panels", ["sold_panels_id"], name: "index_solar_panels_on_sold_panels_id", using: :btree
+
+  create_table "sold_panels", force: :cascade do |t|
+    t.integer  "buyer_id",   limit: 4
+    t.float    "totalPrice", limit: 24
+    t.float    "totalPower", limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "sold_panels", ["buyer_id"], name: "index_sold_panels_on_buyer_id", using: :btree
 
   create_table "spare_parts", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -290,12 +292,12 @@ ActiveRecord::Schema.define(version: 20150528134514) do
   add_foreign_key "materials", "quantities"
   add_foreign_key "production_shifts", "materials"
   add_foreign_key "production_shifts", "shifts"
-  add_foreign_key "saled_panels", "buyers"
-  add_foreign_key "saled_panels", "solar_panels"
   add_foreign_key "shifts", "crews"
   add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"
   add_foreign_key "solar_panels", "shifts"
+  add_foreign_key "solar_panels", "sold_panels"
+  add_foreign_key "sold_panels", "buyers"
   add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"
