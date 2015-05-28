@@ -28,7 +28,7 @@
 		</div>
        
         <div class="field">
-	<%= f.label ('enter crew name:') %><br>
+	<%= f.label ('enter crew name') %><br>
 	<%= f.select(:crew_id, @crews) %>
 	</div>
 
