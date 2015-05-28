@@ -14,23 +14,6 @@
 
 
 
-<%= form_for(@employee) do |f| %>
-
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        The form contains <%= pluralize(@employee.errors.count, "error") %>.
-         <ul>
-      <% @employee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      </div>
- </div>
-  <% end %>
-
-
-
 <div class="container text-center">
 <%= form_for(@spare_part) do |f| %>
   <% if @spare_part.errors.any? %>
@@ -74,10 +57,20 @@
   <%= f.label :Vendor %><br>
   <select id="vendor" name="vendor" class="form-control">
     <% @vendors.each do |vendor| %>
+       <% if @flag == "new" %>
       <option value="<%= vendor.id %>"><%= vendor.name %></option>
+       <%else %>
+        <% if @vendor_id == vendor.id &&%>
+          <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
+          <%else%>
+          <option value="<%= vendor.id %>"><%= vendor.name %></option>
+        <%end%>   
+      <%end %>
     <% end -%>
   </select>
 </div>
+
+
 
 
 <div class="form-group">

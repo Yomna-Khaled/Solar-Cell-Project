@@ -13,30 +13,30 @@ class SolarPanelsController < ApplicationController
   end
 
   # GET /solar_panels/1
-  # GET /solar_panels/1.json
   def show
   end
 
   # GET /solar_panels/new
   def new
-    if logged_in? and current_category.category=="Sales"
-       @flag_new=1
-       @flag=false
-       @solar_panel  = SolarPanel.new
-       @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-       if @shift.exists? 
-       else 
-         redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
-       end
-       else
-        redirect_to login_path  
+    if logged_in? and( current_category.category=="Shift Manager" or current_category.category=="Sales")     
+     @flag= true
+     @solar_panel  = SolarPanel.new
+     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
+     if @shift.exists? 
+     else 
+       redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
+     end
+     else
+      redirect_to login_path  
     end 
   end
 
   # GET /solar_panels/1/edit
   def edit
-    @flag_new=0
-    @flag=true
+    
+    @flag=false
+
+   
     @container=Container.find(@solar_panel.container_id)
     @mycrt=[@container.serialNo,@container.id]
     unless @containersopt.include?(@mycrt)
@@ -45,9 +45,10 @@ class SolarPanelsController < ApplicationController
  end
 
   # POST /solar_panels
-  # POST /solar_panels.json
   def create
-    @flag=false
+    
+   
+    @flag=true
     @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
     @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id))
      
@@ -65,20 +66,20 @@ class SolarPanelsController < ApplicationController
         format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
       end
     end
-    
+   
  end
 
   # PATCH/PUT /solar_panels/1
-  # PATCH/PUT /solar_panels/1.json
   def update
-    @flag=true
-    respond_to do |format|
+     
+     @flag=false  
+      respond_to do |format|
       @old_solar_panel=SolarPanel.find(params[:id])
       @oldcontainer=Container.find(@old_solar_panel.container_id)
       @power=@oldcontainer.total_power-@old_solar_panel.power 
       @oldcontainer.update_attributes(:total_power => @power)
      
-      if @solar_panel.update(solar_panel_params)
+      if @solar_panel.update(solar_Salespanel_params)
         @container=Container.find(@solar_panel.container_id)     
         @power=@container.total_power+@solar_panel.power 
         @container.update_attributes(:total_power => @power)
@@ -98,7 +99,6 @@ class SolarPanelsController < ApplicationController
   end
 
   # DELETE /solar_panels/1
-  # DELETE /solar_panels/1.json
   def destroy
     @solar_panel.destroy
     respond_to do |format|

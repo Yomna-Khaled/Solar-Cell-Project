@@ -47,6 +47,7 @@ class ShiftsController < ApplicationController
  
   # GET /shifts/new
   def new
+
     @shift = Shift.new
   end
 
@@ -106,8 +107,12 @@ class ShiftsController < ApplicationController
 
 
   def startshift
+
+if logged_in? and current_category.category=="Shift Manager" 
+      @shift = Shift.new(start_shift_params)
+
     @crews = Crew.all.map{|c| [c.id]} 
-    @shift = Shift.new(start_shift_params)
+
     respond_to do |format|
       if @shift.save
         format.html { redirect_to @shift }
@@ -117,6 +122,10 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
       end
     end 
+     else
+       redirect_to login_path  
+     end 
+    
 
   end
 
@@ -134,8 +143,8 @@ class ShiftsController < ApplicationController
   end
 
   def endshift
-     
-     respond_to do |format|
+   if logged_in? and current_category.category=="Shift Manager"  
+    respond_to do |format|
      if @shift.update(end_shift_params)
         puts @shift.inspect
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -146,6 +155,11 @@ class ShiftsController < ApplicationController
         format.json { render json: @shift.errors, status: :unprocessable_entity }
      end
    end
+
+
+ else
+       redirect_to login_path  
+     end
 
   end
 

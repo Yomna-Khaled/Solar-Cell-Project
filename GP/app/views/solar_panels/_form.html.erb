@@ -11,7 +11,7 @@
       </ul>
     </div>
   <% end %>
-<% if @flag_new==1 %>
+<% if current_category.category == "Shift Manager"  %>
   <div class="field">
     <%= f.label :production_date %><br>
     <%= f.date_select :production_date %>
@@ -43,13 +43,6 @@
     <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
  
   </div>
-
-  <% if @flag %>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.number_field :price ,min:"0",step:0.01 ,required:true ,class: 'field' %>
-  </div>
-  <% end %>
   <div class="field">
     <%= f.label :serialNo %><br>
     <%= f.text_field :serialNo ,required:true %>
@@ -60,7 +53,7 @@
         <%= f.select :container_id, @containersopt %>
    </div>
   </div>
-  <% elsif @flag_new==0 and current_category.category == "Sales" %>
+  <% elsif @flag==false and current_category.category == "Sales" %>
     <div class="field">
       <%= f.label :price %><br>
       <%= f.text_field :price %>

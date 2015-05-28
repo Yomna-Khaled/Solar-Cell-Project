@@ -13,23 +13,30 @@ class CrewsController < ApplicationController
 
   # GET /crews/1
   def show
+
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
+
   end
 
   # GET /crews/new
   def new
+
     if logged_in? and current_category.category=="HR"
       @flag_new=1
       @crew = Crew.new
+      category = Category.where("category = ? " , "Normal")
+      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
     else
       redirect_to login_path  
     end   
+
   end
 
   def get_employees
     category = Category.where("category = ? " , "Normal")
     @employees = Employee.where("category_id = ? " , category[0].id)
+    puts (@employees.count)
     render partial: "employees";
   end
 
@@ -38,21 +45,32 @@ class CrewsController < ApplicationController
     @flag_new=0
   end
 
+def home
+   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first 
+   @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])      
+end
+
   # POST /crews
   def create
     @crew = Crew.new(crew_params)
     respond_to do |format|
       if @crew.save
-        last_id = Crew.maximum('id')
-        array = params[:workers].split(',')
-        array.each_with_index do |item,i|
-
-           @employee = Employee.find_by(id: array[i])
-            if @employee 
-                  @employee.update_attributes(:crew_id => last_id)
-            end
-        end
-    
+          last_id = Crew.maximum('id')
+          puts last_id
+          array = params[:workers].split(',')
+        puts "------------------------------------------"
+          array.each_with_index do |item,i|
+              puts array[i]
+                      puts "------------------------------------------"
+              @employee = Employee.find_by(id: array[i])
+              if @employee 
+                      puts @employee.crew_id
+                       puts "==========================kkkkkkk"
+                      Employee.where("id = ? ", array[i]).update_all(:crew_id => last_id )
+                      # @employee.update_attributes(:crew_id => last_id)
+                      puts "=========================="
+              end
+          end
         format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
