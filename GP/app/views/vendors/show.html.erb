@@ -10,6 +10,16 @@
   <%= @vendor.email %>
 </p>
 
+<strong>Phones:</strong>
+  <% index = 1%>
+    <% @vendor_phones.each do |vendorphone| %>
+      <p>
+        <strong><%=index%>-<%= vendorphone.phone %></strong>      
+          <%index+=1%>
+      </p>
+    <%end%>   
+</p>
+
 
 <%= link_to 'Edit', edit_vendor_path(@vendor) %> |
 <%= link_to 'Back', vendors_path %>
