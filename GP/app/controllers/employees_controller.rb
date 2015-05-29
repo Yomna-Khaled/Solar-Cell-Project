@@ -46,28 +46,28 @@ class EmployeesController < ApplicationController
     if @employee.salary != nil
       @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
     end
-
-    @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
-    @employee.password_confirmation=Digest::MD5.hexdigest(@employee.password_confirmation)
+# render plain: @employee.inspect
+    if @employee.password != ""
+      @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+      @employee.password_confirmation=Digest::MD5.hexdigest(@employee.password_confirmation)
+    end
     respond_to do |format|
       if @employee.save
-
-
-          if params[:employee_phones][:phone]==" "
-         @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
-         @employeephone.save  
+        if params[:employee_phones][:phone]==" "
+          @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+          @employeephone.save  
         else
-         arr= params[:employee_phones][:phone].split(",")
-	 arr.each do |c|
-		puts c	
-           @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-           @employeephone.save 
-        end
+          arr= params[:employee_phones][:phone].split(",")
+          arr.each do |c|	
+            @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+            @employeephone.save 
+          end
         end 
 
         format.html { redirect_to @employee }
         format.json { render :show, status: :created, location: @employee }
       else
+        @flag_new=1
         format.html { render :new }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -76,24 +76,20 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
-       @employee.houre_rate=@employee.salary/(26*8) 
-       employee_params[:houre_rate] =  @employee.houre_rate
-       respond_to do |format|
-       
+    @employee.houre_rate=@employee.salary/(26*8) 
+    employee_params[:houre_rate] =  @employee.houre_rate
+    respond_to do |format|
       if @employee.update(employee_params)
-
         arr= params[:employee_phones][:phone].split(",")
-	 arr.each do |c|
-		puts c	
-           @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-           @employeephone.save 
-	 end 
-        
-     
+        arr.each do |c|
+          @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+          @employeephone.save 
+        end 
         flash[:success] = 'Employee was successfully updated.'
         format.html { redirect_to @employee }
         format.json { render :show, status: :ok, location: @employee }
       else
+        @flag_new=0
         format.html { render :edit }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end

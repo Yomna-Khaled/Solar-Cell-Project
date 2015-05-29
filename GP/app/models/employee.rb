@@ -9,6 +9,7 @@ class Employee < ActiveRecord::Base
   validates_presence_of  :password, :if => :not_normal? , :length => {:within => 6..40}
   validates_confirmation_of :password
 
+  
   validates_presence_of :user_name, :if => :not_normal?
 
   validates  :image , :education_level, :education, :Governamental_ID, :category_id, presence: true

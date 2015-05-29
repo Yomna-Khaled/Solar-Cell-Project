@@ -1,40 +1,47 @@
-
-  <div class="container">
+<div class="container">
   <h1 class="page-header">Order your Materials</h1>
-  
-   <%= form_tag("/production_shifts/", :method => "post")%>
-
-  <% @materials.each do |material| %>
-<%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}"} %> <%= material.name %>
-  <%= text_field_tag  material.id , '0.00',options={:style=>"display:none"} %>
- <br>
-
-  <% end %> 
- <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order") %>
-   
- 
-        
+  <%= form_tag("/production_shifts/", :method => "post")%>
+  <table>
+    <% @materials.each do |material| %>
+    <tr>
+      <td>
+        <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}"} %> <%= material.name %>
+      </td>
+      <td>
+        <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px"}%>
+      </td>
+      <br>
+    </tr>
+    <% end %> 
+  </table>
+  <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
 </div> 
 
 <script>
+index_checked=0; //to enable submit button
 function matvalue(ptr){
-  
   var field_id=ptr.id.split("_")[2];
-  console.log(field_id);
+  // console.log(field_id);
   if(ptr.checked==true){
-  	$("#"+field_id).show();
+    index_checked+=1;
+    $("#"+field_id).show();
+    $("#"+field_id).attr("required", "true");
+    $("#"+field_id).attr("min", "0");
+
   }
   else if(ptr.checked==false){
-  
-  $("#"+field_id).hide();
+    index_checked-=1;
+    $("#"+field_id).hide();
+    $("#"+field_id).removeAttr("required");
+    $("#"+field_id).removeAttr("min");   
+  }
+  if (index_checked > 0) {
+    $("#order").removeAttr('disabled');
+  } else{
+    $("#order").attr('disabled','disabled');
+  };
 }
-  
 
-
-  
-
-
-}
 // var task = {
 //   name: 'Start taking advantage of WebSockets',
 //   completed: false

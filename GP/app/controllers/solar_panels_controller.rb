@@ -70,17 +70,11 @@ class SolarPanelsController < ApplicationController
 
   # PATCH/PUT /solar_panels/1
   def update
-     
-<<<<<<< HEAD
-     @flag=false  
-      respond_to do |format|
-=======
+    
      @flag=false 
      
   respond_to do |format|
    if logged_in? and( current_category.category=="Shift Manager" )
-
->>>>>>> 328b02ebeb11534afda48a8ccea3648bf1cf6464
       @old_solar_panel=SolarPanel.find(params[:id])
       @oldcontainer=Container.find(@old_solar_panel.container_id)
       @power=@oldcontainer.total_power-@old_solar_panel.power 
