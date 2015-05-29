@@ -15,8 +15,10 @@ class ProductionShiftsController < ApplicationController
 
   # GET /production_shifts/new
   def new
+   
     @production_shift = ProductionShift.new
     @materials = Material.all
+   
   end
 
   # GET /production_shifts/1/edit
@@ -34,15 +36,13 @@ class ProductionShiftsController < ApplicationController
   @production_shift.save
 end
     # respond_to do |format|
-    #   if @production_shift.save
+    
     #     format.html { redirect_to @production_shift, notice: 'Production shift was successfully created.' }
     #     format.json { render :show, status: :created, location: @production_shift }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @production_shift.errors, status: :unprocessable_entity }
-    #   end
+      
     # end
-    redirect_to "new"
+   @materials = Material.all 
+   render :new
    end
 
   # PATCH/PUT /production_shifts/1

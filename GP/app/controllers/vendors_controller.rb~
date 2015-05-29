@@ -16,7 +16,6 @@ class VendorsController < ApplicationController
 def pho
 @vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
 @vendorphones_selected[0].destroy
-
 end
 
   # GET /vendors/1
@@ -37,12 +36,9 @@ end
 
   # GET /vendors/1/edit
   def edit
-@flag="edit"
-     @vendor = Vendor.find(params[:id])
-      @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
-
-
-      
+	@flag="edit"
+        @vendor = Vendor.find(params[:id])
+        @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
   end
 
   # POST /vendors
@@ -51,21 +47,39 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
       if @vendor.save
+        if params[:vendor_phones][:phone]==" "
+         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+         @vendorphone.save  
+        else
          arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
+        end
 	 end    
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
+        format.html { redirect_to @vendor }
         format.json { render :show, status: :created, location: @vendor }
      else
+
+	
+	
         format.html { render :new }
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
   end
+end
 
-  end
+  def materialvendorcreate
+    @vendorname=params[:vendorname]
+    @vendoremail = params[:vendoremail]
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
+    @vendor.save
+    render json: @vendor
+  end 
+
+
+  
 
   # PATCH/PUT /vendors/1
   # PATCH/PUT /vendors/1.json
@@ -81,7 +95,7 @@ end
 	 end    
 
 
-        format.html { redirect_to @vendor, notice: 'Vendor was successfully updated.' }
+        format.html { redirect_to @vendor }
         format.json { render :show, status: :ok, location: @vendor }
       else
         format.html { render :edit }
@@ -97,7 +111,7 @@ end
     
     @vendor.destroy
     respond_to do |format|
-      format.html { redirect_to vendors_url, notice: 'Vendor was successfully destroyed.' }
+      format.html { redirect_to vendors_url }
       format.json { head :no_content }
     end
   end

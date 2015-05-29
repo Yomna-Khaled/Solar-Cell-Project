@@ -13,79 +13,76 @@ class SolarPanelsController < ApplicationController
   end
 
   # GET /solar_panels/1
-  # GET /solar_panels/1.json
   def show
   end
 
   # GET /solar_panels/new
-  def new
-
-
-  if logged_in? and( current_category.category=="Shift Manager" or current_category.category=="Sales")
-     
+ def new
+   if logged_in? and( current_category.category=="Shift Manager" )
+    
      @flag= true
-    @solar_panel  = SolarPanel.new
+     @solar_panel  = SolarPanel.new
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-     if @shift.exists? 
-     else 
-       redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
-     end
-     else
+      if @shift.exists? 
+      else 
+        redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
+      end
+    else
       redirect_to login_path  
     end 
-  end
+ end
 
   # GET /solar_panels/1/edit
-  def edit
-    
-     @flag=false
 
-   
+
+ def edit
+    @flag=false
+ if logged_in? and( current_category.category=="Shift Manager" or current_category.category=="Sales" )
     @container=Container.find(@solar_panel.container_id)
     @mycrt=[@container.serialNo,@container.id]
     unless @containersopt.include?(@mycrt)
        @containersopt.push(@mycrt)
-    end 
+    end
+   end 
  end
 
   # POST /solar_panels
-  # POST /solar_panels.json
   def create
-    
-   
-    @flag=true
-    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-    @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id))
-     
-    respond_to do |format|
-      if @solar_panel.save
-
-
-       @container=Container.find(@solar_panel.container_id)
-       @power=@container.total_power+@solar_panel.power 
-       @container.update_attributes(:total_power => @power)
-       format.html { render :show }
-       format.json { render :show, status: :created, location: @solar_panel }
-      else
-        format.html { render :new }
-        format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
-      end
-    end
-   
+    if logged_in? and( current_category.category=="Shift Manager" )
+            @flag=true
+	    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
+	    @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id))
+	     
+	    respond_to do |format|
+	      if @solar_panel.save
+               @container=Container.find(@solar_panel.container_id)
+	       @power=@container.total_power+@solar_panel.power 
+	       @container.update_attributes(:total_power => @power)
+	       format.html { redirect_to  shifts_showstartshift_path  }
+	       format.json { render :show, status: :created, location: @solar_panel }
+	      else
+		format.html { render :new }
+		format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
+	      end
+	    end
+   end
  end
 
   # PATCH/PUT /solar_panels/1
-  # PATCH/PUT /solar_panels/1.json
   def update
      
-     @flag=false  
-    respond_to do |format|
+
+     @flag=false 
+     
+  respond_to do |format|
+   if logged_in? and( current_category.category=="Shift Manager" )
+
       @old_solar_panel=SolarPanel.find(params[:id])
       @oldcontainer=Container.find(@old_solar_panel.container_id)
       @power=@oldcontainer.total_power-@old_solar_panel.power 
       @oldcontainer.update_attributes(:total_power => @power)
      
-      if @solar_panel.update(solar_Salespanel_params)
+      if @solar_panel.update(solar_panel_params)
         @container=Container.find(@solar_panel.container_id)     
         @power=@container.total_power+@solar_panel.power 
         @container.update_attributes(:total_power => @power)
@@ -101,11 +98,20 @@ class SolarPanelsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
       end
+    elsif logged_in? and( current_category.category=="Sales" )
+            if @solar_panel.update(solar_Salespanel_params)
+		    format.html { redirect_to @solar_panel, notice: 'Solar panel was successfully updated.' }
+		    format.json { render :show, status: :ok, location: @solar_panel }
+            else 
+                    format.html { render :edit }
+        	    format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
+            end   
+
     end
+   end
   end
 
   # DELETE /solar_panels/1
-  # DELETE /solar_panels/1.json
   def destroy
     @solar_panel.destroy
     respond_to do |format|
@@ -124,23 +130,24 @@ class SolarPanelsController < ApplicationController
     def solar_panel_params
 
       params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
+    end
 
-      @solarhash=params.require(:solar_panel).permit(:production_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
-      
-         
+    def solar_Salespanel_params
+        params.require(:solar_panel).permit(:price)
 
     end
+
     def set_controller_serial_ids
          @containersopt=[]       
-     for i in 0..(Container.all.length-1)
-       @containerid = (Container.all)[i].id
-       @crtcap=SolarPanel.where("container_id = ?", @containerid ).count
-       @empcap=Container.where("id = ? AND capacity > ?",@containerid,@crtcap)
-       if (@empcap.exists?)
-         @myarr = [@empcap[0].serialNo,@empcap[0].id]
-         @containersopt.push(@myarr)
+       for i in 0..(Container.all.length-1)
+	       @containerid = (Container.all)[i].id
+	       @crtcap=SolarPanel.where("container_id = ?", @containerid ).count
+	       @empcap=Container.where("id = ? AND capacity > ?",@containerid,@crtcap)
+		if (@empcap.exists?)
+		 @myarr = [@empcap[0].serialNo,@empcap[0].id]
+		 @containersopt.push(@myarr)
+	       end
        end
-     end
         
     end
-end
+  end

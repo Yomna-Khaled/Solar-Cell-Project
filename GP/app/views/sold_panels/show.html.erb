@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= @sold_panel.buyer %>
+</p>
+
+<p>
+  <strong>Totalprice:</strong>
+  <%= @sold_panel.totalPrice %>
+</p>
+
+<p>
+  <strong>Totalpower:</strong>
+  <%= @sold_panel.totalPower %>
+</p>
+
+<%= link_to 'Edit', edit_sold_panel_path(@sold_panel) %> |
+<%= link_to 'Back', sold_panels_path %>

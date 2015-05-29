@@ -8,8 +8,8 @@
             <th text-align="center">Salary</th>
             <th text-align="center">Houre Rate</th>
             <th text-align="center">Education Level</th>
+            <th text-align="center">Education</th>
             <th text-align="center">Governamental ID</th>
-            <th text-align="center">Position</th>
             <th text-align="center">Category</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
@@ -26,8 +26,8 @@
             <td><%= employee.salary %></td>
             <td><%= employee.houre_rate %></td>
             <td><%= employee.education_level %></td>
+            <td><%= employee.education %></td>
             <td><%= employee.Governamental_ID %></td>
-            <td><%= employee.position %></td>
             <% category=Category.find_by(id: employee.category_id )%>
             <td><%= category.category %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>

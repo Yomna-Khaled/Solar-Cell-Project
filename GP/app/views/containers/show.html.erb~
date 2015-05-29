@@ -29,6 +29,13 @@
   <strong>Total power:</strong>
   <%= @container.total_power %>
 </p>
+
+<p>
+  <strong>Vendor:</strong>
+        <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
+        <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
+        <td><%= vendor.name %></td>
+ </p> 
 ================================================================================
 <% @container.solar_panels.each do |solarpanel| %>
   <p>
@@ -73,5 +80,3 @@
 ****************************************
 <% end %>
 
-<%= link_to 'Edit', edit_container_path(@container) %> |
-<%= link_to 'Back', containers_path %>

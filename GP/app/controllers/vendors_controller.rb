@@ -21,7 +21,7 @@ end
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-   
+    @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
   end
 
   # GET /vendors/new
@@ -36,12 +36,9 @@ end
 
   # GET /vendors/1/edit
   def edit
-@flag="edit"
-     @vendor = Vendor.find(params[:id])
-      @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
-
-
-      
+	@flag="edit"
+        @vendor = Vendor.find(params[:id])
+        @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
   end
 
   # POST /vendors
@@ -50,15 +47,23 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
       if @vendor.save
+        if params[:vendor_phones][:phone]==" "
+         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+         @vendorphone.save  
+        else
          arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
+        end
 	 end    
         format.html { redirect_to @vendor }
         format.json { render :show, status: :created, location: @vendor }
      else
+
+	
+	
         format.html { render :new }
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
@@ -74,24 +79,7 @@ end
   end 
 
 
-  def create
-  	@vendor = Vendor.new(vendor_params)
-        respond_to do |format|
-        if @vendor.save
-           arr= params[:vendor_phones][:phone].split(",")
-  	 arr.each do |c|
-  		puts c	
-             @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
-             @vendorphone.save 
-  	 end    
-          format.html { redirect_to @vendor, notice: 'Vendor was successfully created.' }
-          format.json { render :show, status: :created, location: @vendor }
-       else
-          format.html { render :new }
-          format.json { render json: @vendor.errors, status: :unprocessable_entity }
-        end
-    end
-  end
+  
 
   # PATCH/PUT /vendors/1
   # PATCH/PUT /vendors/1.json

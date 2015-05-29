@@ -13,37 +13,26 @@ class ShiftsController < ApplicationController
     @shift = Shift.where("start_shift_date= ?", "2015-05-26")
     @shift_produced_rate = @shift[0].production_rate
     @manager = current_user.full_name
-    @crew_member_numbers = Crew.find(@shift[0].crew_id).no_of_workers
+    @crew_member_numbers = Crew.find(@shift[0].crew_id)
+    @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
+
     @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
     
     @solar_panels.each do|solar|
       @total_power = @total_power + solar.power
     end
-    puts "==========================="
+  
      @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
      @materials_used_id.each do |m|
         puts m.material.name
+        puts m.material_quantity
      end
-
-     # # @materials_used = ProductionShift.select("ProductionShift.material_quantity as quant , Material.name as name").joins(:Material).where(:ProductionShift => {:shift_id => params[:id]})
-     # @materials_used =  ProductionShift.select("ProductionShift.material_quantity, Material.name").joins(:Material).where(:ProductionShift => {:shift_id => params[:id]})
-     #  @materials_used.each do |x|
-     #      puts x
-     #    end
-      # # @materials_used =[]
-    # # @materials_used_id.each do |material|
-    # # @materials_used << Material.find(material.id)
-     
-    # end
-
-
-
-    
+  
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power , @materials_used)
+        pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power , @materials_used_id , @crew_Members)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
@@ -121,25 +110,23 @@ class ShiftsController < ApplicationController
   end
 
   def showstartshift
+    if logged_in? and current_category.category=="Shift Manager" 
      @shift = Shift.new
-     @crews = Crew.all.map{|c| [c.id]} 
+     @crews = Crew.all.map{|c| [c.name,c.id]} 
      if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
           redirect_to  shifts_showendshift_path 
       else 
           render :showstartshift
       end 
+     end
   end
 
 
   def startshift
 
 if logged_in? and current_category.category=="Shift Manager" 
-
-      @shift = Shift.new(start_shift_params)
-
- 
-    @crews = Crew.all.map{|c| [c.id]} 
-    @shift = Shift.new(start_shift_params)
+     @shift = Shift.new(start_shift_params)
+     @crews = Crew.all.map{|c| [c.name,c.id]} 
 
     respond_to do |format|
       if @shift.save
@@ -158,6 +145,7 @@ if logged_in? and current_category.category=="Shift Manager"
   end
 
   def showendshift
+    if logged_in? and current_category.category=="Shift Manager"  
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
      
      if @shift.exists?
@@ -167,14 +155,15 @@ if logged_in? and current_category.category=="Shift Manager"
     
      else 
       redirect_to  shifts_showstartshift_path 
-     end  
+     end 
+    end 
   end
 
   def endshift
    if logged_in? and current_category.category=="Shift Manager"  
     respond_to do |format|
      if @shift.update(end_shift_params)
-        puts @shift.inspect
+
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
         format.json { render :show, status: :ok, location: @shift }
       else

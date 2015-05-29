@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  buyer_id: 
+  totalPrice: 1.5
+  totalPower: 1.5
+
+two:
+  buyer_id: 
+  totalPrice: 1.5
+  totalPower: 1.5

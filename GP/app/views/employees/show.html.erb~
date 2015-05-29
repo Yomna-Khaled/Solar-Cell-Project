@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <%= image_tag @employee.image.url(:thumb) %>
+</p>
+<p>
+  <strong>Full name:</strong>
+  <%= @employee.full_name %>
+</p>
+
+
+<p>
+  <strong>Salary:</strong>
+  <%= @employee.salary %>
+</p>
+
+<p>
+  <strong>Houre rate:</strong>
+  <%= @employee.houre_rate %>
+</p>
+
+<p>
+  <strong>Education level:</strong>
+  <%= @employee.education_level %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @employee.education %>
+</p>
+
+<p>
+  <strong>Governamental id:</strong>
+  <%= @employee.Governamental_ID %>
+</p>
+
+
+
+<p>
+  <strong>Category:</strong>
+  <%= @employee.category_id %>
+</p>
+
+<p>
+  <strong>Crew:</strong>
+  <%= @employee.crew_id %>
+</p>
+
+<strong>Phones:</strong>
+  <% index = 1%>
+    <% @vendor_phones.each do |vendorphone| %>
+      <p>
+        <strong><%=index%>-<%= vendorphone.phone %></strong>      
+          <%index+=1%>
+      </p>
+    <%end%>   
+</p>
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

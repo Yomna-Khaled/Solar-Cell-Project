@@ -10,7 +10,9 @@
       <th text-align="center">Image</th>
       <th text-align="center">Name</th>
       <th text-align="center">Quantity</th>
+      <% if current_category.category!="Stock Keeper" %>
       <th text-align="center">Price</th>
+      <% end %>
       <th text-align="center">Machine</th>
       <th text-align="center">Vendor</th>
       <th text-align="center">Show</th>
@@ -25,7 +27,9 @@
          <td text-align="center"><%= image_tag spare_part.avatar.url(:thumb) , class: "thumbnail" %></td>
         <td><%= spare_part.name %></td>
         <td><%= spare_part.quantity %></td>
+        <% if current_category.category!="Stock Keeper" %>
         <td><%= spare_part.price %></td>
+        <% end %>
         <% machine = Machine.find_by(id: spare_part.machine_id) %>
         <td><%= machine.name %></td>
         <% @spare_part_vendor = VendorSpare.where("spare_part_id=?",spare_part.id).order(updated_at: :desc)[0] %>

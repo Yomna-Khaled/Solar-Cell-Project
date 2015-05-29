@@ -55,6 +55,7 @@ class ContainersController < ApplicationController
         format.json { render :show, status: :created, location: @container }
 
       else
+        @vendors = Vendor.all
         format.html { render :new }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end
@@ -75,6 +76,7 @@ class ContainersController < ApplicationController
          format.html { redirect_to @container, notice: 'Container was successfully updated.' }
          format.json { render :show, status: :ok, location: @container }
        else
+         @vendors = Vendor.all
          format.html { render :edit }
          format.json { render json: @container.errors, status: :unprocessable_entity }
        end

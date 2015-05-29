@@ -4,7 +4,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts
   # GET /spare_parts.json
   def index
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
         @spare_parts = SparePart.all
     else
       redirect_to login_path  
