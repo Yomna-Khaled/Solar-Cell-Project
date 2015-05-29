@@ -4,9 +4,21 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels
   # GET /solar_panels.json
+def index
+
+end
+
   def index
     if logged_in? and current_category.category=="Sales"
+      if params[:search]
+        if params[:searchciteria] == 'serialno'
+          @solar_panels = SolarPanel.searchserialno(params[:search]).order("created_at DESC")
+        else
+          @solar_panels = SolarPanel.searchpower(params[:search]).order("created_at DESC")
+        end
+      else
        @solar_panels = SolarPanel.all
+     end
     else
       redirect_to login_path  
     end   
