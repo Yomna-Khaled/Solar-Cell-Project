@@ -32,6 +32,7 @@ class ProductionShiftsController < ApplicationController
  # render plain:  params[params[:material_id][0]]
    params[:material_id].each_with_index do |item,i|
 
+<<<<<<< HEAD
   @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
   @production_shift.save
 end
@@ -43,6 +44,14 @@ end
     # end
    @materials = Material.all 
    render :new
+=======
+    @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+    @production_shift.save
+  end
+
+    @materials = Material.all
+    render :new
+>>>>>>> a27791ada2b42e062ec60663b9e8f5fb14bf4bde
    end
 
   # PATCH/PUT /production_shifts/1
