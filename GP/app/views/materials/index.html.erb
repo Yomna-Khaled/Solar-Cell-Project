@@ -20,7 +20,9 @@
             <th class="text-center">Name</th>
             <th class="text-center">Serial Number</th>
             <th class="text-center">Quantity</th>
+            <% if current_category.category!="Stock Keeper"%>
             <th class="text-center">Price</th>
+            <%end%>
             <th class="text-center">Min number</th>
             <th class="text-center">Stockno</th>
             <th class="text-center">Shelfno</th>
@@ -46,7 +48,9 @@
               <td class="text-center"><%= material.name %></td>
               <td class="text-center"><%= material.serial_number %></td>
               <td class="text-center"><%= material.quantity_value %></td>
+               <% if current_category.category!="Stock Keeper"%>
               <td class="text-center"><%= material.price %></td>
+              <% end %>
               <td class="text-center"><%= material.Min_Number %></td>
               <td class="text-center"><%= material.stockNo %></td>
               <td class="text-center"><%= material.shelfNo %></td>

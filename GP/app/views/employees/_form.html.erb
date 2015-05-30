@@ -1,4 +1,3 @@
-
 <style>
 #error_explanation {
   color: red;
@@ -13,7 +12,6 @@
 </style>
 
 <%= form_for(@employee) do |f| %>
-
   <% if @employee.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
@@ -23,22 +21,22 @@
         <li><%= msg %></li>
       <% end %>
       </ul>
-      </div>
-     
+      </div> 
     </div>
   <% end %>
 
 
 
  
-  <% if @flag_new==1 %>
+ <!--  <% if @flag_new==1 %>
     <h1 class="page-header text-primary">Add Employee</h1>
   <% end %>
 
 
   <% if @flag_new==0 %>
     <h1 class="page-header text-primary">Edit Employee</h1>
-  <% end %>
+  <% end %> -->
+
   <div class="form-group">
     <%= f.label :full_name %><br>
     <%= f.text_field :full_name, class: 'form-control' , placeholder: "Enter Full Name" %>
@@ -47,28 +45,50 @@
     <%= f.label :salary %><br>
     <%= f.text_field :salary, class: 'form-control' , placeholder: "Enter Salary" %>
   </div>
+  <% if @flag_new == 1 %>
+      <div class="form-group">
+        <%= f.label :education_level %><br>
+        <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
+      </div>
+  <% end %>
+
+   <% if @flag_new == 0 %>
+      <div class="form-group">
+        <%= f.label :education_level %><br>
+        <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],@employee.education_level ))  %>
+      </div>
+  <% end %>
+
   <div class="form-group">
-    <%= f.label :education_level %><br>
-    <%= f.text_area :education_level, class: 'form-control' , placeholder: "Enter Education Level" %>
+    <%= f.label :education %><br>
+    <%= f.text_field :education ,class: 'form-control' , placeholder: "Enter Education"   %>
   </div>
   <div class="form-group">
     <%= f.label :Governamental_ID %><br>
     <%= f.text_field :Governamental_ID, class: 'form-control' , placeholder: "Enter Governamental_ID" %>
   </div>
-  <div class="form-group">
-    <%= f.label :position %><br>
-    <%= f.text_field :position, class: 'form-control' , placeholder: "Enter Position" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :category_id %><br>
-    <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')) %>
-  </div>
-<% if @flag_new == 1 %>
+  
+<% if @flag_new == 0 %>
+  <p><strong>Category : </strong><p>
+
+  <p>
+      <%= Category.find_by(:id => @category_id).category %>
+  </p>
+<% end %>    
+
+
+<% if @flag_new != 0 %>
+    <div class="form-group">
+      <%= f.label :category_id %><br>
+      <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
+    </div>
     <div id="notnormal">
       <div class="form-group">
         <%= f.label :password %><br>
         <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
       </div>
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation, class: 'form-control',  placeholder: 'Confirm your password here'%>
       <div class="form-group">
         <%= f.label :user_name %><br>
         <%= f.text_field :user_name, class: 'form-control' , placeholder: "Enter User Name Which Login with it" %>
@@ -78,6 +98,53 @@
 
   <%= f.file_field :image %>
   <br>
+
+
+
+<div class="field form-group">
+
+   <% if @flag == "new" %> 
+ <%= fields_for :employee_phones do |p| %> 	
+    <%= p.label :phone %><br>
+	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+    <% end %>
+
+<%else %>
+<%= fields_for :employee_phones do |p| %>
+
+    <%= phonn = '' %>
+
+
+<% if @phones.blank? %>
+
+<p> <%= phonn = '' %> </p>
+
+<% else %>
+
+
+   <% @phones.each do |f| %>
+     <p>
+   <% phonn = phonn + f.phone + ',' %>
+     </p>
+   <% end %>
+<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+<% end %> 
+<% end %>
+<%end %>
+
+</div>
+
+<a href="#" onclick="add()" >Add</a>
+
+<div id="phones">
+    
+</div>
+
+<div id="phonedel">
+    
+</div>
+
+
   <div class="actions">
     <%= f.submit :submit, class: "btn btn-primary" %>
   </div>
@@ -86,18 +153,93 @@
 
 
 <script type="text/javascript">
-console.log("hello");
- var category = document.getElementById('employee_category_id');
-  if (category) {
-   target = document.getElementById('notnormal'); //div of input password
-   if (category.text == 'Normal') target.style.display='none';
-   category.onchange=function() {
-    var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
-    if (type == 'Normal') {
-                     target.style.display = 'none';
-                  } else {
-              target.style.display= '';
+     var category = document.getElementById('employee_category_id');
+      if (category) {
+       target = document.getElementById('notnormal'); //div of input password
+       if (category.text == 'Normal') target.style.display='none';
+       category.onchange=function() {
+        var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
+       
+        if (type == 'Normal') {
+                         target.style.display = 'none';
+                      } else {
+                  target.style.display= '';
+        }
+       }
+      }
+
+
+
+
+
+var x=1;
+var counter=0;
+var allValues = '';
+allValues=$( "#phone" ).val().slice(0,-1);
+
+var add = function() {
+	if (counter === 0 ) {
+		  	 counter =  1;
+		  	 
+		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+		    x=x+1;
+		    $( "#OK" ).click(function() {
+			var value = $("#1").val();
+		    if (isNaN(value)){
+		        alert('string ');
+		    }else{
+		    	
+			    if (allValues != ''){
+					allValues =  allValues + ',' + value
+				}else{
+				 	allValues =  allValues + value		
+				}
+				$("#phone").val(allValues);
+				$("#1").val('');		
+		    }
+
+		   });
     }
-   }
-  }
+};
+
+
+var del = function(vendorid) {
+     
+	 var phons_num = $("#phone").val();
+         $("#phone").val('');
+	 var arr = phons_num.split(",");
+	for (var i=0 ; i< arr.length-1 ; i++){
+		 var div=document.createElement("div");
+                 var elem = document.createElement("input");
+                 elem.id =i;
+                 elem.type = 'button';
+                 elem.value = 'x'; 
+		 div.id= i;
+		 div.value=arr[i];
+                 div.innerHTML = arr[i];
+                 elem.onclick=function(){
+                   var el = document.getElementById(this.id);
+                   var dataString = el.value;
+
+
+		    $.ajax({
+			method: "POST",
+			url: '/delPhon',
+				dataType: "JSON",
+				data: { "phone": dataString},
+				complete: function(data)
+				{	
+					 el.parentNode.removeChild( el );
+				}
+			});
+
+
+		     };
+
+		    div.appendChild(elem);
+                    document.getElementById('phonedel').appendChild(div);
+	            }
+};
+
+
  </script>

@@ -44,53 +44,28 @@
 <%= fields_for :vendor_phones do |p| %>
 
     <%= phonn = '' %>
+
+
+<% if @phones.blank? %>
+
+<p> <%= phonn = '' %> </p>
+
+<% else %>
+
+
    <% @phones.each do |f| %>
      <p>
    <% phonn = phonn + f.phone + ',' %>
      </p>
    <% end %>
 <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
-
-
+<% end %> 
 <% end %>
-
-
-
 <%end %>
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<a href="#" onclick="add()">Add</a>
+<a href="#" onclick="add()" >Add</a>
 
 <div id="phones">
     
@@ -113,33 +88,35 @@
 
 <script>
 var x=1;
+var counter=0;
 var allValues = '';
 allValues=$( "#phone" ).val().slice(0,-1);
+alert (counter);
+
 var add = function() {
-   
-    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
-    x=x+1;
-    $( "#OK" ).click(function() {
-	  var value = $("#1").val();
-                  
-                   if (allValues != ''){
-		allValues =  allValues + ',' + value
-		}else{
-		 allValues =  allValues + value		
-		}
-		$("#phone").val(allValues);
-		$("#1").val('');		
-                });
-                
-            
+	if (counter === 0 ) {
+		  	 counter =  1;
+		  	 alert ('inside' + counter);
+		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+		    x=x+1;
+		    $( "#OK" ).click(function() {
+			var value = $("#1").val();
+		    if (isNaN(value)){
+		        alert('string ');
+		    }else{
+		    	alert('number');
+			    if (allValues != ''){
+					allValues =  allValues + ',' + value
+				}else{
+				 	allValues =  allValues + value		
+				}
+				$("#phone").val(allValues);
+				$("#1").val('');		
+		    }
 
-               
- 
-              
-		
-
+		   });
+    }
 };
-
 
 
 var del = function(vendorid) {

@@ -6,25 +6,23 @@ class Employee < ActiveRecord::Base
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/ 
 
-  validates :password, :if => :not_normal? , :length => {:within => 6..40}
+  validates_presence_of  :password, :if => :not_normal? , :length => {:within => 6..40}
+  validates_confirmation_of :password
+
+  
   validates_presence_of :user_name, :if => :not_normal?
 
-  validates  :image , :education_level, :Governamental_ID, :position, :category_id, presence: true
+  validates  :image , :education_level, :education, :Governamental_ID, :category_id, presence: true
 
   validates :salary, :numericality => { :greater_than_or_equal_to => 0 }, presence: true
 
   validates :Governamental_ID, :numericality => { :greater_than_or_equal_to => 0 }, :length => { :within => 12..12 }
 
   validates_uniqueness_of :user_name, :if => :not_normal?
-   validates_uniqueness_of :full_name, :Governamental_ID , on: :create
+  validates_uniqueness_of :full_name, :Governamental_ID , on: :create
 
   def not_normal?
     @category = Category.find_by(id: category_id)
     @category.category != "Normal"
-  end
-
-  def normal?
-    @category = Category.find_by(id: category_id)
-    @category.category == "Normal"
   end
 end

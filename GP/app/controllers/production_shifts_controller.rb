@@ -32,19 +32,13 @@ class ProductionShiftsController < ApplicationController
  # render plain:  params[params[:material_id][0]]
    params[:material_id].each_with_index do |item,i|
 
-  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
-  @production_shift.save
-end
-    # respond_to do |format|
-    #   if @production_shift.save
-    #     format.html { redirect_to @production_shift, notice: 'Production shift was successfully created.' }
-    #     format.json { render :show, status: :created, location: @production_shift }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @production_shift.errors, status: :unprocessable_entity }
-    #   end
-    # end
-@materials = Material.all
+
+    @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+    @production_shift.save
+  end
+
+    @materials = Material.all
+
     render :new
    end
 

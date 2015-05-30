@@ -36,6 +36,13 @@ class MachinesController < ApplicationController
     end
   end
 
+  def machinecreate
+    @machinename=params[:machinename]
+    @machine = Machine.new(name: @machinename)
+    @machine.save
+    render json: @machine
+  end
+
   # PATCH/PUT /machines/1
   # PATCH/PUT /machines/1.json
   def update

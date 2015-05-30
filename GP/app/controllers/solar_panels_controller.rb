@@ -4,23 +4,34 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels
   # GET /solar_panels.json
+def index
+
+end
+
   def index
     if logged_in? and current_category.category=="Sales"
+      if params[:search]
+        if params[:searchciteria] == 'serialno'
+          @solar_panels = SolarPanel.searchserialno(params[:search]).order("created_at DESC")
+        else
+          @solar_panels = SolarPanel.searchpower(params[:search]).order("created_at DESC")
+        end
+      else
        @solar_panels = SolarPanel.all
+     end
     else
       redirect_to login_path  
     end   
   end
 
   # GET /solar_panels/1
-  # GET /solar_panels/1.json
   def show
   end
 
   # GET /solar_panels/new
  def new
    if logged_in? and( current_category.category=="Shift Manager" )
-     
+    
      @flag= true
      @solar_panel  = SolarPanel.new
      @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
@@ -34,6 +45,8 @@ class SolarPanelsController < ApplicationController
  end
 
   # GET /solar_panels/1/edit
+
+
  def edit
     @flag=false
  if logged_in? and( current_category.category=="Shift Manager"  )
@@ -48,7 +61,6 @@ class SolarPanelsController < ApplicationController
  end
 
   # POST /solar_panels
-  # POST /solar_panels.json
   def create
     if logged_in? and( current_category.category=="Shift Manager" )
             @flag=true
@@ -72,14 +84,12 @@ class SolarPanelsController < ApplicationController
  end
 
   # PATCH/PUT /solar_panels/1
-  # PATCH/PUT /solar_panels/1.json
   def update
-     
+    
      @flag=false 
      
   respond_to do |format|
    if logged_in? and( current_category.category=="Shift Manager" )
-
       @old_solar_panel=SolarPanel.find(params[:id])
       @oldcontainer=Container.find(@old_solar_panel.container_id)
       @power=@oldcontainer.total_power-@old_solar_panel.power 
@@ -108,7 +118,6 @@ class SolarPanelsController < ApplicationController
   end
 
   # DELETE /solar_panels/1
-  # DELETE /solar_panels/1.json
   def destroy
     @solar_panel.destroy
     respond_to do |format|

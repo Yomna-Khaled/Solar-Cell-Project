@@ -1,7 +1,6 @@
 
 <strong>crew names:</strong>
 
-
 <% if @crew_name.blank? %>
   <p>No crews</p>
 <% else %>

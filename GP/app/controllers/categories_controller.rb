@@ -4,27 +4,30 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    if logged_in? and current_category.category=="HR"
-      @categories = Category.all
+    if  current_category.category=="noone"
+      @categories = Category.all   
     else
       redirect_to login_path  
-    end  
-    
+    end 
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
+    if  current_category.category=="noone"
+     redirect_to  @category
+    else
+      redirect_to login_path 
+    end
   end
 
   # GET /categories/new
   def new
-    if logged_in? and current_category.category=="HR"
+    if  current_category.category=="noone"
       @category = Category.new
     else
-      redirect_to login_path  
-    end  
-    
+      redirect_to login_path 
+    end
   end
 
   # GET /categories/1/edit
@@ -34,23 +37,29 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = Category.new(category_params)
-    @category.category = @category.category.strip
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    if  current_category.category=="noone"
+       @category = Category.new(category_params)
+        @category.category = @category.category.strip
+        respond_to do |format|
+          if @category.save
+            format.html { redirect_to @category }
+            format.json { render :show, status: :created, location: @category }
+          else
+            format.html { render :new }
+            format.json { render json: @category.errors, status: :unprocessable_entity }
+          end
     end
+    else
+      redirect_to login_path 
+    end
+   
   end
 
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    respond_to do |format|
+    if  current_category.category=="noone"
+      respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category }
         format.json { render :show, status: :ok, location: @category }
@@ -59,16 +68,25 @@ class CategoriesController < ApplicationController
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
+    else
+      redirect_to login_path 
+    end
+    
   end
 
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category.destroy
+    if  current_category.category=="noone"
+          @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url  }
       format.json { head :no_content }
     end
+    else
+      redirect_to login_path 
+    end
+
   end
 
   def get_employees
