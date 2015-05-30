@@ -44,7 +44,8 @@ end
     #     format.json { render json: @production_shift.errors, status: :unprocessable_entity }
     #   end
     # end
-    redirect_to "new"
+@materials = Material.all
+    render :new
    end
 
   # PATCH/PUT /production_shifts/1

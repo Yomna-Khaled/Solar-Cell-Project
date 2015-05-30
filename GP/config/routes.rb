@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lookup_prices
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'

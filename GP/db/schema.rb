@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526131213) do
+ActiveRecord::Schema.define(version: 20150528161439) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
@@ -80,6 +80,13 @@ ActiveRecord::Schema.define(version: 20150526131213) do
   add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree
   add_index "employees", ["crew_id"], name: "index_employees_on_crew_id", using: :btree
 
+  create_table "lookup_prices", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.float    "value",      limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "machines", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -128,13 +135,6 @@ ActiveRecord::Schema.define(version: 20150526131213) do
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree
-
-  create_table "prices", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.float    "price",      limit: 24
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
 
   create_table "production_shifts", force: :cascade do |t|
     t.integer  "material_id",       limit: 4

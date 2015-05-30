@@ -96,15 +96,17 @@ class ShiftsController < ApplicationController
   end
 
   def showstartshift
-    if logged_in? and current_category.category=="Shift Manager" 
-     @shift = Shift.new
-     @crews = Crew.all.map{|c| [c.name,c.id]} 
-     if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
-          redirect_to  shifts_showendshift_path 
-      else 
-          render :showstartshift
-      end 
-     end
+     if logged_in? and current_category.category=="Shift Manager" 
+	     @shift = Shift.new
+	     @crews = Crew.all.map{|c| [c.name,c.id]} 
+	     if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
+		  redirect_to  shifts_showendshift_path 
+	     else 
+		  render :showstartshift
+	     end 
+     else
+      redirect_to login_path 
+     end 
   end
 
 
@@ -114,16 +116,15 @@ if logged_in? and current_category.category=="Shift Manager"
 
      @shift = Shift.new(start_shift_params)
      @crews = Crew.all.map{|c| [c.name,c.id]} 
-
-    respond_to do |format|
-      if @shift.save
-        format.html { redirect_to @shift }
-        format.json { render :show, status: :created, location: @shift }
-      else
-        format.html { render :showstartshift }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
-    end 
+           respond_to do |format|
+	      if @shift.save
+		format.html { redirect_to @shift }
+		format.json { render :show, status: :created, location: @shift }
+	      else
+		format.html { render :showstartshift }
+		format.json { render json: @shift.errors, status: :unprocessable_entity }
+	      end
+	    end 
      else
        redirect_to login_path  
      end 
@@ -139,29 +140,32 @@ if logged_in? and current_category.category=="Shift Manager"
       @shift = @shift.first 
       @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
       render :showendshift
-    
      else 
       redirect_to  shifts_showstartshift_path 
-     end 
+     end
+    else
+       redirect_to login_path 
     end 
+   
+   
   end
 
   def endshift
    if logged_in? and current_category.category=="Shift Manager"  
-    respond_to do |format|
-     if @shift.update(end_shift_params)
+	    respond_to do |format|
+	     if @shift.update(end_shift_params)
 
-        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shift }
-      else
-        @inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
-        format.html { render :showendshift }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-     end
-   end
+		format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+		format.json { render :show, status: :ok, location: @shift }
+	      else
+		@inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
+		format.html { render :showendshift }
+		format.json { render json: @shift.errors, status: :unprocessable_entity }
+	     end
+	   end
 
 
- else
+    else
        redirect_to login_path  
      end
 

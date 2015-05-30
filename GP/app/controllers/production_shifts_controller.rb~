@@ -15,10 +15,10 @@ class ProductionShiftsController < ApplicationController
 
   # GET /production_shifts/new
   def new
-   if logged_in? and current_category.category=="Shift Manager"
+   
     @production_shift = ProductionShift.new
     @materials = Material.all
-   end
+   
   end
 
   # GET /production_shifts/1/edit

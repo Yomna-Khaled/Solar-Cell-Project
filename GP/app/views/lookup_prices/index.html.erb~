@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Lookup Prices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lookup_prices.each do |lookup_price| %>
+      <tr>
+        <td><%= lookup_price.name %></td>
+        <td><%= lookup_price.value %></td>
+        <td><%= link_to 'Show', lookup_price %></td>
+        <td><%= link_to 'Edit', edit_lookup_price_path(lookup_price) %></td>
+        <td><%= link_to 'Destroy', lookup_price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lookup price', new_lookup_price_path %>

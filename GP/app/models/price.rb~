@@ -1,3 +1,4 @@
 class Price < ActiveRecord::Base
 
+drop_table :price
 end

@@ -36,13 +36,15 @@ class SolarPanelsController < ApplicationController
   # GET /solar_panels/1/edit
  def edit
     @flag=false
- if logged_in? and( current_category.category=="Shift Manager" or current_category.category=="Sales" )
+ if logged_in? and( current_category.category=="Shift Manager"  )
     @container=Container.find(@solar_panel.container_id)
     @mycrt=[@container.serialNo,@container.id]
     unless @containersopt.include?(@mycrt)
        @containersopt.push(@mycrt)
     end
-   end 
+ else
+      redirect_to login_path  
+ end 
  end
 
   # POST /solar_panels
@@ -51,7 +53,8 @@ class SolarPanelsController < ApplicationController
     if logged_in? and( current_category.category=="Shift Manager" )
             @flag=true
 	    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-	    @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id))
+	    
+            @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f))
 	     
 	    respond_to do |format|
 	      if @solar_panel.save
@@ -98,14 +101,7 @@ class SolarPanelsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
       end
-    elsif logged_in? and( current_category.category=="Sales" )
-            if @solar_panel.update(solar_Salespanel_params)
-		    format.html { redirect_to @solar_panel, notice: 'Solar panel was successfully updated.' }
-		    format.json { render :show, status: :ok, location: @solar_panel }
-            else 
-                    format.html { render :edit }
-        	    format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
-            end   
+    
 
     end
    end
@@ -130,7 +126,7 @@ class SolarPanelsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
 
-      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :price, :serialNo, :container_id)
+      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :serialNo, :container_id)
     end
 
     def solar_Salespanel_params
