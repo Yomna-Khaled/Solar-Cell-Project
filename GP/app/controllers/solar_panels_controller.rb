@@ -4,9 +4,21 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels
   # GET /solar_panels.json
+def index
+
+end
+
   def index
     if logged_in? and current_category.category=="Sales"
+      if params[:search]
+        if params[:searchciteria] == 'serialno'
+          @solar_panels = SolarPanel.searchserialno(params[:search]).order("created_at DESC")
+        else
+          @solar_panels = SolarPanel.searchpower(params[:search]).order("created_at DESC")
+        end
+      else
        @solar_panels = SolarPanel.all
+     end
     else
       redirect_to login_path  
     end   
@@ -70,14 +82,21 @@ class SolarPanelsController < ApplicationController
 
   # PATCH/PUT /solar_panels/1
   def update
+<<<<<<< HEAD
      
 
+=======
+    
+>>>>>>> a27791ada2b42e062ec60663b9e8f5fb14bf4bde
      @flag=false 
      
   respond_to do |format|
    if logged_in? and( current_category.category=="Shift Manager" )
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> a27791ada2b42e062ec60663b9e8f5fb14bf4bde
       @old_solar_panel=SolarPanel.find(params[:id])
       @oldcontainer=Container.find(@old_solar_panel.container_id)
       @power=@oldcontainer.total_power-@old_solar_panel.power 
