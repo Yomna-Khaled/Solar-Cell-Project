@@ -67,14 +67,14 @@ end
 	     
 	    respond_to do |format|
 	      if @solar_panel.save
-               @container=Container.find(@solar_panel.container_id)
-	       @power=@container.total_power+@solar_panel.power 
-	       @container.update_attributes(:total_power => @power)
-	       format.html { redirect_to  shifts_showstartshift_path  }
-	       format.json { render :show, status: :created, location: @solar_panel }
+            @container=Container.find(@solar_panel.container_id)
+    	      @power=@container.total_power+@solar_panel.power 
+    	      @container.update_attributes(:total_power => @power)
+    	      format.html { redirect_to  shifts_showstartshift_path  }
+    	      format.json { render :show, status: :created, location: @solar_panel }
 	      else
-		format.html { render :new }
-		format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
+        		format.html { render :new }
+        		format.json { render json: @solar_panel.errors, status: :unprocessable_entity }
 	      end
 	    end
    end

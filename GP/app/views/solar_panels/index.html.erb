@@ -1,5 +1,5 @@
 <br>
-<div class="col-md-offset-9">
+<!-- <div class="col-md-offset-9">
   <table>
     <tr>
       <td>
@@ -10,11 +10,14 @@
       </td>
     </tr>
   </table>
-</div>
-<div class="col-md-offset-9" id="Search_by" style="display:none;">
-  <%= form_tag(solar_panels_path, :method => "get", id: "search-form") do %>
+</div> -->
+<div class="col-md-offset-9" id="Search_by">
+  <label>Select_Your_Search_Criteria</label><br>
+  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
+    <%= form_tag(solar_panels_path, :method => "get", id: "search-form") do %>
+    
     <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
-    <%= hidden_field_tag :searchciteria %>
+    <%= hidden_field_tag :searchciteria, "power" %>
     <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
   <% end %>
 </div>
