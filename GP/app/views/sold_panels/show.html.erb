@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= @buyer.name %>
+</p>
+
+<p>
+  <strong>Totalprice:</strong>
+  <%= @sold_panel.totalPrice %>
+</p>
+
+<p>
+  <strong>Totalpower:</strong>
+  <%= @sold_panel.totalPower %>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+
+      <th text-align="center">Serialno</th>
+      <th text-align="center">Production date</th>
+      <th text-align="center">Height</th>
+      <th text-align="center" >Width</th>
+      <th text-align="center">Power</th>
+      <th text-align="center">Type</th>
+      <th text-align="center">Subtype</th>
+      <th text-align="center">Price</th>
+      <th text-align="center">Container</th>
+     
+   
+
+    </tr>
+  </thead>
+  <tbody>
+
+  	<% @solar_panels.each do |solar_panel| %>
+      <tr>
+        <td><%= solar_panel.production_date %></td>
+        <td><%= solar_panel.height %></td>
+        <td><%= solar_panel.width %></td>
+        <td><%= solar_panel.power %></td>
+        <td><%= solar_panel.celltype %></td>
+        <td><%= solar_panel.subtype %></td>
+        <td><%= solar_panel.price %></td>
+        <td><%= solar_panel.serialNo %></td>
+        <td><%= solar_panel.container.serialNo %></td>
+        <td><%= solar_panel.container_id %></td>
+        <td><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
+        <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
+      </tr>
+
+    <% end %>
+
+  </tbody>
+</table>
+<%= link_to 'Back', sold_panels_path %>

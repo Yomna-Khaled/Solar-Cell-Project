@@ -1,4 +1,3 @@
-
 <style>
 #error_explanation {
   color: red;
@@ -29,14 +28,14 @@
 
 
  
-  <% if @flag_new==1 %>
+ <!--  <% if @flag_new==1 %>
     <h1 class="page-header text-primary">Add Employee</h1>
   <% end %>
 
 
   <% if @flag_new==0 %>
     <h1 class="page-header text-primary">Edit Employee</h1>
-  <% end %>
+  <% end %> -->
 
   <div class="form-group">
     <%= f.label :full_name %><br>
@@ -90,6 +89,9 @@
         <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
       </div>
 
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation, class: 'form-control',  placeholder: 'Confirm your password here'%>
+
       <div class="form-group">
         <%= f.label :email %><br>
         <%= f.email_field :email, class: 'form-control' , placeholder: "Enter Email" %>
@@ -99,6 +101,53 @@
 
   <%= f.file_field :image %>
   <br>
+
+
+
+<div class="field form-group">
+
+   <% if @flag == "new" %> 
+ <%= fields_for :employee_phones do |p| %> 	
+    <%= p.label :phone %><br>
+	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+    <% end %>
+
+<%else %>
+<%= fields_for :employee_phones do |p| %>
+
+    <%= phonn = '' %>
+
+
+<% if @phones.blank? %>
+
+<p> <%= phonn = '' %> </p>
+
+<% else %>
+
+
+   <% @phones.each do |f| %>
+     <p>
+   <% phonn = phonn + f.phone + ',' %>
+     </p>
+   <% end %>
+<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+<% end %> 
+<% end %>
+<%end %>
+
+</div>
+
+<a href="#" onclick="add()" >Add</a>
+
+<div id="phones">
+    
+</div>
+
+<div id="phonedel">
+    
+</div>
+
+
   <div class="actions">
     <%= f.submit :submit, class: "btn btn-primary" %>
   </div>
@@ -121,4 +170,79 @@
         }
        }
       }
+
+
+
+
+
+var x=1;
+var counter=0;
+var allValues = '';
+allValues=$( "#phone" ).val().slice(0,-1);
+
+var add = function() {
+	if (counter === 0 ) {
+		  	 counter =  1;
+		  	 
+		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+		    x=x+1;
+		    $( "#OK" ).click(function() {
+			var value = $("#1").val();
+		    if (isNaN(value)){
+		        alert('string ');
+		    }else{
+		    	
+			    if (allValues != ''){
+					allValues =  allValues + ',' + value
+				}else{
+				 	allValues =  allValues + value		
+				}
+				$("#phone").val(allValues);
+				$("#1").val('');		
+		    }
+
+		   });
+    }
+};
+
+
+var del = function(vendorid) {
+     
+	 var phons_num = $("#phone").val();
+         $("#phone").val('');
+	 var arr = phons_num.split(",");
+	for (var i=0 ; i< arr.length-1 ; i++){
+		 var div=document.createElement("div");
+                 var elem = document.createElement("input");
+                 elem.id =i;
+                 elem.type = 'button';
+                 elem.value = 'x'; 
+		 div.id= i;
+		 div.value=arr[i];
+                 div.innerHTML = arr[i];
+                 elem.onclick=function(){
+                   var el = document.getElementById(this.id);
+                   var dataString = el.value;
+
+
+		    $.ajax({
+			method: "POST",
+			url: '/delPhon',
+				dataType: "JSON",
+				data: { "phone": dataString},
+				complete: function(data)
+				{	
+					 el.parentNode.removeChild( el );
+				}
+			});
+
+
+		     };
+
+		    div.appendChild(elem);
+                    document.getElementById('phonedel').appendChild(div);
+	            }
+};
+
+
  </script>

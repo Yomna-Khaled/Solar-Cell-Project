@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  solar_panel_id: 
+  buyer_id: 
+  totalPrice: 1.5
+  totalPower: 1.5
+
+two:
+  solar_panel_id: 
+  buyer_id: 
+  totalPrice: 1.5
+  totalPower: 1.5

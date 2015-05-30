@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :sold_panels
+  resources :buyer_phones
+  resources :buyers
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
   get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
 
+  
   
 
   resources :vendor_spares
@@ -58,9 +62,13 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
 
+
   post 'forget_password' => 'sessions#forget_password'
 
   get 'forget_password' => 'sessions#forget_password_form'
+
+  post 'delPhon' => 'employees#pho'
+
  
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'

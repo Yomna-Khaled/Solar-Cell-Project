@@ -45,5 +45,14 @@
   <%= @employee.crew_id %>
 </p>
 
+<strong>Phones:</strong>
+  <% index = 1%>
+    <% @employee_phones.each do |employeephone| %>
+      <p>
+        <strong><%=index%>-<%= employeephone.phone %></strong>      
+          <%index+=1%>
+      </p>
+    <%end%>   
+</p>
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>

@@ -69,7 +69,17 @@
     var ids = new Array(); 
     var Woker_names = document.getElementById("Woker_names");
     var number_of_normal_workers = document.getElementById("number_of_normal_workers").innerHTML;
-    function addworkers () { //onkeyup function of input field of number of mmbers
+
+
+
+
+function addworkers () {
+ 
+  document.getElementById("btn").disabled = true;
+  Woker_names=document.getElementById("Woker_names");
+  Woker_names.innerHTML = '';
+          ids = [];
+          counter = 0;
           var myNode = document.getElementById("versionsDiv");
           myNode.innerHTML = ''; //to remove all select menus on key up 
           Woker_names.innerHTML = ''; //to clear div which appen workers name on it

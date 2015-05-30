@@ -7,6 +7,10 @@ class EmployeePhonesController < ApplicationController
     @employee_phones = EmployeePhone.all
   end
 
+  def pho
+    @employeephones_selected = params[:phone]
+  end
+
   # GET /employee_phones/1
   # GET /employee_phones/1.json
   def show
