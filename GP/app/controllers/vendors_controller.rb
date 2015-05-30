@@ -47,19 +47,23 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-          puts "###########################################################"
-          puts params[:vendor_phones][:phone]
-         #  if params[:vendor_phones][:phone]
-         #    @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-         #    @vendorphone.save  
-         #  else
-         #    arr= params[:vendor_phones][:phone].split(",")
-	        #   arr.each do |c|
-		       #    puts c	
-         #      @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
-         #      @vendorphone.save 
-         #    end
-	        # end    
+  
+          if defined? params[:vendor_phones][:phone] 
+            arr= params[:vendor_phones][:phone].split(",")
+            arr.each do |c|
+              if c != nil
+
+                @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+                @vendorphone.save  
+              end
+ 
+            end
+
+          else
+            
+            @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+            @vendorphone.save            
+	        end    
           format.html { redirect_to @vendor }
           format.json { render :show, status: :created, location: @vendor }
         else
@@ -95,8 +99,11 @@ end
       arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
+        if c != ""
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
+        end
+
 	 end    
 
 
