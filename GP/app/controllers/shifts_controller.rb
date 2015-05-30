@@ -42,7 +42,9 @@ class ShiftsController < ApplicationController
  
 
     @shifts = Shift.where("employee_id = ?" , current_user.id )
-     @manager = current_user.user_name
+          
+    
+     @manager = current_user.full_name
     respond_to do |format|
       format.html
       format.pdf do

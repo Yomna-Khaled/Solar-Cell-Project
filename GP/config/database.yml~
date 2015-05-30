@@ -15,13 +15,12 @@ default: &default
   pool: 5
   username: root
 <<<<<<< HEAD
+
   password: 01228675292
-
-
-
 =======
-  password: 123456
->>>>>>> 32c3139842d31dc71838edd3441889241492ebf8
+  password: nona
+
+>>>>>>> 9c935861294b7df39a1ce4b17940acf4be27717f
   socket: /var/run/mysqld/mysqld.sock
 
 development:

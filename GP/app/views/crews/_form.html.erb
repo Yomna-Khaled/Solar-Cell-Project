@@ -68,8 +68,8 @@
     var no_workers = 0 ;
     var ids = new Array(); 
     var Woker_names = document.getElementById("Woker_names");
-
     var number_of_normal_workers = document.getElementById("number_of_normal_workers").innerHTML;
+
 
 
 
@@ -80,10 +80,6 @@ function addworkers () {
   Woker_names.innerHTML = '';
           ids = [];
           counter = 0;
-  
-
-    
-         
           var myNode = document.getElementById("versionsDiv");
           myNode.innerHTML = ''; //to remove all select menus on key up 
           Woker_names.innerHTML = ''; //to clear div which appen workers name on it
@@ -93,12 +89,13 @@ function addworkers () {
           no_workers = document.getElementById( "no_of_workers" ).value;
           if(no_workers){
              if( no_workers % 1 === 0 ){
-
                   if(Number(number_of_normal_workers) < Number(no_workers)){
                     alert("The number of normal user is "+number_of_normal_workers);
                     document.getElementById( "no_of_workers" ).value= "";
                   }else{
-                      var posting = $.get( "get_employees" );
+                      var posting = $.get( "/crews/get_employees" );
+                      console.log('abl elposting')
+                      console.log(posting)
                       for(var i = 0 ; i < Number(no_workers) ; i++){
                               posting.done(function( data ) {
                                $("#versionsDiv").append(data);
@@ -118,9 +115,7 @@ function addworkers () {
 
 function get_value(elem){  //onchange function of select menu
    val = elem.value
-
   if( ids.indexOf(val)== -1 ) //check if inserted data is a number or not
-
    {
        counter = counter + 1;
        ids.push(val) 
@@ -141,10 +136,6 @@ function get_value(elem){  //onchange function of select menu
       elem.parentElement.style.display = true;
       alert("Employee is already in the crew");
    }
-   
-
-
-
 }
 </script>
 

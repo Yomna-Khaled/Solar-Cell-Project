@@ -43,8 +43,9 @@
                          <li class="active"><li><%= button_to  'Add Produced Product',new_solar_panel_path ,method: :get %></li>
                          <li class="active"><li><%= link_to 'Order Request', new_production_shift_path %></li>
                          <li class="active"><li><%= link_to 'Reports', new_solar_panel_path %></li>
+                         <li class="active"><li><%= link_to 'myshifts', shifts_path %></li>
 
-			</ul>
+             	</ul>
 
 		<% end %>
                   
