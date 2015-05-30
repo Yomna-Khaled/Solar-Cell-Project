@@ -78,6 +78,7 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
+
        @employee.houre_rate = @employee.salary/(26*8) 
        employee_params[:houre_rate] =  @employee.houre_rate
        respond_to do |format|
@@ -117,7 +118,12 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
+<<<<<<< HEAD
+
+      params.require(:employee).permit( :user_name, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name, :password_confirmation)
+=======
       params.require(:employee).permit( :email, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name)
+>>>>>>> e6b89ffc4abea5f0b33e467604881153732eb34f
     end
      def phone_params
       params.require(:employee).permit(:phone)

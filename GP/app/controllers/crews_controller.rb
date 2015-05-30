@@ -102,19 +102,17 @@ end
   def update
 
     respond_to do |format|
-   array = params[:workers].split(',')
-     
-      Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 1 ) 
+    array = params[:workers].split(',')
+   # @employee_old = Employee.find_by(crew_id: @crew.id) 
+    Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 120 ) 
+    if @crew.update(crew_params)
+        
+        
+        
 
-
-      if @crew.update(crew_params)
-        
-        
-        
         array.each_with_index do |item,i|
-          
-
            @employee = Employee.find_by(id: array[i])
+
            if @employee 
            @crew_old = Crew.find_by(id: @employee.crew_id) 
               if @crew_old 
@@ -126,16 +124,18 @@ end
               end   
           
             
+
                   Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
             end
-        end
+          end
         format.html { redirect_to @crew  }
         format.json { render :show, status: :ok, location: @crew }
-      else
+    else
         format.html { render :edit }
         format.json { render json: @crew.errors, status: :unprocessable_entity }
 
-      end
+    end
+
   end
 end
 

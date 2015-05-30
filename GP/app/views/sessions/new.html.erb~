@@ -17,9 +17,12 @@
 					  <%= f.password_field :password, class: 'form-control', placeholder: "Enter password" %>
 						<br>
 					  <%= f.submit "Log in", class: "btn btn-primary" %>
-<%= link_to 'Forget Password', forget_password_path ,class: "btn btn-link"  %>
+<<<<<<< HEAD
+<%= link_to 'Forget Password', forget_password_path   %>
+=======
+            <%= link_to 'Forget Password', forget_password_path ,class: "btn btn-link"  %>
 
-
+>>>>>>> e6b89ffc4abea5f0b33e467604881153732eb34f
 					<% end %>
                    
                 </div>

@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 		  else{
 		       if($('#warnmsg').length == 0){
-		       $('<div id="warnmsg"> <div><h5> <%= @inserted_panels %>  is the number of the panels you already entered information about</h5></div> <div><h5> please make sure of insert the rest of panel information before end this shift</h5> </div> <%= button_to "Newpanel", new_solar_panel_path ,method: :get%> </div>' ).insertAfter( '#shift_production_rate' );
+		       $('<div id="warnmsg"> <div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5> <%= button_to "Newpanel", new_solar_panel_path ,method: :get%> </div></div>' ).insertAfter( '#shift_production_rate' );
 		       } 
 		      if($('#submit').length != 0){
 		          $('#submit').remove();
