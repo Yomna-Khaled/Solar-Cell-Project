@@ -32,9 +32,20 @@
         <td><%= link_to 'Show', shift %></td>
         <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
         <td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-       
+      </tr> 
+       =======================================
+        <% shift.solar_panels.each do |solarpanel| %>
+                <tr>  
+  	        <td><%= solarpanel.serialNo %></td>
+                <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :gets %></td>
+                </tr> 
+        <% end %> 
 
-      </tr>
+      
+
+        
+
+
     <% end %>
   </tbody>
 </table>

@@ -8,30 +8,27 @@ class CrewsController < ApplicationController
     else
       redirect_to login_path  
     end  
-    
   end
 
   # GET /crews/1
   def show
-
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
-
   end
 
   # GET /crews/new
   def new
-
     if logged_in? and current_category.category=="HR"
       @flag_new=1
       @disabled=true
       @crew = Crew.new
       category = Category.where("category = ? " , "Normal")
       @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
+      @crews = Crew.all
+      puts(@crews.count)
     else
       redirect_to login_path  
     end   
-
   end
 
   def get_employees
@@ -48,9 +45,11 @@ class CrewsController < ApplicationController
     @disabled=false
     puts params[:id]
     @employees=Employee.where("crew_id = ?",params[:id])
+
           category = Category.where("category = ? " , "Normal")
 
      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
+
   end
 
 def home
@@ -68,26 +67,31 @@ end
     @crew = Crew.new(crew_params)
     respond_to do |format|
       if @crew.save
-
           last_id = Crew.maximum('id')
           puts last_id
           array = params[:workers].split(',')
-        puts "------------------------------------------"
           array.each_with_index do |item,i|
               puts array[i]
-                      puts "------------------------------------------"
               @employee = Employee.find_by(id: array[i])
+              @crew_old = Crew.find_by(id: @employee.crew_id) 
+              if @crew_old 
+                old_number = @crew_old.no_of_workers.to_i
+                if old_number != 0
+                      new_number =  @crew_old.no_of_workers.to_i - 1
+                      Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
+                end
+              end   
               if @employee 
-                      puts @employee.crew_id
-                       puts "==========================kkkkkkk"
-                      Employee.where("id = ? ", array[i]).update_all(:crew_id => last_id )
-                      # @employee.update_attributes(:crew_id => last_id)
-                      puts "=========================="
+                  puts @employee.crew_id
+                  Employee.where("id = ? ", array[i]).update_all(:crew_id => last_id )
               end
+
           end
         format.html { redirect_to @crew }
         format.json { render :show, status: :created, location: @crew }
       else
+        category = Category.where("category = ? " , "Normal")
+        @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
         format.html { render :new }
         format.json { render json: @crew.errors, status: :unprocessable_entity }
       end
@@ -96,32 +100,45 @@ end
 
   # PATCH/PUT /crews/1
   def update
+
     respond_to do |format|
-   array = params[:workers].split(',')
-     @employee_old = Employee.find_by(crew_id: @crew.id) 
-      Employee.where("id = ? ", @employee_old.id).update_all(:crew_id => 1 ) 
+    array = params[:workers].split(',')
+   # @employee_old = Employee.find_by(crew_id: @crew.id) 
+    Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 120 ) 
+    if @crew.update(crew_params)
+        
+        
+        
 
-      if @crew.update(crew_params)
-        
-        
-        
         array.each_with_index do |item,i|
-          
-
            @employee = Employee.find_by(id: array[i])
+
+           if @employee 
+           @crew_old = Crew.find_by(id: @employee.crew_id) 
+              if @crew_old 
+                old_number = @crew_old.no_of_workers.to_i
+                if old_number != 0
+                      new_number =  @crew_old.no_of_workers.to_i - 1
+                      Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
+                end
+              end   
           
-            if @employee 
+            
+
                   Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
             end
-        end
+          end
         format.html { redirect_to @crew  }
         format.json { render :show, status: :ok, location: @crew }
-      else
+    else
         format.html { render :edit }
         format.json { render json: @crew.errors, status: :unprocessable_entity }
-      end
+
     end
+
   end
+end
+
 
   # DELETE /crews/1
   def destroy
