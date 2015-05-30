@@ -28,11 +28,10 @@ class ProductionShiftsController < ApplicationController
   # POST /production_shifts
   # POST /production_shifts.json
   def create
-  #   @production_shift = ProductionShift.new(production_shift_params)
- # render plain:  params[params[:material_id][0]]
-   params[:material_id].each_with_index do |item,i|
+    @shift=Shift.maximum("id");
+    params[:material_id].each_with_index do |item,i|
 
-  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  @production_shift = ProductionShift.new(:shift_id=>@shift,:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
   @production_shift.save
 end
     # respond_to do |format|
