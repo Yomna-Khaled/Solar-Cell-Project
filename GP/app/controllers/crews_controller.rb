@@ -100,50 +100,25 @@ end
 
   # PATCH/PUT /crews/1
   def update
-<<<<<<< HEAD
-      respond_to do |format|
-          array = params[:workers].split(',')
-          @employee_old = Employee.find_by(crew_id: @crew.id) 
-          Employee.where("id = ? ", @employee_old.id).update_all(:crew_id => 107 ) 
-          if @crew.update(crew_params)
-              array.each_with_index do |item,i|
-                  @employee = Employee.find_by(id: array[i])
-                  if @employee 
-                       Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
-                  end
-              end
-              format.html { redirect_to @crew  }
-              format.json { render :show, status: :ok, location: @crew }
-          else
-            format.html { render :edit }
-            format.json { render json: @crew.errors, status: :unprocessable_entity }
-          end
-=======
     respond_to do |format|
-   array = params[:workers].split(',')
-     @employee_old = Employee.find_by(crew_id: @crew.id) 
-      Employee.where("id = ? ", @employee_old.id).update_all(:crew_id => 1 ) 
-
-      if @crew.update(crew_params)
-        
-        
-        
+    array = params[:workers].split(',')
+   # @employee_old = Employee.find_by(crew_id: @crew.id) 
+    Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 120 ) 
+    if @crew.update(crew_params) 
         array.each_with_index do |item,i|
-          
-
            @employee = Employee.find_by(id: array[i])
-          
             if @employee 
                   Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
             end
-        end
+          end
         format.html { redirect_to @crew  }
         format.json { render :show, status: :ok, location: @crew }
-      else
+    else
         format.html { render :edit }
         format.json { render json: @crew.errors, status: :unprocessable_entity }
->>>>>>> 136d75da74841a832532901f25b98e6badfa688f
-      end
+
+    end
+  end
   end
 
 
