@@ -143,11 +143,11 @@ end
     end
 
     def set_controller_serial_ids
-         @containersopt=[]       
-       for i in 0..(Container.all.length-1)
-	       @containerid = (Container.all)[i].id
-	       @crtcap=SolarPanel.where("container_id = ?", @containerid ).count
-	       @empcap=Container.where("id = ? AND capacity > ?",@containerid,@crtcap)
+     @containersopt=[]       
+   for i in 0..(Container.all.length-1)
+     @containerid = (Container.all)[i].id
+     @crtcap=SolarPanel.where("container_id = ?", @containerid ).count
+     @empcap=Container.where("id = ? AND capacity > ?",@containerid,@crtcap)
 		if (@empcap.exists?)
 		 @myarr = [@empcap[0].serialNo,@empcap[0].id]
 		 @containersopt.push(@myarr)
