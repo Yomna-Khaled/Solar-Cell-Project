@@ -6,33 +6,49 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   
   def report
+    puts "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+    puts params[:id]
+    @total_power=0
+
     @shift = Shift.where("start_shift_date= ?", "2015-05-26")
-    @manager = Employee.find(@shift.read_attribute("employee_id"));
-    puts "----------------------"
-    puts @manager
+    @shift_produced_rate = @shift[0].production_rate
+    @manager = current_user.full_name
+    @crew_member_numbers = Crew.find(@shift[0].crew_id)
+    @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
 
-    @pannels_produced = SolarPanel.where("shift_id=?" , "1");
-    #loop through @pannels_produced to sum all power and send it to the pdf
+    @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
-    @matirals_used = ProductionShift.where("shift_id=?" , "1");
-     
-
+    
+    @solar_panels.each do|solar|
+      @total_power = @total_power + solar.power
+    end
+  
+     @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
+     @materials_used_id.each do |m|
+        puts m.material.name
+        puts m.material_quantity
+     end
+  
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shift)
+        pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power , @materials_used_id , @crew_Members)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
   end
 
   def index
-    @shifts = Shift.all
+ 
 
+    @shifts = Shift.where("employee_id = ?" , current_user.id )
+          
+    
+     @manager = current_user.full_name
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReportPdf.new(@shifts)
+        pdf = ReportPdf.new(@shifts,@manager)
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
@@ -96,34 +112,34 @@ class ShiftsController < ApplicationController
   end
 
   def showstartshift
-    if logged_in? and current_category.category=="Shift Manager" 
-     @shift = Shift.new
-     @crews = Crew.all.map{|c| [c.name,c.id]} 
-     if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
-          redirect_to  shifts_showendshift_path 
-      else 
-          render :showstartshift
-      end 
-     end
+     if logged_in? and current_category.category=="Shift Manager" 
+	     @shift = Shift.new
+	     @crews = Crew.all.map{|c| [c.name,c.id]} 
+	     if Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").exists?
+		  redirect_to  shifts_showendshift_path 
+	     else 
+		  render :showstartshift
+	     end 
+     else
+      redirect_to login_path 
+     end 
   end
 
 
   def startshift
 
 if logged_in? and current_category.category=="Shift Manager" 
-
      @shift = Shift.new(start_shift_params)
      @crews = Crew.all.map{|c| [c.name,c.id]} 
-
-    respond_to do |format|
-      if @shift.save
-        format.html { redirect_to @shift }
-        format.json { render :show, status: :created, location: @shift }
-      else
-        format.html { render :showstartshift }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
-    end 
+           respond_to do |format|
+	      if @shift.save
+		format.html { redirect_to @shift }
+		format.json { render :show, status: :created, location: @shift }
+	      else
+		format.html { render :showstartshift }
+		format.json { render json: @shift.errors, status: :unprocessable_entity }
+	      end
+	    end 
      else
        redirect_to login_path  
      end 
@@ -139,29 +155,32 @@ if logged_in? and current_category.category=="Shift Manager"
       @shift = @shift.first 
       @inserted_panels = SolarPanel.where("shift_id = ?", @shift.id ).count
       render :showendshift
-    
      else 
       redirect_to  shifts_showstartshift_path 
-     end 
+     end
+    else
+       redirect_to login_path 
     end 
+   
+   
   end
 
   def endshift
    if logged_in? and current_category.category=="Shift Manager"  
-    respond_to do |format|
-     if @shift.update(end_shift_params)
+	    respond_to do |format|
+	     if @shift.update(end_shift_params)
 
-        format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shift }
-      else
-        @inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
-        format.html { render :showendshift }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-     end
-   end
+		format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+		format.json { render :show, status: :ok, location: @shift }
+	      else
+		@inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
+		format.html { render :showendshift }
+		format.json { render json: @shift.errors, status: :unprocessable_entity }
+	     end
+	   end
 
 
- else
+    else
        redirect_to login_path  
      end
 

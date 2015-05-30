@@ -45,6 +45,7 @@
     <%= f.label :salary %><br>
     <%= f.text_field :salary, class: 'form-control' , placeholder: "Enter Salary" %>
   </div>
+
   <% if @flag_new == 1 %>
       <div class="form-group">
         <%= f.label :education_level %><br>
@@ -77,7 +78,7 @@
 <% end %>    
 
 
-<% if @flag_new != 0 %>
+<% if @flag_new == 1 %>
     <div class="form-group">
       <%= f.label :category_id %><br>
       <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
@@ -87,11 +88,13 @@
         <%= f.label :password %><br>
         <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
       </div>
+
       <%= f.label :password_confirmation %><br>
       <%= f.password_field :password_confirmation, class: 'form-control',  placeholder: 'Confirm your password here'%>
+
       <div class="form-group">
-        <%= f.label :user_name %><br>
-        <%= f.text_field :user_name, class: 'form-control' , placeholder: "Enter User Name Which Login with it" %>
+        <%= f.label :email %><br>
+        <%= f.email_field :email, class: 'form-control' , placeholder: "Enter Email" %>
       </div>
     </div>
 <% end %>
