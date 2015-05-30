@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150528192326) do
-=======
-ActiveRecord::Schema.define(version: 20150528142344) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -32,7 +29,6 @@ ActiveRecord::Schema.define(version: 20150528142344) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
->>>>>>> 136d75da74841a832532901f25b98e6badfa688f
 
   create_table "categories", force: :cascade do |t|
     t.string   "category",   limit: 255
