@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
+
   
 
   resources :vendor_spares
@@ -56,6 +57,10 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
+
+  post 'forget_password' => 'sessions#forget_password'
+
+  get 'forget_password' => 'sessions#forget_password_form'
  
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'

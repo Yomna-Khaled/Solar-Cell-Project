@@ -34,16 +34,18 @@ class EmployeesController < ApplicationController
   # POST /employees
   def create
     @employee = Employee.new(employee_params)
-    if @employee.salary != nil
-      @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
+    if  @employee.salary != nil
+        @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
     end
-
-    @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+    if @employee.password != ""
+         @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+    end
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee }
         format.json { render :show, status: :created, location: @employee }
       else
+        @flag_new=1
         format.html { render :new }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -52,7 +54,7 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
-       @employee.houre_rate=@employee.salary/(26*8) 
+       @employee.houre_rate = @employee.salary/(26*8) 
        employee_params[:houre_rate] =  @employee.houre_rate
        respond_to do |format|
       if @employee.update(employee_params)
@@ -60,6 +62,7 @@ class EmployeesController < ApplicationController
         format.html { redirect_to @employee }
         format.json { render :show, status: :ok, location: @employee }
       else
+        @flag_new=0
         format.html { render :edit }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -84,6 +87,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit( :user_name, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name)
+      params.require(:employee).permit( :email, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name)
     end
 end

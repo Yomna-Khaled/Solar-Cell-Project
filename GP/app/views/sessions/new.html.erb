@@ -1,13 +1,10 @@
-
-    <h1 class="page-header text-primary">Login</h1>
-    <%= form_for(:session, url: login_path) do |f| %>
-
-      <%= f.label :user_name %>
-      <%= f.text_field :user_name, class: 'form-control' ,placeholder: "Enter User Name" %>
-
+<h1 class="page-header text-primary">Login</h1>
+<%= form_for(:session, url: login_path) do |f| %>
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control' ,placeholder: "Enter Email" %>
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control', placeholder: "Enter password" %>
-<br>
+	  <br>
       <%= f.submit "Log in", class: "btn btn-primary" %>
-    <% end %>
-
+<% end %>
+<%= link_to 'Forget Password', forget_password_path   %>
