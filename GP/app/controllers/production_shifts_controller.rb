@@ -30,16 +30,12 @@ class ProductionShiftsController < ApplicationController
   def create
     @shift=Shift.maximum("id");
     params[:material_id].each_with_index do |item,i|
-
-
-    @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
-    @production_shift.save
-  end
-
-    @materials = Material.all
-    render :new
-
-   end
+  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  @production_shift.save
+end
+   @materials = Material.all 
+   render :new
+end
 
   # PATCH/PUT /production_shifts/1
   # PATCH/PUT /production_shifts/1.json

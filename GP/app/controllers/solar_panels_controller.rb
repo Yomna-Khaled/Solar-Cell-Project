@@ -83,11 +83,15 @@ end
   # PATCH/PUT /solar_panels/1
   def update
 <<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
      
 
 =======
     
 >>>>>>> a27791ada2b42e062ec60663b9e8f5fb14bf4bde
+>>>>>>> 136d75da74841a832532901f25b98e6badfa688f
      @flag=false 
      
   respond_to do |format|
