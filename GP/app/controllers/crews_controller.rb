@@ -100,14 +100,31 @@ end
 
   # PATCH/PUT /crews/1
   def update
+
     respond_to do |format|
     array = params[:workers].split(',')
    # @employee_old = Employee.find_by(crew_id: @crew.id) 
     Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 120 ) 
-    if @crew.update(crew_params) 
+    if @crew.update(crew_params)
+        
+        
+        
+
         array.each_with_index do |item,i|
            @employee = Employee.find_by(id: array[i])
-            if @employee 
+
+           if @employee 
+           @crew_old = Crew.find_by(id: @employee.crew_id) 
+              if @crew_old 
+                old_number = @crew_old.no_of_workers.to_i
+                if old_number != 0
+                      new_number =  @crew_old.no_of_workers.to_i - 1
+                      Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
+                end
+              end   
+          
+            
+
                   Employee.where("id = ? ", array[i]).update_all(:crew_id => @crew.id)
             end
           end
@@ -118,8 +135,9 @@ end
         format.json { render json: @crew.errors, status: :unprocessable_entity }
 
     end
+
   end
-  end
+end
 
 
   # DELETE /crews/1
