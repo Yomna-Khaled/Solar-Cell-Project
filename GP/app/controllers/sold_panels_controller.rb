@@ -10,11 +10,22 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels/1
   # GET /sold_panels/1.json
   def show
+    puts @sold_panel.buyer_id
+    puts "============="
+    #@panel=SoldPanel.where("id= ?",@sold_panel.id)
+    @buyer=Buyer.where("id= ?",@sold_panel.buyer_id)
+    puts @buyer.name
+    @solar_panels=SolarPanel.where("sold_panel_id= ?",@sold_panel.id)
+
   end
 
   # GET /sold_panels/new
   def new
     @sold_panel = SoldPanel.new
+    @buyers=Buyer.all
+    @solar_panels=SolarPanel.where(:sold_panel_id => nil)
+    @disbaled=true
+   
   end
 
   # GET /sold_panels/1/edit
@@ -24,10 +35,14 @@ class SoldPanelsController < ApplicationController
   # POST /sold_panels
   # POST /sold_panels.json
   def create
-    @sold_panel = SoldPanel.new(sold_panel_params)
+    @sold_panel = SoldPanel.new(:buyer_id=> params[:buyer_id],:totalPrice=> params[:totalPrice],:totalPower=>params[:totalPower])
+   
 
     respond_to do |format|
       if @sold_panel.save
+        params[:solar_panel_id].each_with_index do |item,i|
+           SolarPanel.where("id = ? ", params[:solar_panel_id][i]).update_all(:sold_panel_id => @sold_panel.id )
+        end
         format.html { redirect_to @sold_panel, notice: 'Sold panel was successfully created.' }
         format.json { render :show, status: :created, location: @sold_panel }
       else
