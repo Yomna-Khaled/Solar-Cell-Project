@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
       end 
   end
 
-    def forgetpassword
-      if !logged_in?
-        redirect_to forget_password_path
-      end 
+  def forgetpassword
+    if !logged_in?
+      redirect_to forget_password_path
+    end 
 
   end
 end

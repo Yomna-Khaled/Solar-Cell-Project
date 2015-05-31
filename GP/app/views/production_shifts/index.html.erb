@@ -24,7 +24,7 @@
 <script>
 function accept(ptr){
 	 var i = ptr.parentNode.parentNode.rowIndex;
-	 console.log(ptr.id);
+	 console.log(ptr.parentNode.parentNode.id);
 	  $.ajax({
   		type: "POST",
   		url: "/production_shifts/accept",

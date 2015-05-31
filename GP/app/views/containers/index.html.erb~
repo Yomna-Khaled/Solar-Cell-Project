@@ -1,0 +1,30 @@
+<br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th text-align="center">Serialno</th>
+      <th text-align="center">Capacity</th>
+      <th text-align="center">Price</th>
+      <th text-align="center">Total power</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @containers.each do |container| %>
+      <tr>
+        <td><%= container.serialNo %></td>
+        <td><%= container.capacity %></td>
+        <td><%= container.price %></td>
+        <td><%= container.total_power %></td>
+        <td><%= link_to 'Show', container, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @containers %>
+<br>
+

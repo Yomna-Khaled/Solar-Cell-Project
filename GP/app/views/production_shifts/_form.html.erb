@@ -13,6 +13,7 @@
       <br>
       <%= hidden_field_tag "hidden" %>
       <%= hidden_field_tag "manager", current_user.full_name  %>
+      <%= hidden_field_tag "shift_id",current_shift %>
     </tr>
     <% end %>
 
@@ -23,13 +24,14 @@
 index_checked=0; //to enable submit button
 var field_id;
 var manager=$("#manager").val();
-  console.log(manager);
+var shift_id;
+  
 function matvalue(ptr){
   
    field_id=ptr.id.split("_")[2];
 
   var name=ptr.id.split("_")[3];
-  console.log(name);
+ 
   var prev=$("#hidden").val();
   if(ptr.checked==true){
     index_checked+=1;
@@ -62,10 +64,12 @@ function matvalue(ptr){
 window.dispatcher = new WebSocketRails('localhost:3000/websocket');
 window.enjoy=dispatcher.subscribe ("yoyo");
 $("#order").click(function(){
+  shift_id=$("#shift_id").val();
+  console.log(shift_id);
   var array=$("#hidden").val().split("_");
   var sent="";
   for(i=1;i<array.length;i++){
-    sent=sent+"<tr><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+name+"_"+$("#"+field_id).val()+"_"+field_id+">accept</button></td></tr>"
+    sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+name+"_"+$("#"+field_id).val()+"_"+field_id+">accept</button></td></tr>"
 
   }
 	

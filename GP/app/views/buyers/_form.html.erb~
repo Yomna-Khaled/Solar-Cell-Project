@@ -1,11 +1,11 @@
 <div class="container text-center">
-<%= form_for(@vendor) do |f| %>
-  <% if @vendor.errors.any? %>
+<%= form_for(@buyer) do |f| %>
+  <% if @buyer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+      <h2><%= pluralize(@buyer.errors.count, "error") %> prohibited this buyer from being saved:</h2>
 
       <ul>
-      <% @vendor.errors.full_messages.each do |message| %>
+      <% @buyer.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -17,26 +17,34 @@
 <div class="panel-body">
 
 
+
   <div class="field form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field form-group">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.label :addess %><br>
+    <%= f.text_field :addess %>
   </div>
+  <div class="field form-group">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+
+
+
 
 
 <div class="field form-group">
 
   <% if @flag == "new" %> 
-        <%= fields_for :vendor_phones do |p| %> 	
+        <%= fields_for :buyer_phones do |p| %>   
            <%= p.label :phone %><br>
-	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
         <% end %>
 
   <%else %>
-      <%= fields_for :vendor_phones do |p| %>
+      <%= fields_for :buyer_phones do |p| %>
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
@@ -47,7 +55,7 @@
          <% @phones.each do |f| %>
           <p> <% phonn = phonn + f.phone + ',' %> </p>
         <% end %>
-          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)">Delete Phone</a> <br>
       <% end %> 
     <% end %>
   <%end %>
@@ -64,14 +72,14 @@
     
 </div>
 
-
-  <div class="actions form-group">
+<div class="actions form-group">
     <%= f.submit "Submit", class: "btn btn-success" %>
   </div>
 </div>
 </div>
 <% end %>
 </div>
+
 
 
 
@@ -108,40 +116,40 @@ var add = function() {
  
 };
 
-var del = function(vendorid) {
+var del = function(buyerid) {
     var length_of_num = 0;
     var index =0;
-	 allValues = $("#phone").val();
+   allValues = $("#phone").val();
    $("#phone").val('');
-	 var arr = allValues.split(",");
-	for (var i=0 ; i< arr.length-1 ; i++){
-		 var div=document.createElement("div");
+   var arr = allValues.split(",");
+  for (var i=0 ; i< arr.length-1 ; i++){
+     var div=document.createElement("div");
      var elem = document.createElement("input");
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
-		 div.id= i;
-		 div.value=arr[i];
+     div.id= i;
+     div.value=arr[i];
                  div.innerHTML = arr[i];
                  elem.onclick=function(){
                    var el = document.getElementById(this.id);
                    var dataString = el.value;
                
                    allValues = allValues.replace(dataString + ',', ""); 
-		    $.ajax({
-			method: "POST",
-			url: '/delPhone',
-				dataType: "JSON",
-				data: { "phone": dataString},
-				complete: function(data)
-				{	
-					 el.parentNode.removeChild( el );
-				}
-			});
-		     };
+        $.ajax({
+      method: "POST",
+      url: '/delPhone',
+        dataType: "JSON",
+        data: { "phone": dataString},
+        complete: function(data)
+        { 
+           el.parentNode.removeChild( el );
+        }
+      });
+         };
 
-		    div.appendChild(elem);
+        div.appendChild(elem);
         document.getElementById('phonedel').appendChild(div);
-	}
+  }
 };
 </script>
