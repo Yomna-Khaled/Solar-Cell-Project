@@ -1,26 +1,25 @@
-<p id="notice"><%= notice %></p>
+<br>
 
-<h1>Listing Sold Panels</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Buyer</th>
-      <th>Totalprice</th>
-      <th>Totalpower</th>
-      <th colspan="3"></th>
+      <th text-align="center">Buyer</th>
+      <th text-align="center">Totalprice</th>
+      <th text-align="center">Totalpower</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
     </tr>
   </thead>
 
   <tbody>
     <% @sold_panels.each do |sold_panel| %>
       <tr>
-        <td><%= sold_panel.buyer %></td>
+        <% buyer = Buyer.find_by(id:sold_panel.buyer_id  )%>
+        <td><%= buyer.name %></td>
         <td><%= sold_panel.totalPrice %></td>
         <td><%= sold_panel.totalPower %></td>
-        <td><%= link_to 'Show', sold_panel %></td>
-        <td><%= link_to 'Edit', edit_sold_panel_path(sold_panel) %></td>
-        <td><%= link_to 'Destroy', sold_panel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', sold_panel, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_sold_panel_path(sold_panel), class:"btn btn-default" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +27,3 @@
 
 <br>
 
-<%= link_to 'New Sold panel', new_sold_panel_path %>

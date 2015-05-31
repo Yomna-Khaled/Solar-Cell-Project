@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   get 'forget_password' => 'sessions#forget_password_form'
 
   post 'delPhon' => 'employees#pho'
-
+  post 'delPhonee' => 'buyers#pho'
  
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'

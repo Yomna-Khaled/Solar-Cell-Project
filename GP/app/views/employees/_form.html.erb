@@ -119,6 +119,7 @@
   <div id="phones">  
   </div>
 
+
   <div id="phonedel">   
   </div>
 
@@ -146,78 +147,76 @@
        }
     }
 
-
-
-
-
 var x=1;
 var counter=0;
 var allValues = '';
+var temp = "";
 allValues=$( "#phone" ).val().slice(0,-1);
-
 var add = function() {
-	if (counter === 0 ) {
-		  	 counter =  1;
-		  	 
-		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
-		    x=x+1;
-		    $( "#OK" ).click(function() {
-			var value = $("#1").val();
-		    if (isNaN(value)){
-		        alert('string ');
-		    }else{
-		    	
-			    if (allValues != ''){
-					allValues =  allValues + ',' + value
-				}else{
-				 	allValues =  allValues + value		
-				}
-				$("#phone").val(allValues);
-				$("#1").val('');		
-		    }
+  if (counter === 0 ) {
+         counter =  1;
+        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        x=x+1;
+        $( "#OK" ).click(function() {
+      var value = $("#1").val();
+        if (isNaN(value) || value < 1){
+            alert('string ');
+        }else{
+          
+          if (allValues != ''){
+            allValues =  allValues + ',' + value
+            
+        }else{
+          allValues =  allValues + value    
+        }
+        $("#phone").val(allValues);
+        $("#1").val('');    
+        }
 
-		   });
+       });
+
     }
+ 
 };
 
-
-var del = function(vendorid) {
-     
-	 var phons_num = $("#phone").val();
-         $("#phone").val('');
-	 var arr = phons_num.split(",");
-	for (var i=0 ; i< arr.length-1 ; i++){
-		 var div=document.createElement("div");
-                 var elem = document.createElement("input");
+var del = function(employeeid) {
+    var length_of_num = 0;
+    var index =0;
+   allValues = $("#phone").val();
+   $("#phone").val('');
+   var arr = allValues.split(",");
+  for (var i=0 ; i< arr.length-1 ; i++){
+     var div=document.createElement("div");
+     var elem = document.createElement("input");
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
-		 div.id= i;
-		 div.value=arr[i];
+     div.id= i;
+     div.value=arr[i];
                  div.innerHTML = arr[i];
                  elem.onclick=function(){
                    var el = document.getElementById(this.id);
                    var dataString = el.value;
+               
+                   allValues = allValues.replace(dataString + ',', ""); 
+        $.ajax({
+      method: "POST",
+      url: '/delPhon',
+        dataType: "JSON",
+        data: { "phone": dataString},
+        complete: function(data)
+        { 
+           el.parentNode.removeChild( el );
+        }
+      });
+         };
 
-
-		    $.ajax({
-			method: "POST",
-			url: '/delPhon',
-				dataType: "JSON",
-				data: { "phone": dataString},
-				complete: function(data)
-				{	
-					 el.parentNode.removeChild( el );
-				}
-			});
-
-
-		     };
-
-		    div.appendChild(elem);
-                    document.getElementById('phonedel').appendChild(div);
-	            }
+        div.appendChild(elem);
+        document.getElementById('phonedel').appendChild(div);
+  }
 };
+
+
 
 
  </script>
