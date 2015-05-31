@@ -1,14 +1,13 @@
 <style>
-#error_explanation {
-  color: red;
-  background-color: white;
-  border: white;
-}
+    #error_explanation {
+      color: red;
+      background-color: white;
+      border: white;
+    }
 
-.field_with_errors {
-    background-color: white;
-}
-
+    .field_with_errors {
+        background-color: white;
+    }
 </style>
 
 <%= form_for(@employee) do |f| %>
@@ -25,17 +24,6 @@
     </div>
   <% end %>
 
-
-
- 
- <!--  <% if @flag_new==1 %>
-    <h1 class="page-header text-primary">Add Employee</h1>
-  <% end %>
-
-
-  <% if @flag_new==0 %>
-    <h1 class="page-header text-primary">Edit Employee</h1>
-  <% end %> -->
 
   <div class="form-group">
     <%= f.label :full_name %><br>
@@ -68,84 +56,71 @@
     <%= f.label :Governamental_ID %><br>
     <%= f.text_field :Governamental_ID, class: 'form-control' , placeholder: "Enter Governamental_ID" %>
   </div>
-  
-<% if @flag_new == 0 %>
-  <p><strong>Category : </strong><p>
+    
+  <% if @flag_new == 0 %>
+    <p><strong>Category : </strong><p>
+    <p>
+        <%= Category.find_by(:id => @category_id).category %>
+    </p>
+  <% end %>    
 
-  <p>
-      <%= Category.find_by(:id => @category_id).category %>
-  </p>
-<% end %>    
 
-
-<% if @flag_new == 1 %>
-    <div class="form-group">
-      <%= f.label :category_id %><br>
-      <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
-    </div>
-    <div id="notnormal">
+  <% if @flag_new == 1 %>
       <div class="form-group">
-        <%= f.label :password %><br>
-        <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
+        <%= f.label :category_id %><br>
+        <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
       </div>
+      <div id="notnormal">
+        <div class="form-group">
+          <%= f.label :password %><br>
+          <%= f.password_field :password, class: 'form-control' , placeholder: "Enter Password" %>
+        </div>
 
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation, class: 'form-control',  placeholder: 'Confirm your password here'%>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation, class: 'form-control',  placeholder: 'Confirm your password here'%>
 
-      <div class="form-group">
-        <%= f.label :email %><br>
-        <%= f.email_field :email, class: 'form-control' , placeholder: "Enter Email" %>
+        <div class="form-group">
+          <%= f.label :email %><br>
+          <%= f.email_field :email, class: 'form-control' , placeholder: "Enter Email" %>
+        </div>
       </div>
-    </div>
-<% end %>
+  <% end %>
 
   <%= f.file_field :image %>
   <br>
 
+  <div class="field form-group">
+    <% if @flag == "new" %> 
+         <%= fields_for :employee_phones do |p| %> 	
+            <%= p.label :phone %><br>
+        	  <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+         <% end %>
+    <% else %>
+         <%= fields_for :employee_phones do |p| %>
+            <%= phonn = '' %>
 
+            <% if @phones.blank? %>
+                <p> <%= phonn = '' %> </p>
+            <% else %>
 
-<div class="field form-group">
+               <% @phones.each do |f| %>
+                     <p>
+                   <% phonn = phonn + f.phone + ',' %>
+                     </p>
+               <% end %>
 
-   <% if @flag == "new" %> 
- <%= fields_for :employee_phones do |p| %> 	
-    <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
-    <% end %>
+               <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+            <% end %> 
+         <% end %>
+    <%end %>
+  </div>
 
-<%else %>
-<%= fields_for :employee_phones do |p| %>
+  <a href="#" onclick="add()" >Add</a>
+  <div id="phones">  
+  </div>
 
-    <%= phonn = '' %>
-
-
-<% if @phones.blank? %>
-
-<p> <%= phonn = '' %> </p>
-
-<% else %>
-
-
-   <% @phones.each do |f| %>
-     <p>
-   <% phonn = phonn + f.phone + ',' %>
-     </p>
-   <% end %>
-<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
-<% end %> 
-<% end %>
-<%end %>
-
-</div>
-
-<a href="#" onclick="add()" >Add</a>
-
-<div id="phones">
-    
-</div>
-
-<div id="phonedel">
-    
-</div>
+  <div id="phonedel">   
+  </div>
 
 
   <div class="actions">
@@ -156,20 +131,20 @@
 
 
 <script type="text/javascript">
-     var category = document.getElementById('employee_category_id');
-      if (category) {
+    var category = document.getElementById('employee_category_id');
+    if (category) {
        target = document.getElementById('notnormal'); //div of input password
        if (category.text == 'Normal') target.style.display='none';
        category.onchange=function() {
-        var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
-       
-        if (type == 'Normal') {
-                         target.style.display = 'none';
-                      } else {
-                  target.style.display= '';
-        }
+          var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
+          if (type == 'Normal') {
+             target.style.display = 'none';
+          } 
+          else {
+              arget.style.display= '';
+          }
        }
-      }
+    }
 
 
 

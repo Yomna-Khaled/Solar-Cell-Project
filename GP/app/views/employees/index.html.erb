@@ -12,8 +12,6 @@
             <th text-align="center">Category</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
-        
-
           </tr>
         </thead>
         <tbody>
@@ -30,7 +28,6 @@
             <td><%= category.category %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
             <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-           
           </tr>
           <% end %>
       </table>
