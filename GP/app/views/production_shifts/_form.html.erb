@@ -3,27 +3,43 @@
     <% @materials.each do |material| %>
     <tr>
       <td>
-        <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}"} %> <%= material.name %>
+
+        <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}_#{material.name}"} %> 
+        <%= material.name %>
       </td>
       <td>
         <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px"}%>
       </td>
       <br>
+      <%= hidden_field_tag "hidden" %>
+      <%= hidden_field_tag "manager", current_user.full_name  %>
     </tr>
-    <% end %> 
+    <% end %>
+
   </table>
   <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
 
 <script>
 index_checked=0; //to enable submit button
+var field_id;
+var manager=$("#manager").val();
+  console.log(manager);
 function matvalue(ptr){
-  var field_id=ptr.id.split("_")[2];
-  // console.log(field_id);
+  
+   field_id=ptr.id.split("_")[2];
+
+  var name=ptr.id.split("_")[3];
+  console.log(name);
+  var prev=$("#hidden").val();
   if(ptr.checked==true){
     index_checked+=1;
     $("#"+field_id).show();
     $("#"+field_id).attr("required", "true");
     $("#"+field_id).attr("min", "0");
+    $("#"+field_id).keyup(function(){
+      $("#hidden").val(prev+"_"+name+","+$("#"+field_id).val());
+    });
+    
 
   }
   else if(ptr.checked==false){
@@ -39,26 +55,27 @@ function matvalue(ptr){
   };
 }
 
-// var task = {
-//   name: 'Start taking advantage of WebSockets',
-//   completed: false
-// }
-
-// var dispatcher = new WebSocketRails('localhost:3000/websocket');
-// $("#order").click(function(){
-// 	console.log("hello");
-// dispatcher.trigger('tasks.order', task);
 
 
-// dispatcher.bind('tasks.create_success', function(task) {
-//   console.log('successfully created ' + task.name);
-//   console.log("hello");
-// });
-// dispatcher.bind('tasks.create_fail', function(task) {
-//   //console.log('successfully created ' + task.name);
-//   console.log("helloooooo");
-// });
-// });
+
+
+window.dispatcher = new WebSocketRails('localhost:3000/websocket');
+window.enjoy=dispatcher.subscribe ("yoyo");
+$("#order").click(function(){
+  var array=$("#hidden").val().split("_");
+  var sent="";
+  for(i=1;i<array.length;i++){
+    sent=sent+"<tr><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+name+"_"+$("#"+field_id).val()+"_"+field_id+">accept</button></td></tr>"
+
+  }
+	
+enjoy.trigger ('order',sent);
+
+
+
+
+});
+
 
 
 </script>

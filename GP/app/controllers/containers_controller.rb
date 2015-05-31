@@ -31,7 +31,7 @@ class ContainersController < ApplicationController
   # GET /containers/1/edit
   def edit
     @vendors = Vendor.all
-     @containervendor = VendorContainer.where("container_id=?",@container.id)
+    @containervendor = VendorContainer.where("container_id=?",@container.id)
     @containervendor_sorted = @containervendor.order(updated_at: :desc)
     @vendor_id =  @containervendor_sorted[0].vendor_id
     @flag="edit"
@@ -65,22 +65,22 @@ class ContainersController < ApplicationController
   # PATCH/PUT /containers/1
   # PATCH/PUT /containers/1.json
   def update
-@vendoredit_id = params['vendor']; #to get vendor of certain material
-@vendororiginal_id = VendorContainer.where("container_id=?",@container.id)[0].vendor_id
-  respond_to do |format|
-       if @container.update(container_params)
-         if @vendoredit_id != @vendororiginal_id
-             @vendorcontainer = VendorContainer.new(vendor_id: @vendoredit_id, container_id: @container.id )  
-             @vendorcontainer.save
-         end
-         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
-         format.json { render :show, status: :ok, location: @container }
-       else
-         @vendors = Vendor.all
-         format.html { render :edit }
-         format.json { render json: @container.errors, status: :unprocessable_entity }
-       end
-     end
+    @vendoredit_id = params['vendor']; #to get vendor of certain material
+    @vendororiginal_id = VendorContainer.where("container_id=?",@container.id)[0].vendor_id
+    respond_to do |format|
+      if @container.update(container_params)
+        if @vendoredit_id != @vendororiginal_id
+            @vendorcontainer = VendorContainer.new(vendor_id: @vendoredit_id, container_id: @container.id )  
+            @vendorcontainer.save
+        end
+        format.html { redirect_to @container, notice: 'Container was successfully updated.' }
+        format.json { render :show, status: :ok, location: @container }
+      else
+        @vendors = Vendor.all
+        format.html { render :edit }
+        format.json { render json: @container.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /containers/1

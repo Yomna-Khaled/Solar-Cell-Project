@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528192326) do
+ActiveRecord::Schema.define(version: 20150531102427) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -157,8 +157,9 @@ ActiveRecord::Schema.define(version: 20150528192326) do
     t.integer  "material_id",       limit: 4
     t.integer  "shift_id",          limit: 4
     t.float    "material_quantity", limit: 24
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "accepted",          limit: 255
   end
 
   add_index "production_shifts", ["material_id"], name: "index_production_shifts_on_material_id", using: :btree

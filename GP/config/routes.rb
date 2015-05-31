@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
+  post 'production_shifts/accept' =>'production_shifts#accept'
 
 
   post 'forget_password' => 'sessions#forget_password'

@@ -30,13 +30,11 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/1/edit
   def edit
-     @vendors = Vendor.all
+    @vendors = Vendor.all
     @sparevendor = VendorSpare.where("spare_part_id=?",@spare_part.id)
     @sparevendor_sorted = @sparevendor.order(updated_at: :desc)
     @vendor_id =  @sparevendor_sorted[0].vendor_id
-
-
-@flag="edit"
+    @flag="edit"
   end
 
   # POST /spare_parts
@@ -67,18 +65,18 @@ class SparePartsController < ApplicationController
   # PATCH/PUT /spare_parts/1
   # PATCH/PUT /spare_parts/1.json
   def update
-@vendoredit_id = params['vendor']; #to get vendor of certain material
-@vendororiginal_id = VendorSpare.where("spare_part_id=?",@spare_part.id)[0].vendor_id
+    @vendoredit_id = params['vendor']; #to get vendor of certain material
+    @vendororiginal_id = VendorSpare.where("spare_part_id=?",@spare_part.id)[0].vendor_id
     respond_to do |format|
       if @spare_part.update(spare_part_params)
         if @vendoredit_id != @vendororiginal_id
          @vendorspare = VendorSpare.new(vendor_id: @vendor_id, spare_part_id: @spare_part.id )
          @vendorspare.save
-         end
+        end
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
         format.json { render :show, status: :ok, location: @spare_part }
       else
-         @vendors = Vendor.all
+        @vendors = Vendor.all
         format.html { render :edit }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
       end
