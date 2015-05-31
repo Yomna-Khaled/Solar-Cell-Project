@@ -4,6 +4,7 @@ class EmployeesController < ApplicationController
   def index
     if logged_in? and current_category.category=="HR"
       @employees = Employee.all
+      @employees = Employee.paginate(:page => params[:page], :per_page => 10)
     else
       redirect_to login_path  
     end   
@@ -55,21 +56,25 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        if params[:employee_phones][:phone]==" "
-          @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
-          @employeephone.save  
-        else
-          arr= params[:employee_phones][:phone].split(",")
-          arr.each do |c|	
-            @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-            @employeephone.save 
-          end
-        end 
+        if defined? params[:employee_phones][:phone] 
+            arr= params[:employee_phones][:phone].split(",")
+            arr.each do |c|
+              if c != nil
+                @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+                @employeephone.save  
+              end
+            end
+          else
+            
+            @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+            @employeephone.save            
+          end 
 
         format.html { redirect_to @employee }
         format.json { render :show, status: :created, location: @employee }
       else
         @flag_new=1
+        params[:employee_phones][:phone]==" "
         format.html { render :new }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -84,11 +89,14 @@ class EmployeesController < ApplicationController
        respond_to do |format|
 
       if @employee.update(employee_params)
-        arr= params[:employee_phones][:phone].split(",")
-        arr.each do |c|
-          @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-          @employeephone.save 
-        end 
+         arr= params[:employee_phones][:phone].split(",")
+   arr.each do |c|
+    puts c  
+        if c != ""
+           @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+           @employeephone.save 
+        end
+   end    
         flash[:success] = 'Employee was successfully updated.'
         format.html { redirect_to @employee }
         format.json { render :show, status: :ok, location: @employee }
@@ -99,6 +107,9 @@ class EmployeesController < ApplicationController
       end
     end
   end
+
+
+
 
   # DELETE /employees/1
   def destroy

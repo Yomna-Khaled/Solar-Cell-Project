@@ -18,6 +18,7 @@ end
         end
       else
        @solar_panels = SolarPanel.all
+       @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 6)
      end
     else
       redirect_to login_path  
