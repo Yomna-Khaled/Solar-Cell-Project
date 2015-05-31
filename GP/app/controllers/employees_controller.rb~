@@ -78,10 +78,7 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
-<<<<<<< HEAD
 
-=======
->>>>>>> e6b89ffc4abea5f0b33e467604881153732eb34f
        @employee.houre_rate = @employee.salary/(26*8) 
        employee_params[:houre_rate] =  @employee.houre_rate
        respond_to do |format|

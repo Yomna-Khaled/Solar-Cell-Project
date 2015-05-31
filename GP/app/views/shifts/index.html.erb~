@@ -5,7 +5,7 @@
 <table class="table table-stripped">
   <thead>
     <tr>
-      <th>shift</th>
+      <th>employee id</th>
       <th>Crew</th>
       <th>Start shift date</th>
       <th>End shift date</th>
@@ -21,7 +21,10 @@
 
   <tbody>
     <% @shifts.each do |shift| %>
-      <tr>
+      
+     
+        
+         <tr> 
         <td><%= shift.employee.id %></td>
         <td><%= shift.crew.name %></td>
         <td><%= shift.start_shift_date %></td>
@@ -32,24 +35,32 @@
         <td><%= link_to 'Show', shift %></td>
         <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
         <td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-      </tr> 
-       =======================================
-        <% shift.solar_panels.each do |solarpanel| %>
-                <tr>  
-  	        <td><%= solarpanel.serialNo %></td>
-                <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :get %></td>
-                </tr> 
-        <% end %> 
-
+       
+       
+       </tr> 
       
+       =======================================
+
+		<% shift.solar_panels.each do |solarpanel| %>
+		        <tr>  
+	  	        <td><%= solarpanel.serialNo %></td>
+		        <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :gets %></td>
+		        </tr> 
+		<% end %> 
+
+        
+          
 
         
 
 
     <% end %>
+  
   </tbody>
 </table>
 
 <br>
-
+<script>
+    $(".collapse").collapse()
+</script>
 <%= link_to 'New Shift', new_shift_path %>
