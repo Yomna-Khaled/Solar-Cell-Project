@@ -2,7 +2,8 @@
 
 <p>
   <strong>Buyer:</strong>
-  <%= @buyer.name %>
+  <% buyer=Buyer.find_by(id: @sold_panel.buyer_id )%>
+  <%= buyer.name %>
 </p>
 
 <p>
