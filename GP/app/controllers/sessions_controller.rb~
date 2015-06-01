@@ -18,6 +18,12 @@ class SessionsController < ApplicationController
         if @employee
           # Log the user in and redirect to the user's show page.
           log_in @employee
+          if (current_category.category=="Shift Manager") 
+              @shift=Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")        
+              if @shift.exists?
+	               session[:shift_id] = @shift[0].id
+              end
+          end
           flash[:success] = 'Welcome' # Not quite right!
           redirect_to @employee #action
         else

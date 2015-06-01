@@ -171,7 +171,13 @@ if logged_in? and current_category.category=="Shift Manager"
   end
 
   def endshift
-   if logged_in? and current_category.category=="Shift Manager"  
+   if logged_in? and current_category.category=="Shift Manager"
+            @unacceptedshifts=ProductionShift.where(@shift.id)
+             for i in 0..(@unacceptedshifts.all.length-1)
+                 if (@unacceptedshifts[i].accepted ="false")
+                     @unacceptedshifts[i].destroy  
+                 end
+             end   
 	    respond_to do |format|
 	     if @shift.update(end_shift_params)
 

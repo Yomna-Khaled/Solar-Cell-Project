@@ -66,7 +66,8 @@ class SolarPanelsController < ApplicationController
       @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f)) 
 	    respond_to do |format|
 	      if @solar_panel.save
-           @container=Container.find(@solar_panel.container_id)
+               @shift[0].update_attributes(:production_rate => ((@shift[0].production_rate)+1))  
+               @container=Container.find(@solar_panel.container_id)
   	       @power=@container.total_power+@solar_panel.power 
   	       @container.update_attributes(:total_power => @power)
   	       format.html { redirect_to  shifts_showstartshift_path  }

@@ -18,7 +18,10 @@ class SolarPanelsController < ApplicationController
        @solar_panels = SolarPanel.all
        @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 6)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 32eb0bc2c5d729b966bdd4e09606effeb0a1a0e5
      end
 >>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
     else
@@ -69,7 +72,12 @@ class SolarPanelsController < ApplicationController
       @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f)) 
 	    respond_to do |format|
 	      if @solar_panel.save
+<<<<<<< HEAD
            @container=Container.find(@solar_panel.container_id)
+=======
+               @shift[0].update_attributes(:production_rate => ((@shift[0].production_rate)+1))  
+               @container=Container.find(@solar_panel.container_id)
+>>>>>>> 32eb0bc2c5d729b966bdd4e09606effeb0a1a0e5
   	       @power=@container.total_power+@solar_panel.power 
   	       @container.update_attributes(:total_power => @power)
   	       format.html { redirect_to  shifts_showstartshift_path  }

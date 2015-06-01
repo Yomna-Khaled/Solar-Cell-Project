@@ -36,7 +36,12 @@
  
   <div class="field">
     <%= f.label :no_of_workers %><br>
+    <%if( @clear==1 ) %>
+    <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()",value:""%>
+    <% end %>
+    <%if( @clear!=1 ) %>
     <%= f.text_field :no_of_workers, class: 'form-control' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
+    <% end %>
   </div>
   <div id="versionsDiv">
   </div>
@@ -58,6 +63,8 @@
     <% end %>
   </div>
 <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
+<p id="workers_in_crews" hidden><%= @number_of_normal_workers  %></p>
+
 
  
 <script type="text/javascript">
@@ -66,12 +73,7 @@
     var ids = new Array(); 
     var Woker_names = document.getElementById("Woker_names");
     var number_of_normal_workers = document.getElementById("number_of_normal_workers").innerHTML;
-
-
-
-
   function addworkers () {
- 
     document.getElementById("btn").disabled = true;
     Woker_names=document.getElementById("Woker_names");
     var myNode = document.getElementById("versionsDiv");
@@ -87,7 +89,7 @@
       {
         if(Number(number_of_normal_workers) < Number(no_workers))
         {
-          alert("The number of normal user is "+number_of_normal_workers);
+          alert(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
            document.getElementById( "no_of_workers" ).value= "";
         }
         else
@@ -100,7 +102,6 @@
             });         
           }                                                  
         }
-
       }
       else
       {
@@ -116,7 +117,7 @@
 
 function get_value(elem){  //onchange function of select menu
   val = elem.value
-  if( ids.indexOf(val)== -1 ) //check if inserted data is a number or not
+  if( ids.indexOf(val)== -1 ) //check if employee is selected before
   {
     counter = counter + 1;
     ids.push(val) 
