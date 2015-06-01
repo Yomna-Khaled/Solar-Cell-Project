@@ -43,21 +43,21 @@
     <%= f.label :machine_id %><br>
     <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
 
-        <!-- add new quantity using ajax-->
+    <!-- add new quantity using ajax-->
     <a id="machinelink" class="btn btn-link" style="text-align: left" 
     onclick="showmachineform()">Add Machine</a>
     <div id="addnewmachine" style="display:none" class="form-group">
-         <h1>
-          <span class="label label-default">New Machine</span>
-        </h1>
-        <div class="form-group">
-          <label>machine Name</label>
-          <input type="text" id="machinename" class="form-control">
-        </div>
-        <div class="actions">
-          <a onclick="machineajax()" class="btn btn-success">Add Machine</a>
-          <a onclick="canceladdmachine()" class="btn btn-warning">Cancel</a>
-        </div>
+      <h1>
+        <span class="label label-default">New Machine</span>
+      </h1>
+      <div class="form-group">
+        <label>machine Name</label>
+        <input type="text" id="machinename" class="form-control">
+      </div>
+      <div class="actions">
+        <a onclick="machineajax()" class="btn btn-success">Add Machine</a>
+        <a onclick="canceladdmachine()" class="btn btn-warning">Cancel</a>
+      </div>
     </div>
       <!-- end of adding new machine using ajax -->
   </div>

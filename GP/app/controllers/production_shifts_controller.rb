@@ -4,12 +4,27 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts
   # GET /production_shifts.json
   def index
-    #@production_shifts = ProductionShift.all
-    @materials = Material.all
+    @production_shifts = ProductionShift.where("accepted= ?","false")
+    puts "=================="
+    
+    @production_shifts.each do |m|
+      puts m.material.name
+      # @shift_info = Shift.where("id = ? " , m.shift_id)
+      # #puts @shift_info[0].employee_id
+      # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
+      
+      
+    end  
+   
   end
 
   # GET /production_shifts/1
   # GET /production_shifts/1.json
+  def accept
+    @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
+                        where("material_id= ?",params[:id]).update_all(:accepted => "true" )
+    render plain:"ok"
+  end  
   def show
   end
 
@@ -34,7 +49,7 @@ class ProductionShiftsController < ApplicationController
   
     @shift=Shift.maximum("id");
     params[:material_id].each_with_index do |item,i|
-  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  @production_shift = ProductionShift.new(:shift_id=>@shift,:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]],:accepted=>"false")
   @production_shift.save
 end
    @materials = Material.all 
@@ -74,6 +89,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def production_shift_params
-      params.require(:production_shift).permit(:material_id, :shift_id, :material_quantity)
+      params.require(:production_shift).permit(:material_id, :shift_id, :material_quantity,:accepted)
     end
 end
