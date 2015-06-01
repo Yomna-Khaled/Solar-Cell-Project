@@ -91,7 +91,7 @@ var x=1;
 var counter=0;
 var allValues = '';
 allValues=$( "#phone" ).val().slice(0,-1);
-alert (counter);
+
 
 var add = function() {
 	if (counter === 0 ) {

@@ -7,6 +7,7 @@ class MaterialsController < ApplicationController
     if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
       @materials = Material.all
       @material_vendor = MaterialVendor.all
+      @materials = Material.paginate(:page => params[:page], :per_page => 6)
     else
       redirect_to login_path  
     end   

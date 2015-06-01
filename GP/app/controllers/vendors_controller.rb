@@ -7,6 +7,8 @@ class VendorsController < ApplicationController
 
     if logged_in? and current_category.category=="Sales"
          @vendors = Vendor.all
+         @vendors = Vendor.paginate(:page => params[:page], :per_page => 10)
+       
     else
       redirect_to login_path  
     end     
@@ -86,13 +88,19 @@ end
   def update
     respond_to do |format|
       if @vendor.update(vendor_params)
+         
+      if params[:vendor_phones][:phone]==" "
+         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+         @vendorphone.save  
+        else
 
-      arr= params[:vendor_phones][:phone].split(",")
+         arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
-	 end    
+        end
+	 end 
 
 
         format.html { redirect_to @vendor }

@@ -7,6 +7,8 @@ class ContainersController < ApplicationController
   def index
     if logged_in? and current_category.category=="Sales"
      @containers = Container.all
+     @containers = Container.paginate(:page => params[:page], :per_page => 6)
+     
     else
       redirect_to login_path  
     end   

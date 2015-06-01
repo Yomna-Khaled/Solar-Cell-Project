@@ -178,18 +178,6 @@ ActiveRecord::Schema.define(version: 20150528142344) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "saled_panels", force: :cascade do |t|
-    t.integer  "solar_panel_id", limit: 4
-    t.integer  "buyer_id",       limit: 4
-    t.float    "totalPrice",     limit: 24
-    t.float    "totalPower",     limit: 24
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "saled_panels", ["buyer_id"], name: "index_saled_panels_on_buyer_id", using: :btree
-  add_index "saled_panels", ["solar_panel_id"], name: "index_saled_panels_on_solar_panel_id", using: :btree
-
   create_table "shifts", force: :cascade do |t|
     t.integer  "employee_id",      limit: 4
     t.integer  "crew_id",          limit: 4
@@ -302,8 +290,6 @@ ActiveRecord::Schema.define(version: 20150528142344) do
   add_foreign_key "materials", "quantities"
   add_foreign_key "production_shifts", "materials"
   add_foreign_key "production_shifts", "shifts"
-  add_foreign_key "saled_panels", "buyers"
-  add_foreign_key "saled_panels", "solar_panels"
   add_foreign_key "shifts", "crews"
   add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"

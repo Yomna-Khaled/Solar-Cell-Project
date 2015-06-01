@@ -8,5 +8,5 @@ validates :email, :presence => true
 validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 has_many :materialvendor
 has_many :materials, through: :materialvendor
-
 end
+

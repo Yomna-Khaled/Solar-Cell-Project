@@ -5,6 +5,7 @@ class BuyersController < ApplicationController
   # GET /buyers.json
   def index
     @buyers = Buyer.all
+    @buyers = Buyer.paginate(:page => params[:page], :per_page => 6)
   end
 
   def pho
@@ -64,18 +65,47 @@ class BuyersController < ApplicationController
 
   # PATCH/PUT /buyers/1
   # PATCH/PUT /buyers/1.json
-  def update
+  # def update
+  #   respond_to do |format|
+  #     if @buyer.update(buyer_params)
+  #      if params[:buyer_phones][:phone]==" "
+  #        @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+  #        @buyerphone.save  
+  #       else
+  #        arr= params[:buyer_phones][:phone].split(",")
+	 # arr.each do |c|
+		# puts c	
+  #          @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+  #          @buyerphone.save 
+	 # end  
+  #        end
+  #       format.html { redirect_to @buyer, notice: 'Buyer was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @buyer }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @buyer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
+
+
+
+
+ def update
     respond_to do |format|
       if @buyer.update(buyer_params)
-
-
-        arr= params[:buyer_phones][:phone].split(",")
+       if params[:buyer_phones][:phone]==" "
+         @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+         @buyerphone.save  
+        else
+         arr= params[:buyer_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
            @buyerphone.save 
 	 end  
-
+         end
         format.html { redirect_to @buyer, notice: 'Buyer was successfully updated.' }
         format.json { render :show, status: :ok, location: @buyer }
       else
@@ -84,6 +114,17 @@ class BuyersController < ApplicationController
       end
     end
   end
+
+
+
+
+
+
+
+
+
+
+  
 
   # DELETE /buyers/1
   # DELETE /buyers/1.json

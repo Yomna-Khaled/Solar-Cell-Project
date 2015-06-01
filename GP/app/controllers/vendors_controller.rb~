@@ -7,6 +7,8 @@ class VendorsController < ApplicationController
 
     if logged_in? and current_category.category=="Sales"
          @vendors = Vendor.all
+         @vendors = Vendor.paginate(:page => params[:page], :per_page => 10)
+       
     else
       redirect_to login_path  
     end     
@@ -21,7 +23,7 @@ end
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-   
+    @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
   end
 
   # GET /vendors/new
@@ -47,16 +49,16 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
       if @vendor.save
-        if params[:vendor_phones][:phone]==" "
-         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-         @vendorphone.save  
-        else
+       # if params[:vendor_phones][:phone]==" "
+        # @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+       #  @vendorphone.save  
+        #else
          arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
-        end
+        #end
 	 end    
         format.html { redirect_to @vendor }
         format.json { render :show, status: :created, location: @vendor }
@@ -87,12 +89,17 @@ end
     respond_to do |format|
       if @vendor.update(vendor_params)
 
-      arr= params[:vendor_phones][:phone].split(",")
+      if params[:vendor_phones][:phone]==" "
+         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+         @vendorphone.save  
+        else
+         arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
-	 end    
+        end
+	 end 
 
 
         format.html { redirect_to @vendor }

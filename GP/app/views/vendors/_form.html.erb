@@ -36,7 +36,7 @@
    <%= f.label :Phones %><br>
    <% if @flag == "new" %> 
  <%= fields_for :vendor_phones do |p| %> 	
-    <%= p.label :phone %><br>
+   
 	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
     <% end %>
 
@@ -51,9 +51,8 @@
 <p> <%= phonn = '' %> </p>
 
 <% else %>
-
-
    <% @phones.each do |f| %>
+     
      <p>
    <% phonn = phonn + f.phone + ',' %>
      </p>
@@ -94,6 +93,7 @@ allValues=$( "#phone" ).val().slice(0,-1);
 
 
 var add = function() {
+
 	if (counter === 0 ) {
 		  	 counter =  1;
 		  	 
@@ -101,7 +101,7 @@ var add = function() {
 		    x=x+1;
 		    $( "#OK" ).click(function() {
 			var value = $("#1").val();
-		    if (isNaN(value)){
+		    if (isNaN(value) || value < 1){
 		        alert('string ');
 		    }else{
 		    	
@@ -115,11 +115,14 @@ var add = function() {
 		    }
 
 		   });
+
     }
+ 
 };
 
 
 var del = function(vendorid) {
+  
      
 	 var phons_num = $("#phone").val();
          $("#phone").val('');

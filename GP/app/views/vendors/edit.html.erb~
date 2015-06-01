@@ -1,13 +1,6 @@
 <h1>Editing Vendor</h1>
 
 <%= render 'form' %>
-<% @phones.each do |f| %>
-<p>
-  <%= f.phone %>
-</p>
-<% end %>
-<%= link_to 'Show', @vendor %> |
-<%= link_to 'Back', vendors_path %>
 
 
 

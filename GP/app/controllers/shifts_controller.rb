@@ -28,6 +28,7 @@ class ShiftsController < ApplicationController
 
   def index
     @shifts = Shift.all
+    @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
 
     respond_to do |format|
       format.html

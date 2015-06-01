@@ -5,6 +5,7 @@ class BuyersController < ApplicationController
   # GET /buyers.json
   def index
     @buyers = Buyer.all
+    @buyers = Buyer.paginate(:page => params[:page], :per_page => 6)
   end
 
   def pho
@@ -20,8 +21,12 @@ class BuyersController < ApplicationController
 
   # GET /buyers/new
   def new
+    if logged_in? and current_category.category=="Sales"
     @buyer = Buyer.new
     @flag="new"
+    else
+      redirect_to login_path  
+    end
   end
 
   # GET /buyers/1/edit

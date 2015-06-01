@@ -5,6 +5,7 @@ class CrewsController < ApplicationController
   def index
     if logged_in? and current_category.category=="HR"
       @crews = Crew.all
+      @crews = Crew.paginate(:page => params[:page], :per_page => 6)
     else
       redirect_to login_path  
     end  

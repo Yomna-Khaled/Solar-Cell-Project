@@ -25,6 +25,7 @@
     <%end%>   
 </p>
 
+<%= will_paginate @buyers %>
 
 <%= link_to 'Edit', edit_buyer_path(@buyer) %> |
 <%= link_to 'Back', buyers_path %>

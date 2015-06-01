@@ -6,7 +6,6 @@
 
 
       <th text-align="center">Production date</th>
-      <th text-align="center">Expire date</th>
       <th text-align="center">Height</th>
       <th text-align="center" >Width</th>
       <th text-align="center">Power</th>
