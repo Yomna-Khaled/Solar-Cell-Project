@@ -11,7 +11,7 @@
 					<%= form_for(:session, url: login_path) do |f| %>
 
 					  <%= f.label :email %>
-					  <%= f.text_field :email, class: 'form-control' ,placeholder: "Enter User Name" %>
+					  <%= f.text_field :email, class: 'form-control' ,placeholder: "Enter Email" %>
 
 					  <%= f.label :password %>
 					  <%= f.password_field :password, class: 'form-control', placeholder: "Enter password" %>
@@ -21,9 +21,7 @@
 
 
 					<% end %>
-                   
-                </div>
-            
+                </div>   
         </div>  
     </div>
 </div>

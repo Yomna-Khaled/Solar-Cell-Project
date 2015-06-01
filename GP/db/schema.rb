@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528192326) do
+ActiveRecord::Schema.define(version: 20150531102427) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -157,8 +157,9 @@ ActiveRecord::Schema.define(version: 20150528192326) do
     t.integer  "material_id",       limit: 4
     t.integer  "shift_id",          limit: 4
     t.float    "material_quantity", limit: 24
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "accepted",          limit: 255
   end
 
   add_index "production_shifts", ["material_id"], name: "index_production_shifts_on_material_id", using: :btree
@@ -177,18 +178,6 @@ ActiveRecord::Schema.define(version: 20150528192326) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  create_table "saled_panels", force: :cascade do |t|
-    t.integer  "solar_panel_id", limit: 4
-    t.integer  "buyer_id",       limit: 4
-    t.float    "totalPrice",     limit: 24
-    t.float    "totalPower",     limit: 24
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "saled_panels", ["buyer_id"], name: "index_saled_panels_on_buyer_id", using: :btree
-  add_index "saled_panels", ["solar_panel_id"], name: "index_saled_panels_on_solar_panel_id", using: :btree
 
   create_table "shifts", force: :cascade do |t|
     t.integer  "employee_id",      limit: 4
@@ -302,8 +291,6 @@ ActiveRecord::Schema.define(version: 20150528192326) do
   add_foreign_key "materials", "quantities"
   add_foreign_key "production_shifts", "materials"
   add_foreign_key "production_shifts", "shifts"
-  add_foreign_key "saled_panels", "buyers"
-  add_foreign_key "saled_panels", "solar_panels"
   add_foreign_key "shifts", "crews"
   add_foreign_key "shifts", "employees"
   add_foreign_key "solar_panels", "containers"

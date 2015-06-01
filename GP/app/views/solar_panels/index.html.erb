@@ -64,9 +64,6 @@
 </table>
 <%= will_paginate @solar_panels %>
 <br>
-
-
-
 <% if logged_in? %> 
   <% if current_category.category == "Shift Manager" %>
     <%= button_to "New", new_solar_panel_path ,method: :get%>

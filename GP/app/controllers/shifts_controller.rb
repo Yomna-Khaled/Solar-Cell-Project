@@ -134,7 +134,8 @@ if logged_in? and current_category.category=="Shift Manager"
      @crews = Crew.all.map{|c| [c.name,c.id]} 
            respond_to do |format|
 	      if @shift.save
-		format.html { redirect_to @shift }
+                session[:shift_id] = @shift.id
+                format.html { redirect_to @shift }
 		format.json { render :show, status: :created, location: @shift }
 	      else
 		format.html { render :showstartshift }

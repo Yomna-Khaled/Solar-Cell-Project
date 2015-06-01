@@ -21,11 +21,11 @@
     <div id="error_explanation">
       <div class="alert alert-danger">
         The form contains <%= pluralize( @crew.errors.count, "error") %>.
-         <ul>
-      <%  @crew.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+          <%  @crew.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
   <% end %>
@@ -45,22 +45,19 @@
   <br>
   <%= hidden_field_tag("workers", "", :id => "workers") %>
   <div class="actions">
-    
-
     <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
   </div>
 <% end %>
-  <h2 class="page-header text-primary">Names of employees</h2>
+<h2 class="page-header text-primary">Names of employees</h2>
   <div id="Woker_names">
     <% if @flag_new==0 %>
-          <% @employees.each do |employee| %>
-              <%= employee.full_name %> <br>
-
-          <% end %>
+      <% @employees.each do |employee| %>
+        <%= employee.full_name %> <br>
+      <% end %>
 
     <% end %>
   </div>
-  <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
+<p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
 
  
 <script type="text/javascript">
@@ -73,69 +70,75 @@
 
 
 
-function addworkers () {
+  function addworkers () {
  
-  document.getElementById("btn").disabled = true;
-  Woker_names=document.getElementById("Woker_names");
-  Woker_names.innerHTML = '';
-          ids = [];
-          counter = 0;
-          var myNode = document.getElementById("versionsDiv");
-          myNode.innerHTML = ''; //to remove all select menus on key up 
-          Woker_names.innerHTML = ''; //to clear div which appen workers name on it
-          ids = []; //to clear array 
-          counter = 0; //to reset couter
-          document.getElementById("btn").disabled = true;
-          no_workers = document.getElementById( "no_of_workers" ).value;
-          if(no_workers){
-             if( no_workers % 1 === 0 ){
-                  if(Number(number_of_normal_workers) < Number(no_workers)){
-                    alert("The number of normal user is "+number_of_normal_workers);
-                    document.getElementById( "no_of_workers" ).value= "";
-                  }else{
-                      var posting = $.get( "/crews/get_employees" );
-                      console.log('abl elposting')
-                      console.log(posting)
-                      for(var i = 0 ; i < Number(no_workers) ; i++){
-                              posting.done(function( data ) {
-                               $("#versionsDiv").append(data);
-                          });         
-                      }                                                  
-                  }
+    document.getElementById("btn").disabled = true;
+    Woker_names=document.getElementById("Woker_names");
+    var myNode = document.getElementById("versionsDiv");
+    myNode.innerHTML = ''; //to remove all select menus on key up 
+    Woker_names.innerHTML = ''; //to clear div which appen workers name on it
+    ids = []; //to clear array 
+    counter = 0; //to reset couter
+    document.getElementById("btn").disabled = true;
+    no_workers = document.getElementById( "no_of_workers" ).value;
+    if(no_workers)
+    {
+      if( no_workers % 1 === 0 )
+      {
+        if(Number(number_of_normal_workers) < Number(no_workers))
+        {
+          alert("The number of normal user is "+number_of_normal_workers);
+           document.getElementById( "no_of_workers" ).value= "";
+        }
+        else
+        {
+          var posting = $.get( "/crews/get_employees" );
+          for(var i = 0 ; i < Number(no_workers) ; i++)
+          {
+            posting.done(function( data ) {
+              $("#versionsDiv").append(data);
+            });         
+          }                                                  
+        }
 
-              }
-              else{
-                alert("Please insert a number")
-              }
-          }else{
-            myNode.innerHTML = '';
-          }
+      }
+      else
+      {
+        alert("Please insert a number")
+      }
+    }  
+    else
+    {
+      myNode.innerHTML = '';
     }
+  } 
 
 
 function get_value(elem){  //onchange function of select menu
-   val = elem.value
+  val = elem.value
   if( ids.indexOf(val)== -1 ) //check if inserted data is a number or not
-   {
-       counter = counter + 1;
-       ids.push(val) 
-       elem.parentElement.style.display = 'none';
-       var para = document.createElement("p");
-       var node = document.createTextNode(elem.options[elem.selectedIndex].text);
-       para.appendChild(node);
-       document.getElementById("Woker_names").appendChild(para)
-       workers = document.getElementById('workers');
-       if(counter == no_workers)  
-       {
-         document.getElementById("btn").disabled = false;
-         workers.value = ids.valueOf();
-         console.log(workers);
-       }
+  {
+    counter = counter + 1;
+    ids.push(val) 
+    elem.parentElement.style.display = 'none';
+    var para = document.createElement("p");
+    var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+    para.appendChild(node);
+    document.getElementById("Woker_names").appendChild(para)
+    workers = document.getElementById('workers');
+    if(counter == no_workers)  
+    {
+      document.getElementById("btn").disabled = false;
+      workers.value = ids.valueOf();
+      console.log(workers);
+    }
 
-    }else{
+  }
+  else
+  {
       elem.parentElement.style.display = true;
       alert("Employee is already in the crew");
-   }
+  }
 }
 </script>
 

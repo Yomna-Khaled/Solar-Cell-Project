@@ -1,82 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Width:</strong>
-  <%= @container.width %>
-</p>
-
-<p>
-  <strong>Height:</strong>
-  <%= @container.height %>
-</p>
-
-<p>
-  <strong>Serialno:</strong>
-  <%= @container.serialNo %>
-</p>
-
-<p>
-  <strong>Capacity:</strong>
-  <%= @container.capacity %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @container.price %>
-</p>
-
-<p>
-  <strong>Total power:</strong>
-  <%= @container.total_power %>
-</p>
-
-<p>
-  <strong>Vendor:</strong>
-        <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
-        <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
-        <td><%= vendor.name %></td>
- </p> 
-================================================================================
-<% @container.solar_panels.each do |solarpanel| %>
-  <p>
-    <strong>Production Date:</strong>
-    <%= solarpanel.production_date %>
-  </p>
- <p>
-    <strong>Height:</strong>
-    <%= solarpanel.height %>
-  </p>
   <p>
     <strong>Width:</strong>
-    <%= solarpanel.width %>
+    <%= @container.width %>
   </p>
-  <p>
-    <strong>power:</strong>
-    <%= solarpanel.power %>
-  </p>
- 
-  <p>
-    <strong>cell type:</strong>
-    <%= solarpanel.celltype %>
-  </p>
-  <p>
-    <strong>sub type:</strong>
-    <%= solarpanel.subtype %>
-  </p>
-  <p>
-    <strong>price:</strong>
-    <%= solarpanel.price %>
-  </p>
-  <p>
-    <strong>serial No:</strong>
-    <%= solarpanel.serialNo %>
-  </p>
-  <p>
-    <strong>number of cells:</strong>
-    <%= solarpanel.cellno %>
-  </p>
-  
- 
-****************************************
-<% end %>
 
+  <p>
+    <strong>Height:</strong>
+    <%= @container.height %>
+  </p>
+
+  <p>
+    <strong>Serialno:</strong>
+    <%= @container.serialNo %>
+  </p>
+
+  <p>
+    <strong>Capacity:</strong>
+    <%= @container.capacity %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= @container.price %>
+  </p>
+
+  <p>
+    <strong>Total power:</strong>
+    <%= @container.total_power %>
+  </p>
+
+  <p>
+    <strong>Vendor:</strong>
+          <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
+          <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
+          <td><%= vendor.name %></td>
+   </p> 
+  ================================================================================
+  <% @container.solar_panels.each do |solarpanel| %>
+    <p>
+      <strong>Production Date:</strong>
+      <%= solarpanel.production_date %>
+    </p>
+   <p>
+      <strong>Height:</strong>
+      <%= solarpanel.height %>
+    </p>
+    <p>
+      <strong>Width:</strong>
+      <%= solarpanel.width %>
+    </p>
+    <p>
+      <strong>power:</strong>
+      <%= solarpanel.power %>
+    </p>
+   
+    <p>
+      <strong>cell type:</strong>
+      <%= solarpanel.celltype %>
+    </p>
+    <p>
+      <strong>sub type:</strong>
+      <%= solarpanel.subtype %>
+    </p>
+    <p>
+      <strong>price:</strong>
+      <%= solarpanel.price %>
+    </p>
+    <p>
+      <strong>serial No:</strong>
+      <%= solarpanel.serialNo %>
+    </p>
+    <p>
+      <strong>number of cells:</strong>
+      <%= solarpanel.cellno %>
+    </p>
+    
+   
+  ****************************************
+  <% end %>
+</div>
