@@ -78,7 +78,14 @@
    
    function change(){
    $("#totalPower").val($("#power").val());
+   console.log($("table tr td" )[0] );
+   for(i=0; i<$("table tr td" ).children().length;i++){
+     if($("table tr td" ).children()[i].checked==true)
+      $("table tr td" ).children()[i].checked=false;
+console.log("hello");
 
+   }
+  
    
    }
 

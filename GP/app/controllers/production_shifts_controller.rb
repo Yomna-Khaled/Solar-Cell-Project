@@ -12,7 +12,7 @@ class ProductionShiftsController < ApplicationController
       # @shift_info = Shift.where("id = ? " , m.shift_id)
       # #puts @shift_info[0].employee_id
       # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
-      
+
       
     end  
    
@@ -21,9 +21,23 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts/1
   # GET /production_shifts/1.json
   def accept
-    @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
-                        where("material_id= ?",params[:id]).update_all(:accepted => "true" )
-    render plain:"ok"
+  
+    @material=Material.where("id= ?",params[:id])
+    
+    if @material[0].quantity_value < params[:quantity].to_i
+         puts "--------------"
+      render plain:"ok"
+    else
+
+      @quantity=@material[0].quantity_value
+      @material.update_all(:quantity_value => @quantity-params[:quantity].to_i)
+       @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
+                        where("material_id= ?",params[:id]).
+                        where("shift_id= ?",params[:shift]).update_all(:accepted => "true" )
+       render plain:"done"                 
+    end  
+   
+    
   end  
   def show
   end
