@@ -12,6 +12,11 @@ module SessionsHelper
     def current_category
       @category ||= Category.find_by(id: current_user.category_id)
     end  
+    
+    def current_shift   
+      @shift = Shift.find_by(id: session[:shift_id])
+    end
+
 
     # Returns true if the user is logged in, false otherwise.
     def logged_in?

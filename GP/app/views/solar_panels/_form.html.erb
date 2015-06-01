@@ -1,65 +1,59 @@
-
 <%= form_for(@solar_panel) do |f| %>
   <% if @solar_panel.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@solar_panel.errors.count, "error") %> prohibited this solar_panel from being saved:</h2>
-
-      <ul>
-      <% @solar_panel.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <h2><%= pluralize(@solar_panel.errors.count, "error") %> prohibited this solar_panel from being saved:</h2>
+        <ul>
+          <% @solar_panel.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
     </div>
   <% end %>
-<% if current_category.category == "Shift Manager"  %>
-  <div class="field">
-    <%= f.label :production_date %><br>
-    <%= f.date_select :production_date %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :height %><br>
-    <%= f.number_field :height ,min:"0",step:0.01 ,required:true ,class: 'field' %>
-  </div>
-  <div class="field">
-    <%= f.label :width %><br>
-    <%= f.number_field :width,min:"0" ,step:0.01 ,required:true ,class: 'field' %>
-  </div>
-  <div class="field">
-    <%= f.label :power %><br>
-    <%= f.number_field :power ,min:"0",step:0.01 ,required:true ,class: 'field' %>
-  </div>
-  <div class="field">
 
-    <%= f.label :type %><br>
-    <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
- 
+  <% if current_category.category == "Shift Manager"  %>
+      <div class="field">
+        <%= f.label :production_date %><br>
+        <%= f.date_select :production_date %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :height %><br>
+        <%= f.number_field :height ,min:"0",step:0.01 ,required:true ,class: 'field' %>
+      </div>
 
-  </div>
+      <div class="field">
+        <%= f.label :width %><br>
+        <%= f.number_field :width,min:"0" ,step:0.01 ,required:true ,class: 'field' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :subtype %><br>
- 
-    <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
- 
-  </div>
-  <div class="field">
-    <%= f.label :serialNo %><br>
-    <%= f.text_field :serialNo ,required:true %>
-  </div>
+      <div class="field">
+        <%= f.label :power %><br>
+        <%= f.number_field :power ,min:"0",step:0.01 ,required:true ,class: 'field' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :containerserialno %><br>
-        <%= f.select :container_id, @containersopt %>
-   </div>
-  </div>
-  <% elsif @flag==false and current_category.category == "Sales" %>
-    <div class="field">
-      <%= f.label :price %><br>
-    <%= f.number_field :price ,min:"0",step:0.01 ,required:true ,class: 'field' %>
-    </div>
-  <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <div class="field">
+        <%= f.label :type %><br>
+        <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
+      </div>
+
+      <div class="field">
+        <%= f.label :subtype %><br>
+        <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
+      </div>
+
+      <div class="field">
+        <%= f.label :serialNo %><br>
+        <%= f.text_field :serialNo ,required:true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :containerserialno %><br>
+            <%= f.select :container_id, @containersopt %>
+       </div>
+      </div>
+     
+    <% end %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
 <% end %>

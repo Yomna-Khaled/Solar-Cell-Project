@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="col-md-offset-3 col-md-6">       
         <div class="panel panel-info" style="margin-top: 150px">
@@ -9,18 +10,20 @@
                 <div class="panel-body">  
 					<%= form_for(:session, url: login_path) do |f| %>
 
-					  <%= f.label :user_name %>
-					  <%= f.text_field :user_name, class: 'form-control' ,placeholder: "Enter User Name" %>
+					  <%= f.label :email %>
+					  <%= f.text_field :email, class: 'form-control' ,placeholder: "Enter Email" %>
 
 					  <%= f.label :password %>
 					  <%= f.password_field :password, class: 'form-control', placeholder: "Enter password" %>
 						<br>
 					  <%= f.submit "Log in", class: "btn btn-primary" %>
+<%= link_to 'Forget Password', forget_password_path ,class: "btn btn-link"  %>
+
+
 					<% end %>
-                   
-                </div>
-            
+                </div>   
         </div>  
     </div>
 </div>
+
 

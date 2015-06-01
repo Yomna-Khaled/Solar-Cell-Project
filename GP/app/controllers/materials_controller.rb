@@ -6,6 +6,7 @@ class MaterialsController < ApplicationController
   def index    
     if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
       @materials = Material.all
+      @materials = Material.paginate(:page => params[:page], :per_page => 10)
       @material_vendor = MaterialVendor.all
       @materials = Material.paginate(:page => params[:page], :per_page => 6)
     else

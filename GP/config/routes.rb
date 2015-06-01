@@ -1,31 +1,30 @@
 Rails.application.routes.draw do
+
+  resources :lookup_prices
+
   resources :sold_panels
   resources :buyer_phones
   resources :buyers
+
   post '/shifts/startshift', to: 'shifts#startshift'
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
   get '/shifts/showendshift', to: 'shifts#showendshift'
  
-  resources :production_shifts
-  resources :shifts
-  resources :shifts
-  resources :production_shifts
-  resources :shifts
+
+
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
   get "crews/:id/get_employees"=>"crews#get_employees"
+
   
   
 
   resources :vendor_spares
 
   resources :spare_parts
-  resources :production_shifts
-  resources :shifts
-  resources :shifts
-  resources :production_shifts
+
   resources :shifts
   resources :production_shifts
   resources :employee_managers
@@ -60,8 +59,19 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
+  post 'production_shifts/accept' =>'production_shifts#accept'
+
+
+  post 'forget_password' => 'sessions#forget_password'
+
+  get 'forget_password' => 'sessions#forget_password_form'
+
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.

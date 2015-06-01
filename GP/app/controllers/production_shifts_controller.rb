@@ -4,12 +4,41 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts
   # GET /production_shifts.json
   def index
-    #@production_shifts = ProductionShift.all
-    @materials = Material.all
+    @production_shifts = ProductionShift.where("accepted= ?","false")
+    puts "=================="
+    
+    @production_shifts.each do |m|
+      puts m.material.name
+      # @shift_info = Shift.where("id = ? " , m.shift_id)
+      # #puts @shift_info[0].employee_id
+      # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
+
+      
+    end  
+   
   end
 
   # GET /production_shifts/1
   # GET /production_shifts/1.json
+  def accept
+  
+    @material=Material.where("id= ?",params[:id])
+    
+    if @material[0].quantity_value < params[:quantity].to_i
+         puts "--------------"
+      render plain:"ok"
+    else
+
+      @quantity=@material[0].quantity_value
+      @material.update_all(:quantity_value => @quantity-params[:quantity].to_i)
+       @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
+                        where("material_id= ?",params[:id]).
+                        where("shift_id= ?",params[:shift]).update_all(:accepted => "true" )
+       render plain:"done"                 
+    end  
+   
+    
+  end  
   def show
   end
 
@@ -28,24 +57,19 @@ class ProductionShiftsController < ApplicationController
   # POST /production_shifts
   # POST /production_shifts.json
   def create
+
   #   @production_shift = ProductionShift.new(production_shift_params)
  # render plain:  params[params[:material_id][0]]
-   params[:material_id].each_with_index do |item,i|
-
-  @production_shift = ProductionShift.new(:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]])
+  
+    @shift=Shift.maximum("id");
+    params[:material_id].each_with_index do |item,i|
+  @production_shift = ProductionShift.new(:shift_id=>@shift,:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]],:accepted=>"false")
   @production_shift.save
 end
-    # respond_to do |format|
-    #   if @production_shift.save
-    #     format.html { redirect_to @production_shift, notice: 'Production shift was successfully created.' }
-    #     format.json { render :show, status: :created, location: @production_shift }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @production_shift.errors, status: :unprocessable_entity }
-    #   end
-    # end
-    redirect_to "new"
-   end
+   @materials = Material.all 
+   render :new
+end
+
 
   # PATCH/PUT /production_shifts/1
   # PATCH/PUT /production_shifts/1.json
@@ -79,6 +103,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def production_shift_params
-      params.require(:production_shift).permit(:material_id, :shift_id, :material_quantity)
+      params.require(:production_shift).permit(:material_id, :shift_id, :material_quantity,:accepted)
     end
 end

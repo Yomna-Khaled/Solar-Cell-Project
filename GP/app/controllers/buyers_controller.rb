@@ -39,32 +39,62 @@ class BuyersController < ApplicationController
   # POST /buyers
   # POST /buyers.json
   def create
-    @buyer = Buyer.new(buyer_params)
 
-    respond_to do |format|
-      if @buyer.save
-        if params[:buyer_phones][:phone]==" "
-         @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
-         @buyerphone.save  
+  #   @buyer = Buyer.new(buyer_params)
+
+  #   respond_to do |format|
+  #     if @buyer.save
+  #       if params[:buyer_phones][:phone]==" "
+  #        @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+  #        @buyerphone.save  
+  #       else
+  #        arr= params[:buyer_phones][:phone].split(",")
+	 # arr.each do |c|
+		# puts c	
+  #          @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+  #          @buyerphone.save 
+  #        end
+  #       end 
+  #       format.html { redirect_to @buyer, notice: 'Buyer was successfully created.' }
+  #       format.json { render :show, status: :created, location: @buyer }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @buyer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+
+  @buyer = Buyer.new(buyer_params)
+      respond_to do |format|
+        if @buyer.save  
+          if defined? params[:buyer_phones][:phone] 
+            arr= params[:buyer_phones][:phone].split(",")
+            arr.each do |c|
+              if c != nil
+                @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+                @buyerphone.save  
+              end
+            end
+          else
+            
+            @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+            @buyerphone.save            
+          end    
+          format.html { redirect_to @buyer }
+          format.json { render :show, status: :created, location: @buyer }
         else
-         arr= params[:buyer_phones][:phone].split(",")
-	 arr.each do |c|
-		puts c	
-           @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
-           @buyerphone.save 
-         end
-        end 
-        format.html { redirect_to @buyer, notice: 'Buyer was successfully created.' }
-        format.json { render :show, status: :created, location: @buyer }
-      else
-        format.html { render :new }
-        format.json { render json: @buyer.errors, status: :unprocessable_entity }
-      end
-    end
+             params[:buyer_phones][:phone]==" "
+            format.html { render :new }
+            format.json { render json: @buyer.errors, status: :unprocessable_entity }
+              
+        end
+
   end
+end
+
 
   # PATCH/PUT /buyers/1
   # PATCH/PUT /buyers/1.json
+
   # def update
   #   respond_to do |format|
   #     if @buyer.update(buyer_params)
@@ -92,21 +122,37 @@ class BuyersController < ApplicationController
 
 
 
- def update
+#  def update
+#     respond_to do |format|
+#       if @buyer.update(buyer_params)
+#        if params[:buyer_phones][:phone]==" "
+#          @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
+#          @buyerphone.save  
+#         else
+#          arr= params[:buyer_phones][:phone].split(",")
+# 	 arr.each do |c|
+# 		puts c	
+#            @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
+#            @buyerphone.save 
+# 	 end  
+#          end
+#         format.html { redirect_to @buyer, notice: 'Buyer was successfully updated.' }
+# =======
+  
+def update
     respond_to do |format|
       if @buyer.update(buyer_params)
-       if params[:buyer_phones][:phone]==" "
-         @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
-         @buyerphone.save  
-        else
-         arr= params[:buyer_phones][:phone].split(",")
-	 arr.each do |c|
-		puts c	
+
+      arr= params[:buyer_phones][:phone].split(",")
+   arr.each do |c|
+    puts c  
+        if c != ""
            @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
            @buyerphone.save 
-	 end  
-         end
-        format.html { redirect_to @buyer, notice: 'Buyer was successfully updated.' }
+        end
+   end    
+        format.html { redirect_to @buyer }
+
         format.json { render :show, status: :ok, location: @buyer }
       else
         format.html { render :edit }

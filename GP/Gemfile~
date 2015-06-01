@@ -9,6 +9,11 @@ gem "paperclip", "~> 4.2"
 gem 'mysql2'
 gem 'responders', '~> 2.0'
 gem 'prawn'
+<<<<<<< HEAD
+=======
+
+gem 'prawn-table', '~> 0.1.0'
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

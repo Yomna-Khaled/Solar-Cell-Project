@@ -25,6 +25,10 @@
     <% end %>
   </tbody>
 </table>
+<<<<<<< HEAD
 
+=======
+<%= will_paginate @containers %>
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 <br>
 

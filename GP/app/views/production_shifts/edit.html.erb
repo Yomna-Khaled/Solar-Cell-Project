@@ -1,6 +1,13 @@
-<h1>Editing Production Shift</h1>
+<div class="container">
+	<div class="row">
+		<%= link_to 'Show', @production_shift %> |
+		<%= link_to 'Back', production_shifts_path %>
+		<div class="col-md-offset-3 col-md-6">
+			<h1>
+				<span class="label label-default">Editing Your Material Orders</span>
+			</h1>
+			<%= render 'form' %>
+		</div>
+	</div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @production_shift %> |
-<%= link_to 'Back', production_shifts_path %>

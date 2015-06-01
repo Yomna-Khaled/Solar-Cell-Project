@@ -1,0 +1,2 @@
+module LookupPricesHelper
+end

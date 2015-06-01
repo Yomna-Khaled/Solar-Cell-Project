@@ -9,6 +9,8 @@ gem "paperclip", "~> 4.2"
 gem 'mysql2'
 gem 'responders', '~> 2.0'
 gem 'prawn'
+
+gem 'prawn-table', '~> 0.1.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -36,6 +38,7 @@ gem 'will_paginate', '~> 3.0.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'thin'
 gem 'websocket-rails'
 
 group :development, :test do

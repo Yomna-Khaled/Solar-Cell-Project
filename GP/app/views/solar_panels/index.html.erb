@@ -1,53 +1,75 @@
 <br>
+<!-- <div class="col-md-offset-9">
+  <table>
+    <tr>
+      <td>
+        <%= link_to 'Search_by_power','#',:onclick =>"searchciteria(this)",:id =>"power" ,class: "btn btn-default" %>
+      </td>
+      <td>
+        <%= link_to 'Search_by_serial_no','#',:onclick=>"searchciteria(this)",:id =>'serialno', class: "btn btn-default" %>
+      </td>
+    </tr>
+  </table>
+</div> -->
+<div class="col-md-offset-9" id="Search_by">
+  <label>Select_Your_Search_Criteria</label><br>
+  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
+    <%= form_tag(solar_panels_path, :method => "get", id: "search-form") do %>
+    
+    <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
+    <%= hidden_field_tag :searchciteria, "power" %>
+    <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
+  <% end %>
+</div>
 
+<br>
 <table class="table table-striped">
   <thead>
     <tr>
-
-
-      <th text-align="center">Production date</th>
-      <th text-align="center">Height</th>
-      <th text-align="center" >Width</th>
-      <th text-align="center">Power</th>
-      <th text-align="center">Type</th>
-      <th text-align="center">Subtype</th>
-      <th text-align="center">Price</th>
-      <th text-align="center">Serialno</th>
-      <th text-align="center">Container</th>
-      <th text-align="center">Show</th>
-      <th text-align="center">Edit</th>
-   
-
+      <th class="text-center" >Production date</th>
+      <th class="text-center" >Height</th>
+      <th class="text-center" >Width</th>
+      <th class="text-center" >Power</th>
+      <th class="text-center" >Type</th>
+      <th class="text-center" >Subtype</th>
+      <th class="text-center" >Price</th>
+      <th class="text-center" >Serialno</th>
+      <th class="text-center" >Container_Serial_No.</th>
+      <th class="text-center" >Container</th>
+      <th class="text-center" >Show</th>
+      <th class="text-center" >Edit</th>
     </tr>
   </thead>
 
   <tbody>
-
     <% @solar_panels.each do |solar_panel| %>
       <tr>
-        <td><%= solar_panel.production_date %></td>
-        <td><%= solar_panel.height %></td>
-        <td><%= solar_panel.width %></td>
-        <td><%= solar_panel.power %></td>
-        <td><%= solar_panel.celltype %></td>
-        <td><%= solar_panel.subtype %></td>
-        <td><%= solar_panel.price %></td>
-        <td><%= solar_panel.serialNo %></td>
-        <td><%= solar_panel.container.serialNo %></td>
-        <td><%= solar_panel.container_id %></td>
-        <td><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
-        <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
+        <td class="text-center" ><%= solar_panel.production_date %></td>
+        <td class="text-center" ><%= solar_panel.height %></td>
+        <td class="text-center" ><%= solar_panel.width %></td>
+        <td class="text-center" ><%= solar_panel.power %></td>
+        <td class="text-center" ><%= solar_panel.celltype %></td>
+        <td class="text-center" ><%= solar_panel.subtype %></td>
+        <td class="text-center" ><%= solar_panel.price %></td>
+        <td class="text-center" ><%= solar_panel.serialNo %></td>
+        <td class="text-center" ><%= solar_panel.container.serialNo %></td>
+        <td class="text-center" ><%= solar_panel.container_id %></td>
+        <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
+        <td class="text-center" ><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
       </tr>
 
     <% end %>
 
   </tbody>
 </table>
-
+<%= will_paginate @solar_panels %>
 <br>
+<<<<<<< HEAD
 <%= will_paginate @solar_panels %>
 
 
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 <% if logged_in? %> 
   <% if current_category.category == "Shift Manager" %>
     <%= button_to "New", new_solar_panel_path ,method: :get%>
