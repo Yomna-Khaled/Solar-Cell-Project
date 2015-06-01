@@ -44,10 +44,18 @@ class ProductionShiftsController < ApplicationController
 
   # GET /production_shifts/new
   def new
-   
-    @production_shift = ProductionShift.new
-    @materials = Material.all
-   
+    if logged_in? and current_category.category=="Shift Manager" 
+    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+	    if @shift.exists?
+		    @production_shift = ProductionShift.new
+		    @materials = Material.all
+	
+	    else
+			redirect_to  shifts_showstartshift_path 
+	    end 
+    else
+         redirect_to login_path 
+    end   
   end
 
   # GET /production_shifts/1/edit
