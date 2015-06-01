@@ -55,7 +55,6 @@ class ContainersController < ApplicationController
         @vendorcontainer.save
         format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
-
       else
         @vendors = Vendor.all
         format.html { render :new }

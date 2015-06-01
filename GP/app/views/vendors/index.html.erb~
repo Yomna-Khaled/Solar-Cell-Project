@@ -22,11 +22,10 @@
   </tbody>
 </table>
 <<<<<<< HEAD
-<%= will_paginate @posts %>
 =======
 
-<%= will_paginate @vendors %>
 >>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+<%= will_paginate @vendors %>
 <br>
 
 

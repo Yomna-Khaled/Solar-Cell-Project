@@ -1,6 +1,9 @@
 <h1>Editing Vendor</h1>
-
 <%= render 'form' %>
 
+<<<<<<< HEAD
 
 
+
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2

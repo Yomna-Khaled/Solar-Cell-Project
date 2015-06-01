@@ -26,23 +26,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-<<<<<<< HEAD
-
-
-      <th text-align="center">Production date</th>
-      <th text-align="center">Height</th>
-      <th text-align="center" >Width</th>
-      <th text-align="center">Power</th>
-      <th text-align="center">Type</th>
-      <th text-align="center">Subtype</th>
-      <th text-align="center">Price</th>
-      <th text-align="center">Serialno</th>
-      <th text-align="center">Container</th>
-      <th text-align="center">Show</th>
-      <th text-align="center">Edit</th>
-   
-
-=======
       <th class="text-center" >Production date</th>
       <th class="text-center" >Height</th>
       <th class="text-center" >Width</th>
@@ -55,7 +38,6 @@
       <th class="text-center" >Container</th>
       <th class="text-center" >Show</th>
       <th class="text-center" >Edit</th>
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
     </tr>
   </thead>
 
@@ -80,11 +62,14 @@
 
   </tbody>
 </table>
-
+<%= will_paginate @solar_panels %>
 <br>
+<<<<<<< HEAD
+<%= will_paginate @solar_panels %>
 
 
-
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 <% if logged_in? %> 
   <% if current_category.category == "Shift Manager" %>
     <%= button_to "New", new_solar_panel_path ,method: :get%>

@@ -68,10 +68,7 @@ Rails.application.routes.draw do
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
-<<<<<<< HEAD
-=======
- 
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.

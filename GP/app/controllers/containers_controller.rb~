@@ -8,10 +8,7 @@ class ContainersController < ApplicationController
     if logged_in? and current_category.category=="Sales"
      @containers = Container.all
      @containers = Container.paginate(:page => params[:page], :per_page => 6)
-<<<<<<< HEAD
-     
-=======
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+
     else
       redirect_to login_path  
     end   
@@ -58,7 +55,6 @@ class ContainersController < ApplicationController
         @vendorcontainer.save
         format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
-
       else
         @vendors = Vendor.all
         format.html { render :new }
@@ -106,7 +102,7 @@ class ContainersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
-      params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
+      params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power, :vendor)
     end
     
     def authenticate

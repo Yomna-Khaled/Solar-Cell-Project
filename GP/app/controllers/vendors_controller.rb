@@ -49,34 +49,24 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-  
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
-
                 @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
                 @vendorphone.save  
               end
- 
             end
-
           else
-            
             @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
             @vendorphone.save            
 	        end    
           format.html { redirect_to @vendor }
           format.json { render :show, status: :created, location: @vendor }
         else
-          # if params[:vendor_phones][:phone]==" "
-          #   @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-          #   @vendorphone.save  
-	         # end 
 	           params[:vendor_phones][:phone]==" "
             format.html { render :new }
             format.json { render json: @vendor.errors, status: :unprocessable_entity }
-              
         end
   end
 end
@@ -110,12 +100,11 @@ end
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
         end
-<<<<<<< HEAD
-	 end 
-=======
 
-	 end    
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+
+  	 end
+         end    
+
 
 
         format.html { redirect_to @vendor }

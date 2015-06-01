@@ -89,6 +89,8 @@
   <%= f.file_field :image %>
   <br>
 
+
+<!-- 
   <div class="field form-group">
     <% if @flag == "new" %> 
          <%= fields_for :employee_phones do |p| %> 	
@@ -117,39 +119,35 @@
 
   <a href="#" onclick="add()" >Add</a>
   <div id="phones">  
-  </div>
+  </div> -->
 
-<<<<<<< HEAD
+
 <div class="field form-group">
-  
-   <% if @flag == "new" %> 
- <%= fields_for :employee_phones do |p| %> 	
-    <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+
+
+  <% if @flag == "new" %> 
+        <%= fields_for :employee_phones do |p| %>   
+           <%= p.label :phone %><br>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+        <% end %>
+
+  <%else %>
+      <%= fields_for :employee_phones do |p| %>
+      <%= phonn = '' %>
+      <% if @phones.blank? %>
+          <p> <%= phonn = '' %> </p>
+           <%= p.label :phone %><br>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+      
+      <% else %>
+         <% @phones.each do |f| %>
+          <p> <% phonn = phonn + f.phone + ',' %> </p>
+        <% end %>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+      <% end %> 
     <% end %>
+  <%end %>
 
-<%else %>
-<%= fields_for :employee_phones do |p| %>
-
-    <%= phonn = '' %>
-
-
-<% if @phones.blank? %>
-
-<p> <%= phonn = '' %> </p>
-
-<% else %>
-
-
-   <% @phones.each do |f| %>
-     <p>
-   <% phonn = phonn + f.phone + ',' %>
-     </p>
-   <% end %>
-<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
-<% end %> 
-<% end %>
-<%end %>
 
 </div>
 
@@ -158,11 +156,13 @@
 <div id="phones">
     
 </div>
-=======
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 
-  <div id="phonedel">   
-  </div>
+<div id="phonedel">
+    
+</div>
+
+
+
 
 
   <div class="actions">
@@ -186,17 +186,16 @@
               arget.style.display= '';
           }
        }
-<<<<<<< HEAD
-      }
-=======
-    }
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 
-var x=1;
+      }
+
+
+      var x=1;
 var counter=0;
 var allValues = '';
 var temp = "";
 allValues=$( "#phone" ).val().slice(0,-1);
+
 var add = function() {
   if (counter === 0 ) {
          counter =  1;
@@ -204,47 +203,43 @@ var add = function() {
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
-        if (isNaN(value) || value < 1){
-            alert('string ');
-        }else{
-          
-          if (allValues != ''){
+        
+         // if (isNaN(value) || value < 1){
+         	
+         	re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
+            if (re.test(value)) {
+               if (allValues != ''){
             allValues =  allValues + ',' + value
             
         }else{
           allValues =  allValues + value    
         }
         $("#phone").val(allValues);
-        $("#1").val('');    
+        $("#1").val('');
+            
+        }else{
+          alert('Please enter a valid phone number ');
+             
         }
 
        });
+
 
     }
  
 };
 
-<<<<<<< HEAD
+var del = function(employeeid) {
 
-var del = function(employeeid) {
-     
-	 var phons_num = $("#phone").val();
-         $("#phone").val('');
-	 var arr = phons_num.split(",");
-	for (var i=0 ; i< arr.length-1 ; i++){
-		 var div=document.createElement("div");
-                 var elem = document.createElement("input");
-=======
-var del = function(employeeid) {
     var length_of_num = 0;
     var index =0;
    allValues = $("#phone").val();
    $("#phone").val('');
    var arr = allValues.split(",");
+
   for (var i=0 ; i< arr.length-1 ; i++){
      var div=document.createElement("div");
      var elem = document.createElement("input");
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
@@ -258,7 +253,7 @@ var del = function(employeeid) {
                    allValues = allValues.replace(dataString + ',', ""); 
         $.ajax({
       method: "POST",
-      url: '/delPhon',
+      url: '/delPhone',
         dataType: "JSON",
         data: { "phone": dataString},
         complete: function(data)
@@ -272,6 +267,7 @@ var del = function(employeeid) {
         document.getElementById('phonedel').appendChild(div);
   }
 };
+
 
 
 
