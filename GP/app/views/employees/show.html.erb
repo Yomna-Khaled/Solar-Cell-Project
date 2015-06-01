@@ -7,15 +7,17 @@
   <%= @employee.full_name %>
 </p>
 
+<% category=Category.find_by(id: @employee.category_id )%>
+<% if (category.category!="Normal") %>
 
+<p>
+  <strong>Email:</strong>
+  <%= @employee.email %>
+</p>
+<%end %>
 <p>
   <strong>Salary:</strong>
   <%= @employee.salary %>
-</p>
-
-<p>
-  <strong>Houre rate:</strong>
-  <%= @employee.houre_rate %>
 </p>
 
 <p>
@@ -24,7 +26,7 @@
 </p>
 
 <p>
-  <strong>Position:</strong>
+  <strong>Education:</strong>
   <%= @employee.education %>
 </p>
 
@@ -37,14 +39,17 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @employee.category_id %>
+  <% category=Category.find_by(id: @employee.category_id )%>
+  <%= category.category %>
 </p>
-
+<% if (@employee.crew_id!=nil) %>
 <p>
   <strong>Crew:</strong>
-  <%= @employee.crew_id %>
+  <% crew=Crew.find_by(id: @employee.crew_id )%>
+  <%= crew.name %>
 </p>
-
+<% end %>
+<% if (@employee_phones.count!=0) %>
 <strong>Phones:</strong>
   <% index = 1%>
     <% @employee_phones.each do |employeephone| %>
@@ -54,5 +59,6 @@
       </p>
     <%end%>   
 </p>
+<% end %>
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>
