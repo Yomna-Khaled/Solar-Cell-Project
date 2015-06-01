@@ -14,7 +14,7 @@ module SessionsHelper
     end  
     
     def current_shift   
-      @shift ||= Shift.find_by(id: session[:shift_id])
+      @shift = Shift.find_by(id: session[:shift_id])
     end
 
 
