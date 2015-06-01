@@ -8,7 +8,7 @@
         </thead>
         <tbody>
         	<% @production_shifts.each do |production_shift| %>
-        	<tr>
+        	<tr id="<%= production_shift.shift_id %>">
         		<td> <% shift=Shift.find_by(id: production_shift.shift_id )%>
         			<% employee=Employee.find_by(id:shift.employee_id) %>
   					<%= employee.full_name %></td>
@@ -29,10 +29,16 @@ function accept(ptr){
   		type: "POST",
   		url: "/production_shifts/accept",
   		dataType: "JSON",
-  		data: { 'id':ptr.id.split("_")[2],'quantity':ptr.id.split("_")[1] },
+  		data: { 'id':ptr.id.split("_")[2],'quantity':ptr.id.split("_")[1],'shift':ptr.parentNode.parentNode.id},
   		complete: function(data)
   		{
+  			if(data.responseText=="done"){
   			document.getElementById("myTable").deleteRow(i);
+  		}
+  		else{
+  			ptr.innerHTML="not available"
+  		}
+  			console.log(data.responseText);
     	
   		}
 	});
