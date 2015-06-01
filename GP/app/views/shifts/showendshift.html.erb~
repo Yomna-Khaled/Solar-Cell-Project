@@ -122,7 +122,7 @@ $(document).ready(function() {
   </script> 
 <% end %>
 
-<%= link_to 'Back', production_shifts_path %>
+
 </center>
 		</div>
 	</div>

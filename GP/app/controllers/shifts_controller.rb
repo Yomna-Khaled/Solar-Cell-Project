@@ -10,8 +10,9 @@ class ShiftsController < ApplicationController
     puts params[:id]
     @total_power=0
 
-    @shift = Shift.where("start_shift_date= ?", "2015-05-26")
+    @shift = Shift.where("id = ? ", params[:id])
     @shift_produced_rate = @shift[0].production_rate
+
     @manager = current_user.full_name
     @crew_member_numbers = Crew.find(@shift[0].crew_id)
     @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
@@ -167,7 +168,13 @@ if logged_in? and current_category.category=="Shift Manager"
   end
 
   def endshift
-   if logged_in? and current_category.category=="Shift Manager"  
+   if logged_in? and current_category.category=="Shift Manager"
+            @unacceptedshifts=ProductionShift.where(@shift.id)
+             for i in 0..(@unacceptedshifts.all.length-1)
+                 if (@unacceptedshifts[i].accepted ="false")
+                     @unacceptedshifts[i].destroy  
+                 end
+             end   
 	    respond_to do |format|
 	     if @shift.update(end_shift_params)
 
