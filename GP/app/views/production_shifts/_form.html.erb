@@ -10,10 +10,13 @@
       <td>
         <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px"}%>
       </td>
+
+
       <br>
       <%= hidden_field_tag "hidden" %>
       <%= hidden_field_tag "manager", current_user.full_name  %>
       <%= hidden_field_tag "shift_id",current_shift.id %>
+
     </tr>
     <% end %>
 
@@ -29,8 +32,10 @@ var shift_id;
 function matvalue(ptr){
   
    field_id=ptr.id.split("_")[2];
+   alert(field_id);
 
   var name=ptr.id.split("_")[3];
+  alert(name);
  
   var prev=$("#hidden").val();
   if(ptr.checked==true){
@@ -39,7 +44,7 @@ function matvalue(ptr){
     $("#"+field_id).attr("required", "true");
     $("#"+field_id).attr("min", "1");
     $("#"+field_id).keyup(function(){
-      $("#hidden").val(prev+"_"+name+","+$("#"+field_id).val());
+      $("#hidden").val(prev+"_"+name+","+$("#"+field_id).val()+","+field_id);
     });
     
 
@@ -69,7 +74,7 @@ $("#order").click(function(){
   var array=$("#hidden").val().split("_");
   var sent="";
   for(i=1;i<array.length;i++){
-    sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+name+"_"+$("#"+field_id).val()+"_"+field_id+">accept</button></td></tr>"
+    sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+array[i].split(",")[0]+"_"+array[i].split(",")[1]+"_"+array[i].split(",")[2]+">accept</button></td></tr>"
 
   }
 	

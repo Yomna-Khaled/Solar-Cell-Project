@@ -21,24 +21,31 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts/1
   # GET /production_shifts/1.json
   def accept
-  
     @material=Material.where("id= ?",params[:id])
-    
+
+    puts params[:id]
+    puts @material[0].name
+    puts "--------------=============="
     if @material[0].quantity_value < params[:quantity].to_i
-         puts "--------------"
+         
+
       render plain:"ok"
     else
-
       @quantity=@material[0].quantity_value
-      @material.update_all(:quantity_value => @quantity-params[:quantity].to_i)
+
+      
        @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
                         where("material_id= ?",params[:id]).
                         where("shift_id= ?",params[:shift]).update_all(:accepted => "true" )
+      if @production_shifts
+        @material.update_all(:quantity_value => @quantity-params[:quantity].to_i)
+      end
+
        render plain:"done"                 
+
     end  
-   
-    
-  end  
+  end 
+
   def show
   end
 

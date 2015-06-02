@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @lookup_price.name %>
+  <strong>watt value</strong>
+  
 </p>
 
 <p>
@@ -10,5 +10,5 @@
   <%= @lookup_price.value %>
 </p>
 
-<%= link_to 'Edit', edit_lookup_price_path(@lookup_price) %> |
+
 <%= link_to 'Back', lookup_prices_path %>
