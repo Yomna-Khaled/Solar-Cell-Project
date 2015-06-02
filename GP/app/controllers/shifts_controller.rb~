@@ -6,6 +6,7 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   
   def report
+
       if logged_in? and current_category.category=="Shift Manager"
 	    
 	    puts "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
