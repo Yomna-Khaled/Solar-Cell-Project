@@ -8,6 +8,7 @@ class VendorsController < ApplicationController
     if logged_in? and current_category.category=="Sales"
          @vendors = Vendor.all
          @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
+
     else
       redirect_to login_path  
     end     
@@ -48,34 +49,24 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-  
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
-
                 @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
                 @vendorphone.save  
               end
- 
             end
-
           else
-            
             @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
             @vendorphone.save            
 	        end    
           format.html { redirect_to @vendor }
           format.json { render :show, status: :created, location: @vendor }
         else
-          # if params[:vendor_phones][:phone]==" "
-          #   @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-          #   @vendorphone.save  
-	         # end 
 	           params[:vendor_phones][:phone]==" "
             format.html { render :new }
             format.json { render json: @vendor.errors, status: :unprocessable_entity }
-              
         end
   end
 end
@@ -96,8 +87,13 @@ end
   def update
     respond_to do |format|
       if @vendor.update(vendor_params)
+         
+      if params[:vendor_phones][:phone]==" "
+         @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+         @vendorphone.save  
+        else
 
-      arr= params[:vendor_phones][:phone].split(",")
+         arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
 		puts c	
         if c != ""
@@ -105,7 +101,10 @@ end
            @vendorphone.save 
         end
 
-	 end    
+
+  	 end
+         end    
+
 
 
         format.html { redirect_to @vendor }

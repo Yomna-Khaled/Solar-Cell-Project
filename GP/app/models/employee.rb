@@ -11,6 +11,9 @@ class Employee < ActiveRecord::Base
   validates :Governamental_ID, :numericality => { :greater_than_or_equal_to => 0 }, :length => { :within => 14..14 }
   validates_uniqueness_of :full_name, :Governamental_ID , on: :create
   validates :password, confirmation: true
+
+has_many :employeephones
+
   validates_uniqueness_of :email, :if => :not_normal? 
 
   def not_normal?

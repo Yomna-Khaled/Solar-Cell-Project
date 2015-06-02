@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   def index
     if logged_in? and current_category.category=="HR"
       @employees = Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 10)
+      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
     else
       redirect_to login_path  
     end   
@@ -22,13 +22,13 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=="HR"
+    #if logged_in? and current_category.category=="HR"
       @flag_new=1 #display password field in from
       @flag="new"
       @employee = Employee.new
-    else
-      redirect_to login_path  
-    end 
+    #else
+     # redirect_to login_path  
+    #end 
   end
 
   # GET /employees/1/edit
@@ -40,6 +40,9 @@ class EmployeesController < ApplicationController
     @cat=Category.find_by(:id => @employee.category_id)
     @category_id=@cat.id
   end
+
+
+
 
   # POST /employees
   def create

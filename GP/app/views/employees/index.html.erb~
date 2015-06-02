@@ -4,6 +4,10 @@
           <tr>
             <th text-align="center">Image</th>
             <th text-align="center">Full Name</th>
+<<<<<<< HEAD
+            <th text-align="center">User Name</th>
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
             <th text-align="center">Salary</th>
             <th text-align="center">Houre Rate</th>
             <th text-align="center">Education Level</th>
@@ -21,6 +25,10 @@
           <tr>
             <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
             <td><%= employee.full_name %></td>
+<<<<<<< HEAD
+            <td><%= employee.user_name %></td>
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
             <td><%= employee.salary %></td>
             <td><%= employee.houre_rate %></td>
             <td><%= employee.education_level %></td>

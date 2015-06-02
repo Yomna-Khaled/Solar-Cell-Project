@@ -15,5 +15,17 @@
   <%= @buyer.city %>
 </p>
 
+<strong>Phones:</strong>
+  <% index = 1%>
+    <% @buyer_phones.each do |buyerphone| %>
+      <p>
+        <strong><%=index%>-<%= buyerphone.phone %></strong>      
+          <%index+=1%>
+      </p>
+    <%end%>   
+</p>
+
+
+
 <%= link_to 'Edit', edit_buyer_path(@buyer) %> |
 <%= link_to 'Back', buyers_path %>

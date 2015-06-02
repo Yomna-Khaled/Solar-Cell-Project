@@ -8,6 +8,7 @@ class ContainersController < ApplicationController
     if logged_in? and current_category.category=="Sales"
      @containers = Container.all
      @containers = Container.paginate(:page => params[:page], :per_page => 6)
+
     else
       redirect_to login_path  
     end   
@@ -54,7 +55,6 @@ class ContainersController < ApplicationController
         @vendorcontainer.save
         format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
-
       else
         @vendors = Vendor.all
         format.html { render :new }

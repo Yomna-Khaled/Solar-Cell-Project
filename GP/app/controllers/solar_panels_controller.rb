@@ -3,8 +3,7 @@ class SolarPanelsController < ApplicationController
   before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
 
   # GET /solar_panels
-  def index
-  end
+  
 
   def index
     if logged_in? and current_category.category=="Sales"
@@ -25,6 +24,10 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/1
   def show
+    if false
+    else
+       redirect_to login_path 
+    end
   end
 
   # GET /solar_panels/new
@@ -78,6 +81,7 @@ class SolarPanelsController < ApplicationController
 	      end
 	    end
     end
+  
   end
 
   # PATCH/PUT /solar_panels/1
@@ -110,10 +114,14 @@ class SolarPanelsController < ApplicationController
 
   # DELETE /solar_panels/1
   def destroy
+    if false
     @solar_panel.destroy
     respond_to do |format|
       format.html { redirect_to solar_panels_url }
       format.json { head :no_content }
+    end
+    else
+       redirect_to login_path 
     end
   end
 
@@ -125,7 +133,7 @@ class SolarPanelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
-      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power, :celltype, :subtype, :serialNo, :container_id)
+      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width, :power,:cellno, :celltype, :subtype, :serialNo, :container_id)
     end
 
     def solar_Salespanel_params
