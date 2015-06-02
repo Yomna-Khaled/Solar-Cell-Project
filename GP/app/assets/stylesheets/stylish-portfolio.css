@@ -112,6 +112,7 @@ body {
   width: 100%;
   position: relative;
   background: url(./solar_cell_rainbow_1.jpg) no-repeat center center fixed; 
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -121,7 +122,9 @@ body {
 /* Intro */
 
 .intro {
-  padding: 50px 0;
+
+  padding: 100px 0;
+
 }
 
 /* Services */
@@ -156,6 +159,7 @@ i.service-icon {
   height: 400px;
   width: 100%;
   background: url(./callout.jpg) no-repeat center center fixed; 
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -217,6 +221,7 @@ i.scroll {
 i.scroll:hover {
   color: #0a5175;
 }
+
 
 .login{
   position: absolute;
@@ -308,17 +313,19 @@ i.scroll:hover {
 /* Responsive */
 
 @media (max-width: 768px) {
-	
+  
   .header {
-	background: url(./solar_cell_rainbow_1.jpg) no-repeat center center scroll; 
+
+  background: url(./solar_cell_rainbow_1.jpg) no-repeat center center scroll; 
   }
 
   .callout {
-	background: url(./callout.jpg) no-repeat center center scroll; 
+  background: url(./callout.jpg) no-repeat center center scroll;  
   }
 
+
   .map {
-	height: 75%;
+  height: 75%;
   }
 
 }
