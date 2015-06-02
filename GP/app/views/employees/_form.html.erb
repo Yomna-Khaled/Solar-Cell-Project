@@ -34,11 +34,7 @@
               <%= f.password_field :password_confirmation,value: @pwd , class: 'w',  placeholder: 'Confirm your password here'%>
               <h3>Email</h3>
               <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
-              <div class="actions">
-                <br>
-                <%= f.submit class: 'btn btn-success' %>
-              </div> 
-
+    
         <% else %>
         
           <h1>Personal Information</h1>
@@ -121,12 +117,12 @@
                     <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
                 </div>
             <% end %>
+          <% end %>
 
-            <br>
             <div class="actions">
+                <br>
                 <%= f.submit class: 'btn btn-success' %>
             </div> 
-          <% end %>
       </div>    
   </section>
   
