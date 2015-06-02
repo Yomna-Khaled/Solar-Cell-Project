@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  
   skip_before_filter :authenticate
   skip_before_filter :forgetpassword 
 
@@ -11,25 +12,38 @@ class SessionsController < ApplicationController
 
   def create
     if params[:session][:password] != ""
-        puts "-----------------------------------------"
-        puts params[:session][:password]
-        password=Digest::MD5.hexdigest(params[:session][:password])
-        @employee = Employee.find_by(email: params[:session][:email].downcase , password: password)
-        if @employee
-          # Log the user in and redirect to the user's show page.
-          log_in @employee
-          flash[:success] = 'Welcome' # Not quite right!
-          redirect_to @employee #action
-        else
-          # Create an error message.
-           flash[:danger] = 'Invalid email/password combination' # Not quite right!
-           redirect_to login_path
+      password=Digest::MD5.hexdigest(params[:session][:password])
+      @employee = Employee.find_by(email: params[:session][:email].downcase , password: password)
+      if @employee
+        # Log the user in and redirect to the user's show page.
+        log_in @employee
+        if (current_category.category=="Shift Manager") 
+            @shift=Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")        
+            if @shift.exists?
+               session[:shift_id] = @shift[0].id
+            end
         end
+        #flash[:success] = 'Welcome' # Not quite right!
+        if (current_category.category=="Shift Manager")
+          redirect_to crew_home_path
+        elsif (current_category.category=="Stock Keeper")
+          redirect_to production_shifts_path
+        elsif (current_category.category=="HR")
+          redirect_to employees_path
+        elsif (current_category.category=="Sales")
+          redirect_to new_sold_panel_path
         else
-           flash[:danger] = 'Invalid email/password combination'
-           redirect_to login_path
+          redirect_to  @employee #action
+        end   
+      else
+        # Create an error message.
+         flash[:danger] = 'Invalid email/password combination' # Not quite right!
+         redirect_to login_path
+      end
+    else
+       flash[:danger] = 'Invalid email/password combination'
+       redirect_to login_path
     end
-
   end
 
   def forget_password

@@ -51,28 +51,44 @@ $(document).ready(function() {
             var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
           
              if($('#submit').length == 0){
-		          $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
-		          $('#warnmsg').remove();  
+		          $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
+		          $('#warnmsg').remove();
+                          $('#btnadd').remove();  
 		       }
               else{
                          $('#submit').remove();
-                         $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' ); 
+                         $('#warnmsg').remove();
+                         $('#btnadd').remove();  
+                         $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' ); 
                         }
 
           $( "#shift_production_rate" ).keyup(function(event) {
          
 		  if (<%= @inserted_panels %> == $('#shift_production_rate').val() ){  
-		   
+		         $('#warnmsg').remove();  $('#btnadd').remove();
 		     if($('#submit').length == 0){
-		          $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
-		          $('#warnmsg').remove();  
+		          $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
+		           
 		       }
 		  }
-
-		  else{
-		       if($('#warnmsg').length == 0){
-		       $('<div id="warnmsg"> <div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5> <%= button_to "Newpanel", new_solar_panel_path ,method: :get%> </div></div>' ).insertAfter( '#shift_production_rate' );
+                  else if(<%= @inserted_panels %> > $('#shift_production_rate').val() ){
+                         $('#btnadd').remove();
+                      if($('#warnmsg').length == 0){
+		       $('<div id="warnmsg"> <div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5> </div></div>' ).insertAfter( '#shift_production_rate' );
+                      
 		       } 
+		      if($('#submit').length != 0){
+		          $('#submit').remove();
+		     }  
+                  }
+		  else{
+		       if($('#btnadd').length == 0){
+                            if ($('#warnmsg').length == 0){
+                                     $('<div id="warnmsg"><div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5></div></div>' ).insertAfter( '#shift_production_rate' );
+                              }
+		       $('<div id="btnadd"> <%= button_to "Newpanel", new_solar_panel_path ,method: :get%> </div>' ).insertAfter( '#warnmsg' );
+		       
+                      }
 		      if($('#submit').length != 0){
 		          $('#submit').remove();
 		     }
@@ -87,17 +103,22 @@ $(document).ready(function() {
         $("#shift_production_rate").remove();
         $('#submit').remove();
         $('#warnmsg').remove();
+        $('#btnadd').remove(); 
           if (<%= @inserted_panels %> == 0 ){ 
                                  if($('#submit').length == 0){
-				  $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( 'label[for=shift_id_false]' );
+				  $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( 'label[for=shift_id_false]' );                
 				  $('#warnmsg').remove();  
-			       }
+			          $('#btnadd').remove();  
+                                  }
 			  }
 
 			  else{
-			       if($('#warnmsg').length == 0){
-			       $('<div id="warnmsg"> <div><h5> <%= @inserted_panels %>  is the number of the panels you already entered information about</h5></div> ' ).insertAfter( 'label[for=shift_id_false]' );
-			       } 
+			     
+		                    if ($('#warnmsg').length == 0){
+		                             $('<div id="warnmsg"><div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5></div></div>' ).insertAfter( 'label[for=shift_id_false]' );
+		                    }
+			            
+		              
 			      if($('#submit').length != 0){
 				  $('#submit').remove();
 			     }
@@ -122,7 +143,7 @@ $(document).ready(function() {
   </script> 
 <% end %>
 
-<%= link_to 'Back', production_shifts_path %>
+
 </center>
 		</div>
 	</div>
