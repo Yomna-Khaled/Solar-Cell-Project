@@ -11,6 +11,7 @@ class Employee < ActiveRecord::Base
   validates :salary, :numericality => { :greater_than_or_equal_to => 0 }, presence: true
   validates :Governamental_ID, :numericality => { :greater_than_or_equal_to => 0 }, :length => { :within => 12..12 }
   validates_uniqueness_of :full_name, :Governamental_ID , on: :create
+  validates :password, confirmation: true
 
   def not_normal?
     @category = Category.find_by(id: category_id)

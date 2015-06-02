@@ -6,11 +6,10 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   
   def report
-    puts "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
     puts params[:id]
     @total_power=0
 
-    @shift = Shift.where("start_shift_date= ?", "2015-05-26")
+    @shift = Shift.where("id = ?", params[:id])
     @shift_produced_rate = @shift[0].production_rate
     @manager = current_user.full_name
     @crew_member_numbers = Crew.find(@shift[0].crew_id)

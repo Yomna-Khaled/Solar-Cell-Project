@@ -25,6 +25,7 @@
 function accept(ptr){
 	 var i = ptr.parentNode.parentNode.rowIndex;
 	 console.log(ptr.parentNode.parentNode.id);
+   alert(ptr.id.split("_")[2]);
 	  $.ajax({
   		type: "POST",
   		url: "/production_shifts/accept",
@@ -50,7 +51,7 @@ window.enjoy=dispatcher.subscribe ("yoyo");
 enjoy.bind('order', function(task) {
 //   //console.log('successfully created ' + task.name);
    console.log( task);
-   $('table').prepend(task);
+   $('myTable').prepend(task);
  });
 
 
