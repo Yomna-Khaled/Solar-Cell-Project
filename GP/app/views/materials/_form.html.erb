@@ -118,6 +118,7 @@
   </div>
   </div>
   <!-- for get all vendors to select one of them -->
+
  <div class="reg_section">
 
       <h1>Material Vendor </h1>
@@ -136,6 +137,15 @@
         
       <% end -%>
     </select>
+
+  <div class="form-group">
+    <%= f.label :Vendor %><br>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
+
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
     onclick="showvendorform()"><h3>Add new Vendor</h3></a>

@@ -12,20 +12,18 @@
 </style>
 
 
-<div class="container text-center">
-  <%= form_for(@container) do |f| %>
-    <% if @container.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
-
-        <ul>
-          <% @container.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
+<%= form_for(@container) do |f| %>
+  <% if @container.errors.any? %>
+    <div id="error_explanation" class="form-group">
+     <div class="alert alert-danger">
+      <h2><%= pluralize(@container.errors.count, "error") %></h2>
+      <ul>
+      <% @container.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
 
 
@@ -60,29 +58,19 @@
     
   
  
-    <div class="form-group">
-      <%= f.label :Vendor %><br>
-      <select id="vendor" name="vendor" class="form-control">
-        <% @vendors.each do |vendor| %>
-          <% if @flag == "new" %>
-            <option value="<%= vendor.id %>"><%= vendor.name %></option>
-          <%else %>
-            <% if @vendor_id == vendor.id &&%>
-              <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-            <%else%>
-              <option value="<%= vendor.id %>"><%= vendor.name %></option>
-            <%end%>   
-          <%end %>
-       <% end %>
-       </select>
-
-
-
-    <!-- add new vendor using ajax-->
-      <a id="vendorlink" class="btn btn-link" style="text-align: left"
-        onclick="showvendorform()">Add new Vendor</a>
+  <!-- for get all vendors to select one of them -->
+  <div class="form-group">
+    <%= f.label :Vendor %><br>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
+   <!-- add new vendor using ajax-->
+    <a id="vendorlink" class="btn btn-link" style="text-align: left"
+    onclick="showvendorform()">Add new Vendor</a>
       <div id="addnewvendor" style="display:none" class="form-group">
-        <h1>
+         <h1>
           <span class="label label-default">New Vendor</span>
         </h1>
         <div class="form-group">
@@ -99,12 +87,12 @@
         </div>
       </div>
     <!-- end of adding new vendor using ajax -->
-
-      </div>
-    <%= f.submit  %>
+  </div>
+  <!-- end of div for vendors -->
+   <%= f.submit class: 'btn btn-success' %>
 
     </div>
   <% end %>
-</div>
+
 
 

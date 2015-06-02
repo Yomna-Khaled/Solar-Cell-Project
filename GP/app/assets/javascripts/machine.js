@@ -18,12 +18,16 @@ function machineajax () {
 		complete: function(data)
 		{	
 			var machineid = JSON.parse(data.responseText).id
-			
+			if (machineid != null) {
 			$('#spare_part_machine_id')
 	        .append($("<option></option>")
 	        .attr("value",machineid)
 	        .text(machinename)); 
 	        $("#machinename").val("");
+	        }else{
+	        	alert("This Machnie already Exists");
+	        }
+
 		}
 	});
 	}

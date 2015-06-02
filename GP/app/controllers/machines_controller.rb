@@ -43,6 +43,8 @@ class MachinesController < ApplicationController
     render json: @machine
   end
 
+
+
   # PATCH/PUT /machines/1
   # PATCH/PUT /machines/1.json
   def update

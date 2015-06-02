@@ -22,6 +22,7 @@ class SparePartsController < ApplicationController
     if logged_in? and current_category.category=="Sales"      
         @spare_part = SparePart.new
         @vendors = Vendor.all
+        @machines = Machine.all
         @flag="new"
     else
       redirect_to login_path  
@@ -32,6 +33,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/1/edit
   def edit
     @vendors = Vendor.all
+    @machines = Machine.all 
     @sparevendor = VendorSpare.where("spare_part_id=?",@spare_part.id)
     @sparevendor_sorted = @sparevendor.order(updated_at: :desc)
     @vendor_id =  @sparevendor_sorted[0].vendor_id
@@ -52,7 +54,8 @@ class SparePartsController < ApplicationController
  
       else
 	    @vendors = Vendor.all
-        
+      @machines = Machine.all 
+      @flag="new"
         format.html { render :new }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
       end
@@ -78,6 +81,7 @@ class SparePartsController < ApplicationController
         format.json { render :show, status: :ok, location: @spare_part }
       else
         @vendors = Vendor.all
+        @machines = Machine.all 
         format.html { render :edit }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
       end
