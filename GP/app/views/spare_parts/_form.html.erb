@@ -41,8 +41,11 @@
 
   <div class="form-group">
     <%= f.label :machine_id %><br>
-    <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
-
+    <% if @flag == "new" %>
+      <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name"),{ :include_blank => false }, { :class => 'form-control' , :required => true} %>
+    <%else%>
+     <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name", @spare_part.machine_id) ,{ :include_blank => false }, { :class => 'form-control' , :required => true}%>
+    <%end%>
     <!-- add new quantity using ajax-->
     <a id="machinelink" class="btn btn-link" style="text-align: left" 
     onclick="showmachineform()">Add Machine</a>
