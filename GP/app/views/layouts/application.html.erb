@@ -8,6 +8,13 @@
 </head>
 
 <body>
+<style>
+.thumbnail{
+  width: 60px;
+  height: 60px;
+  margin-left: 90px; 
+}
+</style>
 	<% if logged_in? %> 
 
 	    <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
@@ -16,13 +23,16 @@
 	            <a id="menu-close" href="#" class="btn btn-default btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
 	            <li class="sidebar-brand"><a href="#">First Company</a></li>
 	            <li>
-					<strong><%= link_to current_user.full_name, current_user %></strong>
 	            	<%= link_to current_user do %> 
-                        <%= image_tag current_user.image.url(:thumb), class: "img-circle"%>
+                        <%= image_tag current_user.image.url(:thumb), class: "thumbnail"%>
                     <% end %>
+                    <strong><%= link_to current_user.full_name, current_user %></strong>
                  </li>
+                 <li><%= link_to 'Logout', logout_path, method: "delete" %>
+	            </li>
 		            <% if current_category.category == "HR" %>
 			          <li><%= link_to 'Profile setting', edit_employee_path(current_user) %></li>
+			          <hr>
 					  <li><%= link_to 'Add Employee', new_employee_path %></li>
 					  <li><%= link_to 'All Employee', employees_path %></li>
 					  <li><%= link_to 'Add Crew', new_crew_path %></li>
@@ -57,14 +67,11 @@
 			                <li><%= link_to 'myshifts', shifts_path %></li>
 					<% end %>
 	                
-
 					<% if current_category.category == "Stock Keeper" %>
 							<li><%= link_to 'All Materials', materials_path %></li>
 							<li><%= link_to 'Un accepted requests', production_shifts_path %></li>
 							<li><%= link_to 'All Spare Parts', spare_parts_path %></li>
 					<% end %>
-					<li><%= link_to 'Logout', logout_path, method: "delete" %>
-	            </li>
 			</ul>
 	<% end %>
 
@@ -74,16 +81,14 @@
         <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
 
-
+<div class="container">
 <%= yield %>
-
 </div>
 
 
     <!-- Custom JavaScript for the Side Menu and Smooth Scrolling -->
     <script>
     $("#menu-close").click(function(e) {
-    	console.log("close");
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
@@ -92,7 +97,6 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
-        console.log($("#sidebar-wrapper"))
     });
     </script>
     <script>
@@ -112,7 +116,6 @@
         });
     });
     </script>
-
 </body>
 
 
