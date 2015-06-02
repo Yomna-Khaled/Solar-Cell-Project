@@ -13,71 +13,79 @@
 
 
 <div class="container text-center">
-<%= form_for(@container) do |f| %>
-  <% if @container.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
+  <%= form_for(@container) do |f| %>
+    <% if @container.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
 
-      <ul>
-      <% @container.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+          <% @container.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+
+
+
+    <div class="field form-group">
+      <%= f.label :width %><br>
+      <%= f.number_field :width ,step:0.01 ,class: 'form-control' %>
     </div>
-  <% end %>
+    <div class="field form-group">
+      <%= f.label :height %><br>
+      <%= f.number_field :height ,step:0.01 ,class: 'form-control'%>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :serial_number %><br>
+      <% if @flag == "edit" %>
+        <%= f.text_field :serialNo, class: "form-control",:readonly => true %>
+      <%else%> 
+        <%= f.text_field :serialNo, class: "form-control" %>
+      <%end%>  
+    </div>
 
 
-
-
-
-  <div class="field form-group">
-    <%= f.label :width %><br>
-    <%= f.number_field :width ,step:0.01 ,class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :height %><br>
-    <%= f.number_field :height ,step:0.01 ,class: 'form-control'%>
-  </div>
-  <div class="field form-group">
-    <%= f.label :serialNo %><br>
-    <%= f.text_field :serialNo ,class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :capacity %><br>
-    <%= f.number_field :capacity ,class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :price %><br>
-    <%= f.number_field :price ,step:0.0000001 ,class: 'form-control' %>
-  </div>
-   <div class="field form-group">
-    <%= f.label :total_power %><br>
-    <%= f.number_field :total_power ,step:0.0000000000000000001 ,class: 'form-control' %>
-  </div>
+    <div class="field form-group">
+      <%= f.label :capacity %><br>
+      <%= f.number_field :capacity ,class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :price %><br>
+      <%= f.number_field :price ,step:0.0000001 ,class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :total_power %><br>
+      <%= f.number_field :total_power ,step:0.0000000000000000001 ,class: 'form-control' %>
+    </div>
   
  
-<div class="form-group">
-  <%= f.label :Vendor %><br>
-  <select id="vendor" name="vendor" class="form-control">
-    <% @vendors.each do |vendor| %>
-       <% if @flag == "new" %>
-      <option value="<%= vendor.id %>"><%= vendor.name %></option>
-       <%else %>
-        <% if @vendor_id == vendor.id &&%>
-          <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-          <%else%>
-          <option value="<%= vendor.id %>"><%= vendor.name %></option>
-        <%end%>   
-      <%end %>
-    <% end -%>
-  </select>
+    <div class="form-group">
+      <%= f.label :Vendor %><br>
+      <select id="vendor" name="vendor" class="form-control">
+        <% @vendors.each do |vendor| %>
+          <% if @flag == "new" %>
+            <option value="<%= vendor.id %>"><%= vendor.name %></option>
+          <%else %>
+            <% if @vendor_id == vendor.id &&%>
+              <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
+            <%else%>
+              <option value="<%= vendor.id %>"><%= vendor.name %></option>
+            <%end%>   
+          <%end %>
+       <% end %>
+       </select>
 
 
-<!-- add new vendor using ajax-->
-    <a id="vendorlink" class="btn btn-link" style="text-align: left"
-    onclick="showvendorform()">Add new Vendor</a>
+
+    <!-- add new vendor using ajax-->
+      <a id="vendorlink" class="btn btn-link" style="text-align: left"
+        onclick="showvendorform()">Add new Vendor</a>
       <div id="addnewvendor" style="display:none" class="form-group">
-         <h1>
+        <h1>
           <span class="label label-default">New Vendor</span>
         </h1>
         <div class="form-group">
@@ -95,20 +103,11 @@
       </div>
     <!-- end of adding new vendor using ajax -->
 
+      </div>
+    <%= f.submit  %>
+
+    </div>
+  <% end %>
 </div>
 
-
-
-
-
-
-
-
-
-
-    <%= f.submit %>
-
-  </div>
-<% end %>
-</div>
 

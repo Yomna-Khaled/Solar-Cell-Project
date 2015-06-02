@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
   def index
     if logged_in? and current_category.category=="HR"
       @employees = Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 10)
+      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
     else
       redirect_to login_path  
     end   
@@ -22,13 +22,13 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if logged_in? and current_category.category=="HR"
+    #if logged_in? and current_category.category=="HR"
       @flag_new=1 #display password field in from
       @flag="new"
       @employee = Employee.new
-    else
-      redirect_to login_path  
-    end 
+    #else
+     # redirect_to login_path  
+    #end 
   end
 
   # GET /employees/1/edit
@@ -40,6 +40,9 @@ class EmployeesController < ApplicationController
     @cat=Category.find_by(:id => @employee.category_id)
     @category_id=@cat.id
   end
+
+
+
 
   # POST /employees
   def create
@@ -79,8 +82,8 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
-      @employee.houre_rate = @employee.salary/(26*8) 
-      employee_params[:houre_rate] =  @employee.houre_rate
+      houre_rate = @employee.salary/(26*8) 
+      employee_params[:houre_rate] = houre_rate
       respond_to do |format|
         if @employee.update(employee_params)
            arr= params[:employee_phones][:phone].split(",")
@@ -95,6 +98,8 @@ class EmployeesController < ApplicationController
           format.html { redirect_to @employee }
           format.json { render :show, status: :ok, location: @employee }
         else
+          @cat=Category.find_by(:id => @employee.category_id)
+          @category_id=@cat.id
           @flag_new=0
           format.html { render :edit }
           format.json { render json: @employee.errors, status: :unprocessable_entity }
@@ -120,11 +125,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-
-
-
       params.require(:employee).permit( :email, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name, :password_confirmation)
-
     end
 
     def phone_params

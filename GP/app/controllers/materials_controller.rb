@@ -8,6 +8,7 @@ class MaterialsController < ApplicationController
       @materials = Material.all
       @materials = Material.paginate(:page => params[:page], :per_page => 10)
       @material_vendor = MaterialVendor.all
+      @materials = Material.paginate(:page => params[:page], :per_page => 6)
     else
       redirect_to login_path  
     end   

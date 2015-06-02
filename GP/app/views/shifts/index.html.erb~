@@ -2,31 +2,48 @@
 
 <h1>Listing Shifts</h1>
 
+<<<<<<< HEAD
+<table>
+  <thead>
+    <tr>
+      <th>Employee</th>
+=======
 <table class="table table-stripped">
   <thead>
     <tr>
       <th>employee id</th>
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
       <th>Crew</th>
       <th>Start shift date</th>
       <th>End shift date</th>
       <th>Start shift time</th>
       <th>End shift time</th>
       <th>Production rate</th>
+<<<<<<< HEAD
+      <th colspan="3"></th>
+=======
       <th>Show</th>
       <th>Edit</th>
       <th>print report</th>
     
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
     </tr>
   </thead>
 
   <tbody>
     <% @shifts.each do |shift| %>
+<<<<<<< HEAD
+      <tr>
+        <td><%= shift.employee %></td>
+        <td><%= shift.crew %></td>
+=======
       
      
         
          <tr> 
         <td><%= shift.employee.id %></td>
         <td><%= shift.crew.name %></td>
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
         <td><%= shift.start_shift_date %></td>
         <td><%= shift.end_shift_date %></td>
         <td><%= shift.start_shift_time %></td>
@@ -34,27 +51,35 @@
         <td><%= shift.production_rate %></td>
         <td><%= link_to 'Show', shift %></td>
         <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+<<<<<<< HEAD
+        <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+=======
         <td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
        
        
-       </tr> 
-      
-       =======================================
-    <% current_shift.id %> 
+        
+    
 		<% shift.solar_panels.each do |solarpanel| %>
 		        <tr>  
 	  	        <td><%= solarpanel.serialNo %></td>
-		        <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :gets %></td>
+		        <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :get %></td>
 		        </tr> 
 		<% end %> 
-
+          </tr>
     <% end %>
   
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
   </tbody>
 </table>
 
 <br>
+<<<<<<< HEAD
+
+=======
 <script>
     $(".collapse").collapse()
 </script>
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 <%= link_to 'New Shift', new_shift_path %>

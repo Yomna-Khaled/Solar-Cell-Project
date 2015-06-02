@@ -21,17 +21,18 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts/1
   # GET /production_shifts/1.json
   def accept
-  
     @material=Material.where("id= ?",params[:id])
+
     puts params[:id]
     puts @material[0].name
     puts "--------------=============="
     if @material[0].quantity_value < params[:quantity].to_i
          
+
       render plain:"ok"
     else
-
       @quantity=@material[0].quantity_value
+
       
        @production_shifts=ProductionShift.where("material_quantity= ?",params[:quantity]).
                         where("material_id= ?",params[:id]).
@@ -41,19 +42,27 @@ class ProductionShiftsController < ApplicationController
       end
 
        render plain:"done"                 
+
     end  
-   
-    
-  end  
+  end 
+
   def show
   end
 
   # GET /production_shifts/new
   def new
-   
-    @production_shift = ProductionShift.new
-    @materials = Material.all
-   
+    if logged_in? and current_category.category=="Shift Manager" 
+    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+	    if @shift.exists?
+		    @production_shift = ProductionShift.new
+		    @materials = Material.all
+	
+	    else
+			redirect_to  shifts_showstartshift_path 
+	    end 
+    else
+         redirect_to login_path 
+    end   
   end
 
   # GET /production_shifts/1/edit

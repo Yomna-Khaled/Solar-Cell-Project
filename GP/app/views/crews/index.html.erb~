@@ -1,0 +1,24 @@
+<br>
+
+<table class="table table-striped"> 
+  <thead>
+    <tr>
+      <th text-align="center">Crew Name</th>
+      <th text-align="center">No of workers</th>
+      <th text-align="center">Show</th>
+      <th text-align="center">Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crews.each do |crew| %>
+      <tr>
+        <td><%= crew.name %></td>
+        <td><%= crew.no_of_workers %></td>
+
+        <td><%= link_to 'Show', crew, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_crew_path(crew), class:"btn btn-default"  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

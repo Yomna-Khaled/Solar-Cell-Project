@@ -20,11 +20,8 @@
   </thead>
 
   <tbody>
-    <% @shifts.each do |shift| %>
-      
-     
-        
-         <tr> 
+    <% @shifts.each do |shift| %>   
+      <tr> 
         <td><%= shift.employee.id %></td>
         <td><%= shift.crew.name %></td>
         <td><%= shift.start_shift_date %></td>
@@ -35,24 +32,20 @@
         <td><%= link_to 'Show', shift %></td>
         <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
         <td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-       
-       
-       </tr> 
+      </tr> 
       
-       =======================================
-    <%= current_shift.id %> 
 		<% shift.solar_panels.each do |solarpanel| %>
 		        <tr>  
 	  	        <td><%= solarpanel.serialNo %></td>
-		        <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :gets %></td>
+		        <td><%= button_to 'Edit', edit_solar_panel_path(solarpanel),method: :get %></td>
 		        </tr> 
 		<% end %> 
-
+          </tr>
     <% end %>
   
   </tbody>
 </table>
-
+<%= will_paginate @shifts %>
 <br>
 <script>
     $(".collapse").collapse()

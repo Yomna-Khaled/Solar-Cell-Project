@@ -10,10 +10,13 @@
       <td>
         <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px"}%>
       </td>
+
+
       <br>
       <%= hidden_field_tag "hidden" %>
       <%= hidden_field_tag "manager", current_user.full_name  %>
       <%= hidden_field_tag "shift_id",current_shift.id %>
+
     </tr>
     <% end %>
 

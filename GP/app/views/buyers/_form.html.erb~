@@ -32,6 +32,38 @@
   </div>
 
 
+<<<<<<< HEAD
+<div class="field form-group">
+   
+   <% if @flag == "new" %> 
+ <%= fields_for :buyer_phones do |p| %> 	
+    <%= p.label :phone %><br>
+	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+    <% end %>
+
+<%else %>
+<%= fields_for :buyer_phones do |p| %>
+
+    <%= phonn = '' %>
+
+
+<% if @phones.blank? %>
+
+<p> <%= phonn = '' %> </p>
+
+<% else %>
+
+
+   <% @phones.each do |f| %>
+     <p>
+   <% phonn = phonn + f.phone + ',' %>
+     </p>
+   <% end %>
+<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)">Delete Phone</a> <br>
+<% end %> 
+<% end %>
+<%end %>
+=======
 
 
 
@@ -59,6 +91,7 @@
       <% end %> 
     <% end %>
   <%end %>
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 
 </div>
 
@@ -72,6 +105,14 @@
     
 </div>
 
+<<<<<<< HEAD
+
+
+
+
+
+=======
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 <div class="actions form-group">
     <%= f.submit "Submit", class: "btn btn-success" %>
   </div>
@@ -87,6 +128,50 @@
 var x=1;
 var counter=0;
 var allValues = '';
+<<<<<<< HEAD
+allValues=$( "#phone" ).val().slice(0,-1);
+alert (counter);
+
+var add = function() {
+	if (counter === 0 ) {
+		  	 counter =  1;
+		  	 
+		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+		    x=x+1;
+		    $( "#OK" ).click(function() {
+			var value = $("#1").val();
+		    if (isNaN(value)){
+		        alert('string ');
+		    }else{
+		    	
+			    if (allValues != ''){
+					allValues =  allValues + ',' + value
+				}else{
+				 	allValues =  allValues + value		
+				}
+				$("#phone").val(allValues);
+				$("#1").val('');		
+		    }
+
+		   });
+    }
+};
+
+
+var del = function(buyerid) {
+     
+	 var phons_num = $("#phone").val();
+         $("#phone").val('');
+	 var arr = phons_num.split(",");
+	for (var i=0 ; i< arr.length-1 ; i++){
+		 var div=document.createElement("div");
+                 var elem = document.createElement("input");
+                 elem.id =i;
+                 elem.type = 'button';
+                 elem.value = 'x'; 
+		 div.id= i;
+		 div.value=arr[i];
+=======
 var temp = "";
 allValues=$( "#phone" ).val().slice(0,-1);
 var add = function() {
@@ -130,10 +215,36 @@ var del = function(buyerid) {
                  elem.value = 'x'; 
      div.id= i;
      div.value=arr[i];
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
                  div.innerHTML = arr[i];
                  elem.onclick=function(){
                    var el = document.getElementById(this.id);
                    var dataString = el.value;
+<<<<<<< HEAD
+
+
+		    $.ajax({
+			method: "POST",
+			url: '/delPhonee',
+				dataType: "JSON",
+				data: { "phone": dataString},
+				complete: function(data)
+				{	
+					 el.parentNode.removeChild( el );
+				}
+			});
+
+
+		     };
+
+		    div.appendChild(elem);
+                    document.getElementById('phonedel').appendChild(div);
+	            }
+};
+
+
+
+=======
                
                    allValues = allValues.replace(dataString + ',', ""); 
         $.ajax({
@@ -152,4 +263,5 @@ var del = function(buyerid) {
         document.getElementById('phonedel').appendChild(div);
   }
 };
+>>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 </script>

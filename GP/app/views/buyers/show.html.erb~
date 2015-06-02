@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @buyer.name %>
+</p>
+
+<p>
+  <strong>Addess:</strong>
+  <%= @buyer.addess %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @buyer.city %>
+</p>
+
+<strong>Phones:</strong>
+  <% index = 1%>
+    <% @buyer_phones.each do |buyerphone| %>
+      <p>
+        <strong><%=index%>-<%= buyerphone.phone %></strong>      
+          <%index+=1%>
+      </p>
+    <%end%>   
+</p>
+
+<%= will_paginate @buyers %>
+
+<%= link_to 'Edit', edit_buyer_path(@buyer) %> |
+<%= link_to 'Back', buyers_path %>
