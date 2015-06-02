@@ -41,8 +41,11 @@
 
   <div class="form-group">
     <%= f.label :machine_id %><br>
-    <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
-
+    <% if @flag == "new" %>
+      <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name"),{ :include_blank => false }, { :class => 'form-control' , :required => true} %>
+    <%else%>
+     <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name", @spare_part.machine_id) ,{ :include_blank => false }, { :class => 'form-control' , :required => true }%>
+    <%end%>
     <!-- add new quantity using ajax-->
     <a id="machinelink" class="btn btn-link" style="text-align: left" 
     onclick="showmachineform()">Add Machine</a>
@@ -62,22 +65,15 @@
       <!-- end of adding new machine using ajax -->
   </div>
 
-<div class="form-group">
-  <%= f.label :Vendor %><br>
-  <select id="vendor" name="vendor" class="form-control">
-    <% @vendors.each do |vendor| %>
-       <% if @flag == "new" %>
-      <option value="<%= vendor.id %>"><%= vendor.name %></option>
-       <%else %>
-        <% if @vendor_id == vendor.id &&%>
-          <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-          <%else%>
-          <option value="<%= vendor.id %>"><%= vendor.name %></option>
-        <%end%>   
-      <%end %>
-    <% end -%>
-  </select>
-<!-- add new vendor using ajax-->
+  <!-- for get all vendors to select one of them -->
+  <div class="form-group">
+    <%= f.label :Vendor %><br>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
+   <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
     onclick="showvendorform()">Add new Vendor</a>
       <div id="addnewvendor" style="display:none" class="form-group">
@@ -98,8 +94,8 @@
         </div>
       </div>
     <!-- end of adding new vendor using ajax -->
-
-</div>
+  </div>
+  <!-- end of div for vendors -->
 
 
 
@@ -113,10 +109,8 @@
 
 <div class="actions">
   
-    <%= f.submit "Submit", class: "btn btn-success" %>
+    <%= f.submit class: 'btn btn-success' %>
   
-
-
 </div>
 <% end %>
 
