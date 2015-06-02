@@ -19,11 +19,8 @@
   </thead>
 
   <tbody>
-    <% @shifts.each do |shift| %>
-      
-     
-        
-         <tr> 
+    <% @shifts.each do |shift| %>   
+      <tr> 
         <td><%= shift.employee.id %></td>
         <td><%= shift.crew.name %></td>
         <td><%= shift.start_shift_date %></td>
@@ -33,6 +30,7 @@
         <td><%= shift.production_rate %></td>
         <td><%= link_to 'Show', shift %></td>
         <td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
+
        
         
         <table class="table table-striped">
@@ -71,7 +69,10 @@
 		    <td><%= solar_panel.power %></td>
                     <td><%= button_to 'Edit', edit_solar_panel_path(solar_panel),method: :get %></td>
 		  </p>
-		<% end %> 
+
+      </tr> 
+      
+		
              </tr>   
           </tbody>    
 
@@ -80,7 +81,7 @@
   
   </tbody>
 </table>
-
+<%= will_paginate @shifts %>
 <br>
 
 

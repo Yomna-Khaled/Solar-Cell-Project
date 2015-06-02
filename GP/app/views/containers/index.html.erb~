@@ -65,13 +65,14 @@
       <% end %>
     
   </table>
-
 </div>  
+
 
     
   </tbody>
 </table>
 <%= will_paginate @containers %>
+
 <br>
 
 

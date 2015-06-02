@@ -50,24 +50,25 @@ class ShiftsController < ApplicationController
   end
 
   def index
+
  
    if logged_in? and current_category.category=="Shift Manager"
-	
-	    @shifts = Shift.where("employee_id = ?" , current_user.id )
-		  
-	    
-	     @manager = current_user.full_name
-	    respond_to do |format|
-	      format.html
-	      format.pdf do
-		pdf = ReportPdf.new(@shifts,@manager)
-		send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
-	      end
-	    end
-   else
+
+    @shifts = Shift.where("employee_id = ?" , current_user.id )
+    @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
+
+    @manager = current_user.full_name
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReportPdf.new(@shifts,@manager)
+        send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
+      end
+    end
+
+     else
       redirect_to login_path 
     end 
-
   end
 
   # GET /shifts/1

@@ -41,10 +41,10 @@
 
     <div class="form-group">
       <%= f.label :serial_number %><br>
-      <% if @flag == "new" %>
-        <%= f.text_field :serialNo, class: "form-control" %>
-      <%else%> 
+      <% if @flag == "edit" %>
         <%= f.text_field :serialNo, class: "form-control",:readonly => true %>
+      <%else%> 
+        <%= f.text_field :serialNo, class: "form-control" %>
       <%end%>  
     </div>
 
@@ -57,10 +57,7 @@
       <%= f.label :price %><br>
       <%= f.number_field :price ,step:0.0000001 ,class: 'form-control' %>
     </div>
-    <div class="field form-group">
-      <%= f.label :total_power %><br>
-      <%= f.number_field :total_power ,step:0.0000000000000000001 ,class: 'form-control' %>
-    </div>
+    
   
  
     <div class="form-group">
@@ -76,8 +73,9 @@
               <option value="<%= vendor.id %>"><%= vendor.name %></option>
             <%end%>   
           <%end %>
-       <% end -%>
+       <% end %>
        </select>
+
 
 
     <!-- add new vendor using ajax-->
@@ -103,9 +101,10 @@
     <!-- end of adding new vendor using ajax -->
 
       </div>
-    <%= f.submit %>
+    <%= f.submit  %>
 
     </div>
   <% end %>
 </div>
+
 
