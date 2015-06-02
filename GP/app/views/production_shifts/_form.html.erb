@@ -37,7 +37,7 @@ function matvalue(ptr){
     index_checked+=1;
     $("#"+field_id).show();
     $("#"+field_id).attr("required", "true");
-    $("#"+field_id).attr("min", "0");
+    $("#"+field_id).attr("min", "1");
     $("#"+field_id).keyup(function(){
       $("#hidden").val(prev+"_"+name+","+$("#"+field_id).val());
     });

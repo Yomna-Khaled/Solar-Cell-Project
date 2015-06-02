@@ -62,7 +62,9 @@
 
   </tbody>
 </table>
-<%= will_paginate @solar_panels %>
+<% if !@solar_panels.blank? %>
+  <%= will_paginate @solar_panels %>
+<%end%>
 <br>
 <% if logged_in? %> 
   <% if current_category.category == "Shift Manager" %>

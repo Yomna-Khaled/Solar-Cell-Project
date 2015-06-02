@@ -101,20 +101,11 @@
   <!-- for get all vendors to select one of them -->
   <div class="form-group">
     <%= f.label :Vendor %><br>
-    <select id="vendor" name="vendor" class="form-control">
-      <% @vendors.each do |vendor| %>
-        <% if @flag == "new" %>
-          <option value="<%= vendor.id %>"><%= vendor.name %></option>
-        <%else %>
-          <% if @vendor_id == vendor.id &&%>
-            <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-            <%else%>
-            <option value="<%= vendor.id %>"><%= vendor.name %></option>
-          <%end%>   
-        <%end %>
-        
-      <% end -%>
-    </select>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
     onclick="showvendorform()">Add new Vendor</a>
