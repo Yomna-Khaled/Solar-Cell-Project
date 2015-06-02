@@ -13,11 +13,7 @@
 <body>
 
 <div class="container">
-	<% if @flag_new==0 and current_user.id == @employee.id%>
-		<h1 class="page-header"> Edit Profile</h1>
-	<% else %>	
-		<h1 class="page-header"> Edit Employee</h1>	
-	<% end %>
+	<h1 class="page-header"> Edit Employee</h1>
 			<%= render 'form' %>
 </div>
 
