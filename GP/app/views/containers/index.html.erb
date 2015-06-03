@@ -23,13 +23,56 @@
           <td><%= container.total_power %></td>
           <td><%= link_to 'Show', container, class:"btn btn-primary" %></td>
           <td><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
-        </tr>
+       </tr>
+          <table class="table table-striped">
+		<thead>
+			<tr>
+			<th text-align="center">production_date</th>
+			<th text-align="center">height</th>
+			<th text-align="center">width</th>
+			<th text-align="center">power</th>
+			<th text-align="center">celltype</th>
+			<th text-align="center">subtype</th>
+                        <th text-align="center">price</th>
+                        <th text-align="center">serialNo</th>
+                        <th text-align="center">cells no.</th>  
+         		<th text-align="center">price</th>  
+         		<th text-align="center">power</th>  
+         		
+
+                         </tr>
+
+		</thead>
+            <tbody>
+	    <tr>
+           	<% container.solar_panels.each do |solar_panel| %>
+		  <p>
+		    <td><%= solar_panel.production_date %></td>
+                    <td><%= solar_panel.height %></td>
+                    <td><%= solar_panel.width %></td>
+                    <td><%= solar_panel.power %></td>
+                    <td><%= solar_panel.celltype %></td>
+                    <td><%= solar_panel.subtype%></td>
+                    <td><%= solar_panel.price %></td>
+                    <td><%= solar_panel.serialNo%></td>                
+                    <td><%= solar_panel.cellno %></td> 
+		    <td><%= solar_panel.price %></td>
+		    <td><%= solar_panel.power %></td>
+		  </p>
+                 </tr> 
+		<% end %> 
+               
+            
       <% end %>
-    </tbody>
+     </tbody>  
+    </tr>
   </table>
 </div>  
 
-   
+
+    
+  </tbody>
+</table>
 <%= will_paginate @containers %>
 
 <br>

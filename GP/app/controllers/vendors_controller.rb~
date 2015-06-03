@@ -16,7 +16,9 @@ class VendorsController < ApplicationController
   end
 
 def pho
+puts '****************************************************'
 @vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
+puts '/////***************************************************************************'
 @vendorphones_selected[0].destroy
 end
 
@@ -41,6 +43,7 @@ end
 	@flag="edit"
         @vendor = Vendor.find(params[:id])
         @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
+
   end
 
   # POST /vendors
@@ -49,34 +52,24 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-  
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
-
                 @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
                 @vendorphone.save  
               end
- 
             end
-
           else
-            
             @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
             @vendorphone.save            
 	        end    
           format.html { redirect_to @vendor }
           format.json { render :show, status: :created, location: @vendor }
         else
-          # if params[:vendor_phones][:phone]==" "
-          #   @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-          #   @vendorphone.save  
-	         # end 
 	           params[:vendor_phones][:phone]==" "
             format.html { render :new }
             format.json { render json: @vendor.errors, status: :unprocessable_entity }
-              
         end
   end
 end
@@ -105,7 +98,9 @@ end
 
          arr= params[:vendor_phones][:phone].split(",")
 	 arr.each do |c|
+                puts 'ddddddddddddddddddddddddddddddddddddd'
 		puts c	
+                puts 'dddddddddddddddddddddddddddddddddd'
         if c != ""
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 

@@ -1,3 +1,293 @@
+
+<style type="text/css">
+  /*  Author : iMomen
+    Website: www.iMomen.com
+    E-mail : Coder@iMomen.com
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Page */
+body {
+  background: #2F0916;
+  font-family:"Trebuchet MS",tahoma;
+}
+
+a {
+  color:#FF3679;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.reg_section {
+  padding:0;
+  margin: 10px 0;
+  border-bottom: 1px;
+}
+.reg_section h3 {
+  font-size: 13px;
+  margin: 5px 0;
+  color: #C4A2A2;
+}
+
+.w {
+  width: 400px;
+}
+
+/* Form */
+.register {
+  position: relative;
+  margin-top:20px;
+  padding: 20px 20px 20px;
+  background: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.register:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  z-index: -1;
+  background:rgba(255, 173, 200, 0.08);
+  border-radius:7px;
+  -webkit-border-radius: 7px;
+}
+.register h1 {
+  margin: -20px -20px 0;
+  line-height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color:#694551;
+  text-align: center;
+  border-bottom:1px solid #EDEDED;
+  border-radius: 3px 3px 0 0;
+  -webkit-box-shadow: 0 1px #f5f5f5;
+  -moz-box-shadow: 0 1px #f5f5f5;
+  box-shadow: 0 1px #f5f5f5;
+}
+
+.register input[type=text], .register input[type=number], .register input[type=password] ,.register select,.register textarea {
+  width: 400px;
+}
+.register p.terms {
+  float: left;
+  line-height: 31px;
+}
+.register p.terms label {
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+}
+.register p.terms input {
+  position: relative;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.register p.submit {
+  text-align: right;
+}
+
+.register-help {
+  margin: 20px 0;
+  font-size: 11px;
+  text-align: center;
+ 
+  color:#FFFFFF;
+}
+.register-help a {
+  color:#FF3679;
+  text-shadow:0 1px #1E0E13;
+}
+
+:-moz-placeholder {
+  color: #c9c9c9 !important;
+  font-size: 13px;
+}
+
+::-webkit-input-placeholder {
+  color: #ccc;
+  font-size: 13px;
+}
+
+input {
+  font-family:"Trebuchet MS",tahoma;
+  font-size: 14px;
+}
+
+input[type=text], input[type=password] , input[type=number],.register select,.register textarea {
+  margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus{
+  border-color:#FFF7F9;
+  outline-color:rgba(254, 225, 235, 0.7);
+  outline-offset: 0;
+}
+
+input[type=submit] {
+  padding:0 10px;
+  height: 29px;
+  font-size: 12px;
+  font-weight: bold;
+  color:#FFFFFF;
+  text-shadow:0 1px #4D1124;
+  border-width: 1px;
+  border-style: solid;
+  border-color:#693647;
+  border-radius: 7px 7px 7px 7px;
+  outline: none;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background-color: #7D0F33;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #AA1E4D), color-stop(100%, #7D0F33));
+  background-image: -webkit-linear-gradient(top, #AA1E4D, #7D0F33);
+  background-image:-moz-linear-gradient(center top , #AA1E4D, #7D0F33)
+  background-image: -ms-linear-gradient(top, #AA1E4D, #7D0F33);
+  background-image: -o-linear-gradient(top, #AA1E4D, #7D0F33);
+  background-image: linear-gradient(top, #AA1E4D, #7D0F33);
+  -webkit-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
+  -moz-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
+  box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
+}
+input[type=submit]:active {
+  background: #7D0F33;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number]{
+  line-height: 34px;
+}
+.register select{
+  padding:6px 10px;
+  width: 400px;
+  color: #777777;
+}
+.register textarea {
+  height: 50px;
+  padding: 10px;
+   width: 400px;
+  color: #C9C9C9;
+}
+
+/* About */
+.about {
+  margin:10px auto;
+  width: 400px;
+  text-align: center;
+  color:#EEA5BD;
+  font-size: 12px;
+}
+.about a {
+  padding: 1px 3px;
+  margin: 0 -1px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+.about a:hover {
+  color:#2F0916;
+  text-shadow: none;
+  background: #E83671;
+}
+
+.links {
+  zoom: 1;
+}
+.links:before, .links:after {
+  content: "";
+  display: table;
+}
+.links:after {
+  clear: both;
+}
+.links a {
+  padding: 6px 0;
+  float: left;
+  width: 50%;
+  font-size: 14px;
+}
+
+</style>
+
+
 <%= form_for(@material) do |f| %>
   <% if @material.errors.any? %>
     <div id="error_explanation" class="form-group" >
@@ -25,33 +315,44 @@
     <%= f.submit class: 'btn btn-success' %>
   </div>
   <% else %>
+  <section class="register">
+    <div class="form-group reg_section ">
+      <h1>Material Information</h1>
+  
+        <h3>Name</h3>
+        <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
 
-  <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :serial_number %><br>
-    <% if @flag == "new" %>
-      <%= f.text_field :serial_number, class: "form-control" %>
-    <%else%> 
-      <%= f.text_field :serial_number, class: "form-control",:readonly => true %>
-    <%end%>  
-  </div>
-  <div class="form-group">
-    <div class="col-md-6">
-      <%= f.label :quantity_value %><br>
-      <%= f.number_field :quantity_value, class: "form-control" %>
+  
+        <h3>Serial Number</h3>
+        <% if @flag == "new" %>
+          <%= f.text_field :serial_number,placeholder:"Enter Material Serial number...."%>
+        <%else%> 
+          <%= f.text_field :serial_number,:readonly => true %>
+        <%end%> 
+        <h3>Price</h3>
+         <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
+         <h3>Material_Photo </h3>
+    <%= f.file_field :avatar %>
+
+    </div>
+    <div class="form-group reg_section">
+      <h1>Material In Stock </h1>
+      <div class="col-md-6">
+       
+      <h3>quantity_value </h3>
+      <%= f.number_field :quantity_value ,placeholder:"Quantity Value..." , style: "width:200px"%>
     </div>
       <!-- this div for quantites to be dispalayed at dropdown list-->
     <div class="col-md-6">
-      <div class="form-group">
-        <label>Quantity_Name</label><br>
-        <% if @flag == "new" %>
-          <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name")%>
-        <% else %>
-          <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name",@material.quantity_id) %>
-        <%end%>
+      
+        <h3>Unit</h3>
+            <% if @flag == "new" %>
+            
+              <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name") ,{}, {:style=> "width:100px" }%>
+           
+            <% else %>
+              <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name",@material.quantity_id),{} , {:style=> "width:100px" }%>
+            <%end%>
         <!-- add new quantity using ajax-->
         <a id="unitlink" class="btn btn-link" style="text-align: left" 
         onclick="showunitform()">Add Quantity_Unit</a>
@@ -69,39 +370,45 @@
             </div>
         </div>
           <!-- end of adding new unit using ajax -->
-      </div>
+    
     </div>
+  
   <!-- end of div for quantites -->
-  </div>
+  
+ 
+ 
+  
+    <h3>Min Number</h3>
+    <%= f.number_field :Min_Number,placeholder:"Enter Min Number...." %>
+  
+  
 
-  <div class="form-group">
-    <%= f.label :price %><br>
-    <%= f.text_field :price, class: "form-control" %>
+  
+    <h3>Stock Number</h3>
+    <%= f.text_field :stockNo, placeholder:"Enter Stock Number...." %>
+  
+  
+    <h3>Shelf Number</h3>
+    <%= f.text_field :shelfNo, placeholder:"Enter Shelf Number...." %>
   </div>
-  <div class="form-group">
-    <%= f.label :Min_Number %><br>
-    <%= f.number_field :Min_Number, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :stockNo %><br>
-    <%= f.text_field :stockNo, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :shelfNo %><br>
-    <%= f.text_field :shelfNo, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :production_date %><br>
+  <div class="form-group reg_section">
+
+      <h1>Material Date </h1>
+    <h3>production_date </h3>
     <%= f.date_select :production_date %>
-  </div>
-  <div class="form-group">
-    <%= f.label :expiration_date %><br>
+
+   <h3>expiration_date</h3>
+   <div class="registerselect">
     <%= f.date_select :expiration_date %>
   </div>
+  </div>
   <!-- for get all vendors to select one of them -->
-  <div class="form-group">
-    <%= f.label :Vendor %><br>
-    <select id="vendor" name="vendor" class="form-control">
+
+ <div class="reg_section">
+
+      <h1>Material Vendor </h1>
+    <h3>Vendor </h3>
+    <select id="vendor" name="vendor">
       <% @vendors.each do |vendor| %>
         <% if @flag == "new" %>
           <option value="<%= vendor.id %>"><%= vendor.name %></option>
@@ -115,20 +422,26 @@
         
       <% end -%>
     </select>
+
+  <div class="form-group">
+    <%= f.label :Vendor %><br>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
+
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
-    onclick="showvendorform()">Add new Vendor</a>
+    onclick="showvendorform()"><h3>Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
-         <h1>
-          <span class="label label-default">New Vendor</span>
-        </h1>
         <div class="form-group">
-          <label>Vendor Name</label>
-          <input type="text" id="vendorname" class="form-control">
+          <h3>Vendor Name</h3>
+          <input type="text" id="vendorname" placeholder:"Enter Vendor Name.....">
         </div>
         <div class="form-group">
-          <label>Vendor Email</label>
-          <input type="text" id="vendoremail" class="form-control">
+          <h3>Vendor Email</h3>
+          <input type="text" id="vendoremail" placeholder:"Enter Vendor Email....">
         </div>
         <div class="actions">
           <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
@@ -146,8 +459,10 @@
 
   <!-- this for properties -->
 
-  <div id="property">
-    <label>Property</label><br>
+  <div id="property" class="reg_section">
+
+      <h1>Material Properties </h1>
+    <h3>Property</h3>
     <table id="allproperties">
       <% @properties.each do |property| %>
         <% if @flag =="new" %>
@@ -190,7 +505,7 @@
     </table> 
     <!-- add new property using ajax-->
     <a id="propertylink" class="btn btn-link" style="text-align: left"
-    onclick="showpropertyform()">Add new Property</a>
+    onclick="showpropertyform()"><h3>Add new Property</h3></a>
     <div id="addnewproperty" style="display:none" class="form-group">
       <h1>
         <span class="label label-default">New Property</span>
@@ -207,14 +522,15 @@
       <!-- end of adding new property using ajax -->
   </div>
 
-  <div class="form-group">
-    <%= f.label :Material_Photo %><br>
-    <%= f.file_field :avatar %>
-  </div>
+  
+   
+  
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>
   </div>
+ 
   <% end %>
   <% end %>
 <% end %>
+</section> 
 
