@@ -80,10 +80,18 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
-    
+      no_password_update = 0
       houre_rate = @employee.salary/(26*8) 
       employee_params[:houre_rate] = houre_rate
       respond_to do |format|
+
+
+      old_password = @employee.password;
+      if  employee_params[:password] == ""
+        puts "ana fadyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        no_password_update = 1
+      end
+
         if @employee.update(employee_params)
            arr= params[:employee_phones][:phone].split(",")
            arr.each do |c|
@@ -92,7 +100,20 @@ class EmployeesController < ApplicationController
                  @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
                  @employeephone.save 
               end
-          end    
+          end 
+
+          if no_password_update == 1
+            puts "ana fadyyyyyyyyyyyyyy222222222222222222222"
+            Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
+          else
+            puts "=========================================="
+            new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
+            # new_password_confirmation=Digest::MD5.hexdigest(params[:password])
+            puts "newwwwwwwwwwwwwwww"
+            puts new_password
+            Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
+          end
+
           flash[:success] = 'Employee was successfully updated.'
           format.html { redirect_to @employee }
           format.json { render :show, status: :ok, location: @employee }
@@ -100,6 +121,17 @@ class EmployeesController < ApplicationController
           @cat=Category.find_by(:id => @employee.category_id)
           @category_id=@cat.id
           @flag_new=0
+          # if no_password_update == 1
+          #   puts "ana fadyyyyyyyyyyyyyy222222222222222222222"
+          #   Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
+          # else
+          #   puts "=========================================="
+          #   new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
+          #   # new_password_confirmation=Digest::MD5.hexdigest(params[:password])
+          #   puts "newwwwwwwwwwwwwwww"
+          #   puts new_password
+          #   Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
+          # end
           format.html { render :edit }
           format.json { render json: @employee.errors, status: :unprocessable_entity }
         end

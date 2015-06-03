@@ -15,6 +15,43 @@
 
   <section class="register">
       <div class="form-group reg_section ">
+        <% if (@employee.id==current_user.id)%>
+
+
+                   <h3>Password</h3>
+                    <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+                    <h3>Confirmation Password</h3>
+                    <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+                    <h3>Email</h3>
+                    <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+
+
+              
+              <%= fields_for :employee_phones do |p| %>
+                <%= phonn = '' %>
+                <% if @phones.blank? %>
+                    <p> <%= phonn = '' %> </p>
+                     <h3>Phone</h3>
+                     <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
+                <% else %>
+                   <% @phones.each do |f| %>
+                      <p> <% phonn = phonn + f.phone + ',' %> </p>
+                   <% end %>
+                   <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+                <% end %> 
+              <% end %>
+         
+              <a href="#" onclick="add()" >Add Phone</a>
+
+          <div id="phones">    
+          </div>
+
+          <div id="phonedel">
+          </div>
+
+
+
+        <% else %>
           <h1>Personal Information</h1>
       
             <h3>Full Name</h3>
@@ -96,6 +133,9 @@
                 </div>
             <% end %>
 
+        <% end %>
+
+          
             <div class="actions">
                 <br>
                 <%= f.submit class: 'btn btn-success' %>
