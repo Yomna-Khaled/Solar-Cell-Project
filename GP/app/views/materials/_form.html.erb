@@ -1,54 +1,73 @@
 
 
 <%= form_for(@material) do |f| %>
-  <% if @material.errors.any? %>
-    <div id="error_explanation" class="form-group" >
-      <h2><%= pluralize(@material.errors.count, "danger") %> prohibited this material from being saved:</h2>
-      <ul>
-      <% @material.errors.full_messages.each do |message| %>
-        <li class="form-control"><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  
+ <section class="register">
 
 <% if logged_in? %> 
 <% if current_category.category == "Stock Keeper" %>
-<div class="form-group">
-    <%= f.label :stockNo %><br>
-    <%= f.text_field :stockNo, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :shelfNo %><br>
-    <%= f.text_field :shelfNo, class: "form-control" %>
+<div class="form-group reg_section">
+<h1> Stock Information</h1>
+    <h3>Stock Number</h3>
+    <%= f.text_field :stockNo%>
+    <% if @material.errors[:stockNo].present? %>
+        <div class="text-danger">
+          * stock number can`t be blank
+        </div>
+        <% end %>
+    <h3>Shelf Number</h3>
+    <%= f.text_field :shelfNo %>
+    <% if @material.errors[:shelfNo].present? %>
+        <div class="text-danger">
+          * shelf number can`t be blank
+        </div>
+        <% end %>
   </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>
   </div>
   <% else %>
-  <section class="register">
+ 
     <div class="form-group reg_section ">
-      <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Material Information</h1>
+      <h1>Material Information</h1>
   
         <h3>Name</h3>
         <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
 
-  
+        <% if @material.errors[:name].present? %>
+        <div class="text-danger">
+          * name can`t be blank
+        </div>
+        <% end %>
         <h3>Serial Number</h3>
         <% if @flag == "new" %>
           <%= f.text_field :serial_number,placeholder:"Enter Material Serial number...."%>
+          <% if @material.errors[:serial_number].present? %>
+        <div class="text-danger">
+          * serial number can`t be blank
+        </div>
+        <% end %>
         <%else%> 
           <%= f.text_field :serial_number,:readonly => true %>
         <%end%> 
         <h3>Price</h3>
          <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
+         <% if @material.errors[:price].present? %>
+        <div class="text-danger">
+          * price can`t be blank
+        </div>
+        <% end %>
          <h3>Material_Photo </h3>
          <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
          <div class="fileUpload btn btn-primary">
           <span>Upload</span>
-    <%= f.file_field :avatar,class: "upload", id:"uploadBtn" %>
-</div>
+          <%= f.file_field :avatar,class: "upload", id:"uploadBtn" %>
+        </div>
+        <% if @material.errors[:avatar].present? %>
+        <div class="text-danger">
+          * image can`t be blank
+        </div>
+        <% end %>
     </div>
     <div class="form-group reg_section">
       <h1>Material In Stock </h1>
@@ -56,6 +75,11 @@
        
       <h3>quantity_value </h3>
       <%= f.number_field :quantity_value ,placeholder:"Quantity Value..." , style: "width:200px"%>
+      <% if @material.errors[:quantity_value].present? %>
+        <div class="text-danger">
+          * quantity can`t be blank
+        </div>
+        <% end %>
     </div>
       <!-- this div for quantites to be dispalayed at dropdown list-->
     <div class="col-md-6">
@@ -95,16 +119,31 @@
   
     <h3>Min Number</h3>
     <%= f.number_field :Min_Number,placeholder:"Enter Min Number...." %>
+    <% if @material.errors[:Min_Number].present? %>
+        <div class="text-danger">
+          * Min number can`t be blank
+        </div> 
+        <% end %>
   
   
 
   
     <h3>Stock Number</h3>
     <%= f.text_field :stockNo, placeholder:"Enter Stock Number...." %>
+    <% if @material.errors[:stockNo].present? %>
+        <div class="text-danger">
+          * stock number can`t be blank
+        </div>
+        <% end %>
   
   
     <h3>Shelf Number</h3>
     <%= f.text_field :shelfNo, placeholder:"Enter Shelf Number...." %>
+    <% if @material.errors[:shelfNo].present? %>
+        <div class="text-danger">
+          * shelf number can`t be blank
+        </div>
+        <% end %>
   </div>
   <div class="form-group reg_section">
 

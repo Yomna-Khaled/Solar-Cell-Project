@@ -88,9 +88,11 @@ function showunitform () {
 
 function unitajax () {
 
+
 	$("#addnewunit").css("display", "none");
 	$("#unitlink").css("display", "block");
 	var unitname = $("#unitname").val();
+	console.log(unitname);
 	if (unitname!="") {
     $.ajax({
         method: "POST",
