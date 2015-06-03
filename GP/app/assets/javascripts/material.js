@@ -3,7 +3,9 @@ function checkproperty (value) {
 	  if(value.checked){
 	    var td_for_value = document.getElementById("value_"+value.id);
 	    td_for_value.style.display = "block";
+	    $('#'+value.id+"_value").attr("required", "true");
 	  }else{
+	  	$("#"+value.id+"_value").removeAttr("required");
 	    var td_for_value = document.getElementById("value_"+value.id);
 	    td_for_value.style.display = "none";
 	    //to get value of the property from text field
@@ -27,7 +29,6 @@ function propertyvalue (value) {
 	var arr = propertyname.split(":");
 	var len = arr.length;
 	propertyname = arr[0];
-	console.log(arr[len-1])
 	checkproperty.value = propertyname+":"+arr[len-1];
 }
 
@@ -140,7 +141,7 @@ function propertyajax () {
 			append('<tr><td><input type="checkbox" id="'+propertyid+
 			'" name="propertycheck[]" onchange="checkproperty(this)" value='+propertyid+'/>'
 			+propertyname+'</td><td id="value_'+propertyid+
-			'" style="display:none" onkeyup="propertyvalue(this)"><label style="margin-left:200px;">value</label><input type="text" id="'+propertyid+'_value" ></td></tr>');
+			'" style="display:none" onkeyup="propertyvalue(this)"><h3 style="margin-left:100px;">value</h3><input type="text" style="width:100px;margin-left:100px;" id="'+propertyid+'_value" ></td></tr>');
 			$("#propertyname").val("");
 		}
 	});

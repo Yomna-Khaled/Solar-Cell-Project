@@ -17,4 +17,5 @@ class Material < ActiveRecord::Base
 	validates :quantity_id, presence: true
 	validates :avatar, presence: true
 	validates_uniqueness_of :serial_number, on: :create
+	validates_uniqueness_of :name, on: :create
 end

@@ -62,7 +62,9 @@
 
   </tbody>
 </table>
-
+<% if !@solar_panels.blank? %>
+  <%= will_paginate @solar_panels %>
+<%end%>
 <br>
 
 
