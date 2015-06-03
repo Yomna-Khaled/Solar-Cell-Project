@@ -4,70 +4,50 @@
     height: 100px;
 }
 </style>
-<div class="row">
-  <p id="notice"><%= notice %></p>
-  <div class="col-md-12">
-    <h1>
-      <span class="label label-default">Listing Materials</span>
-    </h1>
-    <div class="well">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr class="success">
-            <th class="text-center">Name</th>
-            <th class="text-center">Serial Number</th>
-            <th class="text-center">Quantity</th>
-            <% if current_category.category!="Stock Keeper"%>
-            <th class="text-center">Price</th>
-            <%end%>
-            <th class="text-center">Min number</th>
-            <th class="text-center">Stockno</th>
-            <th class="text-center">Shelfno</th>
-            <th class="text-center">Production date</th>
-            <th class="text-center">Expiration date</th>
-            <th class="text-center">Quantity</th>
-            <th class="text-center">Vendor</th>
-            <th class="text-center">Material_Photo</th>
-            <th class="text-center">Show</th>
-            <th class="text-center">Edit</th>
 
 
-          </tr>
-        </thead>
- <!-- @material_vendor.find(material.id).vendor_id -->
-        <tbody>
-          <% @materials.each do |material| %>
-          <% if material.quantity_value <= material.Min_Number %>
-            <tr class="danger">
-          <% else %>
-            <tr>
-          <%end %>
-              <td class="text-center"><%= material.name %></td>
-              <td class="text-center"><%= material.serial_number %></td>
-              <td class="text-center"><%= material.quantity_value %></td>
-               <% if current_category.category!="Stock Keeper"%>
-              <td class="text-center"><%= material.price %></td>
-              <% end %>
-              <td class="text-center"><%= material.Min_Number %></td>
-              <td class="text-center"><%= material.stockNo %></td>
-              <td class="text-center"><%= material.shelfNo %></td>
-              <td class="text-center"><%= material.production_date %></td>
-              <td class="text-center"><%= material.expiration_date %></td>
-              <td class="text-center"><%= material.quantity.unit_name %></td>
-              <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
-              <td text-align="center"><%= image_tag material.avatar.url, class: "thumbnail"  %></td>
-              <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
-              <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
-      <!--         <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+<p id="notice"><%= notice %></p>
+  <h1 align="center">
+    <span class="page-header">Listing Materials</span>
+  </h1>
+<div class="container" style="width: calc(70%);">
+  <div class="well">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr class="success">
+              <th class="text-center">Material_Photo</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Serial Number</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Vendor</th> 
+              <% if current_category.category!="Stock Keeper"%>
+              <th class="text-center">Price</th>
+              <%end%>              
+              <th class="text-center">Show</th>
+              <th class="text-center">Edit</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-<%= will_paginate @materials %>
-      </div>
-      </div>
-      </div>
-      </div>
-
+          </thead>
+      <!-- @material_vendor.find(material.id).vendor_id -->
+          <tbody>
+            <% @materials.each do |material| %>
+              <tr <% if material.quantity_value <= material.Min_Number %> class="danger" <%end%> >
+                <td class="text-center"><%= image_tag material.avatar.url,:style=>"margin-left: auto; margin-right: auto", class: "thumbnail" %></td>
+                <td class="text-center"><%= material.name %></td>
+                <td class="text-center"><%= material.serial_number %></td>
+                <td class="text-center"><%= material.quantity_value %>_<%= material.quantity.unit_name %></td>
+                <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
+                <% if current_category.category!="Stock Keeper"%>
+                <td class="text-center"><%= material.price %></td>
+                <% end %>
+                <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    <%= will_paginate @materials %>
+    </div>
+  </div>
+</div>
 <%= will_paginate @materials %>

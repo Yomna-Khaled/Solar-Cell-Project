@@ -1,54 +1,73 @@
 
 
-
- 
-
 <%= form_for(@material) do |f| %>
-  <% if @material.errors.any? %>
-    <div id="error_explanation" class="form-group" >
-      <h2><%= pluralize(@material.errors.count, "danger") %> prohibited this material from being saved:</h2>
-      <ul>
-      <% @material.errors.full_messages.each do |message| %>
-        <li class="form-control"><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  
+ <section class="register">
 
 <% if logged_in? %> 
 <% if current_category.category == "Stock Keeper" %>
-<div class="form-group">
-    <%= f.label :stockNo %><br>
-    <%= f.text_field :stockNo, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :shelfNo %><br>
-    <%= f.text_field :shelfNo, class: "form-control" %>
+<div class="form-group reg_section">
+<h1> Stock Information</h1>
+    <h3>Stock Number</h3>
+    <%= f.text_field :stockNo%>
+    <% if @material.errors[:stockNo].present? %>
+        <div class="text-danger">
+          * stock number can`t be blank
+        </div>
+        <% end %>
+    <h3>Shelf Number</h3>
+    <%= f.text_field :shelfNo %>
+    <% if @material.errors[:shelfNo].present? %>
+        <div class="text-danger">
+          * shelf number can`t be blank
+        </div>
+        <% end %>
   </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>
   </div>
   <% else %>
-  <section class="register">
+ 
     <div class="form-group reg_section ">
       <h1>Material Information</h1>
   
         <h3>Name</h3>
         <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
 
-  
+        <% if @material.errors[:name].present? %>
+        <div class="text-danger">
+          * name can`t be blank
+        </div>
+        <% end %>
         <h3>Serial Number</h3>
         <% if @flag == "new" %>
           <%= f.text_field :serial_number,placeholder:"Enter Material Serial number...."%>
+          <% if @material.errors[:serial_number].present? %>
+        <div class="text-danger">
+          * serial number can`t be blank
+        </div>
+        <% end %>
         <%else%> 
           <%= f.text_field :serial_number,:readonly => true %>
         <%end%> 
         <h3>Price</h3>
          <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
+         <% if @material.errors[:price].present? %>
+        <div class="text-danger">
+          * price can`t be blank
+        </div>
+        <% end %>
          <h3>Material_Photo </h3>
-    <%= f.file_field :avatar %>
-
+         <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+         <div class="fileUpload btn btn-primary">
+          <span>Upload</span>
+          <%= f.file_field :avatar,class: "upload", id:"uploadBtn" %>
+        </div>
+        <% if @material.errors[:avatar].present? %>
+        <div class="text-danger">
+          * image can`t be blank
+        </div>
+        <% end %>
     </div>
     <div class="form-group reg_section">
       <h1>Material In Stock </h1>
@@ -56,6 +75,11 @@
        
       <h3>quantity_value </h3>
       <%= f.number_field :quantity_value ,placeholder:"Quantity Value..." , style: "width:200px"%>
+      <% if @material.errors[:quantity_value].present? %>
+        <div class="text-danger">
+          * quantity can`t be blank
+        </div>
+        <% end %>
     </div>
       <!-- this div for quantites to be dispalayed at dropdown list-->
     <div class="col-md-6">
@@ -70,14 +94,14 @@
             <%end%>
         <!-- add new quantity using ajax-->
         <a id="unitlink" class="btn btn-link" style="text-align: left" 
-        onclick="showunitform()">Add Quantity_Unit</a>
+        onclick="showunitform()"><h3>Add Quantity_Unit</h3></a>
         <div id="addnewunit" style="display:none" class="form-group">
              <h1>
               <span class="label label-default">New Quantity_unit</span>
             </h1>
             <div class="form-group">
-              <label>Unit Name</label>
-              <input type="text" id="unitname" class="form-control">
+              <h3>Unit Name</h3>
+              <input type="text" id="unitname" style="width:100px">
             </div>
             <div class="actions">
               <a onclick="unitajax()" class="btn btn-success">Add Quantity</a>
@@ -95,13 +119,28 @@
   
     <h3>Min Number</h3>
     <%= f.number_field :Min_Number,placeholder:"Enter Min Number...." %>
+    <% if @material.errors[:Min_Number].present? %>
+        <div class="text-danger">
+          * Min number can`t be blank
+        </div> 
+        <% end %>
   
     <h3>Stock Number</h3>
     <%= f.text_field :stockNo, placeholder:"Enter Stock Number...." %>
+    <% if @material.errors[:stockNo].present? %>
+        <div class="text-danger">
+          * stock number can`t be blank
+        </div>
+        <% end %>
   
   
     <h3>Shelf Number</h3>
     <%= f.text_field :shelfNo, placeholder:"Enter Shelf Number...." %>
+    <% if @material.errors[:shelfNo].present? %>
+        <div class="text-danger">
+          * shelf number can`t be blank
+        </div>
+        <% end %>
   </div>
   <div class="form-group reg_section">
 
@@ -110,7 +149,7 @@
     <%= f.date_select :production_date %>
 
    <h3>expiration_date</h3>
-   <div class="registerselect">
+   <div class="form-group reg_section">
     <%= f.date_select :expiration_date %>
   </div>
   </div>
@@ -135,18 +174,13 @@
       <% end -%>
     </select>
 
-  <div class="form-group">
-    <%= f.label :Vendor %><br>
-    <% if @flag == "new" %>
-    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
-    <%else%>
-     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
-     <%end%>
-
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
     onclick="showvendorform()"><h3>Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
+        <h1>
+        <span class="label label-default">New Vendor</span>
+      </h1>
         <div class="form-group">
           <h3>Vendor Name</h3>
           <input type="text" id="vendorname" placeholder:"Enter Vendor Name.....">
@@ -185,8 +219,8 @@
             </td>
             <td id="value_<%= property.id %>" style="display:none;" 
             onkeyup="propertyvalue(this)">
-              <label style="margin-left:200px;">value</label>
-              <input type="text" id="<%= property.id %>_value">
+              <h3 style="margin-left:100px;">value</h3>
+              <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
             </td>
           </tr>   
         <% else %>
@@ -198,8 +232,8 @@
                 onchange="checkproperty(this)" value="<%=property.id%>:<%=property_value%>" checked="true" /><%=property.name%>      
               </td>
               <td id="value_<%= property.id %>" style="display:block;" onkeyup="propertyvalue(this)">
-                <label style="margin-left:200px;">value</label>
-                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>">
+                <h3 style="margin-left:100px;">value</h3>
+                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>" style="width:100px;margin-left:100px;">
               </td>
             <% else %>
               <td>
@@ -207,8 +241,8 @@
                 onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
               </td>
               <td id="value_<%= property.id %>" style="display:none;" onkeyup="propertyvalue(this)">
-                <label style="margin-left:200px;">value</label>
-                <input type="text" id="<%= property.id %>_value">
+                <h3 style="margin-left:100px;">value</h3>
+                <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
               </td>
             <% end %>
           </tr>
@@ -223,8 +257,8 @@
         <span class="label label-default">New Property</span>
       </h1>
       <div class="form-group">
-        <label>property Name</label>
-        <input type="text" id="propertyname" class="form-control">
+        <h3>property Name</h3>
+        <input type="text" id="propertyname" placeholder="Enter Property....">
       </div>
       <div class="actions">
         <a onclick="propertyajax()" class="btn btn-success">Add Property</a>
@@ -245,4 +279,8 @@
   <% end %>
 <% end %>
 </section> 
-
+<script>
+document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+</script>
