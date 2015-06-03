@@ -203,19 +203,23 @@ var add = function() {
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
-        if (isNaN(value) || value < 1){
-          
-            alert('Please enter a valid phone number ');
-        }else{
-          
-          if (allValues != ''){
+        
+         // if (isNaN(value) || value < 1){
+         	
+         	re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
+            if (re.test(value)) {
+               if (allValues != ''){
             allValues =  allValues + ',' + value
             
         }else{
           allValues =  allValues + value    
         }
         $("#phone").val(allValues);
-        $("#1").val('');    
+        $("#1").val('');
+            
+        }else{
+          alert('Please enter a valid phone number ');
+             
         }
 
        });

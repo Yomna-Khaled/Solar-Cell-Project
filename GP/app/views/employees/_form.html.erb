@@ -253,7 +253,7 @@ var del = function(employeeid) {
                    allValues = allValues.replace(dataString + ',', ""); 
         $.ajax({
       method: "POST",
-      url: '/delPhone',
+      url: '/delPhon',
         dataType: "JSON",
         data: { "phone": dataString},
         complete: function(data)
