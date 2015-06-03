@@ -12,7 +12,6 @@ body {
   text-align: center;
 }
 
-
 .vert-text h1 {
   padding: 0;
   margin: 0;
@@ -112,7 +111,8 @@ body {
   height: 100%;
   width: 100%;
   position: relative;
-  background: url(../img/bg.jpg) no-repeat center center fixed; 
+  background: url(./solar_cell_rainbow_1.jpg) no-repeat center center fixed; 
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -122,7 +122,9 @@ body {
 /* Intro */
 
 .intro {
+
   padding: 100px 0;
+
 }
 
 /* Services */
@@ -156,7 +158,8 @@ i.service-icon {
   display: table;
   height: 400px;
   width: 100%;
-  background: url(../img/callout.jpg) no-repeat center center fixed; 
+  background: url(./callout.jpg) no-repeat center center fixed; 
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -218,20 +221,111 @@ i.scroll {
 i.scroll:hover {
   color: #0a5175;
 }
+
+
+.login{
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  height: 150px;
+  width: 900px;
+  padding: 10px;
+  z-index: 2;
+  opacity: 0.7;
+  margin-top: 150px;
+}
+
+.login input[type=text]{
+  width: calc(100% - 50px);
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 2px;
+  color: #000;
+  font-family: 'Exo', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+}
+
+.login input[type=password]{
+  width: calc(100% - 50px);
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 2px;
+  color: #000;
+  font-family: 'Exo', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.login input[type=button]{
+  width: 260px;
+  height: 35px;
+  background: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #a18d6c;
+  font-family: 'Exo', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 6px;
+  margin-top: 10px;
+}
+
+.login input[type=button]:hover{
+  opacity: 0.8;
+}
+
+.login input[type=button]:active{
+  opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=password]:focus{
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=button]:focus{
+  outline: none;
+}
+
+::-webkit-input-placeholder{
+   color: rgba(255,255,255,0.9);
+}
+
+::-moz-input-placeholder{
+   color: rgba(255,255,255,0.9);
+}
+
+
+
+
 /* Responsive */
 
 @media (max-width: 768px) {
-	
+  
   .header {
-	background: url(../img/bg.jpg) no-repeat center center scroll; 
+
+  background: url(./solar_cell_rainbow_1.jpg) no-repeat center center scroll; 
   }
 
   .callout {
-	background: url(../img/callout.jpg) no-repeat center center scroll; 
+  background: url(./callout.jpg) no-repeat center center scroll;  
   }
 
+
   .map {
-	height: 75%;
+  height: 75%;
   }
 
 }
