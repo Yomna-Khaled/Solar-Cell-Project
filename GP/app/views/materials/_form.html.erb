@@ -32,7 +32,7 @@
   <% else %>
   <section class="register">
     <div class="form-group reg_section ">
-      <h1>Material Information</h1>
+      <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Material Information</h1>
   
         <h3>Name</h3>
         <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
@@ -47,8 +47,11 @@
         <h3>Price</h3>
          <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
          <h3>Material_Photo </h3>
-    <%= f.file_field :avatar %>
-
+         <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+         <div class="fileUpload btn btn-primary">
+          <span>Upload</span>
+    <%= f.file_field :avatar,class: "upload", id:"uploadBtn" %>
+</div>
     </div>
     <div class="form-group reg_section">
       <h1>Material In Stock </h1>
@@ -70,14 +73,14 @@
             <%end%>
         <!-- add new quantity using ajax-->
         <a id="unitlink" class="btn btn-link" style="text-align: left" 
-        onclick="showunitform()">Add Quantity_Unit</a>
+        onclick="showunitform()"><h3>Add Quantity_Unit</h3></a>
         <div id="addnewunit" style="display:none" class="form-group">
              <h1>
               <span class="label label-default">New Quantity_unit</span>
             </h1>
             <div class="form-group">
-              <label>Unit Name</label>
-              <input type="text" id="unitname" class="form-control">
+              <h3>Unit Name</h3>
+              <input type="text" id="unitname" style="width:100px">
             </div>
             <div class="actions">
               <a onclick="unitajax()" class="btn btn-success">Add Quantity</a>
@@ -113,7 +116,7 @@
     <%= f.date_select :production_date %>
 
    <h3>expiration_date</h3>
-   <div class="registerselect">
+   <div class="form-group reg_section">
     <%= f.date_select :expiration_date %>
   </div>
   </div>
@@ -138,18 +141,13 @@
       <% end -%>
     </select>
 
-  <div class="form-group">
-    <%= f.label :Vendor %><br>
-    <% if @flag == "new" %>
-    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
-    <%else%>
-     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
-     <%end%>
-
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
     onclick="showvendorform()"><h3>Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
+        <h1>
+        <span class="label label-default">New Vendor</span>
+      </h1>
         <div class="form-group">
           <h3>Vendor Name</h3>
           <input type="text" id="vendorname" placeholder:"Enter Vendor Name.....">
@@ -188,8 +186,8 @@
             </td>
             <td id="value_<%= property.id %>" style="display:none;" 
             onkeyup="propertyvalue(this)">
-              <label style="margin-left:200px;">value</label>
-              <input type="text" id="<%= property.id %>_value">
+              <h3 style="margin-left:100px;">value</h3>
+              <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
             </td>
           </tr>   
         <% else %>
@@ -201,8 +199,8 @@
                 onchange="checkproperty(this)" value="<%=property.id%>:<%=property_value%>" checked="true" /><%=property.name%>      
               </td>
               <td id="value_<%= property.id %>" style="display:block;" onkeyup="propertyvalue(this)">
-                <label style="margin-left:200px;">value</label>
-                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>">
+                <h3 style="margin-left:100px;">value</h3>
+                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>" style="width:100px;margin-left:100px;">
               </td>
             <% else %>
               <td>
@@ -210,8 +208,8 @@
                 onchange="checkproperty(this)" value="<%=property.id%>"/><%=property.name%>      
               </td>
               <td id="value_<%= property.id %>" style="display:none;" onkeyup="propertyvalue(this)">
-                <label style="margin-left:200px;">value</label>
-                <input type="text" id="<%= property.id %>_value">
+                <h3 style="margin-left:100px;">value</h3>
+                <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
               </td>
             <% end %>
           </tr>
@@ -226,8 +224,8 @@
         <span class="label label-default">New Property</span>
       </h1>
       <div class="form-group">
-        <label>property Name</label>
-        <input type="text" id="propertyname" class="form-control">
+        <h3>property Name</h3>
+        <input type="text" id="propertyname" placeholder="Enter Property....">
       </div>
       <div class="actions">
         <a onclick="propertyajax()" class="btn btn-success">Add Property</a>
@@ -248,4 +246,8 @@
   <% end %>
 <% end %>
 </section> 
-
+<script>
+document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+</script>
