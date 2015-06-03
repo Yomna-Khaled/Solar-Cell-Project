@@ -17,12 +17,9 @@
 		
 
 <div class="container">
-	<h1 class="page-header"> Edit Container </h1>
+	<h1 class="page-header"> New Container </h1>
 			<%= render 'form' %>
 </div>
 
 </body>
-
-
-
 
