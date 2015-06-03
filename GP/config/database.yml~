@@ -17,8 +17,8 @@ default: &default
 <<<<<<< HEAD
   password: butterfly
 =======
-  password: nona
->>>>>>> 4e96496e36478f796231fefae9b30dc5e7515e36
+  password: 12345
+>>>>>>> 0747e63c600be2219582fe471c15e89e1c23f39a
 
   socket: /var/run/mysqld/mysqld.sock
 

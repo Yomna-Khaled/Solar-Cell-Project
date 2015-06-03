@@ -1,5 +1,6 @@
 class QuantitiesController < ApplicationController
   before_action :set_quantity, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /quantities
   # GET /quantities.json
@@ -24,6 +25,7 @@ class QuantitiesController < ApplicationController
   # POST /quantities
   # POST /quantities.json
   def create
+    puts "=================="
     @unitname=params[:unitname]
     @quantity = Quantity.new(unit_name: @unitname)
     @quantity.save
