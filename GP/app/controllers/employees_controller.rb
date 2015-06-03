@@ -80,6 +80,7 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1
   def update
+    
       houre_rate = @employee.salary/(26*8) 
       employee_params[:houre_rate] = houre_rate
       respond_to do |format|
