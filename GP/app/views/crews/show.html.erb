@@ -1,20 +1,26 @@
+<div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1>Crew Infromation</h1>
+  </div>
+  <div class="raw">
+	<div class="page-header">
+		<h1>Basic Infromation</h1>
+	</div>
 
-  <h1 class="page-header text-primary">Crew Name:</h1>
+	<ul class="list-group">
+		<li class="list-group-item">Crew Name: <%= @crew.name %></li>
+		<li class="list-group-item">Number of workers: <%= @crew.no_of_workers %></li>
+	</ul>
 
-  <strong><%= @crew.name %></strong>
-<h1 class="page-header text-primary">No of workers:</h1>
+	<div class="page-header">
+		<h1>Members Name</h1>
+	</div>
 
-  <strong><%= @crew.no_of_workers %></strong>
-
-
-<h1 class="page-header text-primary">Member Names</h1>
-
-  <% @employees.each do |employee| %>
-
-      <p><strong><%= employee.full_name %></strong></p>
-
-  <% end %>
-
-
-
+	<ul class="list-group">
+		<% @employees.each do |employee| %>
+			<li class="list-group-item"><%= employee.full_name %></li>
+  		<% end %>
+	</ul>
+ </div>	
+</div>	
 
