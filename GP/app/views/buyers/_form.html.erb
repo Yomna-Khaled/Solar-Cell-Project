@@ -1,37 +1,48 @@
 <div class="container ">
 <%= form_for(@buyer) do |f| %>
-  <% if @buyer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@buyer.errors.count, "error") %> prohibited this buyer from being saved:</h2>
+  
 
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Buyer Information</h1>
+  
+  
+    <h3>Name</h3>
+    <%= f.text_field :name %>
+    <% if @buyer.errors[:name].any? %>
+    <div id="error_explanation">  
       <ul>
-      <% @buyer.errors.full_messages.each do |message| %>
+      <% @buyer.errors[:name].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+    <h3>Address</h3>
+    <%= f.text_field :addess %>
+    <% if @buyer.errors[:addess].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:addess].each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-
-
-
-
-<section class="register">
-    <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Buyer Information</h1>
-  
-
-
-
-  
-    <h3>Name</h3>
-    <%= f.text_field :name %>
-  
-    <h3>Address</h3>
-    <%= f.text_field :addess %>
-
     <h3>City</h3>
     <%= f.text_field :city %>
+
+    <% if @buyer.errors[:city].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:city].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   
 
 
