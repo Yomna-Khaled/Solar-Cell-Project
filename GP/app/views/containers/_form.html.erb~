@@ -1,113 +1,106 @@
-<style>
-#error_explanation {
-  color: red;
-  background-color: white;
-  border: white;
-}
-
-.field_with_errors {
-    background-color: white;
-}
-
-</style>
-
-
-<div class="container text-center">
-  <%= form_for(@container) do |f| %>
-    <% if @container.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
-
-        <ul>
-          <% @container.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-
-
-
-
-    <div class="field form-group">
-      <%= f.label :width %><br>
-      <%= f.number_field :width ,step:0.01 ,class: 'form-control' %>
-    </div>
-    <div class="field form-group">
-      <%= f.label :height %><br>
-      <%= f.number_field :height ,step:0.01 ,class: 'form-control'%>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :serial_number %><br>
-      <% if @flag == "edit" %>
-        <%= f.text_field :serialNo, class: "form-control",:readonly => true %>
-      <%else%> 
-        <%= f.text_field :serialNo, class: "form-control" %>
-      <%end%>  
-    </div>
-
-
-    <div class="field form-group">
-      <%= f.label :capacity %><br>
-      <%= f.number_field :capacity ,class: 'form-control' %>
-    </div>
-    <div class="field form-group">
-      <%= f.label :price %><br>
-      <%= f.number_field :price ,step:0.0000001 ,class: 'form-control' %>
-    </div>
-    <div class="field form-group">
-      <%= f.label :total_power %><br>
-      <%= f.number_field :total_power ,step:0.0000000000000000001 ,class: 'form-control' %>
-    </div>
+<%= form_for(@container) do |f| %>
   
- 
-    <div class="form-group">
-      <%= f.label :Vendor %><br>
-      <select id="vendor" name="vendor" class="form-control">
-        <% @vendors.each do |vendor| %>
-          <% if @flag == "new" %>
-            <option value="<%= vendor.id %>"><%= vendor.name %></option>
-          <%else %>
-            <% if @vendor_id == vendor.id &&%>
-              <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-            <%else%>
-              <option value="<%= vendor.id %>"><%= vendor.name %></option>
-            <%end%>   
-          <%end %>
-       <% end %>
-       </select>
+    <section class="register">
+	<div class="form-group reg_section">
+	      <h1>Palet dimensions</h1>
+		  <h3>width</h3>
+		      <%= f.number_field :width ,step:0.01  %>
+                      <% if @container.errors[:width].present? %>
+			     <div class="text-danger">
+				  <% @container.errors[:width].each do |msg| %>
+				    <p><%= "* width "+msg %><p>
+				  <%end%> 
+			     </div>
+       		     <% end %>							 
+                  <h3>height</h3>
+		       <%= f.number_field :height ,step:0.01 %>
+                       <% if @container.errors[:height].present? %>
+			     <div class="text-danger">
+				<% @container.errors[:height].each do |msg| %>
+                                  <p><%= "* height "+msg %><p>
+				<%end%> 
+                             </div>
+       		       <% end %>		
+								
+	</div> 
+        <!-- info part --> 
+	<div  class="form-group reg_section">
+            <h1>Palet Basic Informations</h1>
+		<h3>serial_number</h3>
+		    <% if @flag == "edit" %>
+			<%= f.text_field :serialNo, :readonly => true %>
+		    <%else%> 
+			<%= f.text_field :serialNo %>
+                        <% if @container.errors[:serialNo].present? %>
+			  <div class="text-danger">
+			      <% @container.errors[:serialNo].each do |msg| %>
+                                 <p><%= "* serialNo "+msg %><p>
+			      <%end%> 
+                          </div>
+                        <% end %>	
+		    <%end%>  
+		<h3> capacity </h3>
+		     <%= f.number_field :capacity  %>
+                        <% if @container.errors[:capacity].present? %>
+			      <div class="text-danger">
+				 <% @container.errors[:capacity].each do |msg| %>
+                                  <p><%= "* capacity "+msg %><p>
+			         <%end%> 
+                              </div>
+       			<% end %>	
+               <h3> price </h3>
+		      <%= f.number_field :price ,step:0.0000001  %>
+			  <% if @container.errors[:price].present? %>
+				<div class="text-danger">
+				   <% @container.errors[:price].each do |msg| %>
+                                      <p><%= "* price "+msg %><p>
+				   <%end%> 
+                                </div>
+                          <% end %>	
+          </div>
+          <!-- end -->
+       	<!-- vendors part -->    
+	<div class="form-group reg_section">
+	      <h1>Palet vendors</h1>
+		        <!-- for get all vendors to select one of them -->
+			<h3>Vendor</h3>
+			<% if @flag == "new" %>
+			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") ,  :required => true %>
+			<%else%>
+			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) ,:required => true %>
+			<%end%>
+                        <% if @container.errors[:vendor].present? %>
+		           <div class="text-danger">
+				<% @container.errors[:vendor].each do |msg| %>
+		                          <p><%= "* price "+msg %><p>
+				<%end%> 
+                           </div>
+       			<% end %>	
+			<!-- add new vendor using ajax-->
+			<a id="vendorlink" class="btn btn-link" style="text-align: left"
+			onclick="showvendorform()"><h3>Add new Vendor</h3></a>
+			<div id="addnewvendor" style="display:none" >
+			 <h1> New Vendor</h1>
+			     <h3>Vendor Name</h3>
+			       <input type="text" id="vendorname" >
+			     <h3>Vendor Email</h3>
+			       <input type="text" id="vendoremail" >
+                        </div> 
+			<div class="actions">
+			     <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
+			     <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+			</div>
+	
+										<!-- end of adding new vendor using ajax -->
+									
+									<!-- end of div for vendors -->
+                   <div class="actions">
+			<%= f.submit class: 'btn btn-success' %>
+                   </div>
+	 </div>
 
-
-
-    <!-- add new vendor using ajax-->
-      <a id="vendorlink" class="btn btn-link" style="text-align: left"
-        onclick="showvendorform()">Add new Vendor</a>
-      <div id="addnewvendor" style="display:none" class="form-group">
-        <h1>
-          <span class="label label-default">New Vendor</span>
-        </h1>
-        <div class="form-group">
-          <label>Vendor Name</label>
-          <input type="text" id="vendorname" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Vendor Email</label>
-          <input type="text" id="vendoremail" class="form-control">
-        </div>
-        <div class="actions">
-          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
-          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
-        </div>
-      </div>
-    <!-- end of adding new vendor using ajax -->
-
-      </div>
-    <%= f.submit  %>
-
+									
     </div>
-  <% end %>
-</div>
-
-
+	<!-- endof vendors -->
+</section>
+<% end %>
