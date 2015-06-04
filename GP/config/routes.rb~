@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
   get '/shifts/showendshift', to: 'shifts#showendshift'
- 
+  get '/shifts/currentshift', to: 'shifts#currentshift' 
 
 
   resources :categories
@@ -68,10 +68,7 @@ Rails.application.routes.draw do
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
-<<<<<<< HEAD
-=======
- 
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
   # The priority is based upon order of creation: first created -> highest priority.

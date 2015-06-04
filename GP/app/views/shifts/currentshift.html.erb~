@@ -1,3 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<h1>current shift</h1>
+<p><strong>shiftmanager:</strong><%= @shift.employee.full_name %></p>
+<p><strong>crew name:</strong><%= @shift.crew.name %></p>
+<p><strong>start_shift_date:</strong><%= @shift.start_shift_date %></p>
+<p><strong>start_shift_time:</strong><%= @shift.start_shift_time %></p>
+<p><strong>No.of produced panel:</strong><%= @shift.production_rate %></p>
+<p><strong>crew members:</strong></p>
+<% if @crew_name.blank? %>
+  <p>There are no members...Please add them</p>
+<% else %>
+   <% @crew_name.each do |f| %>
+    <p><%= f.full_name %></p>
+  <% end %>
+<% end %>        
+
+         <table class="table table-striped">
+		<thead>
+			<tr>
+			<th text-align="center">production_date</th>
+			<th text-align="center">height</th>
+			<th text-align="center">width</th>
+			<th text-align="center">power</th>
+			<th text-align="center">celltype</th>
+			<th text-align="center">subtype</th>
+                        <th text-align="center">price</th>
+                        <th text-align="center">serialNo</th>
+                        <th text-align="center">cells no.</th>  
+         		<th text-align="center">price</th>  
+         		<th text-align="center">power</th>  
+         		<th text-align="center">Edit</th>  
+         		
+
+                         </tr>
+
+		</thead>
+            <tbody>
+	    <tr>
+           	<% @shift.solar_panels.each do |solar_panel| %>  
+		    <td><%= solar_panel.production_date %></td>
+                    <td><%= solar_panel.height %></td>
+                    <td><%= solar_panel.width %></td>
+                    <td><%= solar_panel.power %></td>
+                    <td><%= solar_panel.celltype %></td>
+                    <td><%= solar_panel.subtype%></td>
+                    <td><%= solar_panel.price %></td>
+                    <td><%= solar_panel.serialNo%></td>                
+                    <td><%= solar_panel.cellno %></td> 
+		    <td><%= solar_panel.price %></td>
+		    <td><%= solar_panel.power %></td>
+                    <td><%= button_to 'Edit', edit_solar_panel_path(solar_panel),method: :get %></td>
+		  </p>
+
+      </tr> 
+                <% end %>
+		
+             </tr>   
+          </tbody>    
+
+</table>
+
+<div class="container">
+<h1 class="page-header"> New SolarPanel </h1>
 <%= form_for(@solar_panel) do |f| %>
  <section class="register">
 
@@ -99,3 +163,7 @@
       </div>
  </section>
 <% end %>
+</div>
+
+</body>
+
