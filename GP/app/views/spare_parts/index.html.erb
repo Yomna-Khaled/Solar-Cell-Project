@@ -1,50 +1,39 @@
-
-<p id="notice"><%= notice %></p>
-<h1 align="center">
-  <span class="page-header">Listing Spare Parts</span>
-</h1>
-
 <div class="container" style="width: calc(70%);">
-  <div class="well">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr class="success">
-            <th class="text-center">Image</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Quantity</th>
-            <th class="text-center">Machine</th>
-            <th class="text-center">Vendor</th>
-            <% if current_category.category!="Stock Keeper" %>
-            <th class="text-center">Price</th>
-            <% end %>
-            <th class="text-center">Show</th>
-            <th class="text-center">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @spare_parts.each do |spare_part| %>
-            <tr>
-              <td class="text-center"><%= image_tag spare_part.avatar.url(:thumb),:style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
-              <td class="text-center" ><%= spare_part.name %></td>
-              <td class="text-center" ><%= spare_part.quantity %></td>
-              <% machine = Machine.find_by(id: spare_part.machine_id) %>
-              <td class="text-center" ><%= machine.name %></td>
-              <% @spare_part_vendor = VendorSpare.where("spare_part_id=?",spare_part.id).order(updated_at: :desc)[0] %>
-              <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
-              <td class="text-center" ><%= vendor.name %></td>
-              <% if current_category.category!="Stock Keeper" %>
-              <td class="text-center" ><%= spare_part.price %></td>
-              <% end %>
-              <td class="text-center" ><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
-              <td class="text-center" ><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
-            
-
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <h1 class="page-header" style="font-size:35px;">All Spare Parts</h1>
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th class="text-center">Image</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Machine</th>
+        <th class="text-center">Vendor</th>
+        <% if current_category.category!="Stock Keeper" %>
+        <th class="text-center">Price</th>
+        <% end %>
+        <th class="text-center">Show</th>
+        <th class="text-center">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @spare_parts.each do |spare_part| %>
+    <tr>
+      <td class="text-center"><%= image_tag spare_part.avatar.url(:thumb),:style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
+      <td class="text-center" ><%= spare_part.name %></td>
+      <td class="text-center" ><%= spare_part.quantity %></td>
+      <% machine = Machine.find_by(id: spare_part.machine_id) %>
+      <td class="text-center" ><%= machine.name %></td>
+      <% @spare_part_vendor = VendorSpare.where("spare_part_id=?",spare_part.id).order(updated_at: :desc)[0] %>
+      <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
+      <td class="text-center" ><%= vendor.name %></td>
+      <% if current_category.category!="Stock Keeper" %>
+      <td class="text-center" ><%= spare_part.price %></td>
+      <% end %>
+      <td class="text-center" ><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
+      <td class="text-center" ><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
+    </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>    
 <%= will_paginate @spare_parts %>

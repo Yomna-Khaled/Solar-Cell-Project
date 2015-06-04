@@ -18,7 +18,7 @@
         <% @employees.each do |employee| %>
           <tr>
             <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
-            <td><%= employee.full_name %></td>
+            <td class="text-capitalize"><%= employee.full_name %></td>
             <td><%= employee.salary %></td>
             <td><%= employee.education_level %></td>
             <td><%= employee.education %></td>
