@@ -1,4 +1,23 @@
-
+<style>
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
+}
+</style>
 
 
 <%= form_for(@spare_part) do |f| %>
@@ -9,28 +28,36 @@
     <%= f.text_field :name, placeholder:"Enter Spare Part Name....."%>
     <% if @spare_part.errors[:name].present? %>
         <div class="text-danger">
-          * name can`t be blank
+          <% @spare_part.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
         </div>
     <% end %>    
     <h3> Quantity</h3> 
     <%= f.number_field :quantity ,placeholder:"Enter Spare Part Quantity..." %>
      <% if @spare_part.errors[:quantity].present? %>
         <div class="text-danger">
-          * quantity can`t be blank
+           <% @spare_part.errors[:quantity].each do |msg| %>
+              <p><%= "* quantity "+msg %></p> 
+              <% end %>
         </div>
     <% end %>
   <h3>Price</h3>
     <%= f.number_field :price ,step:0.1 ,placeholder:"Enter Spare Part Price...."%>
      <% if @spare_part.errors[:price].present? %>
         <div class="text-danger">
-          * price can`t be blank
+           <% @spare_part.errors[:price].each do |msg| %>
+              <p><%= "* price "+msg %></p> 
+              <% end %>
         </div>
     <% end %>
    <h3>Spare Part Image</h3>
-   <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+   <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
+
          <div class="fileUpload btn btn-primary">
           <span>Upload</span>
-    <%= f.file_field :avatar ,class: "upload", id:"uploadBtn" %> 
+           <%= f.file_field :avatar ,class: "upload", id:"uploadBtn" %> 
+   
   </div>
 
   </div>
@@ -47,9 +74,9 @@
     <a id="machinelink" class="btn btn-link" style="text-align: left" 
     onclick="showmachineform()"><h3>Add Machine</h3></a>
     <div id="addnewmachine" style="display:none" class="form-group">
-      <h1>
-        <span class="label label-default">New Machine</span>
-      </h1>
+      <h2>
+        New Machine
+      </h2>
       
        <h3>Machine Name</h3>
         <input type="text" id="machinename" placeholder="Enter Machine Name.....">

@@ -1,4 +1,22 @@
 <style>
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
+}
 </style>
 <%= form_for(@employee) do |f| %>
   <section class="register">
@@ -138,7 +156,7 @@
           </div>
 
           <h3>User Photo</h3>
-          <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+          <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
           <div class="fileUpload btn btn-primary">
             <span>Upload</span>
             <%= f.file_field :image,class: "upload", id:"uploadBtn" %>
