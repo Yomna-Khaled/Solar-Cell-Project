@@ -93,6 +93,11 @@ class EmployeesController < ApplicationController
       end
 
         if @employee.update(employee_params)
+
+        if params[:employee_phones][:phone]==" "
+         @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+         @employeephone.save  
+        else
            arr= params[:employee_phones][:phone].split(",")
            arr.each do |c|
               puts c  
@@ -113,6 +118,9 @@ class EmployeesController < ApplicationController
             puts new_password
             Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
           end
+
+
+          end   
 
           flash[:success] = 'Employee was successfully updated.'
           format.html { redirect_to @employee }

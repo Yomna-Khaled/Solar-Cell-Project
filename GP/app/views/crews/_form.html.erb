@@ -1,61 +1,50 @@
 <%= form_for(@crew) do |f| %>
-  <% if  @crew.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        The form contains <%= pluralize( @crew.errors.count, "error") %>.
-        <ul>
-          <%  @crew.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
   <section class="register">
     <div class="form-group reg_section ">
-      <h1>Crew Information</h1>
-      <h3>Crew Name</h3>
-      <%= f.text_field :name, class: 'w' , placeholder: "Enter crew name" ,id: "crew"%>
-      <h3>Number of workers</h3>
-        <%if( @clear==1 ) %>
-            <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()",value:""%>
+        <h1>Crew Information</h1>
+        <h3>Crew Name</h3>
+        <%= f.text_field :name, class: 'w' , placeholder: "Enter crew name" ,id: "crew"%>
+        <% if @crew.errors[:name] %>
+          <div class="text-danger">
+            <ul>
+              <% @crew.errors[:name].each do |msg| %>
+                <li>*Crew Name <%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-        <%if( @clear!=1 ) %>
-            <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
-        <% end %>
-      <div id="versionsDiv">
-      </div>
-      <div id="Div">
-      </div>
-      <br>
-      <%= hidden_field_tag("workers", "", :id => "workers") %>
-      <div class="actions">
-        <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
-      </div>
-      <h1>Names of employees</h1>
-      <div id="Woker_names">
-        <% if @flag_new==0 %>
-          <% @employees.each do |employee| %>
-            <%= employee.full_name %> <br>
+
+        <h3>Number of workers</h3>
+          <%if( @clear==1 ) %>
+              <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()",value:""%>
           <% end %>
-        <% end %>
+          <%if( @clear!=1 ) %>
+              <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
+          <% end %>
+        <div id="versionsDiv">
+        </div>
+        <div id="Div">
+        </div>
+        <br>
+        <%= hidden_field_tag("workers", "", :id => "workers") %>
+        <div class="actions">
+          <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
+        </div>
+        <h1>Names of employees</h1>
+        <div id="Woker_names">
+          <% if @flag_new==0 %>
+            <% @employees.each do |employee| %>
+              <%= employee.full_name %> <br>
+            <% end %>
+          <% end %>
+        </div>
+        <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
+        <p id="workers_in_crews" hidden><%= @number_of_normal_workers  %></p>
       </div>
-      <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
-      <p id="workers_in_crews" hidden><%= @number_of_normal_workers  %></p>
+  </section> 
 <% end %>
 
-    </div>
-  </section>    
-
-
- 
-
- 
-
-
-
- 
+  
 <script type="text/javascript">
     var counter = 0;
     var no_workers = 0 ;
