@@ -1,7 +1,7 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show,:edit, :update, :destroy]
   before_action :end_set_shift, only: [:showendshift,:endshift] #showendshift render end view
-  
+  before_action  :set_controller_serial_ids,only:[:currentshift]
   # GET /shifts
   # GET /shifts.json
   
@@ -234,6 +234,37 @@ if logged_in? and current_category.category=="Shift Manager"
      end
 
   end
+    def currentshift
+      
+      if logged_in? and current_category.category=="Shift Manager"
+             
+	     @solar_panel = SolarPanel.new
+             @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+	     if @shift.exists?
+		     @shift = @shift.first
+                     @crewid =@shift.crew_id
+		     if !@crewid 
+	   	        @crewid = ' ';
+		        @crew_name = ' ';
+		     else
+		        @crew_name = Employee.where("crew_id = ? ", @crewid ).select([:full_name])  
+		     end  
+		      
+             else 
+	              redirect_to  shifts_showstartshift_path 
+	     end
+    else
+       redirect_to login_path 
+    end 
+  end
+  
+
+
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -254,4 +285,16 @@ if logged_in? and current_category.category=="Shift Manager"
     def shift_params
       params.require(:shift).permit(:employee_id, :crew_id, :start_shift_date, :end_shift_date, :start_shift_time, :end_shift_time, :production_rate)
     end
+    def set_controller_serial_ids
+        @containersopt=[]       
+        for i in 0..(Container.all.length-1)
+            @containerid = (Container.all)[i].id
+            @crtcap=SolarPanel.where("container_id = ?", @containerid ).count
+            @empcap=Container.where("id = ? AND capacity > ?",@containerid,@crtcap)
+            if (@empcap.exists?)
+                @myarr = [@empcap[0].serialNo,@empcap[0].id]
+                @containersopt.push(@myarr)
+            end
+        end   
+    end 
 end

@@ -27,10 +27,10 @@
                     <% end %>
                     <strong><%= link_to current_user.full_name, current_user %></strong>
                 </li>
-                <li><%= link_to 'Profile setting', edit_employee_path(current_user) %></li>
-		        <hr>
+                <li><%= link_to 'Profile setting', edit_employee_path(current_user) %></l>
                 <li><%= link_to 'Logout', logout_path, method: "delete" %>
 	            </li>
+	            <hr>
 	            <% if current_category.category == "HR" %>
 				  <li><%= link_to 'Add Employee', new_employee_path %></li>
 				  <li><%= link_to 'All Employee', employees_path %></li>
@@ -62,8 +62,8 @@
 				 	<li><%= link_to 'End Shift', shifts_showendshift_path %></li>
 	                <li><%= link_to  'Add Produced Product',new_solar_panel_path ,method: :get %></li>
 	                <li><%= link_to 'Order Request', new_production_shift_path %></li>
-	                <li><%= link_to 'Reports', new_solar_panel_path %></li>
-	                <li><%= link_to 'myshifts', shifts_path %></li>
+	                <li><%= link_to 'Current Shift', shifts_currentshift_path %></li>
+	                <li><%= link_to 'My Shifts', shifts_path %></li>
 				<% end %>
 	            
 				<% if current_category.category == "Stock Keeper" %>

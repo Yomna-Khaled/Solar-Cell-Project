@@ -1,75 +1,60 @@
-<style>
-.thumbnail{
-    width: 200px;
-    height: 200px;
-}
-</style>
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1><%= @material.name %> Infromation</h1>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @material.name %>
-</p>
+  <div class="raw">
+    <div class="col-md-3">
+      <br><br>
+      <img src="<%= @material.avatar %>" class="img-rounded" style="width:100px ; height:100px;">
+    </div> 
 
-<p>
-  <strong>Serial_Number:</strong>
-  <%= @material.serial_number %>
-</p>
+    <div class="col-md-9">
+      <div class="page-header">
+          <h1>Basic Infromation</h1>
+      </div>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @material.quantity_value %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Serial_Number: <%= @material.serial_number %></li>
+        <li class="list-group-item">Price: <%= @material.price %></li>
+      </ul>
 
-<p>
-  <strong>Price:</strong>
-  <%= @material.price %>
-</p>
 
-<p>
-  <strong>Min number:</strong>
-  <%= @material.Min_Number %>
-</p>
+      <div class="page-header">
+          <h1>Material In Stock</h1>
+      </div>
 
-<p>
-  <strong>Stockno:</strong>
-  <%= @material.stockNo %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Quantity :  <%= @material.quantity_value %> <%= @material.quantity.unit_name %></li>
+        <li class="list-group-item">StockNo: <%= @material.stockNo  %></li>
+        <li class="list-group-item">Shelf No: <%= @material.shelfNo  %></li>
+        <li class="list-group-item">Min Number: <%= @material.Min_Number %></li>
+      </ul>
 
-<p>
-  <strong>Shelfno:</strong>
-  <%= @material.shelfNo %>
-</p>
+      <div class="page-header">
+          <h1>Material Date</h1>
+      </div>
 
-<p>
-  <strong>Production date:</strong>
-  <%= @material.production_date %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Production date: <%= @material.production_date %></li>
+        <li class="list-group-item">Expiration date: <%= @material.expiration_date %></li>
+      </ul>
 
-<p>
-  <strong>Expiration date:</strong>
-  <%= @material.expiration_date %>
-</p>
+      <div class="page-header">
+          <h1>Material Properties</h1>
+      </div>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @material.quantity.unit_name %>
-</p>
-<p>
-  <strong>Properties:</strong>
-  <% index = 1%>
-    <% @material_properties.each do |materialproperty| %>
-      <p>
-        <strong><%=index%>-<%= materialproperty.property.name %> : </strong>
-          <%= materialproperty.value %>
-          <%index+=1%>
-      </p>
-    <%end%>   
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= image_tag @material.avatar.url, class: "thumbnail" %>
-</p>
-
+      <ul class="list-group">
+        <% index = 1%>
+        <% @material_properties.each do |materialproperty| %>
+            <li class="list-group-item">
+              <%= materialproperty.property.name %> : 
+              <%= materialproperty.value %>
+            </li>
+            <%index+=1%>
+        <%end%>   
+      </ul>
+    </div>
+  </div>
+</div>  
 

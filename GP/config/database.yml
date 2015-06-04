@@ -15,8 +15,6 @@ default: &default
   pool: 5
   username: root
   password: butterfly
-
-
   socket: /var/run/mysqld/mysqld.sock
 
 development:
