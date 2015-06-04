@@ -7,7 +7,9 @@
     <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
     <% if @machine.errors[:name].present? %>
         <div class="text-danger">
-          * name can`t be blank
+         <% @machine.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
         </div>
         <% end %>
   </div>
