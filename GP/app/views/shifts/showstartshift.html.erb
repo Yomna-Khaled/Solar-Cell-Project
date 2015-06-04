@@ -1,12 +1,12 @@
 <h3></h3>
 <div class="container">
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Start Shift</h1>
+  
 
-<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h1>start shift</h1>
-		</div>
-		<div class="panel-body">
-		<center>
+		
+		
 
 <%= form_for @shift , :url=>shifts_startshift_path do |f| %>
   <% if @shift.errors.any? %>
@@ -21,14 +21,15 @@
     </div>
   <% end %>
       
-		
-                <div class="field">
-                  <h4>shift manager name:   </h4>
-		  <h5><%= current_user.full_name %> </h5>
-		</div>
-     
+	
+    
+     <h3 style="display:inline-block;">shift manager name:   </h3>
+		  <p style="display:inline-block;"><%= current_user.full_name %> </p> 
+
+	
         <div class="field">
-	<%= f.label ('enter crew name:') %><br>
+          <h3> Enter crew names:  </h3>
+	
 	<%= f.select(:crew_id, @crews) %>
 	</div>
 
@@ -39,8 +40,9 @@
     <%= f.submit %>
   </div>
 <% end %>
-</center>
-		</div>
-	</div>
+</div>
+</section>
+		
+	
 </div>
 
