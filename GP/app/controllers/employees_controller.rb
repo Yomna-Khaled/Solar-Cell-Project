@@ -85,6 +85,11 @@ class EmployeesController < ApplicationController
       employee_params[:houre_rate] = houre_rate
       respond_to do |format|
         if @employee.update(employee_params)
+
+        if params[:employee_phones][:phone]==" "
+         @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+         @employeephone.save  
+        else
            arr= params[:employee_phones][:phone].split(",")
            arr.each do |c|
               puts c  
@@ -92,7 +97,8 @@ class EmployeesController < ApplicationController
                  @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
                  @employeephone.save 
               end
-          end    
+          end 
+          end   
           flash[:success] = 'Employee was successfully updated.'
           format.html { redirect_to @employee }
           format.json { render :show, status: :ok, location: @employee }

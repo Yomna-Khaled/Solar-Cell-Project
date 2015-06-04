@@ -1,4 +1,4 @@
-<div class="container text-center">
+<div class="container ">
 <%= form_for(@vendor) do |f| %>
   <% if @vendor.errors.any? %>
     <div id="error_explanation">
@@ -12,19 +12,20 @@
     </div>
   <% end %>
 
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Buyer Information</h1>
+  
 
-<div class="panel panel-success" style="margin-top: 50px">
-<div class="panel-body">
 
 
-  <div class="field form-group">
-    <%= f.label :name %><br>
+
+    <h3>Name</h3>
     <%= f.text_field :name %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :email %><br>
+  
+    <h3>Email</h3>
     <%= f.text_field :email %>
-  </div>
+ 
 
 
 <div class="field form-group">
@@ -48,7 +49,7 @@
          <% @phones.each do |f| %>
           <p> <% phonn = phonn + f.phone + ',' %> </p>
         <% end %>
-          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)" class="btn btn-link" style="text-align: left">Delete Phone</a> <br>
       <% end %> 
     <% end %>
   <%end %>
@@ -56,7 +57,7 @@
 
 </div>
 
-<a href="#" onclick="add()" >Add</a>
+<a href="#" onclick="add()" class="btn btn-link" style="text-align: left"><h3>Add Phone</h3></a>
 
 <div id="phones">
     
@@ -71,9 +72,9 @@
     <%= f.submit "Submit", class: "btn btn-success" %>
   </div>
 </div>
-</div>
+
 <% end %>
-</div>
+</section >
 
 
 
