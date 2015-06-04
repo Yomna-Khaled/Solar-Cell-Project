@@ -1,5 +1,6 @@
 <div class="container" style="width: calc(60%);">
   <h1 class="page-header">Add Sold Product </h1>
+   <section class="register">
 <%= form_for(@sold_panel) do |f| %>
   <% if @sold_panel.errors.any? %>
     <div id="error_explanation">
@@ -12,15 +13,17 @@
       </ul>
     </div>
   <% end %>
-  <label>Buyer Name :</label>
-  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-control form-group"  %>
+  <div class="reg_section">
+  <h3>Buyer Name</h3>
+  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:700px;" %>
  
-<%= link_to 'Add New Buyer', new_buyer_path %><br>
+<h3><%= link_to 'Add New Buyer', new_buyer_path %></h3>
   
  
-  <label>Total Power :</label>
+  <h3>Total Power</h3>
  
-  <%= number_field_tag "power","",options={:class=>"form-control form-group",:onkeyup=>"change()",:min=>"0"} %>
+  <%= number_field_tag "power","",options={:class=>"form-group",:onkeyup=>"change()",:min=>"0",:style=>"width:700px"} %>
+ </div> 
   <div class="well">
     <div class="table-responsive">
       <table class="table table-hover">
@@ -70,6 +73,7 @@
   </div>
  
 <% end %>
+</section>
 </div>
 
 <script>
