@@ -12,10 +12,14 @@
 </head>
 <body>
 
-<div class="container">
-	<h1 class="page-header"> Edit Employee</h1>
-			<%= render 'form' %>
-</div>
+	<div class="container">
+		<% if (@employee.id==current_user.id)%>
+			<h1 class="page-header" style="font-size:35px;"> Edit Profile</h1>
+		<% else %>
+			<h1 class="page-header" style="font-size:35px;"> Edit Employee</h1>
+		<% end %>
+		<%= render 'form' %>
+	</div> 
 
 </body>
 

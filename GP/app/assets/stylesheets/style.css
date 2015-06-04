@@ -145,7 +145,7 @@ a:hover {
 }
 
 
-.register input[type=text], .register input[type=number], .register input[type=password] ,.register select,.register textarea {
+.register input[type=text], .register input[type=number], .register input[type=file], .register input[type=password] ,.register select,.register textarea {
   width: 400px;
 }
 .register p.terms {
@@ -194,7 +194,8 @@ input {
   font-size: 14px;
 }
 
-input[type=text], input[type=password] , input[type=number],.register select,.register textarea {
+
+input[type=text], input[type=password] , input[type=number], input[type=email],.register select,.register textarea {
   margin: 5px;
   padding: 0 10px;
   height: 34px;
@@ -212,7 +213,8 @@ input[type=text], input[type=password] , input[type=number],.register select,.re
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   margin:10px 0;
 }
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus{
+
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus{
   border-color:#FFF7F9;
   outline-color:rgba(254, 225, 235, 0.7);
   outline-offset: 0;
@@ -251,7 +253,7 @@ input[type=submit]:active {
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-.lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number]{
+.lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number], .lt-ie9 input[type=email]{
   line-height: 34px;
 }
 .register select{
@@ -338,8 +340,32 @@ input[type=submit]:active {
   font-weight: 400;
   padding: 4px;
 }
+.login input[type=file]{
+  width: calc(134% - 50px);
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 2px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+}
 
 .login input[type=password]{
+  width: calc(134% - 50px);
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 2px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+.login input[type=email]{
   width: calc(134% - 50px);
   height: 30px;
   background: transparent;
@@ -379,8 +405,17 @@ input[type=submit]:active {
   outline: none;
   border: 1px solid rgba(255,255,255,0.9);
 }
+.login input[type=file]:focus{
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.9);
+}
 
 .login input[type=password]:focus{
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=email]:focus{
   outline: none;
   border: 1px solid rgba(255,255,255,0.9);
 }

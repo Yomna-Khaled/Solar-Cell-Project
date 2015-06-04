@@ -17,8 +17,9 @@ default: &default
 <<<<<<< HEAD
   password: 01228675292
 =======
-  password: 12345
->>>>>>> 0747e63c600be2219582fe471c15e89e1c23f39a
+  password: nona
+
+>>>>>>> 83e91168bc012aae5d381c1a6735af699b57f2e6
 
   socket: /var/run/mysqld/mysqld.sock
 

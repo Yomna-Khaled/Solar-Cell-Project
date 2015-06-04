@@ -1,47 +1,138 @@
+<style>
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
+}
+</style>
 <%= form_for(@employee) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        The form contains <%= pluralize(@employee.errors.count, "error") %>.
-         <ul>
-      <% @employee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      </div> 
-    </div>
-  <% end %>
-
-
   <section class="register">
       <div class="form-group reg_section ">
+        <% if (@employee.id==current_user.id)%>
+
+          <h3>Password</h3>
+          <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+
+          <h3>Confirmation Password</h3>
+          <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+
+          <h3>Email</h3>
+          <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+          <% if @employee.errors[:email] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:email].each do |msg| %>
+                  <li>*Email <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= fields_for :employee_phones do |p| %>
+            <%= phonn = '' %>
+            <% if @phones.blank? %>
+                <p> <%= phonn = '' %> </p>
+                 <h3>Phone</h3>
+                 <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
+            <% else %>
+               <% @phones.each do |f| %>
+                  <p> <% phonn = phonn + f.phone + ',' %> </p>
+               <% end %>
+               <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+            <% end %> 
+          <% end %>
+         
+          <a href="#" onclick="add()" >Add Phone</a>
+          <div id="phones">    
+          </div>
+          <div id="phonedel">
+          </div>
+
+        <% else %>
+
           <h1>Personal Information</h1>
-      
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
+            <% if @employee.errors[:full_name] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:full_name].each do |msg| %>
+                    <li>*Full Name <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag_new == 1 %>
-                <h3>Education Level</h3>
-                <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
+              <h3>Education Level</h3>
+              <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
+              <% if @employee.errors[:education_level] %>
+                <div class="text-danger">
+                  <ul>
+                    <% @employee.errors[:education_level].each do |msg| %>
+                      <li>*Education Level <%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             <% end %>
 
             <% if @flag_new == 0 %>
                 <h3>Education Level</h3>
                 <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],@employee.education_level ))  %>
+                <% if @employee.errors[:education_level] %>
+                  <div class="text-danger">
+                    <ul>
+                      <% @employee.errors[:education_level].each do |msg| %>
+                        <li>*Education Level <%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
             <% end %>
 
             <h3>Education</h3>
             <%= f.text_field :education ,class: 'w' , placeholder: "Enter Education"   %>
+            <% if @employee.errors[:education] %>
+                <div class="text-danger">
+                  <ul>
+                    <% @employee.errors[:education].each do |msg| %>
+                      <li>*Education <%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
 
             <h3>Governamental ID</h3>
             <%= f.text_field :Governamental_ID, class: 'w' , placeholder: "Enter Governamental_ID" %>
+            <% if @employee.errors[:Governamental_ID] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:Governamental_ID].each do |msg| %>
+                    <li>*Governamental_ID <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag == "new" %> 
                 <%= fields_for :employee_phones do |p| %>   
                    <h3>Phone</h3>
                    <%= p.text_field :phone , id:"phone", value:"" ,class: "w", readonly: true %><br>
                 <% end %>
-
             <%else %>
               <%= fields_for :employee_phones do |p| %>
                 <%= phonn = '' %>
@@ -58,8 +149,6 @@
               <% end %>
           <%end %>
 
-          <a href="#" onclick="add()" >Add Phone</a>
-
           <div id="phones">    
           </div>
 
@@ -67,13 +156,37 @@
           </div>
 
           <h3>User Photo</h3>
-          <%= f.file_field :image %><br>
+          <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
+          <div class="fileUpload btn btn-primary">
+            <span>Upload</span>
+            <%= f.file_field :image,class: "upload", id:"uploadBtn" %>
+          </div>
+          <% if @employee.errors[:image] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:image].each do |msg| %>
+                  <li>*Image <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <br>
+          <a href="#" onclick="add()" >Add Phone</a>
         </div>
 
         <div class="form-group reg_section ">
           <h1>Work Information</h1>    
             <h3>Salary</h3>
             <%= f.text_field :salary, class: 'w' , placeholder: "Enter Salary" %>
+            <% if @employee.errors[:salary] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:salary].each do |msg| %>
+                    <li>*Salary <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag_new == 0 %>
                 <p><strong>Category : </strong><p>
@@ -85,21 +198,60 @@
             <% if @flag_new == 1 %>
                 <h3>Category</h3>
                 <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
+                <% if @employee.errors[:category_id] %>
+                  <div class="text-danger">
+                    <ul>
+                      <% @employee.errors[:category_id].each do |msg| %>
+                        <li>*Category <%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
 
                 <div id="notnormal">
                     <h3>Password</h3>
                     <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+                    <% if @employee.errors[:password] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:password].each do |msg| %>
+                            <li>*Password <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
                     <h3>Confirmation Password</h3>
                     <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+                    <% if @employee.errors[:password_confirmation] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:password_confirmation].each do |msg| %>
+                            <li>*Password Confirmation <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
                     <h3>Email</h3>
                     <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+                    <% if @employee.errors[:email] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:email].each do |msg| %>
+                            <li>*Email <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
                 </div>
             <% end %>
 
-            <div class="actions">
-                <br>
-                <%= f.submit class: 'btn btn-success' %>
-            </div> 
+        <% end %>
+
+          
+        <div class="actions">
+            <br>
+            <%= f.submit class: 'btn btn-success' %>
+        </div> 
       </div>    
   </section>
   
@@ -109,30 +261,35 @@
 
 
 <script type="text/javascript">
-    var category = document.getElementById('employee_category_id');
-    if (category) {
-       target = document.getElementById('notnormal'); //div of input password
-       if (category.text == 'Normal') target.style.display='none';
-       category.onchange=function() {
-          var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
-          if (type == 'Normal') {
-             target.style.display = 'none';
-          } 
-          else {
-              arget.style.display= '';
-          }
-       }
 
-      }
+  document.getElementById("uploadBtn").onchange = function () {
+      document.getElementById("uploadFile").value = this.value;
+  };
+
+  var category = document.getElementById('employee_category_id');
+  if (category) {
+     target = document.getElementById('notnormal'); //div of input password
+     if (category.text == 'Normal') target.style.display='none';
+     category.onchange=function() {
+        var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
+        if (type == 'Normal') {
+           target.style.display = 'none';
+        } 
+        else {
+            arget.style.display= '';
+        }
+     }
+
+    }
 
 
-      var x=1;
-var counter=0;
-var allValues = '';
-var temp = "";
-allValues=$( "#phone" ).val().slice(0,-1);
+  var x=1;
+  var counter=0;
+  var allValues = '';
+  var temp = "";
+  allValues=$( "#phone" ).val().slice(0,-1);
 
-var add = function() {
+  var add = function() {
   if (counter === 0 ) {
          counter =  1;
         $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
@@ -146,29 +303,21 @@ var add = function() {
             if (re.test(value)) {
                if (allValues != ''){
             allValues =  allValues + ',' + value
-            
         }else{
           allValues =  allValues + value    
         }
         $("#phone").val(allValues);
         $("#1").val('');
-            
         }else{
-          alert('Please enter a valid phone number ');
-             
+          alert('Please enter a valid phone number ');    
         }
-
        });
-
-
     }
- 
-};
+  };
 
-var del = function(employeeid) {
-
-    var length_of_num = 0;
-    var index =0;
+  var del = function(employeeid) {
+  var length_of_num = 0;
+  var index =0;
    allValues = $("#phone").val();
    $("#phone").val('');
    var arr = allValues.split(",");
@@ -176,36 +325,31 @@ var del = function(employeeid) {
   for (var i=0 ; i< arr.length-1 ; i++){
      var div=document.createElement("div");
      var elem = document.createElement("input");
-                 elem.id =i;
-                 elem.type = 'button';
-                 elem.value = 'x'; 
+     elem.id =i;
+     elem.type = 'button';
+     elem.value = 'x'; 
      div.id= i;
      div.value=arr[i];
-                 div.innerHTML = arr[i];
-                 elem.onclick=function(){
-                   var el = document.getElementById(this.id);
-                   var dataString = el.value;
-               
-                   allValues = allValues.replace(dataString + ',', ""); 
-        $.ajax({
-      method: "POST",
-      url: '/delPhon',
-        dataType: "JSON",
-        data: { "phone": dataString},
-        complete: function(data)
-        { 
-           el.parentNode.removeChild( el );
-        }
-      });
-         };
+     div.innerHTML = arr[i];
+     elem.onclick=function(){
+           var el = document.getElementById(this.id);
+           var dataString = el.value;
+       
+           allValues = allValues.replace(dataString + ',', ""); 
+           $.ajax({
+              method: "POST",
+              url: '/delPhon',
+              dataType: "JSON",
+              data: { "phone": dataString},
+              complete: function(data)
+              { 
+                 el.parentNode.removeChild( el );
+              }
+          });
+      };
 
-        div.appendChild(elem);
-        document.getElementById('phonedel').appendChild(div);
+    div.appendChild(elem);
+    document.getElementById('phonedel').appendChild(div);
   }
 };
-
-
-
-
-
- </script>
+</script>

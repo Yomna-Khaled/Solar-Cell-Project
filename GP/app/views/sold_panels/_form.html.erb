@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="width: calc(60%);">
   <h1 class="page-header">Add Sold Product </h1>
 <%= form_for(@sold_panel) do |f| %>
   <% if @sold_panel.errors.any? %>
@@ -21,45 +21,43 @@
   <label>Total Power :</label>
  
   <%= number_field_tag "power","",options={:class=>"form-control form-group",:onkeyup=>"change()",:min=>"0"} %>
-<table class="table table-striped">
-    <thead>
-    <tr>
+  <div class="well">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr class="success">
+            <th class="text-center">Serialno</th>
+            <th class="text-center">Production date</th>
+            <th class="text-center">Height</th>
+            <th class="text-center" >Width</th>
+            <th class="text-center">Power</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Subtype</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Container</th>
+          </tr>
+        </thead>
+        <tbody>
 
-      <th text-align="center">Serialno</th>
-      <th text-align="center">Production date</th>
-      <th text-align="center">Height</th>
-      <th text-align="center" >Width</th>
-      <th text-align="center">Power</th>
-      <th text-align="center">Type</th>
-      <th text-align="center">Subtype</th>
-      <th text-align="center">Price</th>
-      <th text-align="center">Container</th>
-     
-   
+          <% @solar_panels.each do |solar_panel| %>
+            <tr>
+              <td class="text-center"><%= check_box_tag  "solar_panel_id[]", solar_panel.id,false,options={:onchange=>'solvalue(this)',:id => "solar_panel_id_#{solar_panel.id}_#{solar_panel.power}_#{solar_panel.price}"} %> <%= solar_panel.serialNo %></td>
+              <td class="text-center"><%= solar_panel.production_date %></td>
+              <td class="text-center"><%= solar_panel.height %></td>
+              <td class="text-center"><%= solar_panel.width %></td>
+              <td class="text-center"><%= solar_panel.power %></td>
+              <td class="text-center"><%= solar_panel.celltype %></td>
+              <td class="text-center"><%= solar_panel.subtype %></td>
+              <td class="text-center"><%= solar_panel.price %></td>
+              <td class="text-center"><%= solar_panel.container.serialNo %></td> 
+            </tr>
 
-    </tr>
-  </thead>
-  <tbody>
-
-    <% @solar_panels.each do |solar_panel| %>
-      <tr>
-
-        <td><%= check_box_tag  "solar_panel_id[]", solar_panel.id,false,options={:onchange=>'solvalue(this)',:id => "solar_panel_id_#{solar_panel.id}_#{solar_panel.power}_#{solar_panel.price}"} %> <%= solar_panel.serialNo %></td>
-         <td><%= solar_panel.production_date %></td>
-          <td><%= solar_panel.height %></td>
-        <td><%= solar_panel.width %></td>
-        <td><%= solar_panel.power %></td>
-        <td><%= solar_panel.celltype %></td>
-        <td><%= solar_panel.subtype %></td>
-        <td><%= solar_panel.price %></td>
-        <td><%= solar_panel.container.serialNo %></td>
-        
-        </tr>
-
-    <% end %>
-
-  </tbody>  
-</table>
+          <% end %>
+        </tbody>  
+      </table>
+    </div>
+  </div>
+    
  
  
     <%= hidden_field_tag "totalPrice" %>
