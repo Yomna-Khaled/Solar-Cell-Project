@@ -2,8 +2,7 @@
   <h1 align="center">
     <span class="page-header">Listing Containers</span>
   </h1>
-<div class="container" style="width: calc(100%);">
-  <div class="well">
+<div class="container" style="width: calc(70%);">
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
@@ -33,7 +32,7 @@
                       </td>            
 		    </tr>
                      <tr>
-                       <td  colspan="12" style="border:0px">
+                       <td  colspan="12" style="border:0px;padding:0px">
                       <table class="table table-hover">
 			  <thead >
 			    <tr class="collapse , demo<%=i%>">
@@ -42,11 +41,11 @@
 				<td>width</td>
 				<td>celltype</td>
 				<td> subtype</td>
-				<td>price</td>
+				
 				<td>serialNo</td>
 				<td>cells no.</td>  
-				<td> price</td>     
-				<td>power</td>  
+				<td>power</td>
+                                <td>price</td>   
 		              </tr>
 			    </thead> 
                             <tbody>
@@ -55,13 +54,13 @@
                                 <td><%= solar_panel.production_date %></td>
                                 <td ><%= solar_panel.height %></td>
                                 <td ><%= solar_panel.width %></td>
-				<td ><%= solar_panel.power %></td>
 				<td ><%= solar_panel.celltype %> </td>
 				<td ><%= solar_panel.subtype%> </td>
-				<td > <%= solar_panel.price %> </td>
+				
 				<td ><%= solar_panel.serialNo%> </td>                
 				<td > <%= solar_panel.cellno %></td> 
 			  	<td ><%= solar_panel.power %></td>
+                                <td > <%= solar_panel.price %> </td> 
 			     </tr>  
 			    <% end %> 
                             </tbody> 
@@ -74,9 +73,8 @@
           </tbody>
         </table>
     </div>
-  </div>
 </div>      
-<%= will_paginate @containers %>
+<%= will_paginate @containers, renderer: BootstrapPagination::Rails %>
 <br>
 <script>
 $('.collapse').on('shown.bs.collapse', function () {

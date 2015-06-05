@@ -25,7 +25,7 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @buyers %>
+<%= will_paginate @buyers, renderer: BootstrapPagination::Rails %>
 <br>
 
 <%= link_to 'New Buyer', new_buyer_path %>

@@ -1,4 +1,3 @@
-
 <div class="container" style="width: calc(70%);">
   <h1 class="page-header" style="font-size:35px;">All Vendors</h1>
       <table class="table table-hover table-responsive">
@@ -22,8 +21,12 @@
           <% end %>
         </tbody>
       </table>
+
+    </div>
+<div >
+  <%= will_paginate @vendors, renderer: BootstrapPagination::Rails %>
 </div>
-<%= will_paginate @vendors %>
+
 <br>
 
 
