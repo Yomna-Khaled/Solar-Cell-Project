@@ -104,7 +104,7 @@
  </div>
   </div>
 </div>      
-<%= will_paginate @containers %>
+
 <br>
 <script>
 $('.collapse').on('shown.bs.collapse', function () {

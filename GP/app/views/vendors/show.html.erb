@@ -1,25 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1>Vendor Information</h1>
+  </div>
+  <div class="raw">
+  <div class="page-header">
+    <h1>Basic Infromation</h1>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @vendor.name %>
-</p>
+  <ul class="list-group">
+    <li class="list-group-item">Name: <%= @vendor.name %></li>
+    <li class="list-group-item">Email:  <%= @vendor.email %></li>
+  </ul>
 
-<p>
-  <strong>Email:</strong>
-  <%= @vendor.email %>
-</p>
+  <div class="page-header">
+    <h1>Contact Infrormation</h1>
+  </div>
 
-<strong>Phones:</strong>
-  <% index = 1%>
-    <% @vendor_phones.each do |vendorphone| %>
-      <p>
-        <strong><%=index%>-<%= vendorphone.phone %></strong>      
-          <%index+=1%>
-      </p>
-    <%end%>   
-</p>
+  <ul class="list-group">
+      <% index = 1%>
+        <% @vendor_phones.each do |vendorphone| %>
+          <li class="list-group-item text-capitalize">Phone <%=index%>:<%= vendorphone.phone %></li>
+           <%index+=1%>
+      <%end%> 
+  </ul>
+ </div> 
+</div>  
 
-
-<%= link_to 'Edit', edit_vendor_path(@vendor) %> |
-<%= link_to 'Back', vendors_path %>

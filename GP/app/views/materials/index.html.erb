@@ -6,16 +6,13 @@
 </style>
 
 
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Materials</span>
-  </h1>
+
 <div class="container" style="width: calc(70%);">
-  <div class="well">
-      <div class="table-responsive">
-        <table class="table table-hover">
+  <h1 class="page-header" style="font-size:35px;">All Materials</h1>
+
+        <table class="table table-hover table-responsive">
           <thead>
-            <tr class="success">
+            <tr>
               <th class="text-center">Material_Photo</th>
               <th class="text-center">Name</th>
               <th class="text-center">Serial Number</th>
@@ -47,7 +44,6 @@
           </tbody>
         </table>
     <%= will_paginate @materials %>
-    </div>
-  </div>
+
 </div>
 <%= will_paginate @materials %>

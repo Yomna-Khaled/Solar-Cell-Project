@@ -1,30 +1,37 @@
 <div class="container ">
 <%= form_for(@vendor) do |f| %>
-  <% if @vendor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+  
 
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Vendor Information</h1>
+    <h3>Name</h3>
+    <%= f.text_field :name %>
+    
+  <% if @vendor.errors[:name].any? %>
+    <div id="error_explanation">  
       <ul>
-      <% @vendor.errors.full_messages.each do |message| %>
+      <% @vendor.errors[:name].each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
-<section class="register">
-    <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Buyer Information</h1>
   
 
 
-
-
-    <h3>Name</h3>
-    <%= f.text_field :name %>
   
     <h3>Email</h3>
     <%= f.text_field :email %>
+    <% if @vendor.errors[:email].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @vendor.errors[:email].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
  
 
 
@@ -33,7 +40,7 @@
 
   <% if @flag == "new" %> 
         <%= fields_for :vendor_phones do |p| %> 	
-           <%= p.label :phone %><br>
+           <h3>Phone</h3>
 	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
         <% end %>
 
@@ -42,14 +49,14 @@
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
-           <%= p.label :phone %><br>
+           <h3>Phone</h3>
            <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
       
       <% else %>
          <% @phones.each do |f| %>
           <p> <% phonn = phonn + f.phone + ',' %> </p>
         <% end %>
-          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)" class="btn btn-link" style="text-align: left">Delete Phone</a> <br>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)" class="btn btn-link" style="text-align: left"><h3>Delete Phone</h3></a> <br>
       <% end %> 
     <% end %>
   <%end %>
@@ -88,7 +95,8 @@ allValues=$( "#phone" ).val().slice(0,-1);
 var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        // $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" id="'+x+'" style="width:350px;" />' ).append( '<input type="button" id="OK" value="ok" class="btn btn-success"   />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
@@ -129,6 +137,7 @@ var del = function(vendorid) {
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
+                 elem.setAttribute("class", "btn btn-danger");
 		 div.id= i;
 		 div.value=arr[i];
                  div.innerHTML = arr[i];
