@@ -3,7 +3,7 @@
 
 <div class="panel panel-primary">
 		<div class="panel-heading">
-			<h1>end shift</h1>
+			<h1>End shift</h1>
 		</div>
 		<div class="panel-body">
 		<center>
@@ -21,7 +21,9 @@
   <% end %>
 
   <div class="field">
-  <%= f.label(:id, "did this shift produce panels") %>
+  <i class="fa fa-question-circle"></i>
+
+  <%= f.label(:id, "Did this shift produce panels") %>
   </div>
 
   <div class="field">
@@ -29,11 +31,11 @@
    <div class="field">
       
  <%= f.radio_button :id,true ,{:class => "myclass_yes", :style => "mystyle"}%>
-      <%= f.label(:id_true, "yes") %>
+      <i class="fa fa-check"></i> <%= f.label(:id_true, "yes") %> 
    </div>
   <div class="field">
  <%= f.radio_button :id,false,{:class => "myclass_no", :style => "mystyle"}%>
-<%= f.label(:id_false, "no") %>
+  <i class="fa fa-times"></i> <%= f.label(:id_false, "no") %> 
    </div>
  </div>
 
@@ -48,7 +50,7 @@ $(document).ready(function() {
             
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
-            var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+            var my_new_input_element = $('<div><i class="fa fa-sort-numeric-asc"></i> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
           
              if($('#submit').length == 0){
 		          $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );

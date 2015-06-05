@@ -1,31 +1,46 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @spare_part.name %>
-</p>
+<div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1><%= @spare_part.name %> Infromation</h1>
+  </div>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @spare_part.quantity %>
-</p>
+  <div class="raw">
+  <div class="col-md-3">
+      <br><br>
+      <img src="<%= @spare_part.avatar %>" class="img-rounded" style="width:100px ; height:100px;">
+    </div>
+  
+  <div class="col-md-9">
+      <div class="page-header">
+          <h1>Basic Infromation</h1>
+      </div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @spare_part.price %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
+        <li class="list-group-item">Price: <%= @spare_part.price %></li>
+      </ul>
 
-<p>
-  <strong>Machine:</strong>
+  <div class="col-md-9">
+      <div class="page-header">
+          <h1>Machine Information</h1>
+      </div>    
 
-   <% machine = Machine.find_by(id: @spare_part.machine_id) %>
-        <td><%= machine.name %></td>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
+      </ul>
 
-<p>
-  <strong>Vendor:</strong>
-        <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
+  <div class="col-md-9">
+      <div class="page-header">
+          <h1>Vendor Information</h1>
+      </div>    
+
+      <ul class="list-group">
+        <li class="list-group-item">vendor Name: <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
         <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
-        <td><%= vendor.name %></td>
- </p>       
-<%= image_tag @spare_part.avatar.url %>
+        <%= vendor.name %></li>
+      </ul>    
+  </div>
+</div>    
+
+
+

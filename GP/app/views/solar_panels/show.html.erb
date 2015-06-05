@@ -1,49 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1>Solar Panel Infromation</h1>
+  </div>
 
-<p>
-  <strong>Production date:</strong>
-  <%= @solar_panel.production_date %>
-</p>
+  
+
+    <div class="col-md-9">
+      <div class="page-header">
+          <h1>Solar Panel Dimensions</h1>
+      </div>
+
+      <ul class="list-group">
+        <li class="list-group-item">Height: <%= @solar_panel.height %></li>
+        <li class="list-group-item">Width: <%= @solar_panel.width %></li>
+      </ul>
 
 
+      <div class="page-header">
+          <h1>Solar Panel Basic Information</h1>
+      </div>
 
-<p>
-  <strong>Height:</strong>
-  <%= @solar_panel.height %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Production Date :  <%= @solar_panel.production_date %></li>
+        <li class="list-group-item">Power: <%= @solar_panel.power %></li>
+        <li class="list-group-item">Type: <%= @solar_panel.celltype %></li>
+        <li class="list-group-item">Sub Type:  <%= @solar_panel.subtype %></li>
+      </ul>
+         <li class="list-group-item">Price:  <%= @solar_panel.price %></li>
+      </ul>
+          <li class="list-group-item">Serial No:  <%= @solar_panel.serialNo %></li>
+      </ul>
 
-<p>
-  <strong>Width:</strong>
-  <%= @solar_panel.width %>
-</p>
+      <div class="page-header">
+          <h1>Container Information</h1>
+      </div>
 
-<p>
-  <strong>Power:</strong>
-  <%= @solar_panel.power %>
-</p>
+      <ul class="list-group">
+        <li class="list-group-item">Serial No: <%= @solar_panel.container.serialNo %></li>
+        
+      </ul>
 
-<p>
-  <strong>Type:</strong>
-  <%= @solar_panel.celltype %>
-</p>
-
-<p>
-  <strong>Subtype:</strong>
-  <%= @solar_panel.subtype %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @solar_panel.price %>
-</p>
-
-<p>
-  <strong>Serialno:</strong>
-  <%= @solar_panel.serialNo %>
-</p>
-
-<p>
-  <strong>Container:</strong>
-  <%= @solar_panel.container.serialNo %>
-</p>
+     
+    </div>
+  </div>
+</div>  
 
