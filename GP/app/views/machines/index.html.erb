@@ -1,29 +1,24 @@
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Machines</span>
-  </h1>
 <div class="container" style="width: calc(50%);">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr  class="success" >
-            <th class="text-center" >Name</th>
-            <th class="text-center" >Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @machines.each do |machine| %>
-            <tr>
-              <td class="text-center" ><%= machine.name %></td>
-              
-              <td class="text-center" ><%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <h1 class="page-header" style="font-size:35px;">All Machines</h1>
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th class="text-center" >Name</th>
+        <th class="text-center" >Edit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @machines.each do |machine| %>
+        <tr>
+          <td class="text-center" ><%= machine.name %></td>
+          
+          <td class="text-center" ><%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>  
 
-<br>
 
 

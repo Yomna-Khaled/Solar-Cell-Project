@@ -1,12 +1,8 @@
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Vendors</span>
-  </h1>
 <div class="container" style="width: calc(70%);">
-    <div class="table-responsive">
-      <table class="table table-hover">
+  <h1 class="page-header" style="font-size:35px;">All Vendors</h1>
+      <table class="table table-hover table-responsive">
         <thead>
-          <tr class="success">
+          <tr>
             <th class="text-center" >Name</th>
             <th class="text-center" >Email</th>
             <th class="text-center" >Show</th>
@@ -25,9 +21,12 @@
           <% end %>
         </tbody>
       </table>
+
     </div>
+<div >
+  <%= will_paginate @vendors, renderer: BootstrapPagination::Rails %>
 </div>
-<%= will_paginate @vendors %>
+
 <br>
 
 

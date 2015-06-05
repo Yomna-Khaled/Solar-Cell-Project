@@ -1,15 +1,20 @@
-
-<strong>crew names:</strong>
+<div class="container">
+<h1 class="page-header">Your Crew Members</h1>
 
 <% if @crew_name.blank? %>
-  <p>There are no crews...Please add them</p>
+  <div class="alert alert-danger">
+There are no crews...Please add them</div>
 <% else %>
+<ol>
    <% @crew_name.each do |f| %>
-    <p>
-   <%= f.full_name %>
-  </p>
+    
+ <li class="text-capitalize">  <%= f.full_name  %>
+
+  
   <% end %>
+</ol>
 <% end %>
+</div>
 
 
 
