@@ -1,59 +1,60 @@
-<div class="container"> 
- <table class="table table-hover" id="myTable">
+<h1 align="center">
+  <span class="page-header">Shift Manager Requests</span>
+</h1>
+<div class="container" style="width: calc(70%);">
+    <div class="table-responsive">
+      <table class="table table-hover" id="myTable">
         <thead>
+          <tr class="success">
             <th class="text-center">Manager Name</th>
             <th class="text-center">Material Name</th>
             <th class="text-center">Quantity</th>
             <th class="text-center">Accept Request</th>
+          </tr>
         </thead>
         <tbody>
-        	<% @production_shifts.each do |production_shift| %>
-        	<tr id="<%= production_shift.shift_id %>">
-        		<td> <% shift=Shift.find_by(id: production_shift.shift_id )%>
-        			<% employee=Employee.find_by(id:shift.employee_id) %>
-  					<%= employee.full_name %></td>
-        		<td><%= production_shift.material.name %></td>
-        		<td><%= production_shift.material_quantity %></td>
-        		<td><button class="btn btn-info" onclick="accept(this)" id="<%= production_shift.material.name%>_<%= production_shift.material_quantity%>_<%= production_shift.material.id%>">accept</button></td
-        		</tr>
-        	<% end %>
-
+          <% @production_shifts.each do |production_shift| %>
+          <tr id="<%= production_shift.shift_id %>">
+            <td> <% shift=Shift.find_by(id: production_shift.shift_id )%>
+            <% employee=Employee.find_by(id:shift.employee_id) %>
+            <%= employee.full_name %></td>
+            <td><%= production_shift.material.name %></td>
+            <td><%= production_shift.material_quantity %></td>
+            <td><button class="btn btn-info" onclick="accept(this)" id="<%= production_shift.material.name%>_<%= production_shift.material_quantity%>_<%= production_shift.material.id%>">accept</button></td>
+          </tr>
+        <% end %>
         </tbody>    
-</table>
+      </table>
+    </div>
 </div>
+
+
 <script>
-function accept(ptr){
-	 var i = ptr.parentNode.parentNode.rowIndex;
-	 console.log(ptr.parentNode.parentNode.id);
-   alert(ptr.id.split("_")[2]);
-	  $.ajax({
-  		type: "POST",
-  		url: "/production_shifts/accept",
-  		dataType: "JSON",
-  		data: { 'id':ptr.id.split("_")[2],'quantity':ptr.id.split("_")[1],'shift':ptr.parentNode.parentNode.id},
-  		complete: function(data)
-  		{
-  			if(data.responseText=="done"){
-  			document.getElementById("myTable").deleteRow(i);
-  		}
-  		else{
-  			ptr.innerHTML="not available"
-  		}
-  			console.log(data.responseText);
-    	
-  		}
-	});
-    
-}
-
-window.dispatcher = new WebSocketRails('localhost:3000/websocket');
-window.enjoy=dispatcher.subscribe ("yoyo");
-enjoy.bind('order', function(task) {
-//   //console.log('successfully created ' + task.name);
-   console.log( task);
-   $('myTable').prepend(task);
- });
-
-
-
+  function accept(ptr){
+    var i = ptr.parentNode.parentNode.rowIndex;
+    console.log(ptr.parentNode.parentNode.id);
+    alert(ptr.id.split("_")[2]);
+    $.ajax({
+      type: "POST",
+      url: "/production_shifts/accept",
+      dataType: "JSON",
+      data: { 'id':ptr.id.split("_")[2],'quantity':ptr.id.split("_")[1],'shift':ptr.parentNode.parentNode.id},
+      complete: function(data)
+      {
+        if(data.responseText=="done"){
+          document.getElementById("myTable").deleteRow(i);
+        }
+        else{
+          ptr.innerHTML="not available"
+        }
+        console.log(data.responseText);
+      }
+    });   
+  }
+  window.dispatcher = new WebSocketRails('localhost:3000/websocket');
+  window.enjoy=dispatcher.subscribe ("yoyo");
+  enjoy.bind('order', function(task) {
+    console.log( task);
+    $('myTable').prepend(task);
+  });
 </script>

@@ -1,62 +1,101 @@
 <%= form_for(@solar_panel) do |f| %>
-  <% if @solar_panel.errors.any? %>
-    <div id="error_explanation">
-        <h2><%= pluralize(@solar_panel.errors.count, "error") %> prohibited this solar_panel from being saved:</h2>
-        <ul>
-          <% @solar_panel.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-    </div>
-  <% end %>
+ <section class="register">
 
-  <% if current_category.category == "Shift Manager"  %>
-      <div class="field">
-        <%= f.label :production_date %><br>
-        <%= f.date_select :production_date %>
-      </div>
+ <% if current_category.category == "Shift Manager"  %>
       
-      <div class="field">
-        <%= f.label :height %><br>
+      <div class="form-group reg_section">
+        <h1>Solar Panel Dimensions</h1>
+        <h3> height </h3>
         <%= f.number_field :height ,min:"1",step:0.01 ,required:true ,class: 'field' %>
-      </div>
-
-      <div class="field">
-        <%= f.label :width %><br>
+             <% if @solar_panel.errors[:height].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:height].each do |msg| %>
+		                          <p><%= "* height "+msg %><p>
+				<%end%> 
+                           </div>
+       	      <% end %>
+        <h3> width </h3>
         <%= f.number_field :width,min:"1" ,step:0.01 ,required:true ,class: 'field' %>
-      </div>
+            <% if @solar_panel.errors[:width].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:width].each do |msg| %>
+		                          <p><%= "* width "+msg %><p>
+				<%end%> 
+                           </div>
+       	      <% end %>
 
-      <div class="field">
-        <%= f.label :power %><br>
-        <%= f.number_field :power ,min:"0",step:0.001 ,required:true ,class: 'field' %>
       </div>
-      <div class="field">
-        <%= f.label :Noofcells %><br>
-        <%= f.number_field :cellno ,min:"0",step:1 ,required:true ,class: 'field' %>
+      <div class="form-group reg_section"> 
+	      <h1>Solar Panel BasicInformation</h1>
+		<h3>production_date </h3>
+                     <div class="form-group reg_section">
+		         <%= f.date_select :production_date %>
+                         <% if @solar_panel.errors[:production_date].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:production_date].each do |msg| %>
+		                          <p><%= "* production_date "+msg %><p>
+				<%end%> 
+                           </div>
+       	                 <% end %>
+
+                     </div> 
+    	        <h3> power </h3>
+		    <%= f.number_field :power ,min:"0",step:0.001 ,required:true ,class: 'field' %>
+                        <% if @solar_panel.errors[:power].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:power].each do |msg| %>
+		                          <p><%= "* power "+msg %><p>
+				<%end%> 
+                           </div>
+       	                 <% end %>
+	        <h3>Noofcells </h3>
+		    <%= f.number_field :cellno ,min:"0",step:1 ,required:true ,class: 'field' %>
+                    <% if @solar_panel.errors[:cellno].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:cellno].each do |msg| %>
+		                          <p><%= "* cellNo. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %>
+	        <h3> type </h3>
+		    <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
+                       <% if @solar_panel.errors[:celltype].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:celltype].each do |msg| %>
+		                          <p><%= "* celltype. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %>
+	        <h3> subtype </h3>
+		    <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
+                    <% if @solar_panel.errors[:subtype].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:subtype].each do |msg| %>
+		                          <p><%= "* subtype. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %> 
+	        <h3> serialNo </h3>
+		<%= f.text_field :serialNo ,required:true %>
+	        <% if @solar_panel.errors[:serialNo].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:serialNo].each do |msg| %>
+		                          <p><%= "* serialNo. "+msg %><p>
+				<%end%> 
+                           </div>
+       	         <% end %> 
       </div> 
-      <div class="field">
-        <%= f.label :type %><br>
-        <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
-      </div>
-
-      <div class="field">
-        <%= f.label :subtype %><br>
-        <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
-      </div>
-
-      <div class="field">
-        <%= f.label :serialNo %><br>
-        <%= f.text_field :serialNo ,required:true %>
-      </div>
-
-      <div class="field">
-        <%= f.label :containerserialno %><br>
-            <%= f.select :container_id, @containersopt %>
+       <div class="form-group reg_section"> 
+	      <h1>Container Information</h1>
+                  <h3>containerserialno <h3>  
+                    
+                  <%= f.select :container_id, @containersopt %>
        </div>
-      </div>
+     
      
     <% end %>
       <div class="actions">
         <%= f.submit %>
       </div>
+ </section>
 <% end %>

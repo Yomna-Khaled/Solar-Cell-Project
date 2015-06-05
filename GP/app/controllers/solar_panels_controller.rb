@@ -24,7 +24,7 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/1
   def show
-    if false
+    if logged_in? and( current_category.category=="Shift Manager" )
     else
        redirect_to login_path 
     end
@@ -73,7 +73,7 @@ class SolarPanelsController < ApplicationController
                @container=Container.find(@solar_panel.container_id)
   	       @power=@container.total_power+@solar_panel.power 
   	       @container.update_attributes(:total_power => @power)
-  	       format.html { redirect_to  shifts_showstartshift_path  }
+  	       format.html { redirect_to  shifts_currentshift_path  }
   	       format.json { render :show, status: :created, location: @solar_panel }
 	      else
         		format.html { render :new }

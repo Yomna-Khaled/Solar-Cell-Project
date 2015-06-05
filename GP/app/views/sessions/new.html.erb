@@ -10,7 +10,7 @@
     <title>Stylish Portfolio Template for Bootstrap</title>
 
 
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,14 +53,12 @@
     </div>
     <!-- /Intro -->
 
-    <!-- Services -->
     <div id="login">
- <div class="container">    
- <div class="col-md-2 col-md-offset-2">
-                    
+ <div class="container"> 
 
-            <div class="col-md-3 col-md-6 login">       
-                <div class="panel panel-info">
+ <div class="col-md-2 col-md-offset-1 centered">
+         
+                <div class="panel panel-info login">
                     <div class="panel-body" style="margin-right:100px;">  
                             <%= form_for(:session, url: login_path) do |f| %>
 
@@ -72,13 +70,9 @@
                             <br>
                             <%= f.submit "Log in", class: "btn btn-primary" %>
                             <%= link_to 'Forget Password', forget_password_path ,class: "btn btn-link"  %>
-
-
                         <% end %>
                     </div>   
                 </div>  
-            </div>
-
 </div>
 </div>
 </div>
@@ -86,21 +80,14 @@
     <div class="callout">
     </div>
     <!-- /Callout -->
-
     <!-- Call to Action -->
     <div class="call-to-action">
         <div class="container">
             Branch Office : 6,Masged Hatem St, Semouha , Alex-Egypt
         </div>
     </div>
-
     </body>
-
 </html>
-
-
-
-
 
 
 

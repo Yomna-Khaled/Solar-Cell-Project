@@ -1,21 +1,20 @@
 <%= form_for(@machine) do |f| %>
-  <% if @machine.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@machine.errors.count, "error") %> prohibited this machine from being saved:</h2>
+ <section class="register">
 
-      <ul>
-      <% @machine.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group reg_section">
+    <h1> Machine Information</h1>
+    <h3>Name</h3>
+    <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
+    <% if @machine.errors[:name].present? %>
+        <div class="text-danger">
+         <% @machine.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
+        </div>
+        <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+  </section
 <% end %>

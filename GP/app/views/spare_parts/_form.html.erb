@@ -1,46 +1,70 @@
 <style>
-#error_explanation {
-  color: red;
-  background-color: white;
-  border: white;
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
 }
-
-.field_with_errors {
-    background-color: white;
-}
-
 </style>
 
 
 <%= form_for(@spare_part) do |f| %>
-  <% if @spare_part.errors.any? %>
-    <div id="error_explanation" class="form-group">
-     <div class="alert alert-danger">
-      <h2><%= pluralize(@spare_part.errors.count, "error") %></h2>
-      <ul>
-      <% @spare_part.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <section class="register">
+    <h1>Spare Part Information</h1>
+  <div class="form-group reg_section">
+    <h3>Name</h3>
+    <%= f.text_field :name, placeholder:"Enter Spare Part Name....."%>
+    <% if @spare_part.errors[:name].present? %>
+        <div class="text-danger">
+          <% @spare_part.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>    
+    <h3> Quantity</h3> 
+    <%= f.number_field :quantity ,placeholder:"Enter Spare Part Quantity..." %>
+     <% if @spare_part.errors[:quantity].present? %>
+        <div class="text-danger">
+           <% @spare_part.errors[:quantity].each do |msg| %>
+              <p><%= "* quantity "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>
+  <h3>Price</h3>
+    <%= f.number_field :price ,step:0.1 ,placeholder:"Enter Spare Part Price...."%>
+     <% if @spare_part.errors[:price].present? %>
+        <div class="text-danger">
+           <% @spare_part.errors[:price].each do |msg| %>
+              <p><%= "* price "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>
+   <h3>Spare Part Image</h3>
+   <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
 
-
-  <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name ,class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :quantity %><br>
-    <%= f.number_field :quantity ,class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :price %><br>
-    <%= f.number_field :price ,step:0.1 , class: 'form-control' %>
+         <div class="fileUpload btn btn-primary">
+          <span>Upload</span>
+           <%= f.file_field :avatar ,class: "upload", id:"uploadBtn" %> 
+   
   </div>
 
-  <div class="form-group">
-    <%= f.label :machine_id %><br>
+  </div>
+
+  <div class="form-group reg_section">
+    <h1>Machine Information</h1>
+   <h3>Machine</h3>
     <% if @flag == "new" %>
       <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name"),{ :include_blank => false }, { :class => 'form-control' , :required => true} %>
     <%else%>
@@ -48,26 +72,28 @@
     <%end%>
     <!-- add new quantity using ajax-->
     <a id="machinelink" class="btn btn-link" style="text-align: left" 
-    onclick="showmachineform()">Add Machine</a>
+    onclick="showmachineform()"><h3>Add Machine</h3></a>
     <div id="addnewmachine" style="display:none" class="form-group">
-      <h1>
-        <span class="label label-default">New Machine</span>
-      </h1>
-      <div class="form-group">
-        <label>machine Name</label>
-        <input type="text" id="machinename" class="form-control">
-      </div>
+      <h2>
+        New Machine
+      </h2>
+      
+       <h3>Machine Name</h3>
+        <input type="text" id="machinename" placeholder="Enter Machine Name.....">
+    
       <div class="actions">
         <a onclick="machineajax()" class="btn btn-success">Add Machine</a>
         <a onclick="canceladdmachine()" class="btn btn-warning">Cancel</a>
       </div>
+        </div>
     </div>
       <!-- end of adding new machine using ajax -->
-  </div>
+  
 
   <!-- for get all vendors to select one of them -->
-  <div class="form-group">
-    <%= f.label :Vendor %><br>
+  <div class="form-group reg_section">
+    <h1>Vendor Information</h1>
+    <h3>Vendor</h3>
     <% if @flag == "new" %>
     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
     <%else%>
@@ -75,19 +101,19 @@
      <%end%>
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
-    onclick="showvendorform()">Add new Vendor</a>
+    onclick="showvendorform()"><h3>Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
-         <h1>
-          <span class="label label-default">New Vendor</span>
-        </h1>
-        <div class="form-group">
-          <label>Vendor Name</label>
-          <input type="text" id="vendorname" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Vendor Email</label>
-          <input type="text" id="vendoremail" class="form-control">
-        </div>
+         <h2>
+         New Vendor
+        </h2>
+        
+          <h3>Vendor Name</h3>
+          <input type="text" id="vendorname" placeholder="Enter Vendor Name.....">
+        
+      
+          <h3>Vendor Email</h3>
+          <input type="text" id="vendoremail"placeholder="Enter Vendor Email...." >
+        
         <div class="actions">
           <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
           <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
@@ -100,10 +126,9 @@
 
 
 
-<div class="form-group">
-   <%= f.label :Spare_part_Photo %><br>
-    <%= f.file_field :avatar %>
-  </div>
+
+   
+  
 
 
 
@@ -113,6 +138,11 @@
   
 </div>
 <% end %>
+<script>
+document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+</script>
 
 
 
