@@ -1,6 +1,6 @@
 <div class="container">
   <div class="page-header" style="font-size:35px;">
-      <h1><%= @material.name %> Infromation</h1>
+      <h1 align="center"><%= @material.name %> Infromation</h1>
   </div>
 
   <div class="raw">
@@ -40,6 +40,12 @@
         <li class="list-group-item">Expiration date: <%= @material.expiration_date %></li>
       </ul>
 
+      <div class="page-header">
+          <h1>Material Vendor</h1>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
+      </ul>      
       <div class="page-header">
           <h1>Material Properties</h1>
       </div>
