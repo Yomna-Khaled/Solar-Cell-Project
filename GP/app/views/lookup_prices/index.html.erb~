@@ -1,27 +1,34 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Watt Price</h1>
-
-<table>
+<<<<<<< HEAD
+<table class="table table-hover">
   <thead>
-    <tr>
-      <th>Value</th>
+    <tr class="success">
+      <th><span class="fa fa-usd"></span> Value</th>
       <th colspan="3"></th>
     </tr>
   </thead>
+=======
+<div class="container" style="width: 80;">
+  <h1 class="page-header" style="font-size:35px;">Price</h1>
+    <table class="table table-hover table-responsive">
+      <thead>
+        <tr>
+          <th class="text-center">Value</th>
+          <th class="text-center">Edit</th>
+        </tr>
+      </thead>
+>>>>>>> 0a69ce3b772aabc0d501e336802cf388c5c8e4c0
 
-  <tbody>
-    <% @lookup_prices.each do |lookup_price| %>
-      <tr>
-   
-        <td><%= lookup_price.value %></td>
-        <td><%= link_to 'Edit', edit_lookup_price_path(lookup_price) %></td>
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @lookup_prices.each do |lookup_price| %>
+        <tr>
+          <td class="text-center" ><%= lookup_price.value %></td>
+          <td class="text-center" ><%= link_to 'Edit', edit_lookup_price_path(lookup_price),class: "btn btn-success" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
 
-<br>
 
-<%= link_to 'New Lookup price', new_lookup_price_path %>
+
