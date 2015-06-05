@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/shifts/showstartshift', to: 'shifts#showstartshift'
   post '/shifts/:id/endshift', to: 'shifts#endshift'
   get '/shifts/showendshift', to: 'shifts#showendshift'
- 
+  get '/shifts/currentshift', to: 'shifts#currentshift' 
 
 
   resources :categories

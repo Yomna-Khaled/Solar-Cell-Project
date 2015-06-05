@@ -1,0 +1,36 @@
+<style>
+#error_explanation {
+  color: red;
+  background-color: white;
+  border: white;
+}
+
+.field_with_errors {
+    background-color: white;
+}
+
+</style>
+
+<h1 class="page-header text-primary">Add Category</h1>
+<%= form_for(@category) do |f| %>
+  <% if  @category.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize( @category.errors.count, "error") %>.
+         <ul>
+      <%  @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category, class: 'form-control' , placeholder: "Enter Category Name" %>
+  </div>
+  <div class="actions">
+    <%= f.submit :submit, class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -22,7 +22,6 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-
     if logged_in? and current_category.category=="Sales"
       @material = Material.new
       @vendors = Vendor.all
@@ -80,7 +79,7 @@ class MaterialsController < ApplicationController
         end
         @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
         @materialvendor.save
-        format.html { redirect_to @material, notice: 'Material was successfully created.' }
+        format.html { redirect_to @material}
         format.json { render :show, status: :created, location: @material }
       else
         @vendors = Vendor.all
