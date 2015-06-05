@@ -31,6 +31,19 @@
           <h3> Enter crew names:  </h3>
 	
 	<%= f.select(:crew_id, @crews) %>
+
+	<% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
 	</div>
 
   <%= f.hidden_field :start_shift_date , :value => Date.today %>
