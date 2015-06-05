@@ -1,12 +1,8 @@
 
 <div class="container">
 
-
-		
 			<h1 class="page-header" style="font-size:35px;">end shift</h1>
-		
-		
-		<center>
+	<center>
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
@@ -24,6 +20,9 @@
 <%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
   <div class="field">
+
+  <i class="fa fa-question-circle"></i>
+
   <%= f.label(:id, "did this shift produce panels",class: "text-capitalize") %>
   </div>
 
@@ -31,12 +30,13 @@
   
    <div class="field">  
  <%= f.radio_button :id,true ,{:class => "myclass_yes", :style => "mystyle"}%>
-      <%= f.label(:id_true, "yes") %>
-   
+      <i class="fa fa-check"></i> <%= f.label(:id_true, "yes") %> 
+   </div>
+  <div class="field">
  <%= f.radio_button :id,false,{:class => "myclass_no", :style => "mystyle"}%>
-<%= f.label(:id_false, "no") %>
-</div>
-  
+  <i class="fa fa-times"></i> <%= f.label(:id_false, "no") %> 
+   </div>
+
  </div>
 
    
@@ -50,7 +50,9 @@ $(document).ready(function() {
             
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
-            var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:",class:"text-capitalize") %></div>').insertAfter(  "label[for='shift_id_true']" );
+
+            var my_new_input_element = $('<div><i class="fa fa-sort-numeric-asc"></i> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+
           
              if($('#submit').length == 0){
 		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' );

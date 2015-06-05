@@ -24,7 +24,7 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/1
   def show
-    if logged_in? and( current_category.category=="Shift Manager" )
+    if logged_in?
     else
        redirect_to login_path 
     end
@@ -50,7 +50,7 @@ class SolarPanelsController < ApplicationController
 
  def edit
     @flag=false
-     if logged_in? and( current_category.category=="Shift Manager"  )
+     if logged_in? 
         @container=Container.find(@solar_panel.container_id)
         @mycrt=[@container.serialNo,@container.id]
         unless @containersopt.include?(@mycrt)
