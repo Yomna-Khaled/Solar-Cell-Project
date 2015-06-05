@@ -2,7 +2,7 @@
 <div class="container">
 <section class="register">
     <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Start Shift</h1>
+    <h1><span class="fa fa-play-circle"></span> Start Shift</h1>
   
 
 		
@@ -23,12 +23,12 @@
       
 	
     
-     <h3 style="display:inline-block;">shift manager name:   </h3>
+     <h3 style="display:inline-block;"><span class="fa fa-user"></span> shift manager name:   </h3>
 		  <p style="display:inline-block;"><%= current_user.full_name %> </p> 
 
 	
         <div class="field">
-          <h3> Enter crew names:  </h3>
+          <h3><span class="fa fa-users"></span> Enter crew names:  </h3>
 	
 	<%= f.select(:crew_id, @crews) %>
 	</div>
