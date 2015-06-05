@@ -1,20 +1,15 @@
 
 <div class="container">
-
 <<<<<<< HEAD
-<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h1>End shift</h1>
-		</div>
-		<div class="panel-body">
-=======
 
+			<h1 class="page-header" style="font-size:35px;">end shift</h1>
+	<center>
+=======
 		
 			<h1 class="page-header" style="font-size:35px;">end shift</h1>
-		
-		
->>>>>>> 0a69ce3b772aabc0d501e336802cf388c5c8e4c0
+
 		<center>
+>>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
@@ -28,6 +23,7 @@
     </div>
   <% end %>
 
+<<<<<<< HEAD
 <%= f.hidden_field :end_shift_date , :value => Date.today %>
 <%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
@@ -35,6 +31,9 @@
 
   <i class="fa fa-question-circle"></i>
 
+=======
+  <div class="field"> <spane class="fa fa-question-circle"></spane>
+>>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
   <%= f.label(:id, "did this shift produce panels",class: "text-capitalize") %>
   </div>
 
@@ -63,7 +62,7 @@ $(document).ready(function() {
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
 
-            var my_new_input_element = $('<div><i class="fa fa-sort-numeric-asc"></i> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+            var my_new_input_element = $('<div><spane class="fa fa-sort-numeric-asc"></spane> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
 
           
              if($('#submit').length == 0){

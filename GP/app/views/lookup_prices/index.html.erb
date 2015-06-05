@@ -1,7 +1,7 @@
 
 
 <div class="container" style="width: 80;">
-  <h1 class="page-header" style="font-size:35px;">Price</h1>
+  <h1 class="page-header" style="font-size:35px;"><span class="fa fa-usd"></span> Price</h1>
     <table class="table table-hover table-responsive">
       <thead>
         <tr>
@@ -15,7 +15,7 @@
         <% @lookup_prices.each do |lookup_price| %>
         <tr>
           <td class="text-center" ><%= lookup_price.value %></td>
-          <td class="text-center" ><%= link_to 'Edit', edit_lookup_price_path(lookup_price),class: "btn btn-success" %></td>
+          <td class="text-center" ><span class="fa fa-edit"></span> <%= link_to 'Edit', edit_lookup_price_path(lookup_price),class: "btn btn-success" %></td>
         </tr>
         <% end %>
       </tbody>
