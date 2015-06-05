@@ -1,25 +1,29 @@
-<br>
-
-<table class="table table-striped"> 
-  <thead>
-    <tr>
-      <th text-align="center">Crew Name</th>
-      <th text-align="center">No of workers</th>
-      <th text-align="center">Show</th>
-      <th text-align="center">Edit</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @crews.each do |crew| %>
-      <tr>
-        <td><%= crew.name %></td>
-        <td><%= crew.no_of_workers %></td>
-
-        <td><%= link_to 'Show', crew, class:"btn btn-primary" %></td>
-        <td><%= link_to 'Edit', edit_crew_path(crew), class:"btn btn-default"  %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @crews %>
+<p id="notice"><%= notice %></p>
+  <h1 align="center">
+    <span class="page-header">Listing Crews</span>
+  </h1>
+<div class="container" style="width: calc(70%);">
+  <div class="table-responsive">
+    <table class="table table-hover"> 
+      <thead>
+        <tr class="success">
+          <th class="text-center">Crew Name</th>
+          <th class="text-center">No of workers</th>
+          <th class="text-center">Show</th>
+          <th class="text-center">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @crews.each do |crew| %>
+          <tr>
+            <td class="text-center"><%= crew.name %></td>
+            <td class="text-center"><%= crew.no_of_workers %></td>
+            <td class="text-center"><%= link_to 'Show', crew, class:"btn btn-primary" %></td>
+            <td class="text-center"><%= link_to 'Edit', edit_crew_path(crew), class:"btn btn-default"  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>    
+    <%= will_paginate @crews %>
