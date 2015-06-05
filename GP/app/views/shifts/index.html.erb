@@ -1,7 +1,6 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Listing Shifts</h1>
-<p id="notice"><%= notice %></p>
+
   <h1 align="center">
     <span class="page-header">My Shifts</span>
   </h1>
@@ -11,7 +10,7 @@
 		<table class="table table-stripped">
 		  <thead>
 		    <tr>
-		      <th>employee id</th>
+		      
 		      <th>Crew</th>
 		      <th>Start shift date</th>
 		      <th>End shift date</th>
@@ -25,23 +24,20 @@
 		  </thead>
 
 		  <tbody>
-                    <% i=0 %>
+            <% i=0 %>
 		    <% @shifts.each do |shift| %>   
-		      <tr> 
-			<td><%= shift.employee.id %></td>
-			<td><%= shift.crew.name %></td>
-			<td><%= shift.start_shift_date %></td>
-			<td><%= shift.end_shift_date %></td>
-			<td><%= shift.start_shift_time %></td>
-			<td><%= shift.end_shift_time %></td>
-			<td><%= shift.production_rate %></td>
-			<td><%= link_to 'Show', shift %></td>
-			<td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-			<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-				         <button type="button" class="btn btn-primary">  
-				                    <span class="myglyphicon,glyphicon glyphicon-plus"></span> 
-				          </button>
-			</td>
+		    <tr> 
+					<td><%= shift.crew.name %></td>
+					<td><%= shift.start_shift_date %></td>
+					<td><%= shift.end_shift_date %></td>
+					<td><%= shift.start_shift_time %></td>
+					<td><%= shift.end_shift_time %></td>
+					<td><%= shift.production_rate %></td>
+					<td><%= link_to 'Show', shift %></td>
+					<td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
+					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
+					<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
+					</td>
 		       
 			 </tr>
 		       <tr>
