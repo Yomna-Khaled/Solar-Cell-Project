@@ -1,8 +1,16 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
 <p id="notice"><%= notice %></p>
   <h1 align="center">
     <span class="page-header">Listing Containers</span>
   </h1>
+<<<<<<< HEAD
 <div class="container" style="width: calc(70%);">
+=======
+<div class="container" style="width: calc(100%);">
+>>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
   <div class="well">
     <div class="table-responsive">
       <table class="table table-hover">
@@ -16,6 +24,7 @@
             <th class="text-center">Edit</th>
           </tr>
         </thead>
+<<<<<<< HEAD
         <tbody>
           <% @containers.each do |container| %>
             <tr>
@@ -66,10 +75,77 @@
           </table>    
         </tbody>
       </table>
+=======
+	<tbody>
+                <% i=0 %>
+		<% @containers.each do |container| %>
+		    <tr >
+		      <td class="text-center"><%= container.serialNo %></td>
+		      <td class="text-center"><%= container.capacity %></td>
+		      <td class="text-center"><%= container.price %></td>
+		      <td class="text-center"><%= container.total_power %></td>
+		      <td class="text-center"><%= link_to 'Show', container, class:"btn btn-primary" %></td>
+		      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
+		      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
+                         <button type="button" class="btn btn-primary">  
+                                    <span class="myglyphicon,glyphicon glyphicon-plus"></span> 
+                          </button>
+                      </td>            
+		    </tr>
+                     <tr>
+                       <td  colspan="12" style="border:0px">
+                      <table class="table table-hover">
+			  <thead >
+			    <tr class="collapse , demo<%=i%>">
+				<td> production_date </td>
+				<td>height </td>
+				<td>width</td>
+				<td>celltype</td>
+				<td> subtype</td>
+				<td>price</td>
+				<td>serialNo</td>
+				<td>cells no.</td>  
+				<td> price</td>     
+				<td>power</td>  
+		              </tr>
+			    </thead> 
+                            <tbody>
+			    <% container.solar_panels.each do |solar_panel| %>
+			     <tr class="collapse , demo<%=i%>"> 	
+                                <td><%= solar_panel.production_date %></td>
+                                <td ><%= solar_panel.height %></td>
+                                <td ><%= solar_panel.width %></td>
+				<td ><%= solar_panel.power %></td>
+				<td ><%= solar_panel.celltype %> </td>
+				<td ><%= solar_panel.subtype%> </td>
+				<td > <%= solar_panel.price %> </td>
+				<td ><%= solar_panel.serialNo%> </td>                
+				<td > <%= solar_panel.cellno %></td> 
+			  	<td ><%= solar_panel.power %></td>
+			     </tr>  
+			    <% end %> 
+                            </tbody> 
+                            </table>
+                           </td></tr>
+			  <% i=i+1 %>
+                
+            <% end %>
+             
+          </tbody>
+        </table>
+>>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
     </div>
   </div>
 </div>      
 <%= will_paginate @containers %>
 <br>
+<script>
+$('.collapse').on('shown.bs.collapse', function () {
+   $(".myglyphicon").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
 
+});
 
+$('.collapse').on('hidden.bs.collapse', function () {
+   $(".myglyphicon").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
+});
+</script>
