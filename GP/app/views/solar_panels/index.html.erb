@@ -1,3 +1,4 @@
+
 <div class="container" style="width: calc(80%);">
   <h1 class="page-header" style="font-size:35px;">All Panels</h1>
   <div id="Search_by" style= "margin-left:500px;width:600px" >
@@ -39,8 +40,67 @@
   </table> 
 </div> 
 
+
+<div class="container" style="width: calc(80%);">
+
+<div id="Search_by" style= "margin-left:500px;width:600px" >
+ 
+  <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
+
+  	   <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
+
+      <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
+
+      <%= hidden_field_tag :searchciteria, "power" %>
+
+ <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
+
+  <% end %>
+
+<div class="container">
+
+ 
+      <table class="table table-hover table-responsive">
+        <thead>
+          <tr class="success" >
+          	  <th class="text-center" >Serialno</th>
+          	  <th class="text-center" >Type</th>
+          	  <th class="text-center" >Subtype</th>
+          	  <th class="text-center" >Container_Serial_No.</th>
+          	  <th class="text-center" >Power</th>
+          	  <th class="text-center" >Price</th>
+          	  <th class="text-center" >Show</th>
+              <th class="text-center" >Edit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @solar_panels.each do |solar_panel| %>
+            <tr>
+
+                 <td class="text-center" ><%= solar_panel.serialNo %></td>
+                 <td class="text-center" ><%= solar_panel.celltype %></td>
+                 <td class="text-center" ><%= solar_panel.subtype %></td>
+                 <td class="text-center" ><%= solar_panel.container.serialNo %></td>
+                 <td class="text-center" ><%= solar_panel.power %></td>
+                 <td class="text-center" ><%= solar_panel.price %></td>
+
+              <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
+              <td class="text-center" ><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
+            </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+ 
+  </div> 
+
+
 <% if !@solar_panels.blank? %>
   <%= will_paginate @solar_panels, renderer: BootstrapPagination::Rails %>
 <%end%>
- 
+
+<br>
+
+ </div>
 

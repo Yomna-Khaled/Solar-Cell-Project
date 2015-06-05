@@ -26,6 +26,7 @@
                         <%= image_tag current_user.image.url(:thumb), class: "thumbnail"%>
                     <% end %>
                     <strong><%= link_to current_user.full_name, current_user %></strong>
+
                 </li>
                 <li><%= link_to 'Profile setting', edit_employee_path(current_user) %></l>
                 <li><%= link_to 'Logout', logout_path, method: "delete" %>
@@ -79,7 +80,6 @@
         <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-
 
 <%= yield %>
 
