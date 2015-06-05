@@ -280,7 +280,9 @@ if logged_in? and current_category.category=="Shift Manager"
       params.require(:shift).permit( :crew_id,:start_shift_date,:start_shift_time).merge(:employee_id => current_user.id)
     end
     def end_shift_params
-      params[:shift][:end_shift_time]=Time.zone.now+(2*60*60)
+      puts "hhhhhhhhhhhhhhhhhhhhh"
+      puts params[:shift][:end_shift_time]
+      params[:shift][:end_shift_time]=(Time.now).sub("+0300","")
       params.require(:shift).permit(:production_rate,:end_shift_date,:end_shift_time)
     end 
     # Never trust parameters from the scary internet, only allow the white list through.
