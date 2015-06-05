@@ -1,53 +1,35 @@
 <div class="container">
   <div class="page-header" style="font-size:35px;">
-      <h1>Container Information</h1>
+      <h1><span class="fa fa-info-circle"></span> Container Information</h1>
   </div>
   <div class="raw">
     <div class="page-header">
-      <h1>Basic Infromation</h1>
+      <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
     </div>
     <ul class="list-group">
-      <li class="list-group-item">Container Width: <%= @container.width %></li>
-      <li class="list-group-item">Contatiner Height: <%= @container.height %></li>
-      <li class="list-group-item">Contatiner Serial No.: <%= @container.serialNo %></li>
-      <li class="list-group-item">Contatiner Capacity.: <%= @container.capacity %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-v"></span> Container Width: <%= @container.width %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-h"></span> Contatiner Height: <%= @container.height %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Serial No.: <%= @container.serialNo %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Capacity.: <%= @container.capacity %></li>
     </ul>
     <div class="page-header">
       <h1>Power and Price</h1>
     </div>
     <ul class="list-group">
-      <li class="list-group-item">Container Power: <%= @container.total_power %></li>
-      <li class="list-group-item">Contatiner Price: <%= @container.price %></li>
+      <li class="list-group-item"><span class="fa fa-bolt"></span> Container Power: <%= @container.total_power %></li>
+      <li class="list-group-item"><span class="fa fa-usd"></span> Contatiner Price: <%= @container.price %></li>
     </ul>
   </div>
 
   <div class="page-header">
-      <h1>Container Vendor</h1>
+      <h1><span class="fa fa-user"></span> Container Vendor</h1>
     </div>
     <ul class="list-group">
       <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
       <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
-      <li class="list-group-item">Container Vendor: <%= vendor.name %></li>
+      <li class="list-group-item"><span class="fa fa-user"></span> Container Vendor: <%= vendor.name %></li>
     </ul>
 
-    <div class="page-header">
-      <h1>Panels on container</h1>
-    </div>
-    <% @container.solar_panels.each do |solarpanel| %>
-      <div class="page-header">
-        <h1>Solar Panel Data</h1>
-      </div> 
-      <ul class="list-group">
-        <li class="list-group-item">Production Date: <%= solarpanel.production_date %></li>
-        <li class="list-group-item">Solar Panel Height: <%= solarpanel.height %></li>
-        <li class="list-group-item">Solar Panel Width: <%= solarpanel.width %></li>
-        <li class="list-group-item">Solar Panel Power: <%= solarpanel.power %></li>
-        <li class="list-group-item">Solar Panel Cell type: <%= solarpanel.celltype %></li>
-        <li class="list-group-item">Solar Panel Sub Type: <%= solarpanel.subtype %></li>
-        <li class="list-group-item">Solar Panel Price: <%= solarpanel.price %></li>
-        <li class="list-group-item">Solar Panel Serial No.: <%= solarpanel.serialNo %></li>
-        <li class="list-group-item">No of Cells: <%= solarpanel.cellno %></li>
-      </ul>
-    <%end%>
+    
 </div>
  

@@ -1,5 +1,5 @@
 <div class="container" style="width: calc(60%);">
-  <h1 class="page-header" style="font-size:35px;">Add Sold Product </h1>
+  <h1 class="page-header" style="font-size:35px;"><span class="fa fa-plus"></span> Add Sold Product </h1>
    <section class="register">
 <%= form_for(@sold_panel) do |f| %>
   <% if @sold_panel.errors.any? %>
@@ -17,10 +17,10 @@
   <h3>Buyer Name</h3>
   <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:700px;" %>
  
-<h3><%= link_to 'Add New Buyer', new_buyer_path %></h3>
+<h3><span class="fa fa-plus-circle"></span> <%= link_to 'Add New Buyer', new_buyer_path %></h3>
   
  
-  <h3>Total Power</h3>
+  <h3><span class="fa fa-bolt"></span> Total Power</h3>
  
   <%= number_field_tag "power","",options={:class=>"form-group",:onkeyup=>"change()",:min=>"0",:style=>"width:700px"} %>
  </div> 

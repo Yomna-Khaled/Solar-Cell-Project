@@ -15,7 +15,7 @@
         <% @lookup_prices.each do |lookup_price| %>
         <tr>
           <td class="text-center" ><%= lookup_price.value %></td>
-          <td class="text-center" ><%= link_to 'Edit', edit_lookup_price_path(lookup_price),class: "btn btn-success" %></td>
+          <td class="text-center" ><span class="fa fa-edit"></span> <%= link_to 'Edit', edit_lookup_price_path(lookup_price),class: "btn btn-success" %></td>
         </tr>
         <% end %>
       </tbody>

@@ -4,8 +4,8 @@
  <% if current_category.category == "Shift Manager"  %>
       
       <div class="form-group reg_section">
-        <h1>Solar Panel Dimensions</h1>
-        <h3> height </h3>
+        <h1><span class="fa fa-arrows-alt"></span> Solar Panel Dimensions</h1>
+        <h3><span class="fa fa-arrows-v"></span> height </h3>
         <%= f.number_field :height ,min:"1",step:0.01 ,required:true ,class: 'field' %>
              <% if @solar_panel.errors[:height].present? %>
 		           <div class="text-danger">
@@ -14,7 +14,7 @@
 				<%end%> 
                            </div>
        	      <% end %>
-        <h3> width </h3>
+        <h3><span class="fa fa-arrows-h"></span> width </h3>
         <%= f.number_field :width,min:"1" ,step:0.01 ,required:true ,class: 'field' %>
             <% if @solar_panel.errors[:width].present? %>
 		           <div class="text-danger">
@@ -26,8 +26,8 @@
 
       </div>
       <div class="form-group reg_section"> 
-	      <h1>Solar Panel BasicInformation</h1>
-		<h3>production_date </h3>
+	      <h1><span class="fa fa-info-circle"></span> Solar Panel Basic Information</h1>
+		<h3><span class="fa fa-calendar"></span> production_date </h3>
                      <div class="form-group reg_section">
 		         <%= f.date_select :production_date %>
                          <% if @solar_panel.errors[:production_date].present? %>
@@ -39,7 +39,7 @@
        	                 <% end %>
 
                      </div> 
-    	        <h3> power </h3>
+    	        <h3><span class="fa fa-bolt"></span> power </h3>
 		    <%= f.number_field :power ,min:"0",step:0.001 ,required:true ,class: 'field' %>
                         <% if @solar_panel.errors[:power].present? %>
 		           <div class="text-danger">
@@ -48,7 +48,7 @@
 				<%end%> 
                            </div>
        	                 <% end %>
-	        <h3>Noofcells </h3>
+	        <h3><span class="fa fa-sort-numeric-asc"></span> Noofcells </h3>
 		    <%= f.number_field :cellno ,min:"0",step:1 ,required:true ,class: 'field' %>
                     <% if @solar_panel.errors[:cellno].present? %>
 		           <div class="text-danger">
@@ -75,7 +75,7 @@
 				<%end%> 
                            </div>
        	             <% end %> 
-	        <h3> serialNo </h3>
+	        <h3><span class="fa fa-sort-numeric-asc"></span> serialNo </h3>
 		<%= f.text_field :serialNo ,required:true %>
 	        <% if @solar_panel.errors[:serialNo].present? %>
 		           <div class="text-danger">
@@ -86,8 +86,8 @@
        	         <% end %> 
       </div> 
        <div class="form-group reg_section"> 
-	      <h1>Container Information</h1>
-                  <h3>containerserialno <h3>  
+	      <h1><span class="fa fa-info-circle"></span> Container Information</h1>
+                  <h3><span class="fa fa-sort-numeric-asc"></span> containerserialno <h3>  
                     
                   <%= f.select :container_id, @containersopt %>
        </div>
