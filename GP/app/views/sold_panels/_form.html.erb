@@ -1,5 +1,5 @@
 <div class="container" style="width: calc(60%);">
-  <h1 class="page-header">Add Sold Product </h1>
+  <h1 class="page-header" style="font-size:35px;">Add Sold Product </h1>
    <section class="register">
 <%= form_for(@sold_panel) do |f| %>
   <% if @sold_panel.errors.any? %>
@@ -24,11 +24,9 @@
  
   <%= number_field_tag "power","",options={:class=>"form-group",:onkeyup=>"change()",:min=>"0",:style=>"width:700px"} %>
  </div> 
-  <div class="well">
-    <div class="table-responsive">
-      <table class="table table-hover">
+      <table class="table table-hover table-responsive">
         <thead>
-          <tr class="success">
+          <tr>
             <th class="text-center">Serialno</th>
             <th class="text-center">Production date</th>
             <th class="text-center">Height</th>
@@ -58,8 +56,7 @@
           <% end %>
         </tbody>  
       </table>
-    </div>
-  </div>
+
     
  
  
@@ -73,7 +70,7 @@
   </div>
  
 <% end %>
-</section>
+  </section>
 </div>
 
 <script>

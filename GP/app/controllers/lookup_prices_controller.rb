@@ -55,8 +55,7 @@ class LookupPricesController < ApplicationController
     respond_to do |format|
       if @lookup_price.update(lookup_price_params)
          @unsoldpanels=SolarPanel.where("sold_panel_id is NULL")
-         puts "sssss"
-         puts @unsoldpanels.length
+         
          for i in 0...(@unsoldpanels).length
 
                  @unsoldpanels[i].update_attributes(:price=>(LookupPrice.where("name=?","watt").first.value)*@unsoldpanels[i][:power].to_f)

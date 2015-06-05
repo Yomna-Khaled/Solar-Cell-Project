@@ -219,7 +219,7 @@ if logged_in? and current_category.category=="Shift Manager"
 	    respond_to do |format|
 	     if @shift.update(end_shift_params)
 
-		format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
+		format.html { redirect_to shifts_path, notice: 'Shift was successfully updated.' }
 		format.json { render :show, status: :ok, location: @shift }
 	      else
 		@inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
