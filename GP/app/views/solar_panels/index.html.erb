@@ -1,16 +1,5 @@
 <br>
-<!-- <div class="col-md-offset-9">
-  <table>
-    <tr>
-      <td>
-        <%= link_to 'Search_by_power','#',:onclick =>"searchciteria(this)",:id =>"power" ,class: "btn btn-default" %>
-      </td>
-      <td>
-        <%= link_to 'Search_by_serial_no','#',:onclick=>"searchciteria(this)",:id =>'serialno', class: "btn btn-default" %>
-      </td>
-    </tr>
-  </table>
-</div> -->
+
 <div class="col-md-offset-9" id="Search_by">
   <label>Select_Your_Search_Criteria</label><br>
   <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
@@ -22,8 +11,9 @@
   <% end %>
 </div>
 
-<br>
-<table class="table table-striped">
+
+<div class="container">
+<table class="table table-bordered table-hover">
   <thead>
     <tr>
       <th class="text-center" >Production date</th>
@@ -67,4 +57,4 @@
 <%end%>
 <br>
 
-
+ </div>
