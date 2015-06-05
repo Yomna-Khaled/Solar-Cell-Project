@@ -1,23 +1,17 @@
+
 <br>
   <table class="table table-striped">
         <thead>
           <tr>
             <th text-align="center">Image</th>
             <th text-align="center">Full Name</th>
-<<<<<<< HEAD
-            <th text-align="center">User Name</th>
-=======
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
             <th text-align="center">Salary</th>
-            <th text-align="center">Houre Rate</th>
             <th text-align="center">Education Level</th>
             <th text-align="center">Education</th>
             <th text-align="center">Governamental ID</th>
             <th text-align="center">Category</th>
             <th text-align="center">Show</th>
             <th text-align="center">Edit</th>
-        
-
           </tr>
         </thead>
         <tbody>
@@ -25,12 +19,7 @@
           <tr>
             <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
             <td><%= employee.full_name %></td>
-<<<<<<< HEAD
-            <td><%= employee.user_name %></td>
-=======
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
             <td><%= employee.salary %></td>
-            <td><%= employee.houre_rate %></td>
             <td><%= employee.education_level %></td>
             <td><%= employee.education %></td>
             <td><%= employee.Governamental_ID %></td>
@@ -38,8 +27,8 @@
             <td><%= category.category %></td>
             <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
             <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-           
           </tr>
           <% end %>
       </table>
+<%= will_paginate @employees %>
 

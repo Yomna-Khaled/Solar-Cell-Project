@@ -55,7 +55,7 @@
   </div> 
 
 <% if !@solar_panels.blank? %>
-  <%= will_paginate @solar_panels %>
+  <%= will_paginate @solar_panels, renderer: BootstrapPagination::Rails %>
 <%end%>
  
 
