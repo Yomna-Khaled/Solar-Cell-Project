@@ -1,5 +1,5 @@
 <div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:35px;">All Spare Parts</h1>
+  <h1 class="page-header" style="font-size:35px;"><span class="fa fa-wrench"></span> All Spare Parts</h1>
   <table class="table table-hover table-responsive">
     <thead>
       <tr>
@@ -29,8 +29,8 @@
       <% if current_category.category!="Stock Keeper" %>
       <td class="text-center" ><%= spare_part.price %></td>
       <% end %>
-      <td class="text-center" ><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
-      <td class="text-center" ><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
+      <td class="text-center" ><span class="fa fa-eye"></span><%= link_to 'Show', spare_part, class:"btn btn-primary" %></td>
+      <td class="text-center" ><span class="fa fa-edit"></span><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-default"  %></td>
     </tr>
       <% end %>
     </tbody>

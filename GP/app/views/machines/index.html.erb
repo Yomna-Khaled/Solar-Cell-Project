@@ -1,5 +1,5 @@
 <div class="container" style="width: calc(50%);">
-  <h1 class="page-header" style="font-size:35px;">All Machines</h1>
+  <h1 class="page-header" style="font-size:35px;"> <span class="fa fa-list"></span> All Machines</h1>
   <table class="table table-hover table-responsive">
     <thead>
       <tr>
@@ -13,7 +13,7 @@
         <tr>
           <td class="text-center" ><%= machine.name %></td>
           
-          <td class="text-center" ><%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
+          <td class="text-center" ><span class="fa fa-edit"></span> <%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
         </tr>
       <% end %>
     </tbody>
