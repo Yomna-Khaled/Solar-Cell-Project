@@ -1,13 +1,7 @@
 
-<h1>Listing Shifts</h1>
-
-  <h1 align="center">
-    <span class="page-header">My Shifts</span>
-  </h1>
-<div class="container" style="width: calc(100%);">
-  <div class="well">
-    <div class="table-responsive">
-		<table class="table table-stripped">
+<div class="container" style="width: calc(70%);">
+  <h1 class="page-header" style="font-size:35px;">My Shifts</h1>
+		<table class="table table-stripped table-responsive">
 		  <thead>
 		    <tr>
 		      
@@ -27,6 +21,7 @@
             <% i=0 %>
 		    <% @shifts.each do |shift| %>   
 		    <tr> 
+
 					<td><%= shift.crew.name %></td>
 					<td><%= shift.start_shift_date %></td>
 					<td><%= shift.end_shift_date %></td>
@@ -96,11 +91,6 @@
   </tbody>
 </table>
 <%= will_paginate @shifts, renderer: BootstrapPagination::Rails %>
-
-<br>
-
- </div>
-  </div>
 </div>      
 
 <br>

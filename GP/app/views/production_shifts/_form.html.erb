@@ -1,53 +1,36 @@
-  <%= form_tag("/production_shifts/", :method => "post")%>
-  <h1 align="center">
-    <span class="page-header">Ordering Material</span>
-  </h1>
-
+<%= form_tag("/production_shifts/", :method => "post")%>
 <div class="container" style="width: 100;">
-  <div class="well">
-    <div class="table-responsive">
+    <h1 class="page-header" style="font-size:35px;">Ordering Material</h1>
+    <section class="register">
+      <div class="form-group reg_section ">
+        <table class="table table-responsive">
+           <thead>
+            <tr>
+              <th class="text-center" >Material</th>
+              <th class="text-center" >Value</th>
+            </tr>
+           </thead>
 
-  <table class="table table-hover">
-   <thead>
-          <tr class="success">
-            <th class="text-center" >Material</th>
-            <th class="text-center" >Value</th>
-            
-          </tr>
-        </thead>
-
-    <% @materials.each do |material| %>
-
-    <tr >
-      <td>
-
-        <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}_#{material.name}"} %> 
-        <%= material.name %>
-      </td>
-      <td>
-        <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px"}%>
-      </td>
-
-
-      <br>
-      <%= hidden_field_tag "hidden" %>
-      <%= hidden_field_tag "manager", current_user.full_name  %>
-      <%= hidden_field_tag "shift_id",current_shift.id %>
-
-    </tr>
-    <% end %>
-
-  </table>
-  </div>
-  </div>
+           <% @materials.each do |material| %>
+            <tr >
+              <td>
+                <%= check_box_tag  "material_id[]", material.id,false,options={:onchange=>'matvalue(this)',:id => "material_id_#{material.id}_#{material.name}"} %> 
+                <%= material.name %>
+              </td>
+              <td>
+                <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px; width:200px"}%>
+              </td>
+              <br>
+              <%= hidden_field_tag "hidden" %>
+              <%= hidden_field_tag "manager", current_user.full_name  %>
+              <%= hidden_field_tag "shift_id",current_shift.id %>
+            </tr>
+          <% end %>
+        </table>
+        <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
+      </div>
+  </section>
 </div>
-
-
-
-
-
-
-  <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
 
 <script>
 index_checked=0; //to enable submit button
