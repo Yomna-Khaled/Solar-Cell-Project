@@ -1,33 +1,35 @@
-<p id="notice"><%= notice %></p>
+<<<<<<< HEAD
+
   <h1 align="center">
     <span class="page-header">Listing Sold Panels</span>
   </h1>
+=======
+>>>>>>> c77fdd758dd44133fa4f9ceb7b8c89de44d1af07
 <div class="container" style="width: calc(70%);">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr class="success">
-            <th class="text-center">Buyer</th>
-            <th class="text-center">Totalprice</th>
-            <th class="text-center">Totalpower</th>
-            <th class="text-center">Show</th>
-            <th class="text-center">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @sold_panels.each do |sold_panel| %>
-            <tr>
-              <% buyer = Buyer.find_by(id:sold_panel.buyer_id  )%>
-              <td class="text-center"><%= buyer.name %></td>
-              <td class="text-center"><%= sold_panel.totalPrice %></td>
-              <td class="text-center"><%= sold_panel.totalPower %></td>
-              <td class="text-center"><%= link_to 'Show', sold_panel, class:"btn btn-primary" %></td>
-              <td class="text-center"><%= link_to 'Edit', edit_sold_panel_path(sold_panel), class:"btn btn-default" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <h1 class="page-header" style="font-size:35px;">All soled Panels</h1>
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th class="text-center">Buyer</th>
+        <th class="text-center">Totalprice</th>
+        <th class="text-center">Totalpower</th>
+        <th class="text-center">Show</th>
+        <th class="text-center">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sold_panels.each do |sold_panel| %>
+        <tr>
+          <% buyer = Buyer.find_by(id:sold_panel.buyer_id  )%>
+          <td class="text-center"><%= buyer.name %></td>
+          <td class="text-center"><%= sold_panel.totalPrice %></td>
+          <td class="text-center"><%= sold_panel.totalPower %></td>
+          <td class="text-center"><%= link_to 'Show', sold_panel, class:"btn btn-primary" %></td>
+          <td class="text-center"><%= link_to 'Edit', edit_sold_panel_path(sold_panel), class:"btn btn-default" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>      
 <br>
 

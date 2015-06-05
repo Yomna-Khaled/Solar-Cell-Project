@@ -1,12 +1,9 @@
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Crews</span>
-  </h1>
+
 <div class="container" style="width: calc(70%);">
-  <div class="table-responsive">
-    <table class="table table-hover"> 
+    <h1 class="page-header" style="font-size:35px;">All Crews</h1>
+    <table class="table table-hover table-responsive"> 
       <thead>
-        <tr class="success">
+        <tr>
           <th class="text-center">Crew Name</th>
           <th class="text-center">No of workers</th>
           <th class="text-center">Show</th>
@@ -24,6 +21,6 @@
         <% end %>
       </tbody>
     </table>
-  </div>
 </div>    
-    <%= will_paginate @crews %>
+<%= will_paginate @crews, renderer: BootstrapPagination::Rails %>
+

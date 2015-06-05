@@ -1,18 +1,14 @@
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Employees</span>
-  </h1>
+
 <div class="container" style="width: calc(70%);">
-  <div class="table-responsive">
-    <table class="table table-hover">
+  <h1 class="page-header" style="font-size:35px;">All Employees</h1>
+    <table class="table table-condensed table-responsive">
       <thead>
-        <tr class="success">
+        <tr>
           <th class="text-center">Image</th>
           <th class="text-center">Full Name</th>
           <th class="text-center">Salary</th>
           <th class="text-center">Education Level</th>
           <th class="text-center">Education</th>
-          <th class="text-center">Governamental ID</th>
           <th class="text-center">Category</th>
           <th class="text-center">Show</th>
           <th class="text-center">Edit</th>
@@ -26,7 +22,6 @@
           <td class="text-center"><%= employee.salary %></td>
           <td class="text-center"><%= employee.education_level %></td>
           <td class="text-center"><%= employee.education %></td>
-          <td class="text-center"><%= employee.Governamental_ID %></td>
           <% category=Category.find_by(id: employee.category_id )%>
           <td class="text-center"><%= category.category %></td>
           <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
@@ -35,7 +30,6 @@
         <% end %>
       </tbody>
     </table>
-  </div>
 </div>      
 <%= will_paginate @employees, renderer: BootstrapPagination::Rails %>
 
