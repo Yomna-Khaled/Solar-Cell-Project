@@ -1,6 +1,10 @@
 class MachinesController < ApplicationController  
   before_action :set_machine, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   # GET /machines
   # GET /machines.json
   def index

@@ -1,6 +1,12 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   # GET /employees
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
+  
   def index
     if current_category.category=="HR"
       @employees = Employee.all

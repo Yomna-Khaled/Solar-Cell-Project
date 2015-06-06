@@ -1,7 +1,11 @@
 class ContainersController < ApplicationController
   before_action :set_container, only: [:show, :edit, :update, :destroy]
   before_action :authenticate, only: [:show, :edit, :update, :destroy,:index,:new,:create]
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  # Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   # GET /containers
   # GET /containers.json
   def index
