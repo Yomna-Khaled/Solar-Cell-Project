@@ -33,10 +33,12 @@
 	            </li>
 	            <hr>
 	            <% if current_category.category == "HR" %>
+
 				  <li><%= link_to ' Add Employee', new_employee_path , class: "fa fa-user" %></li>
 				  <li><%= link_to ' All Employee', employees_path , class: "fa fa-list" %></li>
 				  <li><%= link_to ' Add Crew', new_crew_path , class: "fa fa-users"%></li>
 				  <li><%= link_to ' All Crews', crews_path , class: "fa fa-list"%></li>
+
 				<% end %>
 
 				<% if current_category.category == "Sales" %>
