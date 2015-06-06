@@ -1,15 +1,10 @@
 
 <div class="container">
-<<<<<<< HEAD
+
 
 			<h1 class="page-header" style="font-size:35px;">end shift</h1>
 	<center>
-=======
-		
-			<h1 class="page-header" style="font-size:35px;">end shift</h1>
 
-		<center>
->>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
