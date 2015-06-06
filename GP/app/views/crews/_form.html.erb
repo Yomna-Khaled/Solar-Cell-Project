@@ -1,7 +1,7 @@
 <%= form_for(@crew) do |f| %>
   <section class="register">
     <div class="form-group reg_section ">
-        <h1><span class="fa fa-info"></span> Crew Information</h1>
+        <h1><span class="fa fa-info-circle"></span> Crew Information</h1>
         <h3>Crew Name</h3>
         <%= f.text_field :name, class: 'w' , placeholder: "Enter crew name" ,id: "crew"%>
         <% if @crew.errors[:name] %>

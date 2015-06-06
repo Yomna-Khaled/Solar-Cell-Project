@@ -63,7 +63,7 @@
 
         <% else %>
 
-          <h1><span class="fa fa-key"></span> Personal Information</h1>
+          <h1><span class="fa fa-info-circle"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
             <% if @employee.errors[:full_name] %>
@@ -159,7 +159,7 @@
 
           <br>
           
-        </div>
+        
 
 
           <h3>User Photo</h3>
@@ -257,7 +257,8 @@
             <br>
             <%= f.submit class: 'btn btn-success' %>
         </div> 
-      </div>    
+      </div> 
+      </div>   
   </section>
   
 <% end %>  
@@ -275,7 +276,7 @@ var x=1;
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" style="width:30px" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
