@@ -20,24 +20,24 @@
 	    <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
 	    <div id="sidebar-wrapper">
 	        <ul class="sidebar-nav">
-	            <a id="menu-close" href="#" class="btn btn-default btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-	            <li class="sidebar-brand"><a href="#">First Company</a></li>
+	            <a id="menu-close" href="#" class="btn btn-default btn-md pull-right toggle"><i class="fa fa-times"></i></a>
+	             <li><h1 class="text-primary page-header" style="font-size:25px;">First Company</h1> </li>
 	            <li><%= link_to current_user do %> 
                         <%= image_tag current_user.image.url(:thumb), class: "thumbnail"%>
                     <% end %>
-                    <strong><%= link_to  current_user.full_name, current_user , class: " fa fa-user" %></strong>
+                    <strong class="text-capitalize"><%= link_to  current_user.full_name, current_user  %></strong>
 
                 </li>
-                <li><%= link_to ' Profile setting', edit_employee_path(current_user) , class: "fa fa-cog"%></l>
-                <li><%= link_to ' Logout', logout_path, method: "delete" , class: "fa fa-sign-out" %>
+                <li><%= link_to ' Profile setting', edit_employee_path(current_user) %></l>
+                <li><%= link_to ' Logout', logout_path, method: "delete" %>
 	            </li>
 	            <hr>
 	            <% if current_category.category == "HR" %>
 
-				  <li><%= link_to ' Add Employee', new_employee_path , class: "fa fa-user" %></li>
-				  <li><%= link_to ' All Employee', employees_path , class: "fa fa-list" %></li>
-				  <li><%= link_to ' Add Crew', new_crew_path , class: "fa fa-users"%></li>
-				  <li><%= link_to ' All Crews', crews_path , class: "fa fa-list"%></li>
+				  <li><%= link_to ' Add Employee', new_employee_path  %></li>
+				  <li><%= link_to ' All Employee', employees_path %></li>
+				  <li><%= link_to ' Add Crew', new_crew_path %></li>
+				  <li><%= link_to ' All Crews', crews_path %></li>
 
 				<% end %>
 
