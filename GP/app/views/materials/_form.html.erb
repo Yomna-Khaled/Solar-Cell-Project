@@ -82,7 +82,7 @@
         <%else%> 
           <%= f.text_field :serial_number,:readonly => true %>
         <%end%> 
-        <h3><span class="fa fa-money"></span> Price</h3>
+        <h3><span class="fa fa-usd"></span> Price</h3>
          <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
          <% if @material.errors[:price].present? %>
         <div class="text-danger">

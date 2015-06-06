@@ -25,52 +25,54 @@
 	            <li><%= link_to current_user do %> 
                         <%= image_tag current_user.image.url(:thumb), class: "thumbnail"%>
                     <% end %>
-                    <strong><%= link_to  current_user.full_name, current_user , class: " fa fa-user" %></strong>
+                    <strong><%= link_to  current_user.full_name, current_user  %></strong>
 
                 </li>
-                <li><%= link_to ' Profile setting', edit_employee_path(current_user) , class: "fa fa-cog"%></l>
-                <li><%= link_to ' Logout', logout_path, method: "delete" , class: "fa fa-sign-out" %>
+                <li><%= link_to ' Profile setting', edit_employee_path(current_user) %></l>
+                <li><%= link_to ' Logout', logout_path, method: "delete"  %>
 	            </li>
 	            <hr>
 	            <% if current_category.category == "HR" %>
-				  <li><%= link_to ' Add Employee', new_employee_path , class: "fa fa-user" %></li>
-				  <li><%= link_to ' All Employee', employees_path , class: "fa fa-list" %></li>
-				  <li><%= link_to ' Add Crew', new_crew_path , class: "fa fa-users"%></li>
-				  <li><%= link_to ' All Crews', crews_path , class: "fa fa-list"%></li>
+
+				  <li><%= link_to ' Add Employee', new_employee_path  %></li>
+				  <li><%= link_to ' All Employee', employees_path  %></li>
+				  <li><%= link_to ' Add Crew', new_crew_path %></li>
+				  <li><%= link_to ' All Crews', crews_path %></li>
+
 				<% end %>
 
 				<% if current_category.category == "Sales" %>
-				  <li><%= link_to ' All Panels', solar_panels_path , class: "fa fa-list" %></li>
-				  <li><%= link_to ' All Materials', materials_path , class: "fa fa-list-ol"%></li>
-				  <li><%= link_to ' Add Material', new_material_path , class: " fa fa-plus" %></li>
-				  <li><%= link_to ' All Spare Parts', spare_parts_path , class: "fa fa-wrench"%></li>
-				  <li><%= link_to ' Add Spare Part', new_spare_part_path , class: " fa fa-plus" %></li>
-				  <li><%= link_to ' All Vendors', vendors_path , class: "fa fa-list"%></li>
-				  <li><%= link_to ' Add Vendor', new_vendor_path , class: " fa fa-plus" %></li>
-				  <li><%= link_to ' All Machines ', machines_path, class: "fa fa-list" %></li>
-				  <li><%= link_to ' Add Machine', new_machine_path , class: " fa fa-plus" %></li>
-				  <li><%= link_to ' All Palets', containers_path, class: "fa fa-list" %></li>
-				  <li><%= link_to ' Add Palet', new_container_path ,class: "fa fa-plus" %></li>
-				  <li><%= link_to ' Add Buyer', new_buyer_path , class: "fa fa-plus"%></li>
-				  <li><%= link_to ' All Soled Panels', sold_panels_path , class: "fa fa-list" %></li>
-				  <li><%= link_to ' Order panel', new_sold_panel_path , class: "fa fa-check" %></li>
-	              <li><%= link_to ' prices', lookup_prices_path , class: "fa fa-usd"%></li>
+				  <li><%= link_to ' All Panels', solar_panels_path %></li>
+				  <li><%= link_to ' All Materials', materials_path %></li>
+				  <li><%= link_to ' Add Material', new_material_path  %></li>
+				  <li><%= link_to ' All Spare Parts', spare_parts_path %></li>
+				  <li><%= link_to ' Add Spare Part', new_spare_part_path  %></li>
+				  <li><%= link_to ' All Vendors', vendors_path %></li>
+				  <li><%= link_to ' Add Vendor', new_vendor_path  %></li>
+				  <li><%= link_to ' All Machines ', machines_path %></li>
+				  <li><%= link_to ' Add Machine', new_machine_path  %></li>
+				  <li><%= link_to ' All Palets', containers_path %></li>
+				  <li><%= link_to ' Add Palet', new_container_path  %></li>
+				  <li><%= link_to ' Add Buyer', new_buyer_path %></li>
+				  <li><%= link_to ' All Sold Panels', sold_panels_path %></li>
+				  <li><%= link_to ' Order panel', new_sold_panel_path  %></li>
+	              <li><%= link_to ' prices', lookup_prices_path %></li>
 				<% end %>
 	              
 		        <% if current_category.category == "Shift Manager" %>
-	                <li><%= link_to ' Home', crew_home_path, class: "glyphicon glyphicon-home" %></li>
-					<li><%= link_to ' Start Shift', shifts_showstartshift_path , class: "glyphicon glyphicon-time"%></li>
-				 	<li><%= link_to ' End Shift', shifts_showendshift_path , class: "glyphicon glyphicon-dashboard" %></li>
-	                <li><%= link_to  ' Add Produced Product',new_solar_panel_path ,method: :get ,class: " fa fa-plus" %></li>
-	                <li><%= link_to 'Order Request', new_production_shift_path , class: "fa fa-check" %></li>
+	                <li><%= link_to ' Home', crew_home_path %></li>
+					<li><%= link_to ' Start Shift', shifts_showstartshift_path %></li>
+				 	<li><%= link_to ' End Shift', shifts_showendshift_path  %></li>
+	                <li><%= link_to  ' Add Produced Product',new_solar_panel_path ,method: :get %></li>
+	                <li><%= link_to 'Order Request', new_production_shift_path  %></li>
 	                <li><%= link_to 'Current Shift', shifts_currentshift_path %></li>
-	                <li><%= link_to 'My Shifts', shifts_path , class: "fa fa-book" %></li>
+	                <li><%= link_to 'My Shifts', shifts_path  %></li>
 				<% end %>
 	            
 				<% if current_category.category == "Stock Keeper" %>
-					<li><%= link_to ' All Materials', materials_path , class: "fa fa-list" %></li>
-					<li><%= link_to ' Un accepted requests', production_shifts_path , class: "fa fa-question-circle"%></li>
-					<li><%= link_to ' All Spare Parts', spare_parts_path, class: "fa fa-wrench" %></li>
+					<li><%= link_to ' All Materials', materials_path  %></li>
+					<li><%= link_to ' Un accepted requests', production_shifts_path %></li>
+					<li><%= link_to ' All Spare Parts', spare_parts_path %></li>
 				<% end %>
 			</ul>
 	<% end %>
