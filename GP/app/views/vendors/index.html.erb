@@ -1,12 +1,16 @@
 <div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:30px;"><span class="fa fa-list"></span> All Vendors</h1>
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span> All Vendors</h1>
+
+  <section class="register" >  
+    <div class="reg_section">
+
       <table class="table table-hover table-responsive">
         <thead>
           <tr>
-            <th class="text-center" >Name</th>
-            <th class="text-center" >Email</th>
-            <th class="text-center" >Show</th>
-            <th class="text-center" >Edit</th>
+            <th class="text-center" ><h1>Name</h1></th>
+            <th class="text-center" ><h1>Email</h1></th>
+            <th class="text-center" ><h1>Show</h1></th>
+            <th class="text-center" ><h1>Edit</h1></th>
           </tr>
         </thead>
 
@@ -15,12 +19,14 @@
             <tr>
               <td class="text-center" ><%= vendor.name %></td>
               <td class="text-center" ><%= vendor.email %></td>
-              <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-primary" %></td>
-              <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-default" %></td>
+              <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-info" %></td>
+              <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-danger" %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
+  </section> 
       <div >
          <%= will_paginate @vendors, renderer: BootstrapPagination::Rails %>
       </div>

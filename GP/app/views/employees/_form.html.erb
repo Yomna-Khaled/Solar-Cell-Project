@@ -255,7 +255,7 @@
           
         <div class="actions">
             <br>
-            <%= f.submit class: 'btn btn-success' %>
+            <%= f.submit class: 'btn btn-warning' %>
         </div> 
       </div> 
       </div>   
@@ -276,7 +276,7 @@ var x=1;
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-warning" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();

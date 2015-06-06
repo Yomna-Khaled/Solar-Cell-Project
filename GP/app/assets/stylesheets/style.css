@@ -56,13 +56,15 @@ html,
 body {
   height: 100%;
   width: 100%;
+
 }
 
 
 /* Page */
 body {
-  background: #fff;
+  background: #E9F0F5;
   font-family:"Trebuchet MS",tahoma;
+
 }
 
 a {
@@ -83,9 +85,10 @@ a:hover {
   border-bottom: 1px;
 }
 .reg_section h3 {
-  font-size: 13px;
-  margin: 5px 0;
-  color: #C4A2A2;
+  font-size: 17px;
+  margin: 4px 0;
+  color: #2A4E6E;
+  margin-left: 5px;
 }
 
 .w {
@@ -111,16 +114,17 @@ a:hover {
   bottom: -8px;
   left: -8px;
   z-index: -1;
-  background:rgba(255, 173, 200, 0.08);
+  background:rgba(215, 217, 236, 0.08);
   border-radius:7px;
   -webkit-border-radius: 7px;
 }
 .register h1 {
-  font-size: 20px;
-  font-weight: bold; 
-  color: #2A4E6E;  
+
   margin: -20px -20px 0;
   line-height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  color:#2A4E6E;
   text-align: center;
   border-bottom:1px solid #EDEDED;
   border-radius: 3px 3px 0 0;
@@ -144,9 +148,13 @@ a:hover {
   box-shadow: 0 1px #f5f5f5;
 }
 
+.table tr {
+  font-size: 25px;
+}
 
 .register input[type=text], .register input[type=number], .register input[type=file], .register input[type=password] ,.register select,.register textarea {
   width: 400px;
+  margin-left: 5px;
 }
 .register p.terms {
   float: left;
@@ -180,12 +188,12 @@ a:hover {
 }
 
 :-moz-placeholder {
-  color: #c9c9c9 !important;
+  color: #2A4E6E !important;
   font-size: 13px;
 }
 
 ::-webkit-input-placeholder {
-  color: #ccc;
+  color: #2A4E6E;
   font-size: 13px;
 }
 
@@ -206,7 +214,7 @@ input[type=text], input[type=password] , input[type=number], input[type=email],.
   border-color: #c4c4c4 #d1d1d1 #d4d4d4;
   border-radius:3px;
   --webkit-border-radius: 5px;
-  outline:3px solid rgba(200, 105, 137, 0.09);
+  outline:3px solid rgba(215, 217, 236, 0.09);
   -moz-outline-radius:7px;
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
@@ -215,8 +223,8 @@ input[type=text], input[type=password] , input[type=number], input[type=email],.
 }
 
 input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus{
-  border-color:#FFF7F9;
-  outline-color:rgba(254, 225, 235, 0.7);
+  border-color:#FFFFFF;
+  outline-color:rgba(215, 217, 236, 0.7);;
   outline-offset: 0;
 }
 
@@ -229,28 +237,17 @@ input[type=submit] {
   text-shadow:0 1px #4D1124;
   border-width: 1px;
   border-style: solid;
-  border-color:#693647;
   border-radius: 7px 7px 7px 7px;
   outline: none;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  background-color: #7D0F33;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #AA1E4D), color-stop(100%, #7D0F33));
-  background-image: -webkit-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image:-moz-linear-gradient(center top , #AA1E4D, #7D0F33)
-  background-image: -ms-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: -o-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: linear-gradient(top, #AA1E4D, #7D0F33);
-  -webkit-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-  -moz-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-  box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
+  margin-left:5px;  
+
 }
 input[type=submit]:active {
-  background: #7D0F33;
-  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  
+ 
 }
 
 .lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number], .lt-ie9 input[type=email]{
@@ -318,7 +315,7 @@ input[type=submit]:active {
 .login{
   position: absolute;
   top: calc(50% - 50px);
-  right: calc(25% - 400px);
+  right: calc(25% - 450px);
   height: 250px;
   width: 600px;
   padding: 10px;
@@ -330,7 +327,7 @@ input[type=submit]:active {
 }
 
 .login input[type=text]{
-  width: calc(134% - 50px);
+  width: calc(105% - 50px);
   height: 30px;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.6);
@@ -341,7 +338,7 @@ input[type=submit]:active {
   padding: 4px;
 }
 .login input[type=file]{
-  width: calc(134% - 50px);
+  width: calc(105% - 50px);
   height: 30px;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.6);
@@ -353,7 +350,7 @@ input[type=submit]:active {
 }
 
 .login input[type=password]{
-  width: calc(134% - 50px);
+  width: calc(105% - 50px);
   height: 30px;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.6);
@@ -470,7 +467,7 @@ i.scroll:hover {
 
 .call-to-action {
   color: #ffffff;
-  background: #0a5175;
+  background: #2A4E6E;
   padding: 50px 0;
 }
 
@@ -499,7 +496,7 @@ i.scroll:hover {
   width: 100%;
   position: relative;
   background: url(./solar_cell_rainbow_1.jpg) no-repeat center center fixed; 
-
+background-color: #303E49;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -511,7 +508,7 @@ i.scroll:hover {
   margin-left: -250px;
   left: 0;
   width: 250px;
-  background: #000;
+  background-color: #303E49;
   position: fixed;
   height: 100%;
   overflow-y: auto;
@@ -538,14 +535,14 @@ i.scroll:hover {
 }
 
 .sidebar-nav li a {
-  color: #999999;
+  color: #2A4E6E;
   display: block;
   text-decoration: none;
 }
 
 .sidebar-nav li a:hover {
   color: #fff;
-  background: rgba(255,255,255,0.2);
+  background-color: #2A4E6E;
   text-decoration: none;
 }
 
