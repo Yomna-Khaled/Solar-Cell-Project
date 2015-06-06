@@ -1,15 +1,10 @@
 
-<div class="container">
-<<<<<<< HEAD
+<div class="container" style="width: calc(70%);">
 
-			<h1 class="page-header" style="font-size:35px;">end shift</h1>
+
+			<h1 class="page-header" style="font-size:30px;"><span class="fa fa-pause"></span> End Shift</h1>
 	<center>
-=======
-		
-			<h1 class="page-header" style="font-size:35px;">end shift</h1>
 
-		<center>
->>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
@@ -23,29 +18,28 @@
     </div>
   <% end %>
 
-<<<<<<< HEAD
+
 <%= f.hidden_field :end_shift_date , :value => Date.today %>
 <%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
-  <div class="field">
+ 
 
-  <i class="fa fa-question-circle"></i>
+  <div class="field"> <span class="fa fa-question-circle"></span>
 
-=======
   <div class="field"> <spane class="fa fa-question-circle"></spane>
->>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
-  <%= f.label(:id, "did this shift produce panels",class: "text-capitalize") %>
+
+  <%= f.label(:id, "Did this shift produce panels?",class: "text-capitalize") %>
   </div>
 
   
   
    <div class="field">  
  <%= f.radio_button :id,true ,{:class => "myclass_yes", :style => "mystyle"}%>
-      <i class="fa fa-check"></i> <%= f.label(:id_true, "yes") %> 
+      <span class="fa fa-check"></span> <%= f.label(:id_true, "yes") %> 
    </div>
   <div class="field">
  <%= f.radio_button :id,false,{:class => "myclass_no", :style => "mystyle"}%>
-  <i class="fa fa-times"></i> <%= f.label(:id_false, "no") %> 
+  <span class="fa fa-times"></span> <%= f.label(:id_false, "no") %> 
    </div>
 
  </div>
@@ -62,7 +56,7 @@ $(document).ready(function() {
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
 
-            var my_new_input_element = $('<div><spane class="fa fa-sort-numeric-asc"></spane> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+            var my_new_input_element = $('<div><span id="mspan" class="fa fa-sort-numeric-asc"></span> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
 
           
              if($('#submit').length == 0){
@@ -113,7 +107,7 @@ $(document).ready(function() {
         }
           
         else if (this.value == 'false') {
-        
+        $('#mspan').remove();
         $('label[for=shift_production_rate]').remove();  
         $("#shift_production_rate").remove();
         $('#submit').remove();

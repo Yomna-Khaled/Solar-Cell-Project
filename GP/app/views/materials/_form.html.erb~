@@ -1,25 +1,49 @@
-
+<style>
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
+}
+</style>
 
 <%= form_for(@material) do |f| %>
+
   
  <section class="register">
 
 <% if logged_in? %> 
 <% if current_category.category == "Stock Keeper" %>
 <div class="form-group reg_section">
-<h1> Stock Information</h1>
-    <h3>Stock Number</h3>
+<h1><span class="fa fa-floppy-o"></span> Stock Information</h1>
+    <h3> Stock Number</h3>
     <%= f.text_field :stockNo%>
     <% if @material.errors[:stockNo].present? %>
         <div class="text-danger">
-          * stock number can`t be blank
+          <% @material.errors[:stockNo].each do |msg| %>
+              <p><%= "* stock number "+msg %></p> 
+              <% end %>
         </div>
         <% end %>
     <h3>Shelf Number</h3>
     <%= f.text_field :shelfNo %>
     <% if @material.errors[:shelfNo].present? %>
         <div class="text-danger">
-          * shelf number can`t be blank
+          <% @material.errors[:shelfNo].each do |msg| %>
+              <p><%= "* shelf number "+msg %></p> 
+              <% end %>
         </div>
         <% end %>
   </div>
@@ -29,56 +53,70 @@
   <% else %>
  
     <div class="form-group reg_section ">
-      <h1>Material Information</h1>
+      <h1><span class="fa fa-info-circle"></span>  Material Information</h1>
   
         <h3>Name</h3>
         <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
 
         <% if @material.errors[:name].present? %>
+        
         <div class="text-danger">
-          * name can`t be blank
-        </div>
+         <% @material.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
+         
+      </div>
+        
         <% end %>
-        <h3>Serial Number</h3>
+        <h3><span class="fa fa-sort-numeric-asc"></span> Serial Number</h3>
         <% if @flag == "new" %>
           <%= f.text_field :serial_number,placeholder:"Enter Material Serial number...."%>
           <% if @material.errors[:serial_number].present? %>
         <div class="text-danger">
-          * serial number can`t be blank
+          <% @material.errors[:serial_number].each do |msg| %>
+              <p><%= "* serial number "+msg %></p> 
+              <% end %>
+          
         </div>
         <% end %>
         <%else%> 
           <%= f.text_field :serial_number,:readonly => true %>
         <%end%> 
-        <h3>Price</h3>
+        <h3><span class="fa fa-money"></span> Price</h3>
          <%= f.text_field :price ,placeholder:"Enter Material Price...."%> 
          <% if @material.errors[:price].present? %>
         <div class="text-danger">
-          * price can`t be blank
-        </div>
+          <% @material.errors[:price].each do |msg| %>
+              <p><%= "* price "+msg %></p> 
+              <% end %>
+         </div>     
         <% end %>
-         <h3>Material_Photo </h3>
-         <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
-         <div class="fileUpload btn btn-primary">
+         <h3> <span class="fa fa-picture-o"></span> Material Photo </h3>
+         <input id="uploadFile" placeholder="Choose File" disabled="disabled"  class="file"/>
+         <div class="fileUpload btn btn-primary fa fa-paperclip">
           <span>Upload</span>
           <%= f.file_field :avatar,class: "upload", id:"uploadBtn" %>
         </div>
         <% if @material.errors[:avatar].present? %>
-        <div class="text-danger">
-          * image can`t be blank
-        </div>
+         <div class="text-danger">
+        <% @material.errors[:avatar].each do |msg| %>
+              <p><%= "* image "+msg %></p> 
+              <% end %>
+           </div>   
         <% end %>
     </div>
     <div class="form-group reg_section">
-      <h1>Material In Stock </h1>
+      <h1><span class="fa fa-floppy-o"></span> Material In Stock </h1>
       <div class="col-md-6">
        
-      <h3>quantity_value </h3>
+      <h3> <span class="fa fa-sort-numeric-asc"></span> quantity_value </h3>
       <%= f.number_field :quantity_value ,placeholder:"Quantity Value..." , style: "width:200px"%>
       <% if @material.errors[:quantity_value].present? %>
-        <div class="text-danger">
-          * quantity can`t be blank
-        </div>
+       <div class="text-danger">
+         <% @material.errors[:quantity_value].each do |msg| %>
+              <p><%= "* quantity "+msg %></p> 
+              <% end %>
+             </div> 
         <% end %>
     </div>
       <!-- this div for quantites to be dispalayed at dropdown list-->
@@ -94,18 +132,17 @@
             <%end%>
         <!-- add new quantity using ajax-->
         <a id="unitlink" class="btn btn-link" style="text-align: left" 
-        onclick="showunitform()"><h3>Add Quantity_Unit</h3></a>
+        onclick="showunitform()"><h3> <span class="fa fa-plus-circle"></span>  Add Quantity Unit</h3></a>
         <div id="addnewunit" style="display:none" class="form-group">
-             <h1>
-              <span class="label label-default">New Quantity_unit</span>
-            </h1>
+             <h2> <span class="fa fa-plus-circle"></span> New Quantity unit </h2>
+            
             <div class="form-group">
               <h3>Unit Name</h3>
               <input type="text" id="unitname" style="width:100px">
             </div>
             <div class="actions">
-              <a onclick="unitajax()" class="btn btn-success">Add Quantity</a>
-              <a onclick="canceladdunit()" class="btn btn-warning">Cancel</a>
+              <a onclick="unitajax()" class="btn btn-success"> <span class="fa fa-check"></span> Add Quantity</a>
+              <a onclick="canceladdunit()" class="btn btn-warning"> <span class="fa fa-times"></span> Cancel</a>
             </div>
         </div>
           <!-- end of adding new unit using ajax -->
@@ -117,41 +154,44 @@
  
  
   
-    <h3>Min Number</h3>
+    <h3><span class="fa fa-minus-circle"></span> Min Number</h3>
     <%= f.number_field :Min_Number,placeholder:"Enter Min Number...." %>
     <% if @material.errors[:Min_Number].present? %>
-        <div class="text-danger">
-          * Min number can`t be blank
-        </div> 
+     <div class="text-danger">
+       <% @material.errors[:Min_Number].each do |msg| %>
+              <p><%= "* min number "+msg %></p> 
+              <% end %>
+            </div>  
         <% end %>
   
-  
-
-  
-    <h3>Stock Number</h3>
+    <h3><span class="fa fa-floppy-o"></span> Stock Number</h3>
     <%= f.text_field :stockNo, placeholder:"Enter Stock Number...." %>
     <% if @material.errors[:stockNo].present? %>
         <div class="text-danger">
-          * stock number can`t be blank
+            <% @material.errors[:stockNo].each do |msg| %>
+              <p><%= "* stock number "+msg %></p> 
+              <% end %>
         </div>
         <% end %>
   
   
-    <h3>Shelf Number</h3>
+    <h3><span class="fa fa-floppy-o"></span> Shelf Number</h3>
     <%= f.text_field :shelfNo, placeholder:"Enter Shelf Number...." %>
     <% if @material.errors[:shelfNo].present? %>
         <div class="text-danger">
-          * shelf number can`t be blank
+            <% @material.errors[:shelfNo].each do |msg| %>
+              <p><%= "* shelf number "+msg %></p> 
+              <% end %>
         </div>
         <% end %>
   </div>
   <div class="form-group reg_section">
 
-      <h1>Material Date </h1>
-    <h3>production_date </h3>
+      <h1><span class="fa fa-calendar"></span> Material Date </h1>
+    <h3><span class="fa fa-calendar-o"></span> production_date </h3>
     <%= f.date_select :production_date %>
 
-   <h3>expiration_date</h3>
+   <h3><span class="fa fa-calendar-o"></span> expiration_date</h3>
    <div class="form-group reg_section">
     <%= f.date_select :expiration_date %>
   </div>
@@ -160,7 +200,7 @@
 
  <div class="reg_section">
 
-      <h1>Material Vendor </h1>
+      <h1><span class="fa fa-info-circle"></span> Material Vendor </h1>
     <h3>Vendor </h3>
     <select id="vendor" name="vendor">
       <% @vendors.each do |vendor| %>
@@ -179,22 +219,22 @@
 
    <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
-    onclick="showvendorform()"><h3>Add new Vendor</h3></a>
+    onclick="showvendorform()"><h3><span class="fa fa-plus-circle"></span>Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
-        <h1>
-        <span class="label label-default">New Vendor</span>
-      </h1>
+        <h2>
+        <span class="fa fa-plus-circle"></span>New Vendor
+      </h2>
         <div class="form-group">
           <h3>Vendor Name</h3>
           <input type="text" id="vendorname" placeholder:"Enter Vendor Name.....">
         </div>
         <div class="form-group">
-          <h3>Vendor Email</h3>
+          <h3><span class="fa fa-envelope-o"></span> Vendor Email</h3>
           <input type="text" id="vendoremail" placeholder:"Enter Vendor Email....">
         </div>
         <div class="actions">
-          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
-          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+          <a onclick="vendorajax()" class="btn btn-success"><span class="fa fa-check"></span> Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-warning"><span class="fa fa-times"></span> Cancel</a>
         </div>
       </div>
     <!-- end of adding new vendor using ajax -->
@@ -210,8 +250,8 @@
 
   <div id="property" class="reg_section">
 
-      <h1>Material Properties </h1>
-    <h3>Property</h3>
+      <h1><span class="fa fa-list-ul"></span> Material Properties </h1>
+    <h3><span class="fa fa-bullseye"></span> Property</h3>
     <table id="allproperties">
       <% @properties.each do |property| %>
         <% if @flag =="new" %>
@@ -254,18 +294,18 @@
     </table> 
     <!-- add new property using ajax-->
     <a id="propertylink" class="btn btn-link" style="text-align: left"
-    onclick="showpropertyform()"><h3>Add new Property</h3></a>
+    onclick="showpropertyform()"><h3> <span class="fa fa-plus-circle"></span> Add new Property</h3></a>
     <div id="addnewproperty" style="display:none" class="form-group">
-      <h1>
-        <span class="label label-default">New Property</span>
-      </h1>
+      <h2>
+        <span class="fa fa-plus-circle"></span> New Property
+      </h2>
       <div class="form-group">
         <h3>property Name</h3>
         <input type="text" id="propertyname" placeholder="Enter Property....">
       </div>
       <div class="actions">
-        <a onclick="propertyajax()" class="btn btn-success">Add Property</a>
-        <a onclick="canceladdproperty()" class="btn btn-warning">Cancel</a>
+        <a onclick="propertyajax()" class="btn btn-success"><span class="fa fa-check"></span> Add Property</a>
+        <a onclick="canceladdproperty()" class="btn btn-warning"><span class="fa fa-times"></span> Cancel</a>
       </div>
     </div>
       <!-- end of adding new property using ajax -->

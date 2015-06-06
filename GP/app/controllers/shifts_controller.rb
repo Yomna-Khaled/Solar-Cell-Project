@@ -280,13 +280,14 @@ if logged_in? and current_category.category=="Shift Manager"
     end
    
     def start_shift_params
-     
-      params[:shift][:start_shift_time] =Time.now.strftime('%a, %d %b %Y %H:%M:%S')
+      params[:shift][:start_shift_time]=Time.zone.now
+      params[:shift][:end_shift_Date] =Time.zone.now.strftime('%d %b %Y')
+      #params[:shift][:start_shift_time] =Time.now.strftime('%a, %d %b %Y %H:%M:%S')
       params.require(:shift).permit( :crew_id,:start_shift_date,:start_shift_time).merge(:employee_id => current_user.id)
     end
     def end_shift_params
-       
-       params[:shift][:end_shift_time] =Time.now.strftime('%a, %d %b %Y %H:%M:%S')
+       params[:shift][:end_shift_time]=Time.zone.now
+       params[:shift][:end_shift_Date] =Time.zone.now.strftime('%d %b %Y')
        params.require(:shift).permit(:production_rate,:end_shift_date,:end_shift_time)
     end 
 

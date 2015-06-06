@@ -1,5 +1,6 @@
 
 <div class="container" style="width: calc(80%);">
+
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
 
   <div id="Search_by" style= "margin-left:500px;width:600px" >
@@ -27,15 +28,16 @@
             </tr>
           </thead>
 
-          <tbody>
-            <% @solar_panels.each do |solar_panel| %>
-              <tr>
-                 <td class="text-center" ><%= solar_panel.serialNo %></td>
-                 <td class="text-center" ><%= solar_panel.celltype %></td>
-                 <td class="text-center" ><%= solar_panel.subtype %></td>
-                 <td class="text-center" ><%= solar_panel.container.serialNo %></td>
-                 <td class="text-center" ><%= solar_panel.power %></td>
-                 <td class="text-center" ><%= solar_panel.price %></td>
+    <tbody>
+      <% @solar_panels.each do |solar_panel| %>
+       
+         <tr>  
+           <td class="text-center" ><%= solar_panel.serialNo %></td>
+           <td class="text-center" ><%= solar_panel.celltype %></td>
+           <td class="text-center" ><%= solar_panel.subtype %></td>
+           <td class="text-center" ><%= solar_panel.container.serialNo %></td>
+           <td class="text-center" ><%= solar_panel.power %></td>
+           <td class="text-center" ><%= solar_panel.price %></td>
 
                  <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
        
