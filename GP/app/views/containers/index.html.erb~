@@ -1,100 +1,37 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <span class="page-header">Listing Containers</span>
-  </h1>
-<<<<<<< HEAD
+
 <div class="container" style="width: calc(70%);">
-=======
-<div class="container" style="width: calc(100%);">
->>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
-  <div class="well">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr class="success">
-            <th class="text-center">Serialno</th>
-            <th class="text-center">Capacity</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Total power</th>
-            <th class="text-center">Show</th>
-            <th class="text-center">Edit</th>
-          </tr>
-        </thead>
-<<<<<<< HEAD
-        <tbody>
-          <% @containers.each do |container| %>
-            <tr>
-              <td class="text-center"><%= container.serialNo %></td>
-              <td class="text-center"><%= container.capacity %></td>
-              <td class="text-center"><%= container.price %></td>
-              <td class="text-center"><%= container.total_power %></td>
-              <td class="text-center"><%= link_to 'Show', container, class:"btn btn-primary" %></td>
-              <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
-            </tr>
-            <table class="table table-striped">
-          		<thead>
-          			<tr>
-            			<th class="text-center">production_date</th>
-            			<th class="text-center">height</th>
-            			<th class="text-center">width</th>
-            			<th class="text-center">power</th>
-            			<th class="text-center">celltype</th>
-            			<th class="text-center">subtype</th>
-                  <th class="text-center">price</th>
-                  <th class="text-center">serialNo</th>
-                  <th class="text-center">cells no.</th>  
-               		<th class="text-center">price</th>  
-               		<th class="text-center">power</th>  
-                </tr>  		                     
-          		</thead>
-              <tbody>
-            	  <tr>
-                <% container.solar_panels.each do |solar_panel| %>
-            		<p>
-          		    <td class="text-center"><%= solar_panel.production_date %></td>
-                  <td class="text-center"><%= solar_panel.height %></td>
-                  <td class="text-center"><%= solar_panel.width %></td>
-                  <td class="text-center"><%= solar_panel.power %></td>
-                  <td class="text-center"><%= solar_panel.celltype %></td>
-                  <td class="text-center"><%= solar_panel.subtype%></td>
-                  <td class="text-center"><%= solar_panel.price %></td>
-                  <td class="text-center"><%= solar_panel.serialNo%></td>                
-                  <td class="text-center"><%= solar_panel.cellno %></td> 
-          		    <td class="text-center"><%= solar_panel.price %></td>
-          		    <td class="text-center"><%= solar_panel.power %></td>
-            	  </p> 
-            		<% end %> 
-                </tr>      
-                <% end %>
-              </tbody>  
-            </tr>
-          </table>    
-        </tbody>
-      </table>
-=======
+
+	<h1 class="page-header" style="font-size:35px;"><span class="fa fa-list"></span> All Containers</h1>
+  <table class="table table-hover table-responsive">
+   <thead>
+      <tr>
+        <th class="text-center">Serialno</th>
+        <th class="text-center">Capacity</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Total power</th>
+        <th class="text-center">Show</th>
+        <th class="text-center">Edit</th>
+      </tr>
+    </thead>
 	<tbody>
-                <% i=0 %>
+        <% i=0 %>
 		<% @containers.each do |container| %>
 		    <tr >
 		      <td class="text-center"><%= container.serialNo %></td>
 		      <td class="text-center"><%= container.capacity %></td>
 		      <td class="text-center"><%= container.price %></td>
 		      <td class="text-center"><%= container.total_power %></td>
-		      <td class="text-center"><%= link_to 'Show', container, class:"btn btn-primary" %></td>
-		      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
+		      <td class="text-center"><span class="fa fa-eye"></span><%= link_to 'Show', container, class:"btn btn-primary" %></td>
+		      <td class="text-center"><span class="fa fa-edit"></span><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
 		      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-                         <button type="button" class="btn btn-primary">  
-                                    <span class="myglyphicon,glyphicon glyphicon-plus"></span> 
-                          </button>
-                      </td>            
+                 <button type="button" class="btn btn-primary">  
+                  	<span class="myglyphicon,glyphicon glyphicon-plus"></span> 
+                  </button>
+              </td>            
 		    </tr>
-                     <tr>
-                       <td  colspan="12" style="border:0px">
-                      <table class="table table-hover">
+                <tr>
+                       <td  colspan="12" style="border:0px ; padding:0px">
+                      <table class="table table-stripped">
 			  <thead >
 			    <tr class="collapse , demo<%=i%>">
 				<td> production_date </td>
@@ -102,11 +39,11 @@
 				<td>width</td>
 				<td>celltype</td>
 				<td> subtype</td>
-				<td>price</td>
+				
 				<td>serialNo</td>
 				<td>cells no.</td>  
-				<td> price</td>     
-				<td>power</td>  
+				<td>power</td>
+                                <td>price</td>   
 		              </tr>
 			    </thead> 
                             <tbody>
@@ -115,29 +52,27 @@
                                 <td><%= solar_panel.production_date %></td>
                                 <td ><%= solar_panel.height %></td>
                                 <td ><%= solar_panel.width %></td>
-				<td ><%= solar_panel.power %></td>
 				<td ><%= solar_panel.celltype %> </td>
 				<td ><%= solar_panel.subtype%> </td>
-				<td > <%= solar_panel.price %> </td>
+				
 				<td ><%= solar_panel.serialNo%> </td>                
 				<td > <%= solar_panel.cellno %></td> 
 			  	<td ><%= solar_panel.power %></td>
+                                <td > <%= solar_panel.price %> </td> 
 			     </tr>  
 			    <% end %> 
                             </tbody> 
                             </table>
                            </td></tr>
 			  <% i=i+1 %>
-                
-            <% end %>
-             
-          </tbody>
-        </table>
->>>>>>> 02daa98569e7730cc29c7fbebfcb8eec5459f485
+                     <% end %>
+                 </tbody>
+            </table>
     </div>
-  </div>
-</div>      
-<%= will_paginate @containers %>
+  
+
+
+<%= will_paginate @containers, renderer: BootstrapPagination::Rails %>
 <br>
 <script>
 $('.collapse').on('shown.bs.collapse', function () {

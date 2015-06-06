@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+<p id="notice"><%= notice %></p>
+<h1 align="center">
+  <span class="page-header">Watt Price</span>
+</h1>
+<div class="container" style="width: 80;">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="success">
+          <th class="text-center">Value</th>
+          <th class="text-center">Edit</th>
+        </tr>
+      </thead>
+
+=======
 
 <<<<<<< HEAD
 <table class="table table-hover">
@@ -19,6 +35,7 @@
       </thead>
 >>>>>>> 0a69ce3b772aabc0d501e336802cf388c5c8e4c0
 
+>>>>>>> 971fe432df63fb144dc0f9b0fd772ab540b995cd
       <tbody>
         <% @lookup_prices.each do |lookup_price| %>
         <tr>
@@ -28,7 +45,15 @@
         <% end %>
       </tbody>
     </table>
+<<<<<<< HEAD
+  </div>
 </div>
 
 
 
+=======
+</div>
+
+
+
+>>>>>>> 971fe432df63fb144dc0f9b0fd772ab540b995cd

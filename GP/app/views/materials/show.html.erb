@@ -1,12 +1,12 @@
-<div class="container">
-  <div class="page-header" style="font-size:35px;">
-      <h1 align="center"><span class="fa fa-eye"> <%=  @material.name %> Infromation</h1>
-  </div>
+<div class="container" style="width: calc(60%);">
+ 
+      <h1 class="page-header text-capitalize" style="font-size:30px;"><span class="fa fa-eye"> <%=  @material.name %> Details</h1>
+  
 
-  <div class="raw">
+  <div class="row">
     <div class="col-md-3">
       <br><br>
-      <img src="<%= @material.avatar %>" class="img-rounded" style="width:100px ; height:100px;">
+      <img src="<%= @material.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
     </div> 
 
     <div class="col-md-9">
@@ -19,7 +19,7 @@
         <li class="list-group-item">Price: <%= @material.price %></li>
       </ul>
 
-fa-floppy-o
+
       <div class="page-header">
           <h1><span class="fa fa-floppy-o"></span> Stock Info.</h1>
       </div>
@@ -41,10 +41,10 @@ fa-floppy-o
       </ul>
 
       <div class="page-header">
-          <h1>Material Vendor</h1>
+          <h1><span class="fa fa-user"></span> Material Vendor</h1>
       </div>
       <ul class="list-group">
-        <li class="list-group-item">Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
+        <li class="list-group-item"> Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
       </ul>     
        
       <div class="page-header">

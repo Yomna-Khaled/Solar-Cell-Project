@@ -1,12 +1,15 @@
-<h3></h3>
-<div class="container">
 
-<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h1>end shift</h1>
-		</div>
-		<div class="panel-body">
+<div class="container">
+<<<<<<< HEAD
+
+			<h1 class="page-header" style="font-size:35px;">end shift</h1>
+	<center>
+=======
+		
+			<h1 class="page-header" style="font-size:35px;">end shift</h1>
+
 		<center>
+>>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
     <div id="error_explanation">
@@ -20,21 +23,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-  <%= f.label(:id, "did this shift produce panels") %>
-  </div>
+<<<<<<< HEAD
+<%= f.hidden_field :end_shift_date , :value => Date.today %>
+<%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
   <div class="field">
+
+  <i class="fa fa-question-circle"></i>
+
+=======
+  <div class="field"> <spane class="fa fa-question-circle"></spane>
+>>>>>>> 2786860bfcb287eacdefd69a0198c04c73c2de38
+  <%= f.label(:id, "did this shift produce panels",class: "text-capitalize") %>
+  </div>
+
   
-   <div class="field">
-      
+  
+   <div class="field">  
  <%= f.radio_button :id,true ,{:class => "myclass_yes", :style => "mystyle"}%>
-      <%= f.label(:id_true, "yes") %>
+      <i class="fa fa-check"></i> <%= f.label(:id_true, "yes") %> 
    </div>
   <div class="field">
  <%= f.radio_button :id,false,{:class => "myclass_no", :style => "mystyle"}%>
-<%= f.label(:id_false, "no") %>
+  <i class="fa fa-times"></i> <%= f.label(:id_false, "no") %> 
    </div>
+
  </div>
 
    
@@ -48,10 +61,12 @@ $(document).ready(function() {
             
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
-            var my_new_input_element = $('<div><%= f.label( :production_rate , "enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+
+            var my_new_input_element = $('<div><spane class="fa fa-sort-numeric-asc"></spane> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+
           
              if($('#submit').length == 0){
-		          $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
+		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' );
 		          $('#warnmsg').remove();
                           $('#btnadd').remove();  
 		       }
@@ -59,7 +74,7 @@ $(document).ready(function() {
                          $('#submit').remove();
                          $('#warnmsg').remove();
                          $('#btnadd').remove();  
-                         $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' ); 
+                         $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' ); 
                         }
 
           $( "#shift_production_rate" ).keyup(function(event) {
@@ -67,7 +82,7 @@ $(document).ready(function() {
 		  if (<%= @inserted_panels %> == $('#shift_production_rate').val() ){  
 		         $('#warnmsg').remove();  $('#btnadd').remove();
 		     if($('#submit').length == 0){
-		          $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( '#shift_production_rate' );
+		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' );
 		           
 		       }
 		  }
@@ -106,7 +121,7 @@ $(document).ready(function() {
         $('#btnadd').remove(); 
           if (<%= @inserted_panels %> == 0 ){ 
                                  if($('#submit').length == 0){
-				  $('<div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div>' ).insertAfter( 'label[for=shift_id_false]' );                
+				  $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( 'label[for=shift_id_false]' );                
 				  $('#warnmsg').remove();  
 			          $('#btnadd').remove();  
                                   }
@@ -134,13 +149,13 @@ $(document).ready(function() {
 
 </script>
 
-  <%= f.hidden_field :end_shift_date , :value => Date.today %>
-  <%= f.hidden_field :end_shift_time , :value => Time.now %>
+ 
   <script>
   if($('#submit').length == 0){
              //     $('<div class="submit"> <%= f.submit :id=>"submit" %> </div>' ).insertAfter( '#shift_id_no' );
              }   
-  </script> 
+  </script>
+
 <% end %>
 
 
@@ -148,3 +163,4 @@ $(document).ready(function() {
 		</div>
 	</div>
 </div>
+ 
