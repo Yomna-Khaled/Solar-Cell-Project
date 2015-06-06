@@ -2,6 +2,12 @@ class CrewsController < ApplicationController
   before_action :set_crew, only: [:show, :edit, :update, :destroy]
   # GET /crews
   # GET /crews.json
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
+  
   def index
     if logged_in? and current_category.category=="HR"
 

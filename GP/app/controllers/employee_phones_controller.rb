@@ -3,6 +3,12 @@ class EmployeePhonesController < ApplicationController
 
   # GET /employee_phones
   # GET /employee_phones.json
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
+    
   def index
     @employee_phones = EmployeePhone.all
   end

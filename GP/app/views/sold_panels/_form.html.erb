@@ -100,7 +100,8 @@ console.log("hello");
       $("#power").val(totalPower-power);
       console.log($("#power").val());
       if($("#power").val()<0){
-        alert("you exceed the totalPower");
+        BootstrapDialog.alert('you exceed the totalPower ');
+        
         $("#power").val(oldpower);
         ptr.checked=false;
 
@@ -123,7 +124,7 @@ console.log("hello");
 
     }
     else{
-      alert("enter total power first");
+      BootstrapDialog.alert('enter total power first');
       ptr.checked=false;
     }
     

@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
   
   skip_before_filter :authenticate
   skip_before_filter :forgetpassword 
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   def new
     if logged_in?
       flash[:success] = 'You are already logged_in' # Not quite right!    
