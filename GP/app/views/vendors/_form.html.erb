@@ -4,7 +4,7 @@
 
 <section class="register">
     <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Vendor Information</h1>
+    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Vendor Information</h1>
     <h3>Name</h3>
     <%= f.text_field :name %>
     
@@ -21,7 +21,7 @@
 
 
   
-    <h3>Email</h3>
+    <h3><span class="fa fa-envelope"></span> Email</h3>
     <%= f.text_field :email %>
     <% if @vendor.errors[:email].any? %>
     <div id="error_explanation">  
@@ -40,7 +40,7 @@
 
   <% if @flag == "new" %> 
         <%= fields_for :vendor_phones do |p| %> 	
-           <h3>Phone</h3>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
 	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
         <% end %>
 
@@ -49,7 +49,7 @@
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
-           <h3>Phone</h3>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
            <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
       
       <% else %>

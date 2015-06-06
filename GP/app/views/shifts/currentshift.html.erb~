@@ -1,21 +1,39 @@
+
 <p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="page-header" >
+      <h1 align="center">current shift Infromation</h1>
+  </div>
+        <div class="raw">
+            <div class="col-md-9">
+		      <ul class="list-group">
+				
+				<li class="list-group-item"><strong>shiftmanager:</strong><%= @shift.employee.full_name %></li>
+				<li class="list-group-item"><strong>crew name:</strong><%= @shift.crew.name %></li>
+				<li class="list-group-item"><strong>start_shift_date:</strong><%= @shift.start_shift_date %></li>
+				<li class="list-group-item"><strong>start_shift_time:</strong><%= @shift.start_shift_time.strftime('%H:%M:%S') %></li>
+				<li class="list-group-item"><strong>No.of produced panel:</strong><%= @shift.production_rate %></li>
+				<li class="list-group-item"><strong>crew members:</strong></li>
+                      
+				<% if @crew_name.blank? %>
+				  <li class="list-group-item">There are no members...Please add them</li>
+				<% else %>
+                                   <li class="list-group-item">
+				   <% @crew_name.each do |f| %>
+				    <p><%= f.full_name %></p>
+				   <% end %>
+                                  </li>
+				<% end %>        
+                     </ul>  
+              </div>
+      </div>
+</div>
 
-<h1>current shift</h1>
-<p><strong>shiftmanager:</strong><%= @shift.employee.full_name %></p>
-<p><strong>crew name:</strong><%= @shift.crew.name %></p>
-<p><strong>start_shift_date:</strong><%= @shift.start_shift_date %></p>
-<p><strong>start_shift_time:</strong><%= @shift.start_shift_time %></p>
-<p><strong>No.of produced panel:</strong><%= @shift.production_rate %></p>
-<p><strong>crew members:</strong></p>
-<% if @crew_name.blank? %>
-  <p>There are no members...Please add them</p>
-<% else %>
-   <% @crew_name.each do |f| %>
-    <p><%= f.full_name %></p>
-  <% end %>
-<% end %>        
 
-         <table class="table table-striped">
+<div class="container" style="width: calc(70%);">
+    <h1 class="page-header" align="center"> produced SolarPanel </h1>
+    <div class="table-responsive">         
+         <table class="table table-hover">
 		<thead>
 			<tr>
 			<th text-align="center">production_date</th>
@@ -24,7 +42,6 @@
 			<th text-align="center">power</th>
 			<th text-align="center">celltype</th>
 			<th text-align="center">subtype</th>
-                        <th text-align="center">price</th>
                         <th text-align="center">serialNo</th>
                         <th text-align="center">cells no.</th>  
          		<th text-align="center">price</th>  
@@ -44,7 +61,6 @@
                     <td><%= solar_panel.power %></td>
                     <td><%= solar_panel.celltype %></td>
                     <td><%= solar_panel.subtype%></td>
-                    <td><%= solar_panel.price %></td>
                     <td><%= solar_panel.serialNo%></td>                
                     <td><%= solar_panel.cellno %></td> 
 		    <td><%= solar_panel.price %></td>
@@ -59,9 +75,11 @@
           </tbody>    
 
 </table>
+</div>
+</div>
 
 <div class="container">
-<h1 class="page-header"> New SolarPanel </h1>
+<h1 align="center" class="page-header"> New SolarPanel </h1>
 <%= form_for(@solar_panel) do |f| %>
  <section class="register">
 

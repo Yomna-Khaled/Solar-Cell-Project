@@ -1,82 +1,35 @@
 <div class="container">
+  <div class="page-header" style="font-size:35px;">
+      <h1><span class="fa fa-info-circle"></span> Container Information</h1>
+  </div>
+  <div class="raw">
+    <div class="page-header">
+      <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item"><span class="fa fa-arrows-v"></span> Container Width: <%= @container.width %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-h"></span> Contatiner Height: <%= @container.height %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Serial No.: <%= @container.serialNo %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Capacity.: <%= @container.capacity %></li>
+    </ul>
+    <div class="page-header">
+      <h1>Power and Price</h1>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item"><span class="fa fa-bolt"></span> Container Power: <%= @container.total_power %></li>
+      <li class="list-group-item"><span class="fa fa-usd"></span> Contatiner Price: <%= @container.price %></li>
+    </ul>
+  </div>
 
-  <p>
-    <strong>Width:</strong>
-    <%= @container.width %>
-  </p>
+  <div class="page-header">
+      <h1><span class="fa fa-user"></span> Container Vendor</h1>
+    </div>
+    <ul class="list-group">
+      <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
+      <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
+      <li class="list-group-item"><span class="fa fa-user"></span> Container Vendor: <%= vendor.name %></li>
+    </ul>
 
-  <p>
-    <strong>Height:</strong>
-    <%= @container.height %>
-  </p>
-
-  <p>
-    <strong>Serialno:</strong>
-    <%= @container.serialNo %>
-  </p>
-
-  <p>
-    <strong>Capacity:</strong>
-    <%= @container.capacity %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= @container.price %>
-  </p>
-
-  <p>
-    <strong>Total power:</strong>
-    <%= @container.total_power %>
-  </p>
-
-  <p>
-    <strong>Vendor:</strong>
-          <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
-          <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
-          <td><%= vendor.name %></td>
-   </p> 
-  ================================================================================
-  <% @container.solar_panels.each do |solarpanel| %>
-    <p>
-      <strong>Production Date:</strong>
-      <%= solarpanel.production_date %>
-    </p>
-   <p>
-      <strong>Height:</strong>
-      <%= solarpanel.height %>
-    </p>
-    <p>
-      <strong>Width:</strong>
-      <%= solarpanel.width %>
-    </p>
-    <p>
-      <strong>power:</strong>
-      <%= solarpanel.power %>
-    </p>
-   
-    <p>
-      <strong>cell type:</strong>
-      <%= solarpanel.celltype %>
-    </p>
-    <p>
-      <strong>sub type:</strong>
-      <%= solarpanel.subtype %>
-    </p>
-    <p>
-      <strong>price:</strong>
-      <%= solarpanel.price %>
-    </p>
-    <p>
-      <strong>serial No:</strong>
-      <%= solarpanel.serialNo %>
-    </p>
-    <p>
-      <strong>number of cells:</strong>
-      <%= solarpanel.cellno %>
-    </p>
     
-   
-  ****************************************
-  <% end %>
 </div>
+ 

@@ -54,7 +54,13 @@ class LookupPricesController < ApplicationController
   def update
     respond_to do |format|
       if @lookup_price.update(lookup_price_params)
-        format.html { redirect_to @lookup_price, notice: 'Lookup price was successfully updated.' }
+         @unsoldpanels=SolarPanel.where("sold_panel_id is NULL")
+         
+         for i in 0...(@unsoldpanels).length
+
+                 @unsoldpanels[i].update_attributes(:price=>(LookupPrice.where("name=?","watt").first.value)*@unsoldpanels[i][:power].to_f)
+         end
+        format.html { redirect_to lookup_prices_path , notice: 'Lookup price was successfully updated.' }
         format.json { render :show, status: :ok, location: @lookup_price }
       else
         format.html { render :edit }

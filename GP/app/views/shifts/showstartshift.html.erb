@@ -2,7 +2,7 @@
 <div class="container">
 <section class="register">
     <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Start Shift</h1>
+    <h1><span class="fa fa-play-circle"></span> Start Shift</h1>
   
 
 		
@@ -23,14 +23,27 @@
       
 	
     
-     <h3 style="display:inline-block;">shift manager name:   </h3>
+     <h3 style="display:inline-block;"><span class="fa fa-user"></span> shift manager name:   </h3>
 		  <p style="display:inline-block;"><%= current_user.full_name %> </p> 
 
 	
         <div class="field">
-          <h3> Enter crew names:  </h3>
+          <h3><span class="fa fa-users"></span> Enter crew names:  </h3>
 	
 	<%= f.select(:crew_id, @crews) %>
+
+	<% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
 	</div>
 
   <%= f.hidden_field :start_shift_date , :value => Date.today %>

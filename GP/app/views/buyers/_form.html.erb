@@ -4,7 +4,7 @@
 
 <section class="register">
     <div class="form-group reg_section ">
-    <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Buyer Information</h1>
+    <h1><span  aria-hidden="true"></span><span class="fa fa-info-circle"></span> Buyer Information</h1>
   
   
     <h3>Name</h3>
@@ -19,7 +19,7 @@
     </div>
   <% end %>
   
-    <h3>Address</h3>
+    <h3><span class="fa fa-home"></span> Address</h3>
     <%= f.text_field :addess %>
     <% if @buyer.errors[:addess].any? %>
     <div id="error_explanation">  
@@ -31,7 +31,7 @@
     </div>
   <% end %>
 
-    <h3>City</h3>
+    <h3><span class="fa fa-map-marker"></span> City</h3>
     <%= f.text_field :city %>
 
     <% if @buyer.errors[:city].any? %>
@@ -52,7 +52,7 @@
 
   <% if @flag == "new" %> 
         <%= fields_for :buyer_phones do |p| %> 	
-           <h3>Phone</h3>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
 	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %>
         <% end %>
 
@@ -61,7 +61,7 @@
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
-           <h3>Phone</h3>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
            <%= p.text_field :phone , id:"phone", value:"" , readonly: true %>
       
       <% else %>
