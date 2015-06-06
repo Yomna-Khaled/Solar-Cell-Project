@@ -1,18 +1,18 @@
 
-<div class="container">
-  <div class="page-header" style="font-size:35px;">
-      <h1><%= @spare_part.name %> Infromation</h1>
+<div class="container" style="width: calc(60%);">
+  <div class="page-header" style="font-size:30px;">
+      <h1 class="text-capitalize"><span class="fa fa-eye "> </span> <%= @spare_part.name %> Details</h1>
   </div>
 
   <div class="raw">
   <div class="col-md-3">
       <br><br>
-      <img src="<%= @spare_part.avatar %>" class="img-rounded" style="width:100px ; height:100px;">
+      <img src="<%= @spare_part.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
     </div>
   
   <div class="col-md-9">
       <div class="page-header">
-          <h1>Basic Infromation</h1>
+          <h1><span class="fa fa-info-circle "> </span> Basic Information</h1>
       </div>
 
       <ul class="list-group">
@@ -20,18 +20,18 @@
         <li class="list-group-item">Price: <%= @spare_part.price %></li>
       </ul>
 
-  <div class="col-md-9">
+
       <div class="page-header">
-          <h1>Machine Information</h1>
+        <h1><span class="fa fa-wrench "> </span> Machine Information</h1>
       </div>    
 
       <ul class="list-group">
         <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
       </ul>
 
-  <div class="col-md-9">
+
       <div class="page-header">
-          <h1>Vendor Information</h1>
+          <h1><span class="fa fa-user "> </span> Vendor Information</h1>
       </div>    
 
       <ul class="list-group">
@@ -41,6 +41,6 @@
       </ul>    
   </div>
 </div>    
-
+</div> 
 
 

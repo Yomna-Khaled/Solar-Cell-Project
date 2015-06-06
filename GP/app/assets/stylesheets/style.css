@@ -116,11 +116,11 @@ a:hover {
   -webkit-border-radius: 7px;
 }
 .register h1 {
+  font-size: 20px;
+  font-weight: bold; 
+  color: #2A4E6E;  
   margin: -20px -20px 0;
   line-height: 40px;
-  font-size: 15px;
-  font-weight: bold;
-  color:#694551;
   text-align: center;
   border-bottom:1px solid #EDEDED;
   border-radius: 3px 3px 0 0;

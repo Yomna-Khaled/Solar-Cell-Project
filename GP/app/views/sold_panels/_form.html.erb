@@ -1,4 +1,4 @@
-<div class="container" style="width: calc(60%);">
+<div class="container" style="width: calc(70%);">
   <h1 class="page-header" style="font-size:35px;"><span class="fa fa-plus"></span> Add Sold Product </h1>
    <section class="register">
 <%= form_for(@sold_panel) do |f| %>
@@ -100,7 +100,8 @@ console.log("hello");
       $("#power").val(totalPower-power);
       console.log($("#power").val());
       if($("#power").val()<0){
-        alert("you exceed the totalPower");
+        BootstrapDialog.alert('you exceed the totalPower ');
+        
         $("#power").val(oldpower);
         ptr.checked=false;
 
@@ -123,7 +124,7 @@ console.log("hello");
 
     }
     else{
-      alert("enter total power first");
+      BootstrapDialog.alert('enter total power first');
       ptr.checked=false;
     }
     

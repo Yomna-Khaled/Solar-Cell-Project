@@ -1,11 +1,8 @@
-<p id="notice"><%= notice %></p>
-  <h1 align="center">
-    <h1 class="page-header" style="font-size:35px;">My Shifts</h1>
 
-  </h1>
+  
 
 <div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:35px;"> <span class="fa fa-book"></span> My Shifts</h1>
+  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-book"></span> My Shifts</h1>
 		<table class="table table-stripped table-responsive">
 		  <thead>
 		    <tr>
@@ -34,8 +31,8 @@
 					<td><%= shift.start_shift_time %></td>
 					<td><%= shift.end_shift_time %></td>
 					<td><%= shift.production_rate %></td>
-					<td><span class="fa fa-eye"></span><%= link_to 'Show', shift %></td>
-					<td><span class="fa fa-download"></span> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
+					<td><%= link_to 'Show', shift %></td>
+					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
 					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
 					<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
 					</td>

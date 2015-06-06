@@ -23,13 +23,13 @@
       <div class="form-group reg_section ">
         <% if (@employee.id==current_user.id)%>
 
-          <h3>Password</h3>
+          <h3><span class="fa fa-lock"></span> Password</h3>
           <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
 
-          <h3>Confirmation Password</h3>
+          <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
           <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
 
-          <h3>Email</h3>
+          <h3><span class="fa fa-envelope"></span> Email</h3>
           <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
           <% if @employee.errors[:email] %>
             <div class="text-danger">
@@ -45,7 +45,7 @@
             <%= phonn = '' %>
             <% if @phones.blank? %>
                 <p> <%= phonn = '' %> </p>
-                 <h3>Phone</h3>
+                 <h3><span class="fa fa-mobile"></span> Phone</h3>
                  <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
             <% else %>
                <% @phones.each do |f| %>
@@ -63,7 +63,7 @@
 
         <% else %>
 
-          <h1>Personal Information</h1>
+          <h1><span class="fa fa-info-circle"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
             <% if @employee.errors[:full_name] %>
@@ -77,7 +77,7 @@
             <% end %>
 
             <% if @flag_new == 1 %>
-              <h3>Education Level</h3>
+              <h3><span class="fa fa-book"></span> Education Level</h3>
               <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
               <% if @employee.errors[:education_level] %>
                 <div class="text-danger">
@@ -104,7 +104,7 @@
                 <% end %>
             <% end %>
 
-            <h3>Education</h3>
+            <h3><span class="fa fa-book"></span> Education</h3>
             <%= f.text_field :education ,class: 'w' , placeholder: "Enter Education"   %>
             <% if @employee.errors[:education] %>
                 <div class="text-danger">
@@ -116,7 +116,7 @@
                 </div>
             <% end %>
 
-            <h3>Governamental ID</h3>
+            <h3><span class="fa fa-folder"></span> Governamental ID</h3>
             <%= f.text_field :Governamental_ID, class: 'w' , placeholder: "Enter Governamental_ID" %>
             <% if @employee.errors[:Governamental_ID] %>
               <div class="text-danger">
@@ -130,7 +130,7 @@
 
             <% if @flag == "new" %> 
                 <%= fields_for :employee_phones do |p| %>   
-                   <h3>Phone</h3>
+                   <h3><span class="fa fa-mobile"></span> Phone</h3>
                    <%= p.text_field :phone , id:"phone", value:"" ,class: "w", readonly: true %><br>
                 <% end %>
             <%else %>
@@ -138,7 +138,7 @@
                 <%= phonn = '' %>
                 <% if @phones.blank? %>
                     <p> <%= phonn = '' %> </p>
-                     <h3>Phone</h3>
+                     <h3><span class="fa fa-mobile"></span> Phone</h3>
                      <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
                 <% else %>
                    <% @phones.each do |f| %>
@@ -154,14 +154,18 @@
 
           <div id="phonedel">
           </div>
-          <br>
-          <a href="#" onclick="add()" >Add Phone</a>
-        </div>
 
-          <h3>User Photo</h3>
+          <h3><a href="#" onclick="add()">Add Phone</a></h3>
+
+          <br>
+          
+        
+
+
+          <h3><span class="fa fa-file-image-o"></span> User Photo</h3>
           <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
           <div class="fileUpload btn btn-primary">
-            <span>Upload</span>
+            <span class="fa fa-paperclip"> Upload</span>
             <%= f.file_field :image,class: "upload", id:"uploadBtn" %>
           </div>
           <% if @employee.errors[:image] %>
@@ -173,11 +177,11 @@
               </ul>
             </div>
           <% end %>
-          
+
 
         <div class="form-group reg_section ">
-          <h1>Work Information</h1>    
-            <h3>Salary</h3>
+          <h1><span class="fa fa-pencil-square-o"></span> Work Information</h1>    
+            <h3><span class="fa fa-usd"></span> Salary</h3>
             <%= f.text_field :salary, class: 'w' , placeholder: "Enter Salary" %>
             <% if @employee.errors[:salary] %>
               <div class="text-danger">
@@ -197,7 +201,7 @@
             <% end %> 
 
             <% if @flag_new == 1 %>
-                <h3>Category</h3>
+                <h3><span class="fa fa-sitemap"></span> Category</h3>
                 <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
                 <% if @employee.errors[:category_id] %>
                   <div class="text-danger">
@@ -210,7 +214,7 @@
                 <% end %>
 
                 <div id="notnormal">
-                    <h3>Password</h3>
+                    <h3><span class="fa fa-lock"></span> Password</h3>
                     <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
                     <% if @employee.errors[:password] %>
                       <div class="text-danger">
@@ -221,7 +225,7 @@
                         </ul>
                       </div>
                     <% end %>
-                    <h3>Confirmation Password</h3>
+                    <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
                     <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
                     <% if @employee.errors[:password_confirmation] %>
                       <div class="text-danger">
@@ -232,7 +236,7 @@
                         </ul>
                       </div>
                     <% end %>
-                    <h3>Email</h3>
+                    <h3><span class="fa fa-envelope"></span> Email</h3>
                     <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
                     <% if @employee.errors[:email] %>
                       <div class="text-danger">
@@ -253,7 +257,8 @@
             <br>
             <%= f.submit class: 'btn btn-success' %>
         </div> 
-      </div>    
+      </div> 
+      </div>   
   </section>
   
 <% end %>  
@@ -271,7 +276,7 @@ var x=1;
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
@@ -288,7 +293,7 @@ var x=1;
         $("#phone").val(allValues);
         $("#1").val('');
         }else{
-          alert('Please enter a valid phone number ');    
+          BootstrapDialog.alert('Please enter a valid phone number ');    
         }
        });
     }

@@ -1,7 +1,7 @@
 <%= form_for(@crew) do |f| %>
   <section class="register">
     <div class="form-group reg_section ">
-        <h1>Crew Information</h1>
+        <h1><span class="fa fa-info-circle"></span> Crew Information</h1>
         <h3>Crew Name</h3>
         <%= f.text_field :name, class: 'w' , placeholder: "Enter crew name" ,id: "crew"%>
         <% if @crew.errors[:name] %>
@@ -30,7 +30,7 @@
         <div class="actions">
           <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
         </div>
-        <h1>Names of employees</h1>
+        <h1> <span class="fa fa-user"></span> Names of employees</h1>
         <div id="Woker_names">
           <% if @flag_new==0 %>
             <% @employees.each do |employee| %>
@@ -67,7 +67,8 @@
       {
         if(Number(number_of_normal_workers) < Number(no_workers))
         {
-          alert(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
+          
+          BootstrapDialog.alert(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
            document.getElementById( "no_of_workers" ).value= "";
         }
         else
@@ -83,7 +84,7 @@
       }
       else
       {
-        alert("Please insert a number")
+        BootstrapDialog.alert("Please insert a number")
       }
     }  
     else
@@ -116,7 +117,7 @@ function get_value(elem){  //onchange function of select menu
   else
   {
       elem.parentElement.style.display = true;
-      alert("Employee is already in the crew");
+      BootstrapDialog.alert("Employee is already in the crew");
   }
 }
 </script>

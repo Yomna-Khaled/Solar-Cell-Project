@@ -1,6 +1,10 @@
 class VendorPhonesController < ApplicationController
   before_action :set_vendor_phone, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   # GET /vendor_phones
   # GET /vendor_phones.json
   def index

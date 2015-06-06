@@ -1,5 +1,10 @@
 class MaterialsController < ApplicationController
   before_action :set_material, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  # Render 404 page when record not found
+    def render_404      
+       render :file => "/public/404.html", :status => 404
+    end
 
   # GET /materials
   # GET /materials.json
@@ -10,15 +15,19 @@ class MaterialsController < ApplicationController
       @material_vendor = MaterialVendor.all
       @materials = Material.paginate(:page => params[:page], :per_page => 6)
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404" 
     end   
   end
 
   # GET /materials/1
   # GET /materials/1.json
   def show
-    @material_vendor = MaterialVendor.all
-    @material_properties = MaterialProperty.where("material_id=?",@material.id)
+    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+      @material_vendor = MaterialVendor.all
+      @material_properties = MaterialProperty.where("material_id=?",@material.id)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /materials/new
@@ -30,28 +39,34 @@ class MaterialsController < ApplicationController
       @properties = Property.all
       @flag = "new"
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404"  
     end   
   end
 
   # GET /materials/1/edit
   def edit
-    @vendors = Vendor.all
-    @quantites = Quantity.all
-    @properties = Property.all
-    @material_property = MaterialProperty.all
-    # to select the latest vendor for material 
-    @materialvendor = MaterialVendor.where("material_id=?",@material.id)
-    @materialvendor_sorted = @materialvendor.order(updated_at: :desc)
-    @vendor_id =  @materialvendor_sorted[0].vendor_id
-    # to select all properties for material
-    @materialproperties_selected_ids = Array.new 
-    @materialproperties_selected = MaterialProperty.where("material_id=?",@material.id)
-    @materialproperties_selected.each do |materialproperty_selected|
-      id = materialproperty_selected.property_id
-      @materialproperties_selected_ids.push(id)
-    end
-    @flag = "edit"
+   if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper") 
+      @vendors = Vendor.all
+      @quantites = Quantity.all
+      @properties = Property.all
+      @material_property = MaterialProperty.all
+      # to select the latest vendor for material 
+      @materialvendor = MaterialVendor.where("material_id=?",@material.id)
+      @materialvendor_sorted = @materialvendor.order(updated_at: :desc)
+      @vendor_id =  @materialvendor_sorted[0].vendor_id
+      # to select all properties for material
+      @materialproperties_selected_ids = Array.new 
+      @materialproperties_selected = MaterialProperty.where("material_id=?",@material.id)
+      @materialproperties_selected.each do |materialproperty_selected|
+        id = materialproperty_selected.property_id
+        @materialproperties_selected_ids.push(id)
+      end
+      @flag = "edit"
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end 
+
+
       if logged_in? and current_category.category=="Stock Keeper"
         @flag_stock=0
       end

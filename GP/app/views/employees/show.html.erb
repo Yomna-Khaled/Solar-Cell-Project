@@ -1,33 +1,33 @@
-<div class="container">
+<div class="container" style="width: calc(70%);">
     <div class="row">
-    <span class="glyphicon glyphicon-search"></span>
-      <div class="col-md-2">
-          <br><br><br><br><br><br>
-          <%= image_tag @employee.image.url(:thumb) %>
+  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-eye"> </span> Personal Info </h1> 
+      <div class="col-md-3">
+          
+          <%= image_tag @employee.image.url ,class:"img img-thumbnail" %>
       </div>
 
-      <div class="col-md-10">
-          <h1 class="page-header"> <span class="glyphicon glyphicon-list-alt"> </span> Personal Info </h1> 
+      <div class="col-md-9">
+          
 
             <ul class="list-group">
-              <li class="list-group-item" > <span class=" glyphicon glyphicon-cloud"> </span><strong> Name: </strong> <%= @employee.full_name %></li>
+              <li class="list-group-item" > <span class=" fa fa-user"> </span><strong class="text-capitalize"> <%= @employee.full_name %>  </strong></li>
               <% category=Category.find_by(id: @employee.category_id )%>
               <% if (category.category!="Normal") %>
-                 <li class="list-group-item"><strong>Email: </strong><%= @employee.email %></li>
+                 <li class="list-group-item"><span class="fa fa-envelope"></span> <strong>Email: </strong><%= @employee.email %></li>
               <%end %>
              
-              <li class="list-group-item"> <strong>Education level:</strong>  <%= @employee.education_level %></li>
+              <li class="list-group-item"><span class="fa fa-book"></span> <strong>Education Level:</strong>  <%= @employee.education_level %></li>
 
-              <li class="list-group-item"><strong>Education:</strong><%= @employee.education %></li>
-              <li class="list-group-item"><strong>Governamental id:</strong> <%= @employee.Governamental_ID %> </li>
+              <li class="list-group-item"><span class="fa fa-book"></span> <strong>Education:</strong><%= @employee.education %></li>
+              <li class="list-group-item"><span class="fa fa-folder"></span> <strong>Governamental Id:</strong> <%= @employee.Governamental_ID %> </li>
 
-              <li class="list-group-item"> <strong>Category:</strong>
+              <li class="list-group-item"> <span class="fa fa-briefcase"></span> <strong>Category:</strong>
                <% category=Category.find_by(id: @employee.category_id )%>
                <%= category.category %>
               </li>
 
               <% if (@employee.crew_id!=nil) %>
-                <li class="list-group-item"> <strong>Crew:</strong>  
+                <li class="list-group-item"><span class="fa fa-users"></span> <strong>Crew:</strong>  
                     <% crew=Crew.find_by(id: @employee.crew_id )%>
                     <%= crew.name %>
                 </li> 
@@ -35,7 +35,7 @@
 
 
               <% if (@employee_phones.count!=0) %>
-                <li class="list-group-item"> <strong>Phones:</strong>
+                <li class="list-group-item"><span class="fa fa-mobile"></span> <strong>Phones:</strong>
                     <% @employee_phones.each do |employeephone| %>
                       <%= employeephone.phone %>
                     <%end%>   
