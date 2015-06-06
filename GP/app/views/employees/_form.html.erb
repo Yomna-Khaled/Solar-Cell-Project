@@ -63,7 +63,7 @@
 
         <% else %>
 
-          <h1>Personal Information</h1>
+          <h1><span class="fa fa-key"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
             <% if @employee.errors[:full_name] %>
@@ -154,6 +154,7 @@
 
           <div id="phonedel">
           </div>
+          <h3><a href="#" onclick="add()" >Add Phone</a></h3>
 
           <h3>User Photo</h3>
           <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
@@ -171,11 +172,11 @@
             </div>
           <% end %>
           <br>
-          <a href="#" onclick="add()" >Add Phone</a>
+          
         </div>
 
         <div class="form-group reg_section ">
-          <h1>Work Information</h1>    
+          <h1><span class="fa fa-pencil-square-o"></span> Work Information</h1>    
             <h3>Salary</h3>
             <%= f.text_field :salary, class: 'w' , placeholder: "Enter Salary" %>
             <% if @employee.errors[:salary] %>
@@ -292,7 +293,7 @@
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" style="width:30px" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
