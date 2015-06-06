@@ -9,7 +9,6 @@ class ShiftsController < ApplicationController
 
       if logged_in? and current_category.category=="Shift Manager"
 	    
-	    puts "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
 	    puts params[:id]
 	    @total_power=0
 
@@ -46,7 +45,7 @@ class ShiftsController < ApplicationController
 	      redirect_to   shifts_showendshift_path 
 	  end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end 
   end
 
@@ -68,7 +67,7 @@ class ShiftsController < ApplicationController
     end
 
      else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"  
     end 
   end
 
@@ -77,7 +76,7 @@ class ShiftsController < ApplicationController
   def show
      if logged_in? and current_category.category=="Shift Manager"
      else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end   
   end
  
@@ -86,7 +85,7 @@ class ShiftsController < ApplicationController
     if false 
       @shift = Shift.new
     else
-      redirect_to login_path   
+      render :file => "/public/404.html",:status  => "404"    
     end
   end
 
@@ -95,7 +94,7 @@ class ShiftsController < ApplicationController
      if false 
       
     else
-      redirect_to login_path   
+      render :file => "/public/404.html",:status  => "404"    
     end
   end
 
@@ -115,7 +114,7 @@ class ShiftsController < ApplicationController
 	      end
 	    end
      else
-       redirect_to login_path   
+       render :file => "/public/404.html",:status  => "404"  
      end 
   end
 
@@ -133,7 +132,7 @@ class ShiftsController < ApplicationController
 	      end
 	    end
      else
-       redirect_to login_path   
+       render :file => "/public/404.html",:status  => "404"   
      end 
   end
 
@@ -147,7 +146,7 @@ class ShiftsController < ApplicationController
 	      format.json { head :no_content }
 	    end
      else
-       redirect_to login_path   
+       render :file => "/public/404.html",:status  => "404"   
      end 
   end
 
@@ -162,7 +161,7 @@ class ShiftsController < ApplicationController
 		  render :showstartshift
 	     end 
      else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
      end 
   end
 
@@ -184,7 +183,7 @@ if logged_in? and current_category.category=="Shift Manager"
 	      end
 	    end 
      else
-       redirect_to login_path  
+       render :file => "/public/404.html",:status  => "404"  
      end 
     
 
@@ -202,7 +201,7 @@ if logged_in? and current_category.category=="Shift Manager"
       redirect_to  shifts_showstartshift_path 
      end
     else
-       redirect_to login_path 
+       render :file => "/public/404.html",:status  => "404" 
     end 
    
    
@@ -230,7 +229,7 @@ if logged_in? and current_category.category=="Shift Manager"
 
 
     else
-       redirect_to login_path  
+       render :file => "/public/404.html",:status  => "404"  
      end
 
   end
@@ -254,7 +253,7 @@ if logged_in? and current_category.category=="Shift Manager"
 	              redirect_to  shifts_showstartshift_path 
 	     end
     else
-       redirect_to login_path 
+       render :file => "/public/404.html",:status  => "404"
     end 
   end
   

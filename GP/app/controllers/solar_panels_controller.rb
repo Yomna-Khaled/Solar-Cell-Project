@@ -18,15 +18,15 @@ class SolarPanelsController < ApplicationController
        @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 6)
      end
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404" 
     end   
   end
 
   # GET /solar_panels/1
   def show
-    if logged_in?
+    if logged_in? and (current_category.category=="Sales" or current_category.category=="Shift Manager")
     else
-       redirect_to login_path 
+       render :file => "/public/404.html",:status  => "404" 
     end
   end
 
@@ -41,7 +41,7 @@ class SolarPanelsController < ApplicationController
         redirect_to url_for(:controller => :shifts, :action => :showstartshift) 
       end
     else
-      redirect_to login_path  
+        render :file => "/public/404.html",:status  => "404"
     end 
   end
 
@@ -50,14 +50,14 @@ class SolarPanelsController < ApplicationController
 
  def edit
     @flag=false
-     if logged_in? 
+     if logged_in? and( current_category.category=="Shift Manager" ) 
         @container=Container.find(@solar_panel.container_id)
         @mycrt=[@container.serialNo,@container.id]
         unless @containersopt.include?(@mycrt)
            @containersopt.push(@mycrt)
         end
      else
-          redirect_to login_path  
+          render :file => "/public/404.html",:status  => "404" 
      end 
  end
 

@@ -4,32 +4,46 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels
   # GET /sold_panels.json
   def index
-    @sold_panels = SoldPanel.all
+    if logged_in? and current_category.category=="Sales"
+      @sold_panels = SoldPanel.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /sold_panels/1
   # GET /sold_panels/1.json
   def show
-    puts @sold_panel.buyer_id
-    puts "============="
-    #@panel=SoldPanel.where("id= ?",@sold_panel.id)
-    @buyer=Buyer.where("id= ?",@sold_panel.buyer_id)
-    puts @buyer.name
-    @solar_panels=SolarPanel.where("sold_panel_id= ?",@sold_panel.id)
+    if logged_in? and current_category.category=="Sales"
+      puts @sold_panel.buyer_id
+      @buyer=Buyer.where("id= ?",@sold_panel.buyer_id)
+      puts @buyer.name
+      @solar_panels=SolarPanel.where("sold_panel_id= ?",@sold_panel.id)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
 
   end
 
   # GET /sold_panels/new
   def new
-    @sold_panel = SoldPanel.new
-    @buyers=Buyer.all
-    @solar_panels=SolarPanel.where(:sold_panel_id => nil)
-    @disbaled=true
+    if logged_in? and current_category.category=="Sales"
+      @sold_panel = SoldPanel.new
+      @buyers=Buyer.all
+      @solar_panels=SolarPanel.where(:sold_panel_id => nil)
+      @disbaled=true
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
    
   end
 
   # GET /sold_panels/1/edit
   def edit
+    if logged_in? and current_category.category=="S"
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   # POST /sold_panels

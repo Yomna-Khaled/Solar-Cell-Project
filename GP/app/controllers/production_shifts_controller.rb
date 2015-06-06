@@ -61,7 +61,7 @@ class ProductionShiftsController < ApplicationController
 			redirect_to  shifts_showstartshift_path 
 	    end 
     else
-         redirect_to login_path 
+         render :file => "/public/404.html",:status  => "404"
     end   
   end
 

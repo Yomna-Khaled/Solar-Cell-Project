@@ -4,8 +4,12 @@ class BuyersController < ApplicationController
   # GET /buyers
   # GET /buyers.json
   def index
-    @buyers = Buyer.all
-    @buyers = Buyer.paginate(:page => params[:page], :per_page => 6)
+    if logged_in? and current_category.category=="Sales"
+      @buyers = Buyer.all
+      @buyers = Buyer.paginate(:page => params[:page], :per_page => 6)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   def pho
@@ -16,7 +20,11 @@ class BuyersController < ApplicationController
   # GET /buyers/1
   # GET /buyers/1.json
   def show
-    @buyer_phones = BuyerPhone.where("buyer_id=?",@buyer.id)
+    if logged_in? and current_category.category=="Sales"
+      @buyer_phones = BuyerPhone.where("buyer_id=?",@buyer.id)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /buyers/new
@@ -25,44 +33,26 @@ class BuyersController < ApplicationController
     @buyer = Buyer.new
     @flag="new"
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404"
     end
   end
 
   # GET /buyers/1/edit
   def edit
+    if logged_in? and current_category.category=="Sales"
     @flag="edit"
     @buyer = Buyer.find(params[:id])
     @phones = BuyerPhone.where("buyer_id = ? ", @buyer.id ).select([:phone])
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # POST /buyers
   # POST /buyers.json
   def create
 
-  #   @buyer = Buyer.new(buyer_params)
-
-  #   respond_to do |format|
-  #     if @buyer.save
-  #       if params[:buyer_phones][:phone]==" "
-  #        @buyerphone = BuyerPhone.new(phone: ' ', buyer_id: @buyer.id) 
-  #        @buyerphone.save  
-  #       else
-  #        arr= params[:buyer_phones][:phone].split(",")
-	 # arr.each do |c|
-		# puts c	
-  #          @buyerphone = BuyerPhone.new(phone: c, buyer_id: @buyer.id) 
-  #          @buyerphone.save 
-  #        end
-  #       end 
-  #       format.html { redirect_to @buyer, notice: 'Buyer was successfully created.' }
-  #       format.json { render :show, status: :created, location: @buyer }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @buyer.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-
+  
   @buyer = Buyer.new(buyer_params)
       respond_to do |format|
         if @buyer.save  

@@ -11,7 +11,7 @@ class VendorsController < ApplicationController
          @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
 
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404"  
     end     
 
   end
@@ -24,7 +24,11 @@ end
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-    @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
+    if logged_in? and current_category.category=="Sales"
+      @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendors/new
@@ -33,15 +37,19 @@ end
       @vendor = Vendor.new
       @flag="new"
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404"  
     end
   end
 
   # GET /vendors/1/edit
   def edit
-	@flag="edit"
+    if logged_in? and current_category.category=="Sales"
+	      @flag="edit"
         @vendor = Vendor.find(params[:id])
         @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end    
   end
 
   # POST /vendors
