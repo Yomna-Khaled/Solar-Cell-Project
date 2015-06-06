@@ -35,8 +35,8 @@
                 <% if current_category.category!="Stock Keeper"%>
                 <td class="text-center"><%= material.price %></td>
                 <% end %>
-                <td class="text-center"><span class="fa fa-eye"></span><%= link_to 'Show', material, class:"btn btn-primary" %></td>
-                <td class="text-center"><span class="fa fa-edit"></span><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
+                <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
               </tr>
             <% end %>
           </tbody>

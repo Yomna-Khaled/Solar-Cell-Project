@@ -1,19 +1,35 @@
 class MachinesController < ApplicationController  
   before_action :set_machine, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   # GET /machines
   # GET /machines.json
   def index
-    @machines = Machine.all
+    if logged_in? and (current_category.category=="Sales")
+       @machines = Machine.all
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end    
   end
 
   # GET /machines/1
   def show
+    if logged_in? and (current_category.category=="Sales")
+      else
+       render :file => "/public/404.html",:status  => "404"  
+     end
   end
 
   # GET /machines/new
   def new
-    @machine = Machine.new
+    if logged_in? and (current_category.category=="Sales")
+      @machine = Machine.new
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end  
   end
 
   # GET /machines/1/edit

@@ -67,7 +67,8 @@
       {
         if(Number(number_of_normal_workers) < Number(no_workers))
         {
-          alert(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
+          
+          BootstrapDialog.alert(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
            document.getElementById( "no_of_workers" ).value= "";
         }
         else
@@ -83,7 +84,7 @@
       }
       else
       {
-        alert("Please insert a number")
+        BootstrapDialog.alert("Please insert a number")
       }
     }  
     else
@@ -116,7 +117,7 @@ function get_value(elem){  //onchange function of select menu
   else
   {
       elem.parentElement.style.display = true;
-      alert("Employee is already in the crew");
+      BootstrapDialog.alert("Employee is already in the crew");
   }
 }
 </script>
