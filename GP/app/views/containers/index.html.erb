@@ -1,7 +1,7 @@
 
 <div class="container" style="width: calc(70%);">
 
-	<h1 class="page-header" style="font-size:35px;"><span class="fa fa-list"></span> All Containers</h1>
+	<h1 class="page-header" style="font-size:30px;"><span class="fa fa-list"></span> All Containers</h1>
   <table class="table table-hover table-responsive">
    <thead>
       <tr>
@@ -21,8 +21,8 @@
 		      <td class="text-center"><%= container.capacity %></td>
 		      <td class="text-center"><%= container.price %></td>
 		      <td class="text-center"><%= container.total_power %></td>
-		      <td class="text-center"><span class="fa fa-eye"></span><%= link_to 'Show', container, class:"btn btn-primary" %></td>
-		      <td class="text-center"><span class="fa fa-edit"></span><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
+		      <td class="text-center"><%= link_to 'Show', container, class:"btn btn-primary" %></td>
+		      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-default" %></td>
 		      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
                  <button type="button" class="btn btn-primary">  
                   	<span class="myglyphicon,glyphicon glyphicon-plus"></span> 
@@ -31,34 +31,28 @@
 		    </tr>
                 <tr>
                        <td  colspan="12" style="border:0px ; padding:0px">
-                      <table class="table table-stripped">
+                      <table class="table table-stripped", style="text-align:center;width: 50px;" >
 			  <thead >
 			    <tr class="collapse , demo<%=i%>">
+			    <td>serialNo</td>
 				<td> production_date </td>
-				<td>height </td>
-				<td>width</td>
-				<td>celltype</td>
-				<td> subtype</td>
-				
-				<td>serialNo</td>
-				<td>cells no.</td>  
+				<td>Type</td>
+				<td> Sub Type</td>	
+				<td>Cells no.</td>  
 				<td>power</td>
-                                <td>price</td>   
+                                
 		              </tr>
 			    </thead> 
                             <tbody>
 			    <% container.solar_panels.each do |solar_panel| %>
-			     <tr class="collapse , demo<%=i%>"> 	
-                                <td><%= solar_panel.production_date %></td>
-                                <td ><%= solar_panel.height %></td>
-                                <td ><%= solar_panel.width %></td>
+			     <tr class="collapse , demo<%=i%>"> 
+			     <td ><%= solar_panel.serialNo%> </td>  	
+                 <td><%= solar_panel.production_date %></td>                  
 				<td ><%= solar_panel.celltype %> </td>
-				<td ><%= solar_panel.subtype%> </td>
-				
-				<td ><%= solar_panel.serialNo%> </td>                
+				<td ><%= solar_panel.subtype%> </td>	              
 				<td > <%= solar_panel.cellno %></td> 
 			  	<td ><%= solar_panel.power %></td>
-                                <td > <%= solar_panel.price %> </td> 
+                               
 			     </tr>  
 			    <% end %> 
                             </tbody> 

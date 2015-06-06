@@ -1,6 +1,6 @@
 
 <div class="container" style="width: calc(80%);">
-  <h1 class="page-header" style="font-size:35px;"> <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
+  <h1 class="page-header" style="font-size:30px;"> <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
   <div id="Search_by" style= "margin-left:500px;width:600px" >
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
@@ -33,7 +33,7 @@
            <td class="text-center" ><%= solar_panel.power %></td>
            <td class="text-center" ><%= solar_panel.price %></td>
 
-           <td class="text-center" ><span class="fa fa-eye"></span><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
+           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
  
         </tr>
       <% end %>
