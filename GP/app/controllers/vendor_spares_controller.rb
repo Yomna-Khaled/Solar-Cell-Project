@@ -8,7 +8,7 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares
   # GET /vendor_spares.json
   def index
-    if  current_category.category=="noone"
+    if  false
       @vendor_spares = VendorSpare.all
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -18,7 +18,7 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares/1
   # GET /vendor_spares/1.json
   def show
-    if  current_category.category=="noone"
+    if  false
       else
       render :file => "/public/404.html",:status  => "404" 
     end
@@ -26,7 +26,7 @@ class VendorSparesController < ApplicationController
 
   # GET /vendor_spares/new
   def new
-    if  current_category.category=="noone"
+    if  false
       @vendor_spare = VendorSpare.new
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -35,7 +35,7 @@ class VendorSparesController < ApplicationController
 
   # GET /vendor_spares/1/edit
   def edit
-    if  current_category.category=="noone"
+    if  false
       else
       render :file => "/public/404.html",:status  => "404" 
     end
@@ -74,11 +74,16 @@ class VendorSparesController < ApplicationController
   # DELETE /vendor_spares/1
   # DELETE /vendor_spares/1.json
   def destroy
+    if  false
       @vendor_spare.destroy
       respond_to do |format|
       format.html { redirect_to vendor_spares_url }
       format.json { head :no_content }
-    end
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
+
   end
 
   private

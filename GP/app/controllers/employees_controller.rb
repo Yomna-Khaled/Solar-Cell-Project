@@ -163,12 +163,16 @@ class EmployeesController < ApplicationController
 
   # DELETE /employees/1
   def destroy
-    @employee.destroy
-    respond_to do |format|
-      flash[:danger] = 'Employee was successfully destroyed.'
-      format.html { redirect_to employees_url }
-      format.json { head :no_content }
-    end
+    if false
+      @employee.destroy
+      respond_to do |format|
+        flash[:danger] = 'Employee was successfully destroyed.'
+        format.html { redirect_to employees_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
   end
 
   private

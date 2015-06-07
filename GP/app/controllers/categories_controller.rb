@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    if  current_category.category=="noone"
+    if false
       @categories = Category.all   
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    if  current_category.category=="noone"
+    if false
      redirect_to  @category
     else
       render :file => "/public/404.html",:status  => "404"
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    if  current_category.category=="noone"
+    if false
       @category = Category.new
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
-    if  current_category.category=="noone"
+    if false
       else
       render :file => "/public/404.html",:status  => "404" 
     end
@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    if  current_category.category=="noone"
+    
        @category = Category.new(category_params)
         @category.category = @category.category.strip
         respond_to do |format|
@@ -57,9 +57,7 @@ class CategoriesController < ApplicationController
             format.json { render json: @category.errors, status: :unprocessable_entity }
           end
     end
-    else
-      render :file => "/public/404.html",:status  => "404"
-    end
+    
    
   end
 
@@ -85,7 +83,7 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    if  current_category.category=="noone"
+    if false
           @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url  }
