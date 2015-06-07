@@ -27,7 +27,7 @@
 				      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
 				      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
 		                 <button type="button" class="btn btn-warning">  
-		                  	<span class="myglyphicon,glyphicon glyphicon-plus"></span> 
+		                  	<span class=".demo<%=i%> , fa fa-plus-square-o"></span> 
 		                  </button>
 		              </td>            
 				    </tr>
@@ -75,11 +75,11 @@
   
 <script>
 $('.collapse').on('shown.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+   $(".fa  ").removeClass("fa fa-plus-square-o").addClass("fa fa-minus-square-o");
 
 });
 
 $('.collapse').on('hidden.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
+   $(".fa ").removeClass("fa fa-minus-square-o").addClass("fa fa-plus-square-o");
 });
 </script>
