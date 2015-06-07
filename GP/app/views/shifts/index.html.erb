@@ -32,20 +32,23 @@
 				<td><%= shift.start_shift_time.strftime('%H:%M:%S') %></td>
 				<%unless shift.end_shift_time.nil?%>
 					<td><%= shift.end_shift_time.strftime('%H:%M:%S') %></td>
+
 				<% else %>
                 	<td></td>  
                  <%end%>
 				<td><%= shift.production_rate %></td>
-				<td><%= link_to 'Show', shift %></td>
-				<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
+				<td><%= link_to 'Show', shift, class: "btn btn-info"  %></td>
+				<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") , class: "btn btn-primary" %></td>
 				<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-				<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
+				<button  class="btn btn-warning"  onclick="mychange(this)">+</button>
 				</td>
 	       
 		
 
 		       <tr >
+
 						<td colspan="12" style="border:0px; padding:0px">
+						<% if shift.solar_panels.length > 0 %>
 						<table class="table table-hover">
 							<thead>
 								<tr class="collapse , demo<%=i%> success" >
@@ -66,16 +69,18 @@
 								    <td><%= solar_panel.celltype %></td>
 								    <td><%= solar_panel.subtype%></td>
 								    
-								    <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-info" %></td>
-							        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-danger"%></td>  
+								    <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-danger" %></td>
+							        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>  
 						 
 							    </tr> 
 							    <% end %>
 			                </tbody>
 					    </table>
+					      <%else%>
+                                <div class="collapse , demo<%=i%> alert alert-danger " >no panels"</div>   
+                               <% end %> 
 						</td>
 
-				 
 				   <% i=i+1 %>
 			</tr>
     	<% end %>
@@ -91,12 +96,20 @@
 
 
 <script>
-$('.collapse').on('shown.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+var mychange = function(param) {     
 
-});
+if (param.innerHTML=="+"){
 
-$('.collapse').on('hidden.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
-});
+ param.innerHTML="-";
+
+}
+
+else if (param.innerHTML=="-")
+{
+ param.innerHTML="+";
+}
+
+};
+
+
 </script>
