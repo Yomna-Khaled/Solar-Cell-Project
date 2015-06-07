@@ -6,20 +6,22 @@
 </style>
 
 <div class="container" style="width: calc(80%);">
-  <h1 class="page-header" style="font-size:30px;"><span class="fa fa-list"></span> All Materials</h1>
-        <table class="table table-hover table-responsive">
-          <thead>
-            <tr>
-              <th class="text-center">Material_Photo</th>
-              <th class="text-center">Name</th>
-              <th class="text-center">Serial Number</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-center">Vendor</th> 
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E"><span class="fa fa-list"></span> All Materials</h1>
+     <section class="register" >  
+        <div class="reg_section">
+        <table class="table table-hover table-responsive ">
+          <thead >
+            <tr >
+              <th class="text-center"><h1>Image</h1></th>
+              <th class="text-center"><h1>Name</h1></th>
+              <th class="text-center"><h1>Serial Number</h1></th>
+              <th class="text-center"><h1>Quantity</h1></th>
+              <th class="text-center"><h1>Vendor</h1></th> 
               <% if current_category.category!="Stock Keeper"%>
-              <th class="text-center">Price</th>
+              <th class="text-center"><h1>Price</h1></th>
               <%end%>              
-              <th class="text-center">Show</th>
-              <th class="text-center">Edit</th>
+              <th class="text-center"><h1>Show</h1></th>
+              <th class="text-center"><h1>Edit</h1></th>
             </tr>
 
           </thead>
@@ -27,20 +29,22 @@
           <tbody>
             <% @materials.each do |material| %>
               <tr <% if material.quantity_value <= material.Min_Number %> class="danger" <%end%> >
-                <td class="text-center"><%= image_tag material.avatar.url,:style=>"margin-left: auto; margin-right: auto", class: "thumbnail" %></td>
-                <td class="text-center"><%= material.name %></td>
+                <td class="text-center" style="font-size:25px;"><%= image_tag material.avatar.url,:style=>"margin-left: auto; margin-right: auto", class: "thumbnail" %></td>
+                <td class="text-center text-capitalize"><%= material.name %></td>
                 <td class="text-center"><%= material.serial_number %></td>
                 <td class="text-center"><%= material.quantity_value %>_<%= material.quantity.unit_name %></td>
                 <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
                 <% if current_category.category!="Stock Keeper"%>
                 <td class="text-center"><%= material.price %></td>
                 <% end %>
-                <td class="text-center"><%= link_to 'Show', material, class:"btn btn-primary" %></td>
-                <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-default" %></td>
+                <td class="text-center"><%= link_to 'Show', material, class: "btn btn-info" %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-danger" %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
+        </div>
+      </section>
     </div>
 <%= will_paginate @materials, renderer: BootstrapPagination::Rails %>
 

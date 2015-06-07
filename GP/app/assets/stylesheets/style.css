@@ -56,6 +56,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+
 }
 
 
@@ -63,6 +64,7 @@ body {
 body {
   background: #E9F0F5;
   font-family:"Trebuchet MS",tahoma;
+
 }
 
 a {
@@ -117,6 +119,7 @@ a:hover {
   -webkit-border-radius: 7px;
 }
 .register h1 {
+
   margin: -20px -20px 0;
   line-height: 40px;
   font-size: 20px;
@@ -145,6 +148,9 @@ a:hover {
   box-shadow: 0 1px #f5f5f5;
 }
 
+.table tr {
+  font-size: 25px;
+}
 
 .register input[type=text], .register input[type=number], .register input[type=file], .register input[type=password] ,.register select,.register textarea {
   width: 400px;

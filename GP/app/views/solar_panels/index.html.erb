@@ -10,10 +10,10 @@
 
 
 <div class="container" style="width: calc(80%);">
- 
 
- <h1 class="page-header" style="font-size:30px;"> <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
-  <div id="Search_by" style= "margin-left:500px;width:600px" >
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
+
+   <div id="Search_by" style= "margin-left:500px;width:600px" >
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
         <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
@@ -21,6 +21,29 @@
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
     <% end %>
   </div>
+<<<<<<< HEAD
+  
+  <section class="register" >  
+    <div class="reg_section">
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+            	  <th class="text-center" ><h1>Serialno</h1></th>
+            	  <th class="text-center" ><h1>Type</h1></th>
+            	  <th class="text-center" ><h1>Subtype</h1></th>
+            	  <th class="text-center" ><h1>Container_Serial_No.</h1></th>
+            	  <th class="text-center" ><h1>Power</h1></th>
+            	  <th class="text-center" ><h1>Price</h1></th>
+            	  <th class="text-center" ><h1>Show</h1></th>
+
+            </tr>
+          </thead>
+
+    <tbody>
+      <% @solar_panels.each do |solar_panel| %>
+       
+         <tr>  
+=======
 
  <div id="filters" class="button-group"style="margin-left:500px;width:600px">
   <button class="button is-checked" data-filter="*">show all</button>
@@ -50,6 +73,7 @@
        <% else %>
          <tr class="element-item sold" data-category="sold">  
        <% end %>  
+>>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
            <td class="text-center" ><%= solar_panel.serialNo %></td>
            <td class="text-center" ><%= solar_panel.celltype %></td>
            <td class="text-center" ><%= solar_panel.subtype %></td>
@@ -57,6 +81,16 @@
            <td class="text-center" ><%= solar_panel.power %></td>
            <td class="text-center" ><%= solar_panel.price %></td>
 
+<<<<<<< HEAD
+                 <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
+       
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+  </section> 
+=======
            <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
  
         </tr>
@@ -65,6 +99,7 @@
     </tbody>
     
   </table> 
+>>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
 </div> 
 <script>
 $( document ).ready( function() {
