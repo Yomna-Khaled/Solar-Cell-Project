@@ -17,7 +17,11 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1
   def show
-    @employee_phones = EmployeePhone.where("employee_id=?",@employee.id)
+    if current_category.category=="HR" or @employee.id == current_user.id
+      @employee_phones = EmployeePhone.where("employee_id=?",@employee.id)
+    else
+      redirect_to login_path    
+    end  
   end
 
   # GET /employees/new
@@ -33,95 +37,91 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1/edit
   def edit
-    @flag="edit"
-    @employee = Employee.find(params[:id])
-    @phones = EmployeePhone.where("employee_id = ? ", @employee.id ).select([:phone])
-    @flag_new=0
-    @cat=Category.find_by(:id => @employee.category_id)
-    @category_id=@cat.id
+    if current_category.category=="HR" or @employee.id == current_user.id
+      @flag="edit"
+      @employee = Employee.find(params[:id])
+      @phones = EmployeePhone.where("employee_id = ? ", @employee.id ).select([:phone])
+      @flag_new=0
+      @cat=Category.find_by(:id => @employee.category_id)
+      @category_id=@cat.id
+    else
+      redirect_to login_path  
+    end   
   end
 
 
   # POST /employees
   def create
-    @employee = Employee.new(employee_params)
-    if  @employee.salary != nil
-      @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
-    end
-    if @employee.password != ""
-      @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
-      @employee.password_confirmation=Digest::MD5.hexdigest(@employee.password_confirmation)
-    end
-    respond_to do |format|
-      if @employee.save
-        if defined? params[:employee_phones][:phone] 
-            arr= params[:employee_phones][:phone].split(",")
-            arr.each do |c|
-              if c != nil
-                @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-                @employeephone.save  
-              end
-            end
-        else
-            @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
-            @employeephone.save            
-        end 
-
-        format.html { redirect_to @employee }
-        format.json { render :show, status: :created, location: @employee }
-      else
-        @flag_new=1
-        params[:employee_phones][:phone]==" "
-        format.html { render :new }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
+    if current_category.category=="HR"
+      @employee = Employee.new(employee_params)
+      if  @employee.salary != nil
+        @employee.houre_rate=@employee.salary/(26*8) #calculate hour_rate of employee
       end
-    end
+      if @employee.password != ""
+        @employee.password=Digest::MD5.hexdigest(@employee.password) #convert password to md5 for security
+        @employee.password_confirmation=Digest::MD5.hexdigest(@employee.password_confirmation)
+      end
+      respond_to do |format|
+        if @employee.save
+          if defined? params[:employee_phones][:phone] 
+              arr= params[:employee_phones][:phone].split(",")
+              arr.each do |c|
+                if c != nil
+                  @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+                  @employeephone.save  
+                end
+              end
+          else
+              @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+              @employeephone.save            
+          end 
+
+          format.html { redirect_to @employee }
+          format.json { render :show, status: :created, location: @employee }
+        else
+          @flag_new=1
+          params[:employee_phones][:phone]==" "
+          format.html { render :new }
+          format.json { render json: @employee.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to login_path  
+    end   
   end
 
   # PATCH/PUT /employees/1
   def update
+    if current_category.category=="HR" or @employee.id == current_user.id
       no_password_update = 0
       houre_rate = @employee.salary/(26*8) 
       employee_params[:houre_rate] = houre_rate
       respond_to do |format|
-
-
-      old_password = @employee.password;
-      if  employee_params[:password] == ""
-        puts "ana fadyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-        no_password_update = 1
-      end
-
+        old_password = @employee.password;
+        if  employee_params[:password] == ""
+          no_password_update = 1
+        end
         if @employee.update(employee_params)
-
-        if params[:employee_phones][:phone]==" "
-         @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
-         @employeephone.save  
-        else
-           arr= params[:employee_phones][:phone].split(",")
-           arr.each do |c|
+          if params[:employee_phones][:phone]==" "
+            @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
+            @employeephone.save  
+          else
+            arr= params[:employee_phones][:phone].split(",")
+            arr.each do |c|
               puts c  
               if c != ""
-                 @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
-                 @employeephone.save 
+               @employeephone = EmployeePhone.new(phone: c, employee_id: @employee.id) 
+               @employeephone.save 
               end
-          end 
-
-          if no_password_update == 1
-            puts "ana fadyyyyyyyyyyyyyy222222222222222222222"
-            Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
-          else
-            puts "=========================================="
-            new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
-            # new_password_confirmation=Digest::MD5.hexdigest(params[:password])
-            puts "newwwwwwwwwwwwwwww"
-            puts new_password
-            Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
-          end
-
-
+            end 
+            if no_password_update == 1
+              Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
+            else
+              new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
+              puts new_password
+              Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
+            end
           end   
-
           flash[:success] = 'Employee was successfully updated.'
           format.html { redirect_to @employee }
           format.json { render :show, status: :ok, location: @employee }
@@ -129,31 +129,27 @@ class EmployeesController < ApplicationController
           @cat=Category.find_by(:id => @employee.category_id)
           @category_id=@cat.id
           @flag_new=0
-          # if no_password_update == 1
-          #   puts "ana fadyyyyyyyyyyyyyy222222222222222222222"
-          #   Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
-          # else
-          #   puts "=========================================="
-          #   new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
-          #   # new_password_confirmation=Digest::MD5.hexdigest(params[:password])
-          #   puts "newwwwwwwwwwwwwwww"
-          #   puts new_password
-          #   Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
-          # end
           format.html { render :edit }
           format.json { render json: @employee.errors, status: :unprocessable_entity }
         end
       end
+    else
+      redirect_to login_path  
+    end   
   end
 
   # DELETE /employees/1
   def destroy
-    @employee.destroy
-    respond_to do |format|
-      flash[:danger] = 'Employee was successfully destroyed.'
-      format.html { redirect_to employees_url }
-      format.json { head :no_content }
-    end
+    if current_category.category=="HR" 
+      @employee.destroy
+      respond_to do |format|
+        flash[:danger] = 'Employee was successfully destroyed.'
+        format.html { redirect_to employees_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to login_path  
+    end   
   end
 
   private
