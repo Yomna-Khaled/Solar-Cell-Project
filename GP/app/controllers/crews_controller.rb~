@@ -52,13 +52,18 @@ class CrewsController < ApplicationController
   end
 
 def home
-   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
-   if !@crewid 
-   	@crewid = ' ';
-    @crew_name = ' ';
-   else
-    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
-   end
+ @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+  if @shift.exists?
+	   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
+	   if !@crewid 
+	   	@crewid = ' ';
+	    @crew_name = ' ';
+	   else
+	    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
+	   end
+  else 
+	   redirect_to  shifts_showstartshift_path 
+  end
 end
 
   # POST /crews

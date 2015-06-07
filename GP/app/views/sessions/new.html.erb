@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Stylish Portfolio Template for Bootstrap</title>
+    <title>First Company</title>
 
 
     <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -17,12 +17,12 @@
 
     <!-- Side Menu -->
     <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
-    <div id="sidebar-wrapper">
+    <div id="sidebar-wrapper" class="navbar navbar-default">
         <ul class="sidebar-nav">
-            <a id="menu-close" href="#" class="btn btn-default btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-            <li class="sidebar-brand"><a href="http://startbootstrap.com">Start Bootstrap</a>
-            </li>
-            <li><a href="#top">Home</a>
+            <a id="menu-close" href="#" class="btn btn-primary btn-md pull-right toggle"><i class="fa fa-times"></i></a>
+           <li><h1 class="text-primary page-header" style="font-size:25px;">First Company</h1> </li>
+            
+            <li><a href="#top" style="font-color:#aaa">Home</a>
             </li>
             <li><a href="#about">About</a>
             </li>
@@ -35,7 +35,7 @@
     <!-- Full Page Image Header Area -->
     <div id="top" class="header">
         <div class="vert-text">
-        Yomna fe elcenter
+        
         </div>
     </div>
     <!-- /Full Page Image Header Area -->
@@ -58,21 +58,24 @@
 
  <div class="col-md-2 col-md-offset-1 centered">
          
-                <div class="panel panel-info login">
-                    <div class="panel-body" style="margin-right:100px;">  
+                
+                    
+                    <section class="register login"> 
                             <%= form_for(:session, url: login_path) do |f| %>
+                    <div class="reg_section">
+                            <h3>Email </h3>    
+                            <%= f.text_field :email,placeholder: "Enter Email" %>
 
-                            <%= f.label :email %>     
-                            <%= f.text_field :email, class: 'form-control' ,placeholder: "Enter Email" %>
-
-                            <%= f.label :password %>
-                            <%= f.password_field :password, class: 'form-control', placeholder: "Enter password" %>
+                            <h3>Password </h3>
+                            <%= f.password_field :password, placeholder: "Enter password" %>
                             <br>
-                            <%= f.submit "Log in", class: "btn btn-primary" %>
+                            <%= f.submit "Log in", class: "btn btn-warning" %>
                             <%= link_to 'Forget Password', forget_password_path ,class: "btn btn-link"  %>
+                     </div>       
                         <% end %>
-                    </div>   
-                </div>  
+                     </section>   
+                      
+                  
 </div>
 </div>
 </div>
@@ -82,7 +85,7 @@
     <!-- /Callout -->
     <!-- Call to Action -->
     <div class="call-to-action">
-        <div class="container">
+        <div class="container text-center">
             Branch Office : 6,Masged Hatem St, Semouha , Alex-Egypt
         </div>
     </div>

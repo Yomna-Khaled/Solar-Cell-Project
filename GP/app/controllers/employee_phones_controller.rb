@@ -10,7 +10,11 @@ class EmployeePhonesController < ApplicationController
   end
     
   def index
-    @employee_phones = EmployeePhone.all
+    if  current_category.category=="noone"
+      @employee_phones = EmployeePhone.all
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   def pho
@@ -20,15 +24,27 @@ class EmployeePhonesController < ApplicationController
   # GET /employee_phones/1
   # GET /employee_phones/1.json
   def show
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end 
   end
 
   # GET /employee_phones/new
   def new
-    @employee_phone = EmployeePhone.new
+    if  current_category.category=="noone"
+      @employee_phone = EmployeePhone.new
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end 
   end
 
   # GET /employee_phones/1/edit
   def edit
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # POST /employee_phones

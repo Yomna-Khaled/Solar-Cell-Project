@@ -41,6 +41,7 @@
             </div>
           <% end %>
 
+
           <% if @flag == "new" %> 
                 <%= fields_for :employee_phones do |p| %>   
                    <h3><span class="fa fa-mobile"></span> Phone</h3>
@@ -62,6 +63,9 @@
               <%end%>
           <%end%>
 
+
+         
+         
           <div id="phones">    
           </div>
 
@@ -206,10 +210,10 @@
             <% end %>
 
             <% if @flag_new == 0 %>
-                <p><strong>Category : </strong><p>
-                <p>
-                    <%= Category.find_by(:id => @category_id).category %>
-                </p>
+                <h3>Category:
+                
+                    <%= Category.find_by(:id => @category_id).category %></h3>
+                
             <% end %> 
 
             <% if @flag_new == 1 %>
@@ -267,7 +271,7 @@
           
         <div class="actions">
             <br>
-            <%= f.submit class: 'btn btn-success' %>
+            <%= f.submit class: 'btn btn-warning' %>
         </div> 
       </div> 
       </div>   
@@ -288,7 +292,7 @@ var x=1;
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-success" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-primary" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
