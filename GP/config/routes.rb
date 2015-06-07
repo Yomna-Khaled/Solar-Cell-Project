@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/shifts/currentshift', to: 'shifts#currentshift' 
 
 
+
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
@@ -63,8 +64,9 @@ Rails.application.routes.draw do
 
 
   post 'forget_password' => 'sessions#forget_password'
-
   get 'forget_password' => 'sessions#forget_password_form'
+
+
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
