@@ -1,13 +1,5 @@
-<style>
-.element-item  {
-  position:static !important;
-  
-}
-</style>
-
-
-
-
+ <section class="register" >  
+    <div class="reg_section">
 
 <div class="container" style="width: calc(80%);">
 
@@ -20,40 +12,27 @@
         <%= hidden_field_tag :searchciteria, "power" %>
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
     <% end %>
-  </div>
-<<<<<<< HEAD
+  <select class="target" >
+	  <option value="all">all</option>
+	  <option value="sold">sold</option>
+	  <option value="unsold">unsold</option>
+	  
+  </select>  
+ 
   
-  <section class="register" >  
-    <div class="reg_section">
-        <table class="table table-hover table-responsive">
-          <thead>
-            <tr>
-            	  <th class="text-center" ><h1>Serialno</h1></th>
-            	  <th class="text-center" ><h1>Type</h1></th>
-            	  <th class="text-center" ><h1>Subtype</h1></th>
-            	  <th class="text-center" ><h1>Container_Serial_No.</h1></th>
-            	  <th class="text-center" ><h1>Power</h1></th>
-            	  <th class="text-center" ><h1>Price</h1></th>
-            	  <th class="text-center" ><h1>Show</h1></th>
 
-            </tr>
-          </thead>
 
-    <tbody>
-      <% @solar_panels.each do |solar_panel| %>
-       
-         <tr>  
-=======
+  </div>
+ 
+ 
 
- <div id="filters" class="button-group"style="margin-left:500px;width:600px">
-  <button class="button is-checked" data-filter="*">show all</button>
-  <button class="button" data-filter=".sold">sold</button>
-  <button class="button" data-filter=".unsold">unsold</button>
-</div>
 
-  <table   class="table table-hover table-responsive">
+  
+ 
+
+  <table   class="table table-hover table-responsive mytable">
     <thead>
-      <tr>
+      <tr class ="sold unsold">
       	  <th class="text-center" >Serialno</th>
       	  <th class="text-center" >Type</th>
       	  <th class="text-center" >Subtype</th>
@@ -65,24 +44,22 @@
       </tr>
     </thead>
      
-    <tbody class="isotope" >
+    <tbody  >
       
        <% @solar_panels.each do |solar_panel| %>
        <% if solar_panel.sold_panel_id.nil? %>
-        <tr class="element-item unsold " data-category="unsold">
+        <tr class="unsold " >
        <% else %>
-         <tr class="element-item sold" data-category="sold">  
+         <tr class="sold" >  
        <% end %>  
->>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
+
            <td class="text-center" ><%= solar_panel.serialNo %></td>
            <td class="text-center" ><%= solar_panel.celltype %></td>
            <td class="text-center" ><%= solar_panel.subtype %></td>
            <td class="text-center" ><%= solar_panel.container.serialNo %></td>
            <td class="text-center" ><%= solar_panel.power %></td>
            <td class="text-center" ><%= solar_panel.price %></td>
-
-<<<<<<< HEAD
-                 <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
+           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
        
               </tr>
             <% end %>
@@ -90,62 +67,26 @@
         </table>
     </div>
   </section> 
-=======
-           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
- 
-        </tr>
-      
-      <% end %>
-    </tbody>
-    
-  </table> 
->>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
+
 </div> 
 <script>
-$( document ).ready( function() {
-  // init Isotope
-  var $container = $('.isotope').isotope({
-    itemSelector: '.element-item',
-    layoutMode: 'fitRows'
-    
-  });
+var rows = $('table.mytable tr');
 
-  // filter functions
-  var filterFns = {
-    // show if number is greater than 50
-    numberGreaterThan50: function() {
-      var number = $(this).find('.number').text();
-      return parseInt( number, 10 ) > 50;
-    },
-    // show if name ends with -ium
-    ium: function() {
-      var name = $(this).find('.name').text();
-      return name.match( /ium$/ );
-    }
-  };
 
-  // bind filter button click
-  $('#filters').on( 'click', 'button', function() {
-    var filterValue = $( this ).attr('data-filter');
-    // use filterFn if matches value
-    filterValue = filterFns[ filterValue ] || filterValue;
-    $container.isotope({ filter: filterValue });
-  });
-
-  // bind sort button click
-  $('#sorts').on( 'click', 'button', function() {
-    var sortByValue = $(this).attr('data-sort-by');
-    $container.isotope({ sortBy: sortByValue });
-  });
-  
-  // change is-checked class on buttons
-  $('.button-group').each( function( i, buttonGroup ) {
-    var $buttonGroup = $( buttonGroup );
-    $buttonGroup.on( 'click', 'button', function() {
-      $buttonGroup.find('.is-checked').removeClass('is-checked');
-      $( this ).addClass('is-checked');
-    });
-  });
-  
+$( ".target" ).change(function() {
+if ($(".target").val()=="unsold")
+{
+    var unsold = rows.filter('.unsold').show();
+    rows.not( unsold ).hide();
+}
+else if ($(".target").val()=="sold")
+{
+var sold = rows.filter('.sold').show();
+    rows.not( sold ).hide();
+}
+else
+{
+rows.show();
+}
 });
 </script>
