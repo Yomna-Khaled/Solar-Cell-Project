@@ -28,8 +28,12 @@
 					<td><%= shift.crew.name %></td>
 					<td><%= shift.start_shift_date %></td>
 					<td><%= shift.end_shift_date %></td>
-					<td><%= shift.start_shift_time %></td>
-					<td><%= shift.end_shift_time %></td>
+					<td><%= shift.start_shift_time.strftime('%H:%M:%S') %></td>
+					<%unless shift.end_shift_time.nil?%>
+					<td><%= shift.end_shift_time.strftime('%H:%M:%S') %></td>
+					<% else %>
+                                        <td></td>  
+                                        <%end%>
 					<td><%= shift.production_rate %></td>
 					<td><%= link_to 'Show', shift %></td>
 					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
@@ -45,37 +49,27 @@
 				<thead>
 					<tr class="collapse , demo<%=i%>">
 
-						<th text-align="center">production_date</th>
-						<th text-align="center">height</th>
-						<th text-align="center">width</th>
+						<th text-align="center">serialNo</th>
 						<th text-align="center">power</th>
 						<th text-align="center">celltype</th>
-						<th text-align="center">subtype</th>
-						<th text-align="center">price</th>
-						<th text-align="center">serialNo</th>
-						<th text-align="center">cells no.</th>  
-				 		<th text-align="center">price</th>  
-				 		<th text-align="center">power</th>  
-				 		<th text-align="center"><span class="fa fa-edit">Edit</th>  
+						<th text-align="center">sub type</th>
+						 
+				 		<th text-align="center"><span class="fa fa-edit">Edit</th> 
+                                                <th text-align="center">show</th>  
 			 		</tr>
                                    </thead>
 				    <tbody>
                                     <% shift.solar_panels.each do |solar_panel| %>  
 				    <tr class="collapse , demo<%=i%>" >
 				   	
-					    <td><%= solar_panel.production_date %></td>
-					    <td><%= solar_panel.height %></td>
-					    <td><%= solar_panel.width %></td>
+					    <td><%= solar_panel.serialNo%></td> 
 					    <td><%= solar_panel.power %></td>
 					    <td><%= solar_panel.celltype %></td>
 					    <td><%= solar_panel.subtype%></td>
-					    <td><%= solar_panel.price %></td>
-					    <td><%= solar_panel.serialNo%></td>                
-					    <td><%= solar_panel.cellno %></td> 
-					    <td><%= solar_panel.price %></td>
-					    <td><%= solar_panel.power %></td>
+					    
 					    <td><%= button_to 'Edit', edit_solar_panel_path(solar_panel),method: :get %></td>
-				         
+				            <td><%= button_to 'show', solar_panel_path(solar_panel),method: :get %></td>  
+			  
 					
 				     </tr> 
 				     <% end %>

@@ -22,12 +22,18 @@
 <%= f.hidden_field :end_shift_date , :value => Date.today %>
 <%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
+
  
 <div class="reg_section">
   <h1> <span class="fa fa-question-circle"></span>
 
   <%= f.label(:id, "Did this shift produce panels?",class: "text-capitalize") %></h1>
   
+
+
+
+  
+
 
   
   
@@ -55,7 +61,9 @@ $(document).ready(function() {
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
 
-            var my_new_input_element = $('<div class="reg_section"><h3><span class="fa fa-sort-numeric-asc"></span> <%= f.label( :production_rate , "Enter Number Of Produced Panels") %></h3></div>').insertAfter(  "label[for='shift_id_true']" );
+
+            var my_new_input_element = $('<div class="reg_section"><h3><span id="mspan"class="fa fa-sort-numeric-asc"></span> <%= f.label( :production_rate , "Enter Number Of Produced Panels") %></h3></div>').insertAfter(  "label[for='shift_id_true']" );
+
 
           
              if($('#submit').length == 0){
@@ -106,7 +114,7 @@ $(document).ready(function() {
         }
           
         else if (this.value == 'false') {
-        
+        $('#mspan').remove();
         $('label[for=shift_production_rate]').remove();  
         $("#shift_production_rate").remove();
         $('#submit').remove();

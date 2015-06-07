@@ -27,8 +27,10 @@
         <li class="list-group-item">Type: <%= @solar_panel.celltype %></li>
         <li class="list-group-item">Sub Type:  <%= @solar_panel.subtype %></li>
       </ul>
+         <% if current_category.category=="Sales" %>
          <li class="list-group-item">Price:  <%= @solar_panel.price %></li>
       </ul>
+          <% end %> 
           <li class="list-group-item">Serial No:  <%= @solar_panel.serialNo %></li>
       </ul>
 

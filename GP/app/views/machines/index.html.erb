@@ -1,23 +1,28 @@
 <div class="container" style="width: calc(50%);">
-  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-list"></span> All Machines</h1>
-  <table class="table table-hover table-responsive">
-    <thead>
-      <tr>
-        <th class="text-center" >Name</th>
-        <th class="text-center" >Edit</th>
-      </tr>
-    </thead>
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Machines</h1>
+  <section class="register" >  
+    <div class="reg_section">
 
-    <tbody>
-      <% @machines.each do |machine| %>
-        <tr>
-          <td class="text-center" ><%= machine.name %></td>
-          
-          <td class="text-center" > <%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-default"  %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+      <table class="table table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="text-center" ><h1>Name</h1></th>
+            <th class="text-center" ><h1>Edit</h1></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @machines.each do |machine| %>
+            <tr>
+              <td class="text-center" ><%= machine.name %></td>
+              
+              <td class="text-center" > <%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-danger"  %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </div>  
 
 
