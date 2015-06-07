@@ -73,6 +73,7 @@ a {
 }
 a:hover {
   text-decoration: underline;
+  background-color: #2A4E6E;
 }
 .container {
   width: 500px;
@@ -535,14 +536,14 @@ background-color: #303E49;
 }
 
 .sidebar-nav li a {
-  color: #2A4E6E;
+  color: #FFFFFF;
   display: block;
   text-decoration: none;
 }
 
 .sidebar-nav li a:hover {
-  color: #fff;
-  background-color: #2A4E6E;
+  color: #000;
+  background-color:  #E9F0F5;
   text-decoration: none;
 }
 

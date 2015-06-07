@@ -1,5 +1,5 @@
 <%= form_tag("/production_shifts/", :method => "post")%>
-<div class="container" style="width: 100;">
+<div class="container" style="width: calc(60%);">
     <h1 class="page-header" style="font-size:30px;;color:#2A4E6E"> <span class="fa fa-check-square-o"></span> Ordering Material</h1>
     <section class="register">
       <div class="form-group reg_section ">
@@ -7,8 +7,8 @@
         <table class="table table-responsive">
            <thead>
             <tr>
-              <h3><th class="text-center" >Material</th></h3>
-              <h3><th class="text-center" >Value</th></h3>
+              <h3><th>Material</th></h3>
+              <h3><th>Value</th></h3>
             </tr>
            </thead>
 <tbody>
@@ -19,13 +19,14 @@
                 <%= material.name %>
               </td>
               <td>
-                <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px; width:200px"}%>
+                <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;width:200px"}%>
               </td>
               
+            
+            </tr>
               <%= hidden_field_tag "hidden" %>
               <%= hidden_field_tag "manager", current_user.full_name  %>
               <%= hidden_field_tag "shift_id",current_shift.id %>
-            </tr>
           <% end %>
         </tbody>
         </table>
@@ -85,7 +86,7 @@ $("#order").click(function(){
   var array=$("#hidden").val().split("_");
   var sent="";
   for(i=1;i<array.length;i++){
-    sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-info' onclick='accept(this)' id="+array[i].split(",")[0]+"_"+array[i].split(",")[1]+"_"+array[i].split(",")[2]+">accept</button></td></tr>"
+    sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-primary' onclick='accept(this)' id="+array[i].split(",")[0]+"_"+array[i].split(",")[1]+"_"+array[i].split(",")[2]+">accept</button></td></tr>"
 
   }
 	

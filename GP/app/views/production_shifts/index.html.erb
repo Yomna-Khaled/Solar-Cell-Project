@@ -6,21 +6,21 @@
       <table class="table table-hover table-responsive" id="myTable">
         <thead>
           <tr>
-            <th class="text-center"><h1>Manager Name</h1></th>
-            <th class="text-center"><h1>Material Name</h1></th>
-            <th class="text-center"><h1>Quantity</h1></th>
-            <th class="text-center"><h1>Accept Request</h1></th>
+            <th class="text-center"><h3>Manager Name</h3></th>
+            <th class="text-center"><h3>Material Name</h3></th>
+            <th class="text-center"><h3>Quantity</h3></th>
+            <th class="text-center"><h3>Accept Request</h3></th>
           </tr>
         </thead>
         <tbody>
           <% @production_shifts.each do |production_shift| %>
           <tr id="<%= production_shift.shift_id %>">
-            <td> <% shift=Shift.find_by(id: production_shift.shift_id )%>
+            <td class="text-center"> <% shift=Shift.find_by(id: production_shift.shift_id )%>
             <% employee=Employee.find_by(id:shift.employee_id) %>
             <%= employee.full_name %></td>
-            <td><%= production_shift.material.name %></td>
-            <td><%= production_shift.material_quantity %></td>
-            <td><button class="btn btn-info" onclick="accept(this)" id="<%= production_shift.material.name%>_<%= production_shift.material_quantity%>_<%= production_shift.material.id%>">accept</button></td>
+            <td class="text-center"><%= production_shift.material.name %></td>
+            <td class="text-center"><%= production_shift.material_quantity %></td>
+            <td class="text-center"><button class="btn btn-primary" onclick="accept(this)" id="<%= production_shift.material.name%>_<%= production_shift.material_quantity%>_<%= production_shift.material.id%>">accept</button></td>
           </tr>
         <% end %>
         </tbody>    
