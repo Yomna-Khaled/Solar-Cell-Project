@@ -26,7 +26,7 @@ class LookupPricesController < ApplicationController
 
   # GET /lookup_prices/new
   def new
-    if logged_in? and (current_category.category=="Sales")
+    if logged_in? and  ( current_category.category=="noone")
        @lookup_price = LookupPrice.new
     else
        render :file => "/public/404.html",:status  => "404" 

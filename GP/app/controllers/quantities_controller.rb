@@ -9,21 +9,38 @@ class QuantitiesController < ApplicationController
   # GET /quantities
   # GET /quantities.json
   def index
-    @quantities = Quantity.all
+    if logged_in? and  ( current_category.category=="noone")
+      @quantities = Quantity.all
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # GET /quantities/1
   # GET /quantities/1.json
   def show
+    if logged_in? and  ( current_category.category=="noone")
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # GET /quantities/new
   def new
-    @quantity = Quantity.new
+    if logged_in? and  ( current_category.category=="noone")
+      @quantity = Quantity.new
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end
+
   end
 
   # GET /quantities/1/edit
   def edit
+    if logged_in? and  ( current_category.category=="noone")
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # POST /quantities

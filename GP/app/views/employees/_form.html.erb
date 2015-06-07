@@ -22,6 +22,67 @@
   <section class="register">
       <div class="form-group reg_section ">
         <% if (current_category.category=="HR") %>
+
+        <% if (@employee.id==current_user.id)%>
+
+          <h3><span class="fa fa-lock"></span> Password</h3>
+          <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+
+          <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
+          <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+
+          <h3><span class="fa fa-envelope"></span> Email</h3>
+          <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+          <% if @employee.errors[:email] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:email].each do |msg| %>
+                  <li>*Email <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
+          <% if @flag == "new" %> 
+                <%= fields_for :employee_phones do |p| %>   
+                   <h3><span class="fa fa-mobile"></span> Phone</h3>
+                   <%= p.text_field :phone , id:"phone", value:"" ,class: "w", readonly: true %><br>
+                <% end %>
+            <%else %>
+              <%= fields_for :employee_phones do |p| %>
+                <%= phonn = '' %>
+                <% if @phones.blank? %>
+                    <p> <%= phonn = '' %> </p>
+                     <h3><span class="fa fa-mobile"></span> Phone</h3>
+                     <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
+                <% else %>
+                   <% @phones.each do |f| %>
+                      <p> <% phonn = phonn + f.phone + ',' %> </p>
+                   <% end %>
+                   <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@employee.id %>)">Delete Phone</a> <br>
+                <%end%> 
+              <%end%>
+          <%end%>
+
+
+         
+         
+          <div id="phones">    
+          </div>
+
+          <div id="phonedel">
+          </div>
+<h3><a href="#" onclick="add()">Add Phone</a></h3>
+          
+          
+          
+
+        
+    
+        <% else %>
+
+
           <h1><span class="fa fa-info-circle"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
@@ -115,7 +176,6 @@
 
           <h3><a href="#" onclick="add()">Add Phone</a></h3>
 
-          <br>
           
           <h3><span class="fa fa-file-image-o"></span> User Photo</h3>
           <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
@@ -308,7 +368,7 @@ var x=1;
   var allValues = '';
   var temp = "";
   allValues=$( "#phone" ).val().slice(0,-1);
-
+  
   var add = function() {
   if (counter === 0 ) {
          counter =  1;
@@ -316,17 +376,17 @@ var x=1;
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
-        
-         // if (isNaN(value) || value < 1){
-          
           re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
             if (re.test(value)) {
                if (allValues != ''){
             allValues =  allValues + ',' + value
+           
         }else{
-          allValues =  allValues + value    
+          allValues =  allValues + value 
+
         }
         $("#phone").val(allValues);
+
         $("#1").val('');
         }else{
           BootstrapDialog.alert('Please enter a valid phone number ');    

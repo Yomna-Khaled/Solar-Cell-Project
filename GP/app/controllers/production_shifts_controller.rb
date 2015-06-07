@@ -9,7 +9,7 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts.json
   def index
     @production_shifts = ProductionShift.where("accepted= ?","false")
-    puts "=================="
+    
     
     @production_shifts.each do |m|
       puts m.material.name
@@ -29,7 +29,7 @@ class ProductionShiftsController < ApplicationController
 
     puts params[:id]
     puts @material[0].name
-    puts "--------------=============="
+
     if @material[0].quantity_value < params[:quantity].to_i
          
 
