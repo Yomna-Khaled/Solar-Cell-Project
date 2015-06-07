@@ -133,12 +133,15 @@ end
   # DELETE /vendors/1.json
   def destroy
    
-    
-    @vendor.destroy
-    respond_to do |format|
-      format.html { redirect_to vendors_url }
-      format.json { head :no_content }
-    end
+    if false
+      @vendor.destroy
+      respond_to do |format|
+        format.html { redirect_to vendors_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   private

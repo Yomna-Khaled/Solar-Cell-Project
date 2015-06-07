@@ -8,21 +8,37 @@ class VendorContainersController < ApplicationController
   # GET /vendor_containers
   # GET /vendor_containers.json
   def index
-    @vendor_containers = VendorContainer.all
+    if false
+      @vendor_containers = VendorContainer.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   # GET /vendor_containers/1
   # GET /vendor_containers/1.json
   def show
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   # GET /vendor_containers/new
   def new
+    if false
     @vendor_container = VendorContainer.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   # GET /vendor_containers/1/edit
   def edit
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   # POST /vendor_containers
@@ -58,11 +74,15 @@ class VendorContainersController < ApplicationController
   # DELETE /vendor_containers/1
   # DELETE /vendor_containers/1.json
   def destroy
+    if false
     @vendor_container.destroy
     respond_to do |format|
       format.html { redirect_to vendor_containers_url }
       format.json { head :no_content }
     end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end 
   end
 
   private

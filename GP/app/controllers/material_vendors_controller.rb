@@ -8,21 +8,37 @@ class MaterialVendorsController < ApplicationController
   # GET /material_vendors
   # GET /material_vendors.json
   def index
-    @material_vendors = MaterialVendor.all
+    if false
+      @material_vendors = MaterialVendor.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /material_vendors/1
   # GET /material_vendors/1.json
   def show
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /material_vendors/new
   def new
-    @material_vendor = MaterialVendor.new
+    if false
+      @material_vendor = MaterialVendor.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /material_vendors/1/edit
   def edit
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /material_vendors
@@ -58,11 +74,15 @@ class MaterialVendorsController < ApplicationController
   # DELETE /material_vendors/1
   # DELETE /material_vendors/1.json
   def destroy
-    @material_vendor.destroy
-    respond_to do |format|
-      format.html { redirect_to material_vendors_url }
-      format.json { head :no_content }
-    end
+    if false
+      @material_vendor.destroy
+      respond_to do |format|
+        format.html { redirect_to material_vendors_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   private

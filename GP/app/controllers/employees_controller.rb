@@ -106,6 +106,7 @@ class EmployeesController < ApplicationController
         if  employee_params[:password] == ""
           no_password_update = 1
         end
+
         if @employee.update(employee_params)
           if params[:employee_phones][:phone]==" "
             @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
@@ -122,9 +123,11 @@ class EmployeesController < ApplicationController
             if no_password_update == 1
               Employee.where("id = ? ", @employee.id).update_all(:password =>  old_password )  
             else
+              if employee_params[:password]
               new_password =Digest::MD5.hexdigest(employee_params[:password]) #convert password to md5 for security
               puts new_password
               Employee.where("id = ? ", @employee.id).update_all(:password =>  new_password )
+            end
             end
           end   
           format.html { redirect_to @employee }
@@ -144,7 +147,7 @@ class EmployeesController < ApplicationController
 
   # DELETE /employees/1
   def destroy
-    if current_category.category=="HR" 
+    if false
       @employee.destroy
       respond_to do |format|
         format.html { redirect_to employees_url }

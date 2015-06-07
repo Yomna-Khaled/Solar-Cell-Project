@@ -9,7 +9,7 @@ class QuantitiesController < ApplicationController
   # GET /quantities
   # GET /quantities.json
   def index
-    if logged_in? and  ( current_category.category=="noone")
+    if false
       @quantities = Quantity.all
     else
       render :file => "/public/404.html",:status  => "404"  
@@ -19,7 +19,7 @@ class QuantitiesController < ApplicationController
   # GET /quantities/1
   # GET /quantities/1.json
   def show
-    if logged_in? and  ( current_category.category=="noone")
+    if false
       else
       render :file => "/public/404.html",:status  => "404"  
     end
@@ -27,7 +27,7 @@ class QuantitiesController < ApplicationController
 
   # GET /quantities/new
   def new
-    if logged_in? and  ( current_category.category=="noone")
+    if false
       @quantity = Quantity.new
     else
       render :file => "/public/404.html",:status  => "404"  
@@ -37,7 +37,7 @@ class QuantitiesController < ApplicationController
 
   # GET /quantities/1/edit
   def edit
-    if logged_in? and  ( current_category.category=="noone")
+    if false
       else
       render :file => "/public/404.html",:status  => "404"  
     end
@@ -70,11 +70,15 @@ class QuantitiesController < ApplicationController
   # DELETE /quantities/1
   # DELETE /quantities/1.json
   def destroy
-    @quantity.destroy
-    respond_to do |format|
-      format.html { redirect_to quantities_url }
-      format.json { head :no_content }
-    end
+    if false
+      @quantity.destroy
+      respond_to do |format|
+        format.html { redirect_to quantities_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   private
