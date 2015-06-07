@@ -21,7 +21,13 @@
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
     <% end %>
   </div>
-<<<<<<< HEAD
+
+ <div id="filters" class="button-group"style="margin-left:500px;width:600px">
+  <button class="button is-checked" data-filter="*">show all</button>
+  <button class="button" data-filter=".sold">sold</button>
+  <button class="button" data-filter=".unsold">unsold</button>
+</div>
+
   
   <section class="register" >  
     <div class="reg_section">
@@ -39,32 +45,7 @@
             </tr>
           </thead>
 
-    <tbody>
-      <% @solar_panels.each do |solar_panel| %>
-       
-         <tr>  
-=======
-
- <div id="filters" class="button-group"style="margin-left:500px;width:600px">
-  <button class="button is-checked" data-filter="*">show all</button>
-  <button class="button" data-filter=".sold">sold</button>
-  <button class="button" data-filter=".unsold">unsold</button>
-</div>
-
-  <table   class="table table-hover table-responsive">
-    <thead>
-      <tr>
-      	  <th class="text-center" >Serialno</th>
-      	  <th class="text-center" >Type</th>
-      	  <th class="text-center" >Subtype</th>
-      	  <th class="text-center" >Container_Serial_No.</th>
-      	  <th class="text-center" >Power</th>
-      	  <th class="text-center" >Price</th>
-      	  <th class="text-center" >Show</th>
-
-      </tr>
-    </thead>
-     
+   
     <tbody class="isotope" >
       
        <% @solar_panels.each do |solar_panel| %>
@@ -73,7 +54,7 @@
        <% else %>
          <tr class="element-item sold" data-category="sold">  
        <% end %>  
->>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
+
            <td class="text-center" ><%= solar_panel.serialNo %></td>
            <td class="text-center" ><%= solar_panel.celltype %></td>
            <td class="text-center" ><%= solar_panel.subtype %></td>
@@ -81,7 +62,7 @@
            <td class="text-center" ><%= solar_panel.power %></td>
            <td class="text-center" ><%= solar_panel.price %></td>
 
-<<<<<<< HEAD
+
                  <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
        
               </tr>
@@ -90,16 +71,7 @@
         </table>
     </div>
   </section> 
-=======
-           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
- 
-        </tr>
-      
-      <% end %>
-    </tbody>
-    
-  </table> 
->>>>>>> 8a9c21553ebfb6d30734e94a59f55ca15396e46d
+
 </div> 
 <script>
 $( document ).ready( function() {
