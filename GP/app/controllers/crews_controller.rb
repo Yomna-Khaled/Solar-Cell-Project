@@ -144,15 +144,19 @@ end
 
   # DELETE /crews/1
   def destroy
-    @employees = Employee.where("crew_id = ? " , @crew.id)
-    @employees.each do |employee| 
-      employee.update_attributes(:crew_id => NULL)
-    end
-    @crew.destroy
-    respond_to do |format|
-      format.html { redirect_to crews_url }
-      format.json { head :no_content }
-    end
+    if false
+      @employees = Employee.where("crew_id = ? " , @crew.id)
+      @employees.each do |employee| 
+        employee.update_attributes(:crew_id => NULL)
+      end
+      @crew.destroy
+      respond_to do |format|
+        format.html { redirect_to crews_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html", :status => 404 
+    end  
   end
 
   private
