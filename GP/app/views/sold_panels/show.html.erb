@@ -1,34 +1,33 @@
 
-<p>
-  <strong>Buyer:</strong>
-  <% buyer=Buyer.find_by(id: @sold_panel.buyer_id )%>
-  <%= buyer.name %>
-</p>
+<div class="container" style="width: calc(90%);">
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Order Details</h1>
 
-<p>
-  <strong>Totalprice:</strong>
-  <%= @sold_panel.totalPrice %>
-</p>
+ <section class="register" >  
+    <div class="reg_section">
+        <h3 style="display:inline-block;" class="text-capitalize"> Buyer : </h3> <% buyer=Buyer.find_by(id: @sold_panel.buyer_id )%> <strong class="text-capitalize"><%= buyer.name %></strong>
+  </div>
 
-<p>
-  <strong>Totalpower:</strong>
-  <%= @sold_panel.totalPower %>
-</p>
+ <div class="reg_section">
+  <h3 style="display:inline-block;">Total Price:</h3><%= @sold_panel.totalPrice %>
+</div>
+ <div class="reg_section">
+  <h3 style="display:inline-block;">Totalpower:</h3> <%= @sold_panel.totalPower %>
+</div>
 
-
-<table class="table table-striped">
+    <div class="reg_section">
+<table class="table table-hover table-responsive">
     <thead>
     <tr>
 
-      <th text-align="center">Serialno</th>
-      <th text-align="center">Production date</th>
-      <th text-align="center">Height</th>
-      <th text-align="center" >Width</th>
-      <th text-align="center">Power</th>
-      <th text-align="center">Type</th>
-      <th text-align="center">Subtype</th>
-      <th text-align="center">Price</th>
-      <th text-align="center">Container</th>
+       <th text-align="center"><h3>Serial Number</h3></th>
+      <th text-align="center"><h3>Production date</h3></th>
+      <th text-align="center"><h3>Height</h3></th>
+      <th text-align="center" ><h3>Width</h3></th>
+      <th text-align="center"><h3>Power</h3></th>
+      <th text-align="center"><h3>Type</h3></th>
+      <th text-align="center"><h3>Subtype</h3></th>
+      <th text-align="center"><h3>Price</h3></th>
+      <th text-align="center"><h3>Container</h3></th>
      
    
 
@@ -38,6 +37,7 @@
 
   	<% @solar_panels.each do |solar_panel| %>
       <tr>
+      <td><%= solar_panel.serialNo %></td>
         <td><%= solar_panel.production_date %></td>
         <td><%= solar_panel.height %></td>
         <td><%= solar_panel.width %></td>
@@ -45,15 +45,16 @@
         <td><%= solar_panel.celltype %></td>
         <td><%= solar_panel.subtype %></td>
         <td><%= solar_panel.price %></td>
-        <td><%= solar_panel.serialNo %></td>
+        
         <td><%= solar_panel.container.serialNo %></td>
-        <td><%= solar_panel.container_id %></td>
-        <td><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
-        <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel), class:"btn btn-default" %></td>
+  
+      
       </tr>
 
     <% end %>
 
   </tbody>
 </table>
-<%= link_to 'Back', sold_panels_path %>
+</div>
+</section>
+</div>
