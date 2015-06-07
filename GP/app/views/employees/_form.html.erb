@@ -21,49 +21,8 @@
 <%= form_for(@employee) do |f| %>
   <section class="register">
       <div class="form-group reg_section ">
-        <% if (@employee.id==current_user.id)%>
-
-          <h3><span class="fa fa-lock"></span> Password</h3>
-          <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
-
-          <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
-          <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
-
-          <h3><span class="fa fa-envelope"></span> Email</h3>
-          <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
-          <% if @employee.errors[:email] %>
-            <div class="text-danger">
-              <ul>
-                <% @employee.errors[:email].each do |msg| %>
-                  <li>*Email <%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-
-          <%= fields_for :employee_phones do |p| %>
-            <%= phonn = '' %>
-            <% if @phones.blank? %>
-                <p> <%= phonn = '' %> </p>
-                 <h3><span class="fa fa-mobile"></span> Phone</h3>
-                 <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
-            <% else %>
-               <% @phones.each do |f| %>
-                  <p> <% phonn = phonn + f.phone + ',' %> </p>
-               <% end %>
-               <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %> <h3> <a href="#" onclick="del(<%=@employee.id %>)"> Delete Phone</a></h3> 
-            <% end %> 
-          <% end %>
-         
-          <h3><a href="#" onclick="add()" >Add Phone</a></h3>
-          <div id="phones">    
-          </div>
-          <div id="phonedel">
-          </div>
-
-        <% else %>
-
-          <h1><span class="fa fa-info-circle"></span> Personal Information</h1>
+        <% if current_category.category=="HR" %>
+<h1><span class="fa fa-info-circle"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
             <% if @employee.errors[:full_name] %>
@@ -194,9 +153,36 @@
             <% end %>
 
             <% if @flag_new == 0 %>
+              <% if (@employee.id==current_user.id) %>
+                 <h3><span class="fa fa-lock"></span> Password</h3>
+                  <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+                  <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
+                  <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+                  <% if @employee.errors[:password_confirmation] %>
+                    <div class="text-danger">
+                      <ul>
+                        <% @employee.errors[:password_confirmation].each do |msg| %>
+                          <li>*Password Confirmation <%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                  <h3><span class="fa fa-envelope"></span> Email</h3>
+                  <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+                  <% if @employee.errors[:email] %>
+                    <div class="text-danger">
+                      <ul>
+                        <% @employee.errors[:email].each do |msg| %>
+                          <li>*Email <%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+              <% end %>
                 <h3>Category:
-                
                     <%= Category.find_by(:id => @category_id).category %></h3>
+
                 
             <% end %> 
 
@@ -249,6 +235,56 @@
                     <% end %>
                 </div>
             <% end %>
+        <% else %>
+          <h3><span class="fa fa-lock"></span> Password</h3>
+          <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+          <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
+          <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+          <% if @employee.errors[:password_confirmation] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:password_confirmation].each do |msg| %>
+                  <li>*Password Confirmation <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <h3><span class="fa fa-envelope"></span> Email</h3>
+          <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+          <% if @employee.errors[:email] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:email].each do |msg| %>
+                  <li>*Email <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= fields_for :employee_phones do |p| %>
+            <%= phonn = '' %>
+            <% if @phones.blank? %>
+                <p> <%= phonn = '' %> </p>
+                 <h3><span class="fa fa-mobile"></span> Phone</h3>
+                 <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
+            <% else %>
+               <% @phones.each do |f| %>
+                  <p> <% phonn = phonn + f.phone + ',' %> </p>
+               <% end %>
+               <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %> <h3> <a href="#" onclick="del(<%=@employee.id %>)"> Delete Phone</a></h3> 
+            <% end %> 
+          <% end %>
+         
+          <h3><a href="#" onclick="add()" >Add Phone</a></h3>
+          <div id="phones">    
+          </div>
+          <div id="phonedel">
+          </div>
+
+
+
+          
 
         <% end %>
 

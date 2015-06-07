@@ -1,5 +1,7 @@
-<div class="container">
-<h1 class="page-header"> <span class="fa fa-users"></span> Your Crew Members</h1>
+<div class="container" style="width: calc(70%);">
+<h1 class="page-header" style="font-size:30px; color:#2A4E6E"> <span class="fa fa-users"></span> Your Crew Members</h1>
+ <section class="register" >  
+    <div class="reg_section">
 
 <% if @crew_name.blank? %>
   <div class="alert alert-danger">
@@ -8,12 +10,13 @@ There are no crews...Please add them</div>
 <ol>
    <% @crew_name.each do |f| %>
     
- <li class="text-capitalize">  <%= f.full_name  %>
-
+ <li class="text-capitalize">  <%= f.full_name  %></li>
   
   <% end %>
 </ol>
 <% end %>
+</div>
+</section>
 </div>
 
 

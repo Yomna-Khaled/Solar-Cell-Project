@@ -10,18 +10,20 @@ class CrewsController < ApplicationController
   
   def index
     if logged_in? and current_category.category=="HR"
-
       @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 6)
-
     else
-      redirect_to login_path  
+      render :file => "/public/404.html", :status => 404 
     end  
   end
 
   # GET /crews/1
   def show
+    if logged_in? and current_category.category=="HR"
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
+    else
+      render :file => "/public/404.html", :status => 404 
+    end 
   end
 
   # GET /crews/new
@@ -35,7 +37,7 @@ class CrewsController < ApplicationController
       @crews = Crew.all
       puts(@crews.count)
     else
-      redirect_to login_path  
+      render :file => "/public/404.html", :status => 404 
     end   
   end
 
@@ -142,15 +144,19 @@ end
 
   # DELETE /crews/1
   def destroy
-    @employees = Employee.where("crew_id = ? " , @crew.id)
-    @employees.each do |employee| 
-      employee.update_attributes(:crew_id => NULL)
-    end
-    @crew.destroy
-    respond_to do |format|
-      format.html { redirect_to crews_url }
-      format.json { head :no_content }
-    end
+    if false
+      @employees = Employee.where("crew_id = ? " , @crew.id)
+      @employees.each do |employee| 
+        employee.update_attributes(:crew_id => NULL)
+      end
+      @crew.destroy
+      respond_to do |format|
+        format.html { redirect_to crews_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html", :status => 404 
+    end  
   end
 
   private

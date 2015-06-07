@@ -8,40 +8,44 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    if  current_category.category=="noone"
+    if false
       @categories = Category.all   
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404" 
     end 
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
-    if  current_category.category=="noone"
+    if false
      redirect_to  @category
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"
     end
   end
 
   # GET /categories/new
   def new
-    if  current_category.category=="noone"
+    if false
       @category = Category.new
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end
   end
 
   # GET /categories/1/edit
   def edit
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /categories
   # POST /categories.json
   def create
-    if  current_category.category=="noone"
+    
        @category = Category.new(category_params)
         @category.category = @category.category.strip
         respond_to do |format|
@@ -53,9 +57,7 @@ class CategoriesController < ApplicationController
             format.json { render json: @category.errors, status: :unprocessable_entity }
           end
     end
-    else
-      redirect_to login_path 
-    end
+    
    
   end
 
@@ -73,7 +75,7 @@ class CategoriesController < ApplicationController
       end
     end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"
     end
     
   end
@@ -81,14 +83,14 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    if  current_category.category=="noone"
+    if false
           @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url  }
       format.json { head :no_content }
     end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end
 
   end

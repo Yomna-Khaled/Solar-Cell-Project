@@ -167,11 +167,15 @@ end
   # DELETE /materials/1
   # DELETE /materials/1.json
   def destroy
-    @material.destroy
-    respond_to do |format|
-      format.html { redirect_to materials_url  }
-      format.json { head :no_content }
-    end
+    if false
+      @material.destroy
+      respond_to do |format|
+        format.html { redirect_to materials_url  }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   private

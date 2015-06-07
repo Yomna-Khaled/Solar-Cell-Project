@@ -1,58 +1,63 @@
-<style>
-.element-item  {
-  position:static !important;
-  
-}
-</style>
-
-
-
-
 
 <div class="container" style="width: calc(80%);">
 
+ <section class="register" >  
+    <div class="reg_section">
+
+
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
 
-   <div id="Search_by" style= "margin-left:500px;width:600px" >
-    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
+<div class="row">
+   <div id="Search_by" >
+    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
+    
+        <div class="col-md-3" style="width:50px">
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
+       </div>
+
+        <div class="col-md-3" style="width:100px">
         <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
         <%= hidden_field_tag :searchciteria, "power" %>
+        </div>
+       
+         <div class="col-md-3" style="width:100px">
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
+        </div>
+    
     <% end %>
+
   </div>
-
- <div id="filters" class="button-group"style="margin-left:500px;width:600px">
-  <button class="button is-checked" data-filter="*">show all</button>
-  <button class="button" data-filter=".sold">sold</button>
-  <button class="button" data-filter=".unsold">unsold</button>
+ <div class="col-md-3" style="width:100px">
+    <select class="target" style="display:inline-block;" >
+        <option value="all">all</option>
+        <option value="sold">sold</option>
+        <option value="unsold">unsold</option>
+    
+    </select> 
+ </div>
 </div>
-
-  
   <section class="register" >  
     <div class="reg_section">
         <table class="table table-hover table-responsive">
           <thead>
             <tr>
-            	  <th class="text-center" ><h1>Serialno</h1></th>
-            	  <th class="text-center" ><h1>Type</h1></th>
-            	  <th class="text-center" ><h1>Subtype</h1></th>
-            	  <th class="text-center" ><h1>Container_Serial_No.</h1></th>
-            	  <th class="text-center" ><h1>Power</h1></th>
-            	  <th class="text-center" ><h1>Price</h1></th>
-            	  <th class="text-center" ><h1>Show</h1></th>
+            	  <th class="text-center" ><h3>Serialno</h3></th>
+            	  <th class="text-center" ><h3>Type</h3></th>
+            	  <th class="text-center" ><h3>Subtype</h3></th>
+            	  <th class="text-center" ><h3>Container_Serial_No.</h3></th>
+            	  <th class="text-center" ><h3>Power</h3></th>
+            	  <th class="text-center" ><h3>Price</h3></th>
+            	  <th class="text-center" ><h3>Show</h3></th>
 
-            </tr>
-          </thead>
+    <tbody>
+      <% @solar_panels.each do |solar_panel| %>
+       
+         <tr>  
 
-   
-    <tbody class="isotope" >
-      
-       <% @solar_panels.each do |solar_panel| %>
        <% if solar_panel.sold_panel_id.nil? %>
-        <tr class="element-item unsold " data-category="unsold">
+        <tr class="unsold " >
        <% else %>
-         <tr class="element-item sold" data-category="sold">  
+         <tr class="sold" >  
        <% end %>  
 
            <td class="text-center" ><%= solar_panel.serialNo %></td>
@@ -61,63 +66,35 @@
            <td class="text-center" ><%= solar_panel.container.serialNo %></td>
            <td class="text-center" ><%= solar_panel.power %></td>
            <td class="text-center" ><%= solar_panel.price %></td>
-
-
-                 <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
+           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
        
               </tr>
             <% end %>
           </tbody>
         </table>
-    </div>
+   
   </section> 
+ </div>
 
 </div> 
 <script>
-$( document ).ready( function() {
-  // init Isotope
-  var $container = $('.isotope').isotope({
-    itemSelector: '.element-item',
-    layoutMode: 'fitRows'
-    
-  });
+var rows = $('table.mytable tr');
 
-  // filter functions
-  var filterFns = {
-    // show if number is greater than 50
-    numberGreaterThan50: function() {
-      var number = $(this).find('.number').text();
-      return parseInt( number, 10 ) > 50;
-    },
-    // show if name ends with -ium
-    ium: function() {
-      var name = $(this).find('.name').text();
-      return name.match( /ium$/ );
-    }
-  };
 
-  // bind filter button click
-  $('#filters').on( 'click', 'button', function() {
-    var filterValue = $( this ).attr('data-filter');
-    // use filterFn if matches value
-    filterValue = filterFns[ filterValue ] || filterValue;
-    $container.isotope({ filter: filterValue });
-  });
-
-  // bind sort button click
-  $('#sorts').on( 'click', 'button', function() {
-    var sortByValue = $(this).attr('data-sort-by');
-    $container.isotope({ sortBy: sortByValue });
-  });
-  
-  // change is-checked class on buttons
-  $('.button-group').each( function( i, buttonGroup ) {
-    var $buttonGroup = $( buttonGroup );
-    $buttonGroup.on( 'click', 'button', function() {
-      $buttonGroup.find('.is-checked').removeClass('is-checked');
-      $( this ).addClass('is-checked');
-    });
-  });
-  
+$( ".target" ).change(function() {
+if ($(".target").val()=="unsold")
+{
+    var unsold = rows.filter('.unsold').show();
+    rows.not( unsold ).hide();
+}
+else if ($(".target").val()=="sold")
+{
+var sold = rows.filter('.sold').show();
+    rows.not( sold ).hide();
+}
+else
+{
+rows.show();
+}
 });
 </script>

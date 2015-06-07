@@ -9,21 +9,38 @@ class QuantitiesController < ApplicationController
   # GET /quantities
   # GET /quantities.json
   def index
-    @quantities = Quantity.all
+    if false
+      @quantities = Quantity.all
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # GET /quantities/1
   # GET /quantities/1.json
   def show
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # GET /quantities/new
   def new
-    @quantity = Quantity.new
+    if false
+      @quantity = Quantity.new
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end
+
   end
 
   # GET /quantities/1/edit
   def edit
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404"  
+    end
   end
 
   # POST /quantities
@@ -53,11 +70,15 @@ class QuantitiesController < ApplicationController
   # DELETE /quantities/1
   # DELETE /quantities/1.json
   def destroy
-    @quantity.destroy
-    respond_to do |format|
-      format.html { redirect_to quantities_url }
-      format.json { head :no_content }
-    end
+    if false
+      @quantity.destroy
+      respond_to do |format|
+        format.html { redirect_to quantities_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   private

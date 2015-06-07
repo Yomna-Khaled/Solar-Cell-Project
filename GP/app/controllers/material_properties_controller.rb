@@ -8,21 +8,37 @@ class MaterialPropertiesController < ApplicationController
   # GET /material_properties
   # GET /material_properties.json
   def index
-    @material_properties = MaterialProperty.all
+    if false
+      @material_properties = MaterialProperty.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end    
   end
 
   # GET /material_properties/1
   # GET /material_properties/1.json
   def show
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /material_properties/new
   def new
-    @material_property = MaterialProperty.new
+    if false
+      @material_property = MaterialProperty.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /material_properties/1/edit
   def edit
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /material_properties
@@ -58,11 +74,15 @@ class MaterialPropertiesController < ApplicationController
   # DELETE /material_properties/1
   # DELETE /material_properties/1.json
   def destroy
-    @material_property.destroy
-    respond_to do |format|
-      format.html { redirect_to material_properties_url  }
-      format.json { head :no_content }
-    end
+    if false
+      @material_property.destroy
+      respond_to do |format|
+        format.html { redirect_to material_properties_url  }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   private

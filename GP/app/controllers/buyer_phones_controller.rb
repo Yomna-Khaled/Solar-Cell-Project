@@ -8,26 +8,43 @@ class BuyerPhonesController < ApplicationController
   # GET /buyer_phones
   # GET /buyer_phones.json
   def index
-    @buyer_phones = BuyerPhone.all
+    if false
+      @buyer_phones = BuyerPhone.all
+    else
+      render :file => "/public/404.html",:status  => "404"   
+    end  
   end
 
   # GET /buyer_phones/1
   # GET /buyer_phones/1.json
   def show
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404"   
+    end
   end
 
   # GET /buyer_phones/new
   def new
-    @buyer_phone = BuyerPhone.new
+    if false
+      @buyer_phone = BuyerPhone.new
+     else
+      render :file => "/public/404.html",:status  => "404"   
+    end
   end
 
   # GET /buyer_phones/1/edit
   def edit
+    if false
+      else
+      render :file => "/public/404.html",:status  => "404"   
+    end
   end
 
   # POST /buyer_phones
   # POST /buyer_phones.json
   def create
+     if logged_in? and  ( current_category.category=="noone")
     @buyer_phone = BuyerPhone.new(buyer_phone_params)
 
     respond_to do |format|
@@ -38,6 +55,9 @@ class BuyerPhonesController < ApplicationController
         format.html { render :new }
         format.json { render json: @buyer_phone.errors, status: :unprocessable_entity }
       end
+    end
+    else
+      render :file => "/public/404.html",:status  => "404"   
     end
   end
 
@@ -58,10 +78,14 @@ class BuyerPhonesController < ApplicationController
   # DELETE /buyer_phones/1
   # DELETE /buyer_phones/1.json
   def destroy
+    if false
     @buyer_phone.destroy
     respond_to do |format|
       format.html { redirect_to buyer_phones_url, notice: 'Buyer phone was successfully destroyed.' }
       format.json { head :no_content }
+    end
+    else
+      render :file => "/public/404.html",:status  => "404"   
     end
   end
 

@@ -34,6 +34,7 @@ class MachinesController < ApplicationController
 
   # GET /machines/1/edit
   def edit
+    
   end
 
   # POST /machines
@@ -78,11 +79,15 @@ class MachinesController < ApplicationController
   # DELETE /machines/1
   # DELETE /machines/1.json
   def destroy
-    @machine.destroy
-    respond_to do |format|
-      format.html { redirect_to machines_url }
-      format.json { head :no_content }
-    end
+    if false
+      @machine.destroy
+      respond_to do |format|
+        format.html { redirect_to machines_url }
+        format.json { head :no_content }
+      end
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end  
   end
 
   private

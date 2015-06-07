@@ -8,7 +8,7 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels
   # GET /sold_panels.json
   def index
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and  current_category.category=="Sales"
       @sold_panels = SoldPanel.all
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -18,7 +18,7 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels/1
   # GET /sold_panels/1.json
   def show
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and  current_category.category=="Sales"
       puts @sold_panel.buyer_id
       @buyer=Buyer.where("id= ?",@sold_panel.buyer_id)
       puts @buyer.name
@@ -87,10 +87,14 @@ class SoldPanelsController < ApplicationController
   # DELETE /sold_panels/1
   # DELETE /sold_panels/1.json
   def destroy
-    @sold_panel.destroy
-    respond_to do |format|
-      format.html { redirect_to sold_panels_url, notice: 'Sold panel was successfully destroyed.' }
-      format.json { head :no_content }
+    if false
+      @sold_panel.destroy
+      respond_to do |format|
+        format.html { redirect_to sold_panels_url, notice: 'Sold panel was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
     end
   end
 
