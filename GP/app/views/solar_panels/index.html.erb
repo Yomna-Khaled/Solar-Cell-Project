@@ -1,40 +1,41 @@
 
 <div class="container" style="width: calc(80%);">
-
+ <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Panels</h1>
  <section class="register" >  
     <div class="reg_section">
 
 
-  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
+ 
 
 <div class="row">
-   <div id="Search_by" >
+  
+    <select class="target col-md-3" style="width:110px;margin-left:10px;margin-top:15px" >
+        <option value="all">All</option>
+        <option value="sold">Sold</option>
+        <option value="unsold">Unsold</option>
+    
+    </select> 
+ 
+   
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
     
-        <div class="col-md-3" style="width:50px">
-    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
-       </div>
+        
+    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class:"col-md-3" ,style:"width:300px;") %>
+      
 
-        <div class="col-md-3" style="width:100px">
-        <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
+        
+        <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
         <%= hidden_field_tag :searchciteria, "power" %>
-        </div>
+        
        
-         <div class="col-md-3" style="width:100px">
-        <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
-        </div>
+        
+        <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
+       
     
     <% end %>
 
-  </div>
- <div class="col-md-3" style="width:100px">
-    <select class="target" style="display:inline-block;" >
-        <option value="all">all</option>
-        <option value="sold">sold</option>
-        <option value="unsold">unsold</option>
-    
-    </select> 
- </div>
+ 
+ 
 </div>
   <section class="register" >  
     <div class="reg_section">
