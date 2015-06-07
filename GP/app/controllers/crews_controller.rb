@@ -2,6 +2,12 @@ class CrewsController < ApplicationController
   before_action :set_crew, only: [:show, :edit, :update, :destroy]
   # GET /crews
   # GET /crews.json
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
+  
   def index
     if logged_in? and current_category.category=="HR"
       @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 6)
@@ -50,13 +56,18 @@ class CrewsController < ApplicationController
   end
 
 def home
-   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
-   if !@crewid 
-   	@crewid = ' ';
-    @crew_name = ' ';
-   else
-    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
-   end
+ @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+  if @shift.exists?
+	   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
+	   if !@crewid 
+	   	@crewid = ' ';
+	    @crew_name = ' ';
+	   else
+	    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
+	   end
+  else 
+	   redirect_to  shifts_showstartshift_path 
+  end
 end
 
   # POST /crews

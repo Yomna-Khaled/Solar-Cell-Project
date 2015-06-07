@@ -2,11 +2,12 @@
  <section class="register">
 
   <div class="form-group reg_section">
-    <h1> Machine Information</h1>
+      
+    <h1><span class="fa fa-info-circle"></span> Machine Information</h1>
     <h3>Name</h3>
     <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
     <% if @machine.errors[:name].present? %>
-        <div class="text-danger">
+        <div class="text-danger ">
          <% @machine.errors[:name].each do |msg| %>
               <p><%= "* name "+msg %></p> 
               <% end %>

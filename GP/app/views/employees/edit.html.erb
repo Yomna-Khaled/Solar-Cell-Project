@@ -14,9 +14,9 @@
 
 	<div class="container">
 		<% if (@employee.id==current_user.id)%>
-			<h1 class="page-header" style="font-size:35px;"> Edit Profile</h1>
+			<h1 style="font-size:30px;color:#2A4E6E" class="page-header"><span class="fa fa-edit"></span> Edit Profile</h1>
 		<% else %>
-			<h1 class="page-header" style="font-size:35px;"> Edit Employee</h1>
+			<h1 style="font-size:30px;color:#2A4E6E" class="page-header"><span class="fa fa-edit"></span> Edit Employee</h1>
 		<% end %>
 		<%= render 'form' %>
 	</div> 

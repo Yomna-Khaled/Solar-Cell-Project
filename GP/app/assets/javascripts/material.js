@@ -19,7 +19,8 @@ function propertyvalue (value) {
 	var property_id = value_id.split("_")[1]; 
 	var property_value = document.getElementById(property_id+"_value").value;
 	if (property_value == "") {
-		alert("Enter Property Value ");
+		$('#modal-body').text('Enter Property Value');
+		$('#basicModal').modal('toggle');
 		document.getElementById(property_id).checked= false;
 		document.getElementById(value_id).style.display= "none";
 	};
@@ -64,14 +65,17 @@ function vendorajax () {
 	});
 	}
 	else{
-		alert("To Add New Vendor You have to Enter valid Vendor Email");
+		$('#modal-body').text('To Add New Vendor You have to Enter valid Vendor Email');
+		$('#basicModal').modal('toggle');
 	}
 }
 	else{
 		if (vendorname=="") {
-			alert("To Add New Vendor You have to Enter Vendor Name");
+			$('#modal-body').text('To Add New Vendor You have to Enter Vendor Name');
+			$('#basicModal').modal('toggle');
 		} else{
-			alert("To Add New Vendor You have to Enter Vendor Email");
+			$('#modal-body').text('To Add New Vendor You have to Enter Vendor Email');
+			$('#basicModal').modal('toggle');
 		};
 	}
 }
@@ -111,7 +115,8 @@ function unitajax () {
 	});
 	}
 	else{
-		alert("To Add New Unit You have to Enter Unit Name");
+		$('#modal-body').text('To Add New Unit You have to Enter Unit Name');
+		$('#basicModal').modal('toggle');
 	}
 }
 function canceladdunit(){
@@ -143,13 +148,14 @@ function propertyajax () {
 			append('<tr><td><input type="checkbox" id="'+propertyid+
 			'" name="propertycheck[]" onchange="checkproperty(this)" value='+propertyid+'/>'
 			+propertyname+'</td><td id="value_'+propertyid+
-			'" style="display:none" onkeyup="propertyvalue(this)"><h3 style="margin-left:100px;">value</h3><input type="text" style="width:100px;margin-left:100px;" id="'+propertyid+'_value" ></td></tr>');
+			'" style="display:none" onkeyup="propertyvalue(this)" placeholder="Enter Value..."><h3 style="margin-left:100px;">value</h3><input type="text" style="width:100px;margin-left:100px;" id="'+propertyid+'_value" ></td></tr>');
 			$("#propertyname").val("");
 		}
 	});
 	}
 	else{
-		alert("To Add New Property You have to Enter Property Name");
+		$('#modal-body').text('To Add New Property You have to Enter Property Name');
+		$('#basicModal').modal('toggle');
 	}
 }
 function canceladdproperty(){

@@ -1,9 +1,12 @@
+
+  
+
 <div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:35px;">My Shifts</h1>
+  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-book"></span> My Shifts</h1>
 		<table class="table table-stripped table-responsive">
 		  <thead>
 		    <tr>
-		      <th>employee id</th>
+		      
 		      <th>Crew</th>
 		      <th>Start shift date</th>
 		      <th>End shift date</th>
@@ -17,76 +20,64 @@
 		  </thead>
 
 		  <tbody>
-                    <% i=0 %>
+            <% i=0 %>
 		    <% @shifts.each do |shift| %>   
-		    <tr> 
-				<td><%= shift.employee.id %></td>
-				<td><%= shift.crew.name %></td>
-				<td><%= shift.start_shift_date %></td>
-				<td><%= shift.end_shift_date %></td>
-				<td><%= shift.start_shift_time %></td>
-				<td><%= shift.end_shift_time %></td>
-				<td><%= shift.production_rate %></td>
-				<td><%= link_to 'Show', shift %></td>
-				<td><%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-				<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-					<button type="button" class="btn btn-primary">  
-					    <span class="myglyphicon,glyphicon glyphicon-plus"></span> 
-					</button>
-				</td>
-			</tr>
-			
-		    <tr>
-			<td  colspan="12" style="border:0px">
+
+
+
+					<td><%= shift.crew.name %></td>
+					<td><%= shift.start_shift_date %></td>
+					<td><%= shift.end_shift_date %></td>
+					<td><%= shift.start_shift_time.strftime('%H:%M:%S') %></td>
+					<%unless shift.end_shift_time.nil?%>
+					<td><%= shift.end_shift_time.strftime('%H:%M:%S') %></td>
+					<% else %>
+                                        <td></td>  
+                                        <%end%>
+					<td><%= shift.production_rate %></td>
+					<td><%= link_to 'Show', shift %></td>
+					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
+					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
+					<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
+					</td>
+		       
+			 </tr>
+
+		       <tr>
+			<td  colspan="12" style="border:0px; padding:0px">
 			<table class="table table-hover">
 				<thead>
 					<tr class="collapse , demo<%=i%>">
-					<th text-align="center">production_date</th>
-					<th text-align="center">height</th>
-					<th text-align="center">width</th>
-					<th text-align="center">power</th>
-					<th text-align="center">celltype</th>
-					<th text-align="center">subtype</th>
-				        <th text-align="center">price</th>
-				        <th text-align="center">serialNo</th>
-				        <th text-align="center">cells no.</th>  
-			 		<th text-align="center">price</th>  
-			 		<th text-align="center">power</th>  
-			 		<th text-align="center">Edit</th>  
-			 		
 
-				         </tr>
-
-				</thead>
+						<th text-align="center">serialNo</th>
+						<th text-align="center">power</th>
+						<th text-align="center">celltype</th>
+						<th text-align="center">sub type</th>
+						 
+				 		<th text-align="center"><span class="fa fa-edit">Edit</th> 
+                                                <th text-align="center">show</th>  
+			 		</tr>
+                                   </thead>
 				    <tbody>
+                                    <% shift.solar_panels.each do |solar_panel| %>  
 				    <tr class="collapse , demo<%=i%>" >
-				   	<% shift.solar_panels.each do |solar_panel| %>  
-					    <td><%= solar_panel.production_date %></td>
-					    <td><%= solar_panel.height %></td>
-					    <td><%= solar_panel.width %></td>
+				   	
+					    <td><%= solar_panel.serialNo%></td> 
 					    <td><%= solar_panel.power %></td>
 					    <td><%= solar_panel.celltype %></td>
 					    <td><%= solar_panel.subtype%></td>
-					    <td><%= solar_panel.price %></td>
-					    <td><%= solar_panel.serialNo%></td>                
-					    <td><%= solar_panel.cellno %></td> 
-					    <td><%= solar_panel.price %></td>
-					    <td><%= solar_panel.power %></td>
+					    
 					    <td><%= button_to 'Edit', edit_solar_panel_path(solar_panel),method: :get %></td>
-				       
-					  </p>
-
+				            <td><%= button_to 'show', solar_panel_path(solar_panel),method: :get %></td>  
+			  
+					
 				     </tr> 
 				     <% end %>
+                                  </tbody>
+		                  </table>
 				   </td></tr>
 				   <% i=i+1 %>
-			       
-		
-
-             </tr>   
-          </tbody>    
-
-          </tr>
+	
     <% end %>
   
   </tbody>

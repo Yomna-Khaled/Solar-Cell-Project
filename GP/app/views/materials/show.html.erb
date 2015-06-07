@@ -1,17 +1,17 @@
-<div class="container">
-  <div class="page-header" style="font-size:35px;">
-      <h1 align="center"><%= @material.name %> Infromation</h1>
-  </div>
+<div class="container" style="width: calc(60%);">
+ 
+      <h1 class="page-header text-capitalize" style="font-size:30px;"><span class="fa fa-eye"> <%=  @material.name %> Details</h1>
+  
 
-  <div class="raw">
+  <div class="row">
     <div class="col-md-3">
       <br><br>
-      <img src="<%= @material.avatar %>" class="img-rounded" style="width:100px ; height:100px;">
+      <img src="<%= @material.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
     </div> 
 
     <div class="col-md-9">
       <div class="page-header">
-          <h1>Basic Infromation</h1>
+           <h1><span class="fa fa-info-circle"></span> Basic Infro.</h1>
       </div>
 
       <ul class="list-group">
@@ -21,7 +21,7 @@
 
 
       <div class="page-header">
-          <h1>Material In Stock</h1>
+          <h1><span class="fa fa-floppy-o"></span> Stock Info.</h1>
       </div>
 
       <ul class="list-group">
@@ -32,7 +32,7 @@
       </ul>
 
       <div class="page-header">
-          <h1>Material Date</h1>
+          <h1><span class="fa fa-calendar"></span> Material Date</h1>
       </div>
 
       <ul class="list-group">
@@ -41,13 +41,14 @@
       </ul>
 
       <div class="page-header">
-          <h1>Material Vendor</h1>
+          <h1><span class="fa fa-user"></span> Material Vendor</h1>
       </div>
       <ul class="list-group">
-        <li class="list-group-item">Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
-      </ul>      
+        <li class="list-group-item"> Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
+      </ul>     
+       
       <div class="page-header">
-          <h1>Material Properties</h1>
+          <h1><span class="fa fa-list-ul"></span> Material Properties</h1>
       </div>
 
       <ul class="list-group">

@@ -1,10 +1,18 @@
 class LookupPricesController < ApplicationController
   before_action :set_lookup_price, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+# Render 404 page when record not found
+  def render_404      
+     render :file => "/public/404.html", :status => 404
+  end
   # GET /lookup_prices
   # GET /lookup_prices.json
   def index
-    @lookup_prices = LookupPrice.all
+    if logged_in? and (current_category.category=="Sales") 
+      @lookup_prices = LookupPrice.all
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end  
   end
 
   # GET /lookup_prices/1
@@ -12,7 +20,7 @@ class LookupPricesController < ApplicationController
   def show
      if logged_in? and (current_category.category=="Sales")
      else
-      redirect_to login_path  
+       render :file => "/public/404.html",:status  => "404"  
      end
   end
 
@@ -21,7 +29,7 @@ class LookupPricesController < ApplicationController
     if logged_in? and (current_category.category=="Sales")
        @lookup_price = LookupPrice.new
     else
-      redirect_to login_path  
+       render :file => "/public/404.html",:status  => "404" 
     end
   end
 
@@ -29,7 +37,7 @@ class LookupPricesController < ApplicationController
   def edit
       if logged_in? and (current_category.category=="Sales")
      else
-      redirect_to login_path  
+       render :file => "/public/404.html",:status  => "404" 
      end
   end
 
@@ -54,7 +62,13 @@ class LookupPricesController < ApplicationController
   def update
     respond_to do |format|
       if @lookup_price.update(lookup_price_params)
-        format.html { redirect_to @lookup_price, notice: 'Lookup price was successfully updated.' }
+         @unsoldpanels=SolarPanel.where("sold_panel_id is NULL")
+         
+         for i in 0...(@unsoldpanels).length
+
+                 @unsoldpanels[i].update_attributes(:price=>(LookupPrice.where("name=?","watt").first.value)*@unsoldpanels[i][:power].to_f)
+         end
+        format.html { redirect_to lookup_prices_path , notice: 'Lookup price was successfully updated.' }
         format.json { render :show, status: :ok, location: @lookup_price }
       else
         format.html { render :edit }

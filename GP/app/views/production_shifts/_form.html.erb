@@ -1,16 +1,17 @@
 <%= form_tag("/production_shifts/", :method => "post")%>
 <div class="container" style="width: 100;">
-    <h1 class="page-header" style="font-size:35px;">Ordering Material</h1>
+    <h1 class="page-header" style="font-size:30px;;color:#2A4E6E"> <span class="fa fa-check-square-o"></span> Ordering Material</h1>
     <section class="register">
       <div class="form-group reg_section ">
+        <h1>Choose Materials</h1>
         <table class="table table-responsive">
            <thead>
             <tr>
-              <th class="text-center" >Material</th>
-              <th class="text-center" >Value</th>
+              <h3><th class="text-center" >Material</th></h3>
+              <h3><th class="text-center" >Value</th></h3>
             </tr>
            </thead>
-
+<tbody>
            <% @materials.each do |material| %>
             <tr >
               <td>
@@ -20,14 +21,15 @@
               <td>
                 <%= number_field_tag  material.id , nil, options = {:placeholder=> "Enter the required quantity  ",:style => "display:none;margin-left: 150px; width:200px"}%>
               </td>
-              <br>
+              
               <%= hidden_field_tag "hidden" %>
               <%= hidden_field_tag "manager", current_user.full_name  %>
               <%= hidden_field_tag "shift_id",current_shift.id %>
             </tr>
           <% end %>
+        </tbody>
         </table>
-        <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
+        <%= submit_tag("Complete order", :class=>"btn btn-warning",:id=>"order",disabled: true) %>
       </div>
   </section>
 </div>

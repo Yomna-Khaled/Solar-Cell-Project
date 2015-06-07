@@ -1,36 +1,40 @@
+
 <div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:35px;">All Employees</h1>
-    <table class="table table-hover table-responsive">
-      <thead>
-        <tr>
-          <th class="text-center">Image</th>
-          <th class="text-center">Full Name</th>
-          <th class="text-center">Salary</th>
-          <th class="text-center">Education Level</th>
-          <th class="text-center">Education</th>
-          <th class="text-center">Governamental ID</th>
-          <th class="text-center">Category</th>
-          <th class="text-center">Show</th>
-          <th class="text-center">Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @employees.each do |employee| %>
-        <tr>
-          <td text-align="center"><%= image_tag employee.image.url(:thumb), :style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
-          <td class="text-center"><%= employee.full_name %></td>
-          <td class="text-center"><%= employee.salary %></td>
-          <td class="text-center"><%= employee.education_level %></td>
-          <td class="text-center"><%= employee.education %></td>
-          <td class="text-center"><%= employee.Governamental_ID %></td>
-          <% category=Category.find_by(id: employee.category_id )%>
-          <td class="text-center"><%= category.category %></td>
-          <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
-          <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"> All Employees</span></h1>
+  <section class="register" >  
+    <div class="reg_section">
+        <table class="table table-condensed table-hover table-responsive">
+          <thead>
+            <tr>
+              <th class="text-center"><h1>Image</h1></th>
+              <th class="text-center"><h1>Full Name</h1></th>
+              <th class="text-center"><h1>Salary</h1></th>
+              <th class="text-center"><h1>Education Level</h1></th>
+              <th class="text-center"><h1>Education</h1></th>
+              <th class="text-center"><h1>Category</h1></th>
+              <th class="text-center"><h1>Show</h1></th>
+              <th class="text-center"><h1>Edit</h1></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @employees.each do |employee| %>
+            <tr>
+              <td text-align="center"><%= image_tag employee.image.url(:thumb), :style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
+              <td class="text-center"><%= employee.full_name %></td>
+              <td class="text-center"><%= employee.salary %></td>
+              <td class="text-center"><%= employee.education_level %></td>
+              <td class="text-center"><%= employee.education %></td>
+              <% category=Category.find_by(id: employee.category_id )%>
+              <td class="text-center"><%= category.category %></td>
+              <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
+              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+  </section>
 </div>      
 <%= will_paginate @employees, renderer: BootstrapPagination::Rails %>
 
