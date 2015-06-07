@@ -1,4 +1,4 @@
-<div class="container ">
+
 <%= form_for(@buyer) do |f| %>
   
 
@@ -8,7 +8,7 @@
   
   
     <h3>Name</h3>
-    <%= f.text_field :name %>
+    <%= f.text_field :name ,placeholder:"Enter Buyer Name..." %>
     <% if @buyer.errors[:name].any? %>
     <div id="error_explanation">  
       <ul>
@@ -20,7 +20,7 @@
   <% end %>
   
     <h3><span class="fa fa-home"></span> Address</h3>
-    <%= f.text_field :addess %>
+    <%= f.text_field :addess,placeholder: "Enter Buyer Address...." %>
     <% if @buyer.errors[:addess].any? %>
     <div id="error_explanation">  
       <ul>
@@ -32,7 +32,7 @@
   <% end %>
 
     <h3><span class="fa fa-map-marker"></span> City</h3>
-    <%= f.text_field :city %>
+    <%= f.text_field :city ,placeholder:"Enter Buyer City...."%>
 
     <% if @buyer.errors[:city].any? %>
     <div id="error_explanation">  
@@ -90,10 +90,10 @@
 
 
 
-<div class="actions form-group">
-    <%= f.submit "Submit", class: "btn btn-success" %>
+<div class="actions">
+    <%= f.submit "Submit", class: "btn btn-warning" %>
   </div>
-</div>
+
 
 <% end %>
 </section >
@@ -111,7 +111,7 @@ allValues=$( "#phone" ).val().slice(0,-1);
 var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" style="width:350px;" />' ).append( '<input type="button" id="OK" value="ok" class="btn btn-success"   />' );
+        $('#phones').append('<input placeholder="Enter Phone Number.." type="text" id="'+x+'" style="width:350px;" />' ).append( '<input type="button" id="OK" value="ok" class="btn btn-primary"   />' );
 // $('#phones').append('<input type="button" id="OK" value="ok" class="btn btn-success" />' ).append( '<input type="text" id="'+x+'" />' );
         x=x+1;
         $( "#OK" ).click(function() {
@@ -159,6 +159,7 @@ var del = function(buyerid) {
                  elem.type = 'button';
                  elem.value = 'x'; 
                  elem.setAttribute("class", "btn btn-danger");
+                 elem.setAttribute("style","margin-left:70px;")
 		 div.id= i;
 		 div.value=arr[i];
                  div.innerHTML = arr[i];

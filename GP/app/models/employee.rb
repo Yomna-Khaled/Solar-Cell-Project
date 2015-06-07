@@ -12,7 +12,7 @@ class Employee < ActiveRecord::Base
   validates_uniqueness_of :full_name, :Governamental_ID , on: :create
   validates :password, confirmation: true
 
-has_many :employeephones
+  has_many :employeephones
 
   validates_uniqueness_of :email, :if => :not_normal? 
 

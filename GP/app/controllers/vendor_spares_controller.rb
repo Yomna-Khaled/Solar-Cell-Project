@@ -8,23 +8,37 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares
   # GET /vendor_spares.json
   def index
-    @vendor_spares = VendorSpare.all
+    if  current_category.category=="noone"
+      @vendor_spares = VendorSpare.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendor_spares/1
   # GET /vendor_spares/1.json
   def show
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /vendor_spares/new
   def new
-    @vendor_spare = VendorSpare.new
-
+    if  current_category.category=="noone"
+      @vendor_spare = VendorSpare.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendor_spares/1/edit
   def edit
-   
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /vendor_spares

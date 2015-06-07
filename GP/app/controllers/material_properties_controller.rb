@@ -8,21 +8,37 @@ class MaterialPropertiesController < ApplicationController
   # GET /material_properties
   # GET /material_properties.json
   def index
-    @material_properties = MaterialProperty.all
+    if  current_category.category=="noone"
+      @material_properties = MaterialProperty.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end    
   end
 
   # GET /material_properties/1
   # GET /material_properties/1.json
   def show
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /material_properties/new
   def new
-    @material_property = MaterialProperty.new
+    if  current_category.category=="noone"
+      @material_property = MaterialProperty.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /material_properties/1/edit
   def edit
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /material_properties

@@ -1,4 +1,4 @@
-<div class="container ">
+
 <%= form_for(@lookup_price) do |f| %>
   <% if @lookup_price.errors.any? %>
     <div id="error_explanation">
@@ -22,9 +22,9 @@
     <%= f.number_field :value ,min:"0",step:0.01 ,required:true ,class: 'field' %>
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-warning"%>
   </div>
   </div>
-  </div>
+  
 <% end %>
 </section>
