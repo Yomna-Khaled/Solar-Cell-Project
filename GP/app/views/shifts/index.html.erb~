@@ -38,14 +38,15 @@
 					<td><%= link_to 'Show', shift %></td>
 					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
 					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-					<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
+					 <button  class="btn btn-danger"  onclick="mychange(this)">+</button>
 					</td>
 		       
 			 </tr>
-
+                     
 		       <tr>
 			<td  colspan="12" style="border:0px; padding:0px">
-			<table class="table table-hover">
+			<% if shift.solar_panels.length > 0 %>
+                          <table class="table table-hover">
 				<thead>
 					<tr class="collapse , demo<%=i%>">
 
@@ -75,6 +76,9 @@
 				     <% end %>
                                   </tbody>
 		                  </table>
+                              <%else%>
+                                <div class="collapse , demo<%=i%>" >"no panels"</div>   
+                               <% end %>  
 				   </td></tr>
 				   <% i=i+1 %>
 	
@@ -87,12 +91,20 @@
 
 <br>
 <script>
-$('.collapse').on('shown.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+var mychange = function(param) {     
 
-});
+if (param.innerHTML=="+"){
 
-$('.collapse').on('hidden.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
-});
+ param.innerHTML="-";
+
+}
+
+else if (param.innerHTML=="-")
+{
+ param.innerHTML="+";
+}
+
+};
+
+
 </script>
