@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
     if  current_category.category=="noone"
       @categories = Category.all   
     else
-      redirect_to login_path  
+      render :file => "/public/404.html",:status  => "404" 
     end 
   end
 
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
     if  current_category.category=="noone"
      redirect_to  @category
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"
     end
   end
 
@@ -30,12 +30,16 @@ class CategoriesController < ApplicationController
     if  current_category.category=="noone"
       @category = Category.new
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end
   end
 
   # GET /categories/1/edit
   def edit
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /categories
@@ -54,7 +58,7 @@ class CategoriesController < ApplicationController
           end
     end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"
     end
    
   end
@@ -73,7 +77,7 @@ class CategoriesController < ApplicationController
       end
     end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404"
     end
     
   end
@@ -88,7 +92,7 @@ class CategoriesController < ApplicationController
       format.json { head :no_content }
     end
     else
-      redirect_to login_path 
+      render :file => "/public/404.html",:status  => "404" 
     end
 
   end

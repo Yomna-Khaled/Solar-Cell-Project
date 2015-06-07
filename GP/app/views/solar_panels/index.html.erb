@@ -12,6 +12,7 @@
         <%= hidden_field_tag :searchciteria, "power" %>
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
     <% end %>
+
   <select class="target" >
 	  <option value="all">all</option>
 	  <option value="sold">sold</option>
@@ -19,10 +20,9 @@
 	  
   </select>  
  
-  
-
 
   </div>
+
  
  
 
@@ -44,8 +44,8 @@
       </tr>
     </thead>
      
-    <tbody  >
-      
+      <tbody  >
+
        <% @solar_panels.each do |solar_panel| %>
        <% if solar_panel.sold_panel_id.nil? %>
         <tr class="unsold " >
@@ -65,9 +65,9 @@
             <% end %>
           </tbody>
         </table>
-    </div>
+   
   </section> 
-
+ </div>
 </div> 
 <script>
 var rows = $('table.mytable tr');

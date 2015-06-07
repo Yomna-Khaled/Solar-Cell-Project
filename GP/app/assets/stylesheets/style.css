@@ -68,7 +68,7 @@ body {
 }
 
 a {
-  color:#FF3679;
+  color:#2A4E6E;
   text-decoration: none;
 }
 a:hover {
@@ -138,7 +138,7 @@ a:hover {
   line-height: 40px;
   font-size: 13px;
   font-weight: bold;
-  color:#000;
+  color:#2A4E6E;
    margin: 5px 0;
   /*text-align: center;*/
   border-bottom:1px solid #EDEDED;
@@ -149,7 +149,7 @@ a:hover {
 }
 
 .table tr {
-  font-size: 25px;
+  font-size: 18px;
 }
 
 .register input[type=text], .register input[type=number], .register input[type=file], .register input[type=password] ,.register select,.register textarea {

@@ -8,9 +8,11 @@ class VendorPhonesController < ApplicationController
   # GET /vendor_phones
   # GET /vendor_phones.json
   def index
-    @vendor_phones = VendorPhone.all
-
-	
+    if  current_category.category=="noone"
+      @vendor_phones = VendorPhone.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
 def pho
@@ -20,15 +22,27 @@ end
   # GET /vendor_phones/1
   # GET /vendor_phones/1.json
   def show
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /vendor_phones/new
   def new
-    @vendor_phone = VendorPhone.new
+    if  current_category.category=="noone"
+      @vendor_phone = VendorPhone.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendor_phones/1/edit
   def edit
+    if  current_category.category=="noone"
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /vendor_phones

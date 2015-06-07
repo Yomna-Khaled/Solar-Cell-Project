@@ -2,8 +2,8 @@
 <div class="container" style="width: calc(70%);">
 
 
-			<h1 class="page-header" style="font-size:30px;"><span class="fa fa-pause"></span> End Shift</h1>
-	<center>
+			<h1 class="page-header" style="font-size:30px;;color:#2A4E6E"><span class="fa fa-pause"></span> End Shift</h1>
+	<section class="register">
 
 <%= form_for @shift , :url => {:controller => "shifts" ,:id => @shift.id,:action => "endshift" },:method => "post" ,:html => { :id => "my_form_id" }  do |f| %>
   <% if @shift.errors.any? %>
@@ -23,14 +23,17 @@
 <%= f.hidden_field :end_shift_time , :value => Time.now %> 
 
 
+ 
+<div class="reg_section">
+  <h1> <span class="fa fa-question-circle"></span>
 
-  <div class="field"> <span class="fa fa-question-circle"></span>
+  <%= f.label(:id, "Did this shift produce panels?",class: "text-capitalize") %></h1>
+  
 
-  <div class="field"> <spane class="fa fa-question-circle"></spane>
 
-  <%= f.label(:id, "Did this shift produce panels?",class: "text-capitalize") %>
 
-  </div>
+  
+
 
   
   
@@ -42,7 +45,8 @@
  <%= f.radio_button :id,false,{:class => "myclass_no", :style => "mystyle"}%>
   <span class="fa fa-times"></span> <%= f.label(:id_false, "no") %> 
    </div>
-
+ </div>
+<section>
  </div>
 
    
@@ -57,11 +61,13 @@ $(document).ready(function() {
 	    var my_sec_input_element = $('<div><%= f.text_field :production_rate ,required:true,value:@inserted_panels %></div>').insertAfter( "label[for='shift_id_true']" );
     
 
-            var my_new_input_element = $('<div><span id="mspan" class="fa fa-sort-numeric-asc"></span> <%= f.label( :production_rate , "Enter no of produced panels:") %></div>').insertAfter(  "label[for='shift_id_true']" );
+
+            var my_new_input_element = $('<div class="reg_section"><h3><span id="mspan"class="fa fa-sort-numeric-asc"></span> <%= f.label( :production_rate , "Enter Number Of Produced Panels") %></h3></div>').insertAfter(  "label[for='shift_id_true']" );
+
 
           
              if($('#submit').length == 0){
-		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' );
+		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit",:class=> "btn btn-danger" %> </div></p>' ).insertAfter( '#shift_production_rate' );
 		          $('#warnmsg').remove();
                           $('#btnadd').remove();  
 		       }
@@ -69,7 +75,7 @@ $(document).ready(function() {
                          $('#submit').remove();
                          $('#warnmsg').remove();
                          $('#btnadd').remove();  
-                         $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' ); 
+                         $('<p><div class="submit reg_section"> <%= f.submit :value =>"endshift" ,:id=>"submit",:class=>"btn btn-danger" %> </div></p>' ).insertAfter( '#shift_production_rate' ); 
                         }
 
           $( "#shift_production_rate" ).keyup(function(event) {
@@ -77,14 +83,14 @@ $(document).ready(function() {
 		  if (<%= @inserted_panels %> == $('#shift_production_rate').val() ){  
 		         $('#warnmsg').remove();  $('#btnadd').remove();
 		     if($('#submit').length == 0){
-		          $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( '#shift_production_rate' );
+		          $('<p><div class="submit reg_section"> <%= f.submit :value =>"endshift" ,:id=>"submit" ,:class=>"btn btn-danger" %> </div></p>' ).insertAfter( '#shift_production_rate' );
 		           
 		       }
 		  }
                   else if(<%= @inserted_panels %> > $('#shift_production_rate').val() ){
                          $('#btnadd').remove();
                       if($('#warnmsg').length == 0){
-		       $('<div id="warnmsg"> <div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5> </div></div>' ).insertAfter( '#shift_production_rate' );
+		       $('<div id="warnmsg"> <div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3> </div></div>' ).insertAfter( '#shift_production_rate' );
                       
 		       } 
 		      if($('#submit').length != 0){
@@ -94,9 +100,9 @@ $(document).ready(function() {
 		  else{
 		       if($('#btnadd').length == 0){
                             if ($('#warnmsg').length == 0){
-                                     $('<div id="warnmsg"><div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5></div></div>' ).insertAfter( '#shift_production_rate' );
+                                     $('<div id="warnmsg"><div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3></div></div>' ).insertAfter( '#shift_production_rate' );
                               }
-		       $('<div id="btnadd"> <%= button_to "Newpanel", new_solar_panel_path ,method: :get%> </div>' ).insertAfter( '#warnmsg' );
+		       $('<div id="btnadd" class="reg_section"> <%= button_to "Newpanel", new_solar_panel_path ,method: :get ,class: " btn btn-primary"%> </div>' ).insertAfter( '#warnmsg' );
 		       
                       }
 		      if($('#submit').length != 0){
@@ -116,7 +122,7 @@ $(document).ready(function() {
         $('#btnadd').remove(); 
           if (<%= @inserted_panels %> == 0 ){ 
                                  if($('#submit').length == 0){
-				  $('<p><div class="submit"> <%= f.submit :value =>"endshift" ,:id=>"submit" %> </div></p>' ).insertAfter( 'label[for=shift_id_false]' );                
+				  $('<p><div class="submit reg_section"> <%= f.submit :value =>"endshift" ,:id=>"submit" ,:class=>"btn btn-danger" %> </div></p>' ).insertAfter( 'label[for=shift_id_false]' );                
 				  $('#warnmsg').remove();  
 			          $('#btnadd').remove();  
                                   }
@@ -125,7 +131,7 @@ $(document).ready(function() {
 			  else{
 			     
 		                    if ($('#warnmsg').length == 0){
-		                             $('<div id="warnmsg"><div><h5> Number of Pannels Inserted is : <%= @inserted_panels %> </h5></div></div>' ).insertAfter( 'label[for=shift_id_false]' );
+		                             $('<div id="warnmsg"><div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3></div></div>' ).insertAfter( 'label[for=shift_id_false]' );
 		                    }
 			            
 		              

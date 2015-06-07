@@ -9,21 +9,37 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.all
+    if logged_in? and  ( current_category.category=="noone")
+      @properties = Property.all
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   # GET /properties/1
   # GET /properties/1.json
   def show
+    if logged_in? and  ( current_category.category=="noone")
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end 
   end
 
   # GET /properties/new
   def new
-    @property = Property.new
+    if logged_in? and  ( current_category.category=="noone")
+      @property = Property.new
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # GET /properties/1/edit
   def edit
+    if logged_in? and  ( current_category.category=="noone")
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # POST /properties
