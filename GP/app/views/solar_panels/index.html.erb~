@@ -1,6 +1,18 @@
+<style>
+.element-item  {
+  position:static !important;
+  
+}
+</style>
+
+
+
+
 
 <div class="container" style="width: calc(80%);">
-<h1 class="page-header" style="font-size:30px;"> <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
+ 
+
+ <h1 class="page-header" style="font-size:30px;"> <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
   <div id="Search_by" style= "margin-left:500px;width:600px" >
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
@@ -9,7 +21,14 @@
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
     <% end %>
   </div>
-  <table class="table table-hover table-responsive">
+
+ <div id="filters" class="button-group"style="margin-left:500px;width:600px">
+  <button class="button is-checked" data-filter="*">show all</button>
+  <button class="button" data-filter=".sold">sold</button>
+  <button class="button" data-filter=".unsold">unsold</button>
+</div>
+
+  <table   class="table table-hover table-responsive">
     <thead>
       <tr>
       	  <th class="text-center" >Serialno</th>
@@ -22,11 +41,15 @@
 
       </tr>
     </thead>
-
-    <tbody>
-      <% @solar_panels.each do |solar_panel| %>
-       
-         <tr>  
+     
+    <tbody class="isotope" >
+      
+       <% @solar_panels.each do |solar_panel| %>
+       <% if solar_panel.sold_panel_id.nil? %>
+        <tr class="element-item unsold " data-category="unsold">
+       <% else %>
+         <tr class="element-item sold" data-category="sold">  
+       <% end %>  
            <td class="text-center" ><%= solar_panel.serialNo %></td>
            <td class="text-center" ><%= solar_panel.celltype %></td>
            <td class="text-center" ><%= solar_panel.subtype %></td>
@@ -37,8 +60,57 @@
            <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-primary"  %></td>
  
         </tr>
+      
       <% end %>
     </tbody>
+    
   </table> 
 </div> 
+<script>
+$( document ).ready( function() {
+  // init Isotope
+  var $container = $('.isotope').isotope({
+    itemSelector: '.element-item',
+    layoutMode: 'fitRows'
+    
+  });
 
+  // filter functions
+  var filterFns = {
+    // show if number is greater than 50
+    numberGreaterThan50: function() {
+      var number = $(this).find('.number').text();
+      return parseInt( number, 10 ) > 50;
+    },
+    // show if name ends with -ium
+    ium: function() {
+      var name = $(this).find('.name').text();
+      return name.match( /ium$/ );
+    }
+  };
+
+  // bind filter button click
+  $('#filters').on( 'click', 'button', function() {
+    var filterValue = $( this ).attr('data-filter');
+    // use filterFn if matches value
+    filterValue = filterFns[ filterValue ] || filterValue;
+    $container.isotope({ filter: filterValue });
+  });
+
+  // bind sort button click
+  $('#sorts').on( 'click', 'button', function() {
+    var sortByValue = $(this).attr('data-sort-by');
+    $container.isotope({ sortBy: sortByValue });
+  });
+  
+  // change is-checked class on buttons
+  $('.button-group').each( function( i, buttonGroup ) {
+    var $buttonGroup = $( buttonGroup );
+    $buttonGroup.on( 'click', 'button', function() {
+      $buttonGroup.find('.is-checked').removeClass('is-checked');
+      $( this ).addClass('is-checked');
+    });
+  });
+  
+});
+</script>
