@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1
   def show
-    if logged_in? and current_category.category=="HR" or @employee.id == current_user.id
+    if current_category.category=="HR" or @employee.id == current_user.id
       @employee_phones = EmployeePhone.where("employee_id=?",@employee.id)
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -43,18 +43,17 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1/edit
   def edit
-    if logged_in? and current_category.category=="HR" or @employee.id == current_user.id
-    @flag="edit"
-    @employee = Employee.find(params[:id])
-    @phones = EmployeePhone.where("employee_id = ? ", @employee.id ).select([:phone])
-    @flag_new=0
-    @cat=Category.find_by(:id => @employee.category_id)
-    @category_id=@cat.id
+    if current_category.category=="HR" or @employee.id == current_user.id
+      @flag="edit"
+      @employee = Employee.find(params[:id])
+      @phones = EmployeePhone.where("employee_id = ? ", @employee.id ).select([:phone])
+      @flag_new=0
+      @cat=Category.find_by(:id => @employee.category_id)
+      @category_id=@cat.id
     else
       render :file => "/public/404.html",:status  => "404" 
     end 
   end
-
 
   # POST /employees
   def create
