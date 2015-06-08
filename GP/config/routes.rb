@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  resources :websocket
   resources :lookup_prices
 
   resources :sold_panels
@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   resources :material_properties
 
 
-
+  
   resources :properties
   resources :properties
   resources :materials
