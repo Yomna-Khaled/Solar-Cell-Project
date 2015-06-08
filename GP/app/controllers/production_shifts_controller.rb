@@ -8,23 +8,27 @@ class ProductionShiftsController < ApplicationController
   # GET /production_shifts
   # GET /production_shifts.json
   def index
-    @production_shifts = ProductionShift.where("accepted= ?","false")
-    
-    
-    @production_shifts.each do |m|
-      puts m.material.name
-      # @shift_info = Shift.where("id = ? " , m.shift_id)
-      # #puts @shift_info[0].employee_id
-      # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
+    if logged_in? and current_category.category=="Stock Keeper" 
+        @production_shifts = ProductionShift.where("accepted= ?","false")
+        
+        
+        @production_shifts.each do |m|
+          puts m.material.name
+          # @shift_info = Shift.where("id = ? " , m.shift_id)
+          # #puts @shift_info[0].employee_id
+          # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
 
-      
-    end  
-   
+          
+        end
+    else
+       render :file => "/public/404.html",:status  => "404" 
+   end
   end
 
   # GET /production_shifts/1
   # GET /production_shifts/1.json
   def accept
+     if logged_in? and current_category.category=="Stock Keeper" 
     @material=Material.where("id= ?",params[:id])
 
     puts params[:id]
@@ -48,6 +52,9 @@ class ProductionShiftsController < ApplicationController
        render plain:"done"                 
 
     end  
+    else
+         render :file => "/public/404.html",:status  => "404" 
+    end
   end 
 
   def show
@@ -71,6 +78,9 @@ class ProductionShiftsController < ApplicationController
 
   # GET /production_shifts/1/edit
   def edit
+        if false 
+        end
+
   end
 
   # POST /production_shifts
@@ -86,7 +96,9 @@ class ProductionShiftsController < ApplicationController
   @production_shift.save
 end
    @materials = Material.all 
-   render :new
+   
+   redirect_to new_production_shift_path
+   #render :new
 end
 
 
@@ -107,11 +119,13 @@ end
   # DELETE /production_shifts/1
   # DELETE /production_shifts/1.json
   def destroy
+    if false
     @production_shift.destroy
     respond_to do |format|
       format.html { redirect_to production_shifts_url }
       format.json { head :no_content }
     end
+  end
   end
 
   private

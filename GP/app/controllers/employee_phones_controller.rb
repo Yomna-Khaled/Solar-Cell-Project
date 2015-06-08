@@ -10,7 +10,7 @@ class EmployeePhonesController < ApplicationController
   end
     
   def index
-    if  current_category.category=="noone"
+    if false
       @employee_phones = EmployeePhone.all
     else
       render :file => "/public/404.html",:status  => "404"  
@@ -24,7 +24,7 @@ class EmployeePhonesController < ApplicationController
   # GET /employee_phones/1
   # GET /employee_phones/1.json
   def show
-    if  current_category.category=="noone"
+    if false
       else
       render :file => "/public/404.html",:status  => "404"  
     end 
@@ -32,7 +32,7 @@ class EmployeePhonesController < ApplicationController
 
   # GET /employee_phones/new
   def new
-    if  current_category.category=="noone"
+    if false
       @employee_phone = EmployeePhone.new
       else
       render :file => "/public/404.html",:status  => "404"  
@@ -41,7 +41,7 @@ class EmployeePhonesController < ApplicationController
 
   # GET /employee_phones/1/edit
   def edit
-    if  current_category.category=="noone"
+    if false
       else
       render :file => "/public/404.html",:status  => "404"  
     end
@@ -79,11 +79,15 @@ class EmployeePhonesController < ApplicationController
   # DELETE /employee_phones/1
   # DELETE /employee_phones/1.json
   def destroy
-    @employee_phone.destroy
-    respond_to do |format|
-      format.html { redirect_to employee_phones_url  }
-      format.json { head :no_content }
-    end
+    if false
+      @employee_phone.destroy
+      respond_to do |format|
+        format.html { redirect_to employee_phones_url  }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   private

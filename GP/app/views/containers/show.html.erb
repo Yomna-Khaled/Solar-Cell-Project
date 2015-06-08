@@ -1,35 +1,39 @@
 <div class="container" style="width: calc(70%);">
-  <div class="page-header" style="font-size:30px;">
-      <h1><span class="fa fa-info-circle"></span> Container Information</h1>
-  </div>
-  <div class="raw">
-    <div class="page-header">
-      <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
-    </div>
+  
+      <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Container Information</h1>
+
+  <div class="row">
+
+      
+<section class="register" >  
+  <div class="reg_section">
+    <h3><span class="fa fa-info-circle"></span> Basic Infromation</h3>
     <ul class="list-group">
-      <li class="list-group-item"><span class="fa fa-arrows-h"></span> Container Width: <%= @container.width %></li>
-      <li class="list-group-item"><span class="fa fa-arrows-v"></span> Contatiner Height: <%= @container.height %></li>
-      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Serial No.: <%= @container.serialNo %></li>
-      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span> Contatiner Capacity.: <%= @container.capacity %></li>
-    </ul>
-    <div class="page-header">
-      <h1>Power and Price</h1>
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item"><span class="fa fa-bolt"></span> Container Power: <%= @container.total_power %></li>
-      <li class="list-group-item"><span class="fa fa-usd"></span> Contatiner Price: <%= @container.price %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-h"></span> Width: <%= @container.width %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-v"></span> Height: <%= @container.height %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span>  Serial No.: <%= @container.serialNo %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span>  Capacity.: <%= @container.capacity %></li>
     </ul>
   </div>
 
-  <div class="page-header">
-      <h1><span class="fa fa-user"></span> Container Vendor</h1>
-    </div>
+  <div class="reg_section"> 
+      <h3><span class="fa fa-bolt"></span> Power and Price</h3>
+  
+    <ul class="list-group">
+      <li class="list-group-item"><span class="fa fa-bolt"></span> Power: <%= @container.total_power %></li>
+      <li class="list-group-item"><span class="fa fa-usd"></span> Price: <%= @container.price %></li>
+    </ul>
+  </div>
+
+   <div class="reg_section"> 
+      <h3><span class="fa fa-user"></span> Vendor</h3>
+  
     <ul class="list-group">
       <% @container_vendor = VendorContainer.where("container_id=?", @container.id).order(updated_at: :desc)[0] %>
       <% vendor = Vendor.find_by(id: @container_vendor.vendor_id) %>
-      <li class="list-group-item"><span class="fa fa-user"></span> Container Vendor: <%= vendor.name %></li>
+      <li class="list-group-item"><span class="fa fa-user"></span>  Vendor Name: <%= vendor.name %></li>
     </ul>
-
-    
-</div>
- 
+  </div>
+ </section>
+ </div>
+ </div>

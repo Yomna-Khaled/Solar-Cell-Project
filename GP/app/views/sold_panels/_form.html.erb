@@ -1,5 +1,5 @@
-<div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:35px;"><span class="fa fa-plus"></span> Add Sold Product </h1>
+<div class="container" style="width: calc(90%);">
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-plus"></span> Add Sold Product </h1>
    <section class="register">
 <%= form_for(@sold_panel) do |f| %>
   <% if @sold_panel.errors.any? %>
@@ -15,27 +15,31 @@
   <% end %>
   <div class="reg_section">
   <h3>Buyer Name</h3>
-  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:700px;" %>
+  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:1100px;" %>
  
 <h3><span class="fa fa-plus-circle"></span> <%= link_to 'Add New Buyer', new_buyer_path %></h3>
+ </div> 
   
- 
+ <div class="reg_section">
   <h3><span class="fa fa-bolt"></span> Total Power</h3>
  
-  <%= number_field_tag "power","",options={:class=>"form-group",:onkeyup=>"change()",:min=>"0",:style=>"width:700px"} %>
- </div> 
+  <%= number_field_tag "power","",options={:class=>"form-group",:onkeyup=>"change()",:min=>"0",:style=>"width:1100px"} %>
+</div>
+
+ <section class="register" >  
+    <div class="reg_section">
       <table class="table table-hover table-responsive">
         <thead>
           <tr>
-            <th class="text-center">Serialno</th>
-            <th class="text-center">Production date</th>
-            <th class="text-center">Height</th>
-            <th class="text-center" >Width</th>
-            <th class="text-center">Power</th>
-            <th class="text-center">Type</th>
-            <th class="text-center">Subtype</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Container</th>
+            <th class="text-center"><h2>Serialno</h2></th>
+            <th class="text-center"><h2>Production date</h2></th>
+            <th class="text-center"><h2>Height</h2></th>
+            <th class="text-center" ><h2>Width</h2></th>
+            <th class="text-center"><h2>Power</h2></th>
+            <th class="text-center"><h2>Type</h2></th>
+            <th class="text-center"><h2>Subtype</h2></th>
+            <th class="text-center"><h2>Price</h2></th>
+            <th class="text-center"><h2>Container</h2></th>
           </tr>
         </thead>
         <tbody>
@@ -57,16 +61,18 @@
         </tbody>  
       </table>
 
-    
+    </div>
+  </section>
  
  
     <%= hidden_field_tag "totalPrice" %>
   
   
     <%= hidden_field_tag "totalPower" %>
+  <br>
   <div class="actions">
   
-    <%= submit_tag("Complete order", :class=>"btn btn-success",:id=>"order",disabled: true) %>
+    <%= submit_tag("Complete order", :class=>"btn btn-warning",:id=>"order",disabled: true) %>
   </div>
  
 <% end %>
@@ -81,7 +87,7 @@
    for(i=0; i<$("table tr td" ).children().length;i++){
      if($("table tr td" ).children()[i].checked==true)
       $("table tr td" ).children()[i].checked=false;
-console.log("hello");
+
 
    }
   
@@ -114,8 +120,7 @@ console.log("hello");
     }
   }
     else if (ptr.checked==false){
-
-       $("#power").val(totalPower+power);
+       $("#power").val(parseInt(totalPower)+parseInt(power));
        $("#totalPrice").val($("#totalPrice").val()-price);
        $("#order").attr('disabled',true);
 

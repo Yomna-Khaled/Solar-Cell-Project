@@ -8,7 +8,8 @@ class VendorPhonesController < ApplicationController
   # GET /vendor_phones
   # GET /vendor_phones.json
   def index
-    if  current_category.category=="noone"
+    
+    if  false 
       @vendor_phones = VendorPhone.all
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -22,7 +23,7 @@ end
   # GET /vendor_phones/1
   # GET /vendor_phones/1.json
   def show
-    if  current_category.category=="noone"
+    if  false
       else
       render :file => "/public/404.html",:status  => "404" 
     end
@@ -30,7 +31,7 @@ end
 
   # GET /vendor_phones/new
   def new
-    if  current_category.category=="noone"
+    if  false
       @vendor_phone = VendorPhone.new
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -39,7 +40,7 @@ end
 
   # GET /vendor_phones/1/edit
   def edit
-    if  current_category.category=="noone"
+    if  false
       else
       render :file => "/public/404.html",:status  => "404" 
     end
@@ -77,14 +78,19 @@ end
   # DELETE /vendor_phones/1
   # DELETE /vendor_phones/1.json
   def destroy
- @content = VendorPhone.find(params[:phone])
-  @content.destroy
+    if  false
+     @content = VendorPhone.find(params[:phone])
+      @content.destroy
 
-    @vendor_phone.destroy
-    respond_to do |format|
-      format.html { redirect_to vendor_phones_url }
-      format.json { head :no_content }
-    end
+        @vendor_phone.destroy
+        respond_to do |format|
+          format.html { redirect_to vendor_phones_url }
+          format.json { head :no_content }
+        end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end    
+
   end
 
   private

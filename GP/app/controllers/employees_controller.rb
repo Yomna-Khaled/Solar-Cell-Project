@@ -147,7 +147,7 @@ class EmployeesController < ApplicationController
 
   # DELETE /employees/1
   def destroy
-    if current_category.category=="HR" 
+    if false
       @employee.destroy
       respond_to do |format|
         format.html { redirect_to employees_url }
