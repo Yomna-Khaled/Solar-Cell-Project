@@ -1,52 +1,59 @@
- <section class="register" >  
-    <div class="reg_section">
 
 <div class="container" style="width: calc(80%);">
 
+ <section class="register" >  
+    <div class="reg_section">
+
+
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="glyphicon glyphicon-th-list"></span> All Panels</h1>
 
-   <div id="Search_by" style= "margin-left:500px;width:600px" >
-    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left") do %>
+<div class="row">
+   <div id="Search_by" >
+    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
+    
+        <div class="col-md-3" style="width:50px">
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()" ) %>
+       </div>
+
+        <div class="col-md-3" style="width:100px">
         <%= text_field_tag :search, params[:search], placeholder: "Search Panels" %>
         <%= hidden_field_tag :searchciteria, "power" %>
+        </div>
+       
+         <div class="col-md-3" style="width:100px">
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-link' %>
+        </div>
+    
     <% end %>
-
-  <select class="target" >
-	  <option value="all">all</option>
-	  <option value="sold">sold</option>
-	  <option value="unsold">unsold</option>
-	  
-  </select>  
- 
 
   </div>
 
+    <select class="target" style="display:inline-block;" >
+        <option value="all">all</option>
+        <option value="sold">sold</option>
+        <option value="unsold">unsold</option>
+    
+    </select> 
  
- 
+</div>
+  <section class="register" >  
+    <div class="reg_section">
+        <table class="table table-hover table-responsive mytable">
+          <thead >
+            <tr class="sold unsold">
+            	  <th class="text-center" ><h3>Serialno</h3></th>
+            	  <th class="text-center" ><h3>Type</h3></th>
+            	  <th class="text-center" ><h3>Subtype</h3></th>
+            	  <th class="text-center" ><h3>Container_Serial_No.</h3></th>
+            	  <th class="text-center" ><h3>Power</h3></th>
+            	  <th class="text-center" ><h3>Price</h3></th>
+            	  <th class="text-center" ><h3>Show</h3></th>
 
+    <tbody>
+      <% @solar_panels.each do |solar_panel| %>
+       
+         <tr>  
 
-  
- 
-
-  <table   class="table table-hover table-responsive mytable">
-    <thead>
-      <tr class ="sold unsold">
-      	  <th class="text-center" >Serialno</th>
-      	  <th class="text-center" >Type</th>
-      	  <th class="text-center" >Subtype</th>
-      	  <th class="text-center" >Container_Serial_No.</th>
-      	  <th class="text-center" >Power</th>
-      	  <th class="text-center" >Price</th>
-      	  <th class="text-center" >Show</th>
-
-      </tr>
-    </thead>
-     
-      <tbody  >
-
-       <% @solar_panels.each do |solar_panel| %>
        <% if solar_panel.sold_panel_id.nil? %>
         <tr class="unsold " >
        <% else %>
@@ -65,9 +72,11 @@
             <% end %>
           </tbody>
         </table>
+<%= will_paginate @containers, renderer: BootstrapPagination::Rails %>
    
   </section> 
  </div>
+
 </div> 
 <script>
 var rows = $('table.mytable tr');
@@ -76,6 +85,7 @@ var rows = $('table.mytable tr');
 $( ".target" ).change(function() {
 if ($(".target").val()=="unsold")
 {
+
     var unsold = rows.filter('.unsold').show();
     rows.not( unsold ).hide();
 }
