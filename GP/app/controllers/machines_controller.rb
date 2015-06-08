@@ -17,7 +17,7 @@ class MachinesController < ApplicationController
 
   # GET /machines/1
   def show
-    if logged_in? and (current_category.category=="Sales")
+    if false
       else
        render :file => "/public/404.html",:status  => "404"  
      end
@@ -44,7 +44,8 @@ class MachinesController < ApplicationController
 
     respond_to do |format|
       if @machine.save
-        format.html { redirect_to @machine  }
+
+        format.html { redirect_to  machines_path  }
         format.json { render :show, status: :created, location: @machine }
       else
         format.html { render :new }

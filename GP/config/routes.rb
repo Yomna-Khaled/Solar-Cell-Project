@@ -48,7 +48,7 @@ Rails.application.routes.draw do
 
 
 
-
+  resources :properties
   resources :properties
   resources :materials
   resources :quantities

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/shifts/currentshift', to: 'shifts#currentshift' 
 
 
+
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
@@ -46,8 +47,8 @@ Rails.application.routes.draw do
   resources :material_properties
 
 
-
-
+  resources :websocket
+  resources :properties
   resources :properties
   resources :materials
   resources :quantities
@@ -63,14 +64,16 @@ Rails.application.routes.draw do
 
 
   post 'forget_password' => 'sessions#forget_password'
-
   get 'forget_password' => 'sessions#forget_password_form'
+
+
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
 
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
+  get '*url' => 'errors#routing'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -44,7 +44,7 @@
 											<td><h3>Sub Type</h3></td>	
 											<td><h3>Cells no.</h3></td>  
 											<td><h3>power</h3></td>
-				                                                        <td><h3>power</h3></td>
+				                                                        <td><h3>sold</h3></td>
 						              	</tr>
 							    	</thead> 
 				                    <tbody>
@@ -57,9 +57,9 @@
 											  <td > <%= solar_panel.cellno %></td> 
 											  <td ><%= solar_panel.power %></td>
 				                                                          <% if solar_panel.sold_panel_id.nil?%> 
-				                                                           <td >No</td>
+				                                                          <td ><span class="fa fa-times"></span></td>
                                                                                         <% else %>   
-                                                                                           <td >yes</td>
+                                                                                      <td ><span class="fa fa-check"></span></td>
                                                                                         <%end%>  
 							     		  </tr>  
 							    		<% end %> 

@@ -79,7 +79,7 @@ class ShiftsController < ApplicationController
   # GET /shifts/1
   # GET /shifts/1.json
   def show
-     if logged_in? and current_category.category=="Shift Manager"
+     if false
      else
       render :file => "/public/404.html",:status  => "404" 
     end   
