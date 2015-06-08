@@ -1,46 +1,48 @@
 
 <div class="container" style="width: calc(60%);">
-  <div class="page-header" style="font-size:30px;">
-      <h1 class="text-capitalize"><span class="fa fa-eye "> </span> <%= @spare_part.name %> Details</h1>
-  </div>
+ 
+      <h1 class="page-header text-capitalize"  style="font-size:30px; color:#2A4E6E" ><span class="fa fa-eye "> </span> <%= @spare_part.name %> Details</h1>
 
-  <div class="raw">
+
+  <div class="row">
   <div class="col-md-3">
-      <br><br>
+      <br>
       <img src="<%= @spare_part.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
-    </div>
+  </div>
   
+
   <div class="col-md-9">
-      <div class="page-header">
-          <h1><span class="fa fa-info-circle "> </span> Basic Information</h1>
+    <section class="register" >  
+        <div class="reg_section">
+          <h3><span class="fa fa-info-circle "> </span> Basic Information</h3>
+      
+
+          <ul class="list-group">
+            <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
+            <li class="list-group-item">Price: <%= @spare_part.price %></li>
+          </ul>
       </div>
 
-      <ul class="list-group">
-        <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
-        <li class="list-group-item">Price: <%= @spare_part.price %></li>
-      </ul>
-
-
-      <div class="page-header">
-        <h1><span class="fa fa-wrench "> </span> Machine Information</h1>
-      </div>    
+       <div class="reg_section">
+        <h3><span class="fa fa-wrench "> </span> Machine Information</h3>
+       
 
       <ul class="list-group">
         <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
       </ul>
+     </div>
 
-
-      <div class="page-header">
-          <h1><span class="fa fa-user "> </span> Vendor Information</h1>
-      </div>    
+       <div class="reg_section">
+          <h3><span class="fa fa-user "> </span> Vendor Information</h3>
+      
 
       <ul class="list-group">
-        <li class="list-group-item">vendor Name: <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
+        <li class="list-group-item">Vendor Name: <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
         <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
         <%= vendor.name %></li>
-      </ul>    
-  </div>
+      </ul>
+      </div> 
+
+  </section>
 </div>    
 </div> 
-
-
