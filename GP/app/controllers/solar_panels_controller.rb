@@ -12,10 +12,10 @@ class SolarPanelsController < ApplicationController
   def index
     if logged_in? and current_category.category=="Sales"
       if params[:search]
-        if params[:searchciteria] == 'serialno'
-          @solar_panels = SolarPanel.searchserialno(params[:search]).order("created_at DESC")
+        if params[:searchcriteria] == 'serialno'
+          @solar_panels = SolarPanel.searchserialno(params[:search],params[:soldornot]).order("created_at DESC")
         else
-          @solar_panels = SolarPanel.searchpower(params[:search]).order("created_at DESC")
+          @solar_panels = SolarPanel.searchpower(params[:search],params[:soldornot]).order("created_at DESC")
         end
       else
        @solar_panels = SolarPanel.all

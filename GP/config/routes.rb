@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :websocket
   resources :lookup_prices
 
   resources :sold_panels
