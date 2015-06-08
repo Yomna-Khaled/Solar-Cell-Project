@@ -70,7 +70,7 @@ class SolarPanelsController < ApplicationController
     if logged_in? and( current_category.category=="Shift Manager" )
       @flag=true
 	    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-      @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f)) 
+      @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f),:power=>solar_panel_params[:power].to_f) 
 	    respond_to do |format|
 	      if @solar_panel.save
                @shift[0].update_attributes(:production_rate => ((@shift[0].production_rate)+1))  
