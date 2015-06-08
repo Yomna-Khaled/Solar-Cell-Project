@@ -87,7 +87,7 @@
    for(i=0; i<$("table tr td" ).children().length;i++){
      if($("table tr td" ).children()[i].checked==true)
       $("table tr td" ).children()[i].checked=false;
-console.log("hello");
+
 
    }
   
@@ -120,8 +120,7 @@ console.log("hello");
     }
   }
     else if (ptr.checked==false){
-
-       $("#power").val(totalPower+power);
+       $("#power").val(parseInt(totalPower)+parseInt(power));
        $("#totalPrice").val($("#totalPrice").val()-price);
        $("#order").attr('disabled',true);
 

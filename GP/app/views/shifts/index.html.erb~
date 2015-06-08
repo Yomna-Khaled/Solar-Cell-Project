@@ -1,8 +1,11 @@
 
   
 
-<div class="container" style="width: calc(70%);">
-  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-book"></span> My Shifts</h1>
+<div class="container" style="width: calc(80%);">
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-book"></span> My Shifts</h1>
+
+<section class="register" >  
+  <div class="reg_section">
 		<table class="table table-stripped table-responsive">
 		  <thead>
 		    <tr>
@@ -23,14 +26,13 @@
             <% i=0 %>
 		    <% @shifts.each do |shift| %>   
 
-
-
-					<td><%= shift.crew.name %></td>
-					<td><%= shift.start_shift_date %></td>
-					<td><%= shift.end_shift_date %></td>
-					<td><%= shift.start_shift_time.strftime('%H:%M:%S') %></td>
-					<%unless shift.end_shift_time.nil?%>
+				<td><%= shift.crew.name %></td>
+				<td><%= shift.start_shift_date %></td>
+				<td><%= shift.end_shift_date %></td>
+				<td><%= shift.start_shift_time.strftime('%H:%M:%S') %></td>
+				<%unless shift.end_shift_time.nil?%>
 					<td><%= shift.end_shift_time.strftime('%H:%M:%S') %></td>
+
 					<% else %>
                                         <td></td>  
                                         <%end%>
@@ -38,14 +40,16 @@
 					<td><%= link_to 'Show', shift %></td>
 					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
 					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-					<button type="button" class="btn btn-primary"> <span class="myglyphicon,glyphicon glyphicon-plus"></span></button>
+					 <button  class="btn btn-danger"  onclick="mychange(this)">+</button>
 					</td>
 		       
-			 </tr>
 
+			 </tr>
+                     
 		       <tr>
 			<td  colspan="12" style="border:0px; padding:0px">
-			<table class="table table-hover">
+			<% if shift.solar_panels.length > 0 %>
+                          <table class="table table-hover">
 				<thead>
 					<tr class="collapse , demo<%=i%>">
 
@@ -75,6 +79,9 @@
 				     <% end %>
                                   </tbody>
 		                  </table>
+                              <%else%>
+                                <div class="collapse , demo<%=i%>" >"no panels"</div>   
+                               <% end %>  
 				   </td></tr>
 				   <% i=i+1 %>
 	
@@ -82,17 +89,27 @@
   
   </tbody>
 </table>
+
 <%= will_paginate @shifts, renderer: BootstrapPagination::Rails %>
+
 </div>      
 
 <br>
 <script>
-$('.collapse').on('shown.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+var mychange = function(param) {     
 
-});
+if (param.innerHTML=="+"){
 
-$('.collapse').on('hidden.bs.collapse', function () {
-   $(".myglyphicon").removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
-});
+ param.innerHTML="-";
+
+}
+
+else if (param.innerHTML=="-")
+{
+ param.innerHTML="+";
+}
+
+};
+
+
 </script>
