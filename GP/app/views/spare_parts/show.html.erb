@@ -37,7 +37,7 @@
       
 
       <ul class="list-group">
-        <li class="list-group-item">vendor Name: <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
+        <li class="list-group-item">Vendor Name: <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
         <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
         <%= vendor.name %></li>
       </ul>

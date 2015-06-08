@@ -79,7 +79,9 @@ function matvalue(ptr){
 
 
 window.dispatcher = new WebSocketRails('localhost:3000/websocket');
+
 window.enjoy=dispatcher.subscribe ("yoyo");
+alert("here");
 $("#order").click(function(){
   shift_id=$("#shift_id").val();
   console.log(shift_id);

@@ -1,0 +1,102 @@
+
+<div class="container" style="width: calc(80%);">
+ <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Panels</h1>
+ <section class="register" >  
+    <div class="reg_section">
+
+
+ 
+
+<div class="row">
+  
+    <select class="target col-md-3" style="width:110px;margin-left:10px;margin-top:15px" >
+        <option value="all">All</option>
+        <option value="sold">Sold</option>
+        <option value="unsold">Unsold</option>
+    
+    </select> 
+ 
+   
+    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
+    
+        
+    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class:"col-md-3" ,style:"width:300px;") %>
+      
+
+        
+        <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
+        <%= hidden_field_tag :searchciteria, "power" %>
+        
+       
+        
+        <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
+       
+    
+    <% end %>
+
+ 
+ 
+</div>
+  <section class="register" >  
+    <div class="reg_section">
+        <table class="table table-hover table-responsive mytable">
+          <thead>
+            <tr class="sold unsold">
+            	  <th class="text-center" ><h3>Serialno</h3></th>
+            	  <th class="text-center" ><h3>Type</h3></th>
+            	  <th class="text-center" ><h3>Subtype</h3></th>
+            	  <th class="text-center" ><h3>Container_Serial_No.</h3></th>
+            	  <th class="text-center" ><h3>Power</h3></th>
+            	  <th class="text-center" ><h3>Price</h3></th>
+            	  <th class="text-center" ><h3>Show</h3></th>
+
+    <tbody>
+      <% @solar_panels.each do |solar_panel| %>
+       
+         <tr>  
+
+       <% if solar_panel.sold_panel_id.nil? %>
+        <tr class="unsold " >
+       <% else %>
+         <tr class="sold" >  
+       <% end %>  
+
+           <td class="text-center" ><%= solar_panel.serialNo %></td>
+           <td class="text-center" ><%= solar_panel.celltype %></td>
+           <td class="text-center" ><%= solar_panel.subtype %></td>
+           <td class="text-center" ><%= solar_panel.container.serialNo %></td>
+           <td class="text-center" ><%= solar_panel.power %></td>
+           <td class="text-center" ><%= solar_panel.price %></td>
+           <td class="text-center" ><%= link_to 'Show', solar_panel, class:"btn btn-info"  %></td>
+       
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+   
+  </section> 
+ </div>
+
+</div> 
+<script>
+var rows = $('table.mytable tr');
+
+
+$( ".target" ).change(function() {
+if ($(".target").val()=="unsold")
+{
+    var unsold = rows.filter('.unsold').show();
+    rows.not( unsold ).hide();
+}
+else if ($(".target").val()=="sold")
+{
+var sold = rows.filter('.sold').show();
+    rows.not( sold ).hide();
+}
+else
+{
+rows.show();
+}
+});
+</script>
+

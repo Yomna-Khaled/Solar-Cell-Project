@@ -98,6 +98,7 @@ end
    @materials = Material.all 
    
    redirect_to new_production_shift_path
+   #render :new
 end
 
 
