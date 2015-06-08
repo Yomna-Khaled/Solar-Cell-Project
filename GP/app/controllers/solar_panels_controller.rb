@@ -97,7 +97,7 @@ class SolarPanelsController < ApplicationController
             @oldcontainer=Container.find(@old_solar_panel.container_id)
             @power=@oldcontainer.total_power-@old_solar_panel.power 
             @oldcontainer.update_attributes(:total_power => @power)
-            if @solar_panel.update(solar_panel_params)
+            if @solar_panel.update(solar_panel_params.merge!(:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f))
                 @container=Container.find(@solar_panel.container_id)     
                 @power=@container.total_power+@solar_panel.power 
                 @container.update_attributes(:total_power => @power)

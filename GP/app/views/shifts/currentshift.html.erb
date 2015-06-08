@@ -66,7 +66,7 @@
         					<th text-align="center"><h1>type</h1></th>
         					<th text-align="center"><h1>sub type</h1></th>
         				  <th text-align="center"><h1>power</h1></th>
-        				  <th text-align="center"><h1>price</h1></th>  
+        				   
         				  <th text-align="center"><h1>Edit</h1></th> 
         		      <th text-align="center"><h1>show</h1></th>  
         		 	  </tr>
@@ -80,7 +80,7 @@
         			      <td><%= solar_panel.celltype %></td>
         		        <td><%= solar_panel.subtype%></td>
         		        <td><%= solar_panel.power %></td>
-        		        <td><%= solar_panel.price %></td>
+        		        
         			      <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>
         		        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-danger"%></td>  
         			 
