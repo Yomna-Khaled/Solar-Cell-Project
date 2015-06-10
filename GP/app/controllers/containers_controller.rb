@@ -42,7 +42,7 @@ class ContainersController < ApplicationController
   def edit
    if logged_in? and current_category.category=="Sales" 
     @vendors = Vendor.all
-    @containervendor = VendorContainer.where("container_id=?",@container.id)
+    @containervendor = VendorContainer.where("container_id=? AND date IS NULL",@container.id)
     @containervendor_sorted = @containervendor.order(updated_at: :desc)
     @vendor_id =  @containervendor_sorted[0].vendor_id
     @flag="edit"
@@ -79,12 +79,18 @@ class ContainersController < ApplicationController
   # PATCH/PUT /containers/1.json
   def update
     @vendoredit_id = params['vendor']; #to get vendor of certain material
-    @vendororiginal_id = VendorContainer.where("container_id=?",@container.id)[0].vendor_id
+    @current_vendor_record = VendorContainer.where("container_id=? AND date IS NULL",@container.id)
+    @vendororiginal_id =@current_vendor_record[0].vendor_id
     respond_to do |format|
       if @container.update(container_params)
         if @vendoredit_id != @vendororiginal_id
-            @vendorcontainer = VendorContainer.new(vendor_id: @vendoredit_id, container_id: @container.id )  
-            @vendorcontainer.save
+        @record_id = @current_vendor_record[0].id
+        # update last record to set end date for last vendor
+        @last_container_vendor = VendorContainer.find_by(id: @record_id)
+        @last_container_vendor.update(date: Date.today)
+        # create new record with the new vendor for this material
+        @vendorcontainer = VendorContainer.new(container_id: @container.id, vendor_id: @vendoredit_id) 
+        @vendorcontainer.save 
         end
         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
         format.json { render :show, status: :ok, location: @container }

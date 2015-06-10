@@ -26,9 +26,7 @@
           <td class="text-center" ><%= spare_part.quantity %></td>
           <% machine = Machine.find_by(id: spare_part.machine_id) %>
           <td class="text-center" ><%= machine.name %></td>
-          <% @spare_part_vendor = VendorSpare.where("spare_part_id=?",spare_part.id).order(updated_at: :desc)[0] %>
-          <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
-          <td class="text-center" ><%= vendor.name %></td>
+          <td class="text-center" ><%= @spare_part_vendor = VendorSpare.where("spare_part_id=? AND date IS NULL",spare_part.id).order(updated_at: :desc)[0].vendor.name %></td>
           <% if current_category.category!="Stock Keeper" %>
           <td class="text-center" ><%= spare_part.price %></td>
           <% end %>

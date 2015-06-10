@@ -15,7 +15,7 @@
   <% end %>
   <div class="reg_section">
   <h3>Buyer Name</h3>
-  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:1100px;" %>
+  <%= select_tag "buyer_id" , options_from_collection_for_select(@buyers, "id", "name"),class:"form-group" ,style:"width:1100px;" ,:required => true %>
  
 <h3><span class="fa fa-plus-circle"></span> <%= link_to 'Add New Buyer', new_buyer_path %></h3>
  </div> 
