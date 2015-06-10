@@ -1,6 +1,6 @@
 <div class="container" style="width: calc(70%);">
     <div class="row">
-  <h1 class="page-header" style="font-size:30px;"> <span class="fa fa-eye"> </span> Personal Info </h1> 
+  <h1 class="page-header" style="font-size:30px;color:#2A4E6E"> <span class="fa fa-eye"> </span> Personal Information </h1> 
       <div class="col-md-3">
           
           <%= image_tag @employee.image.url ,class:"img img-thumbnail" %>
@@ -18,12 +18,16 @@
              
               <li class="list-group-item"><span class="fa fa-book"></span> <strong>Education Level:</strong>  <%= @employee.education_level %></li>
 
-              <li class="list-group-item"><span class="fa fa-book"></span> <strong>Education:</strong><%= @employee.education %></li>
+              <li class="list-group-item"><span class="fa fa-book"></span> <strong>Education:</strong>  <%= @employee.education %></li>
               <li class="list-group-item"><span class="fa fa-folder"></span> <strong>Governamental Id:</strong> <%= @employee.Governamental_ID %> </li>
 
               <li class="list-group-item"> <span class="fa fa-briefcase"></span> <strong>Category:</strong>
                <% category=Category.find_by(id: @employee.category_id )%>
                <%= category.category %>
+              </li>
+
+               <li class="list-group-item"> <span class="fa fa-usd"></span> <strong>Salery:</strong>
+               <%=  @employee.salary %>
               </li>
 
               <% if (@employee.crew_id!=nil) %>

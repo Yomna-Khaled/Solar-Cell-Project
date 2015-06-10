@@ -2,7 +2,7 @@
 
 <div class="container" style="width: calc(70%);">
 
-    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Current Shift Infromation</h1>
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Current Shift Information</h1>
 
     <section class="register">
       <div class="form-group reg_section ">
@@ -37,10 +37,11 @@
     					   <% if @crew_name.blank? %>
     					     <p style="font-size:20px;">There are no members...Please add them</p>
     					   <% else %>
-  		                         
-      					   <% @crew_name.each do |f| %>
-      					     <p style="font-size:20px;"><%= f.full_name %></p>
-      					   <% end %>
+  		                        <ul>
+              					   <% @crew_name.each do |f| %>
+              					     <li style="margin-left:20px;" class="text-capitalize"><%= f.full_name %></li>
+              					   <% end %>
+                            </ul>
 		            <% end %>
             </li>
 					        
@@ -52,7 +53,7 @@
 	 
 	
 		    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span>  Produced Solar Panel </h1>
-		    <div style="left : 1100px; bottom:40px ;position: relative;">    
+		    <div style="left : 700px; bottom:40px ;position: relative;">    
 			   <%= link_to "Newpanel", new_solar_panel_path ,method: :get  %>
 		    </div>
 
@@ -61,30 +62,26 @@
         		 <table class="table table-hover table-responsive">
         			<thead>
         				<tr>
-        				  <th text-align="center"><h1>serialNo</h1></th>
-        					<th text-align="center"><h1>type</h1></th>
-        					<th text-align="center"><h1>sub type</h1></th>
-        				  <th text-align="center"><h1>power</h1></th>
-        				  <th text-align="center"><h1>price</h1></th>  
-        				  <th text-align="center"><h1>Edit</h1></th> 
-        		      <th text-align="center"><h1>show</h1></th>  
+        				  <th text-align="center"><h3>serialNo</h3></th>
+        				<th text-align="center"><h3>type</h3></th>
+        				<th text-align="center"><h3>sub type</h3></th>
+        				  <th text-align="center"><h3>power</h3></th>
+        				  <th text-align="center"><h3>Edit</h3></th> 
+        		                  <th text-align="center"><h3>show</h3></th>  
         		 	  </tr>
 
         			</thead>
         		  <tbody>
         		       
         		   	<% @shift.solar_panels.each do |solar_panel| %>
-                <tr>  
-        		        <td><%= solar_panel.serialNo%></td>   
-        			      <td><%= solar_panel.celltype %></td>
-        		        <td><%= solar_panel.sub type%></td>
-        		        <td><%= solar_panel.power %></td>
-        		        <td><%= solar_panel.price %></td>
-        			      <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>
-        		        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-danger"%></td>  
-        			 
-
-        	     </tr> 
+                                <tr>  
+        		        <td text-align="center"><%= solar_panel.serialNo%></td>   
+        			 <td text-align="center"><%= solar_panel.celltype %></td>
+        		        <td text-align="center" ><%= solar_panel.subtype%></td>
+        		        <td text-align="center"><%= solar_panel.power %></td>
+        		        <td text-align="center"><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>
+        		        <td text-align="center"><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-danger"%></td>  
+        			</tr> 
         		   <% end %>
         		  
         		  </tbody>    

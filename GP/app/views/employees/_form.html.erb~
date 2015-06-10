@@ -1,180 +1,6 @@
-<style type="text/css">
-  /*  Author : iMomen
-    Website: www.iMomen.com
-    E-mail : Coder@iMomen.com
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* Page */
-body {
-  background: #fff;
-  font-family:"Trebuchet MS",tahoma;
-}
-
-a {
-  color:#FF3679;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-.container {
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.reg_section {
-  padding:0;
-  margin: 10px 0;
-  border-bottom: 1px;
-}
-.reg_section h3 {
-  font-size: 13px;
-  margin: 5px 0;
-  color: #C4A2A2;
-}
-
-.w {
-  width: 400px;
-}
-
-/* Form */
-.register {
-  position: relative;
-  margin-top:20px;
-  padding: 20px 20px 20px;
-  background: #fff;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-.register:before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -8px;
-  z-index: -1;
-  background:rgba(255, 173, 200, 0.08);
-  border-radius:7px;
-  -webkit-border-radius: 7px;
-}
-.register h1 {
-  margin: -20px -20px 0;
-  line-height: 40px;
-  font-size: 15px;
-  font-weight: bold;
-  color:#694551;
-  text-align: center;
-  border-bottom:1px solid #EDEDED;
-  border-radius: 3px 3px 0 0;
-  -webkit-box-shadow: 0 1px #f5f5f5;
-  -moz-box-shadow: 0 1px #f5f5f5;
-  box-shadow: 0 1px #f5f5f5;
-}
-
-.register input[type=text], .register input[type=number], .register input[type=password] ,.register select,.register textarea {
-  width: 400px;
-}
-.register p.terms {
-  float: left;
-  line-height: 31px;
-}
-.register p.terms label {
-  font-size: 12px;
-  color: #777;
-  cursor: pointer;
-}
-.register p.terms input {
-  position: relative;
-  bottom: 1px;
-  margin-right: 4px;
-  vertical-align: middle;
-}
-.register p.submit {
-  text-align: right;
-}
-
-.register-help {
-  margin: 20px 0;
-  font-size: 11px;
-  text-align: center;
- 
-  color:#FFFFFF;
-}
-.register-help a {
-  color:#FF3679;
-  text-shadow:0 1px #1E0E13;
-}
-
-:-moz-placeholder {
-  color: #c9c9c9 !important;
-  font-size: 13px;
-}
-
-::-webkit-input-placeholder {
-  color: #ccc;
-  font-size: 13px;
-}
-
-input {
-  font-family:"Trebuchet MS",tahoma;
-  font-size: 14px;
-}
-
-input[type=text], input[type=password] , input[type=number],.register select,.register textarea {
-  margin: 5px;
+<style>
+.file{
+   margin: 5px;
   padding: 0 10px;
   height: 34px;
   color: #404040;
@@ -191,161 +17,87 @@ input[type=text], input[type=password] , input[type=number],.register select,.re
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   margin:10px 0;
 }
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus{
-  border-color:#FFF7F9;
-  outline-color:rgba(254, 225, 235, 0.7);
-  outline-offset: 0;
-}
-
-input[type=submit] {
-  padding:0 10px;
-  height: 29px;
-  font-size: 12px;
-  font-weight: bold;
-  color:#FFFFFF;
-  text-shadow:0 1px #4D1124;
-  border-width: 1px;
-  border-style: solid;
-  border-color:#693647;
-  border-radius: 7px 7px 7px 7px;
-  outline: none;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  background-color: #7D0F33;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #AA1E4D), color-stop(100%, #7D0F33));
-  background-image: -webkit-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image:-moz-linear-gradient(center top , #AA1E4D, #7D0F33)
-  background-image: -ms-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: -o-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: linear-gradient(top, #AA1E4D, #7D0F33);
-  -webkit-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-  -moz-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-  box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-}
-input[type=submit]:active {
-  background: #7D0F33;
-  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-.lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number]{
-  line-height: 34px;
-}
-.register select{
-  padding:6px 10px;
-  width: 400px;
-  color: #777777;
-}
-.register textarea {
-  height: 50px;
-  padding: 10px;
-   width: 400px;
-  color: #C9C9C9;
-}
-
-/* About */
-.about {
-  margin:10px auto;
-  width: 400px;
-  text-align: center;
-  color:#EEA5BD;
-  font-size: 12px;
-}
-.about a {
-  padding: 1px 3px;
-  margin: 0 -1px;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
-}
-.about a:hover {
-  color:#2F0916;
-  text-shadow: none;
-  background: #E83671;
-}
-
-.links {
-  zoom: 1;
-}
-.links:before, .links:after {
-  content: "";
-  display: table;
-}
-.links:after {
-  clear: both;
-}
-.links a {
-  padding: 6px 0;
-  float: left;
-  width: 50%;
-  font-size: 14px;
-}
-    #error_explanation {
-      color: red;
-      background-color: white;
-      border: white;
-    }
-
-    .field_with_errors {
-        background-color: white;
-    }
-
 </style>
-
-
 <%= form_for(@employee) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        The form contains <%= pluralize(@employee.errors.count, "error") %>.
-         <ul>
-      <% @employee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-      </div> 
-    </div>
-  <% end %>
-
-
   <section class="register">
       <div class="form-group reg_section ">
-          <h1>Personal Information</h1>
-      
+        <% if current_category.category=="HR" %>
+<h1><span class="fa fa-info-circle"></span> Personal Information</h1>
             <h3>Full Name</h3>
             <%= f.text_field :full_name,class: "w", placeholder: "Enter Full Name" %>
+            <% if @employee.errors[:full_name] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:full_name].each do |msg| %>
+                    <li>*Full Name <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag_new == 1 %>
-                <h3>Education Level</h3>
-                <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
+              <h3><span class="fa fa-book"></span> Education Level</h3>
+              <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],2 ))  %>
+              <% if @employee.errors[:education_level] %>
+                <div class="text-danger">
+                  <ul>
+                    <% @employee.errors[:education_level].each do |msg| %>
+                      <li>*Education Level <%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
             <% end %>
 
             <% if @flag_new == 0 %>
                 <h3>Education Level</h3>
                 <%= f.select(:education_level ,options_for_select([["High","High"],["Meduim","Meduim"]],@employee.education_level ))  %>
+                <% if @employee.errors[:education_level] %>
+                  <div class="text-danger">
+                    <ul>
+                      <% @employee.errors[:education_level].each do |msg| %>
+                        <li>*Education Level <%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
             <% end %>
 
-            <h3>Education</h3>
+            <h3><span class="fa fa-book"></span> Education</h3>
             <%= f.text_field :education ,class: 'w' , placeholder: "Enter Education"   %>
+            <% if @employee.errors[:education] %>
+                <div class="text-danger">
+                  <ul>
+                    <% @employee.errors[:education].each do |msg| %>
+                      <li>*Education <%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
 
-            <h3>Governamental ID</h3>
+            <h3><span class="fa fa-folder"></span> Governamental ID</h3>
             <%= f.text_field :Governamental_ID, class: 'w' , placeholder: "Enter Governamental_ID" %>
+            <% if @employee.errors[:Governamental_ID] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:Governamental_ID].each do |msg| %>
+                    <li>*Governamental_ID <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag == "new" %> 
                 <%= fields_for :employee_phones do |p| %>   
-                   <h3>Phone</h3>
+                   <h3><span class="fa fa-mobile"></span> Phone</h3>
                    <%= p.text_field :phone , id:"phone", value:"" ,class: "w", readonly: true %><br>
                 <% end %>
-
             <%else %>
               <%= fields_for :employee_phones do |p| %>
                 <%= phonn = '' %>
                 <% if @phones.blank? %>
                     <p> <%= phonn = '' %> </p>
-                     <h3>Phone</h3>
+                     <h3><span class="fa fa-mobile"></span> Phone</h3>
                      <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
                 <% else %>
                    <% @phones.each do |f| %>
@@ -356,49 +108,208 @@ input[type=submit]:active {
               <% end %>
           <%end %>
 
-          <a href="#" onclick="add()" >Add Phone</a>
-
           <div id="phones">    
           </div>
 
           <div id="phonedel">
           </div>
 
-          <h3>User Photo</h3>
-          <%= f.file_field :image %><br>
-        </div>
+          <h3><a href="#" onclick="add()">Add Phone</a></h3>
+
+          <br>
+          
+        
+
+
+          <h3><span class="fa fa-file-image-o"></span> User Photo</h3>
+          <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
+          <div class="fileUpload btn btn-primary">
+            <span class="fa fa-paperclip"> Upload</span>
+            <%= f.file_field :image,class: "upload", id:"uploadBtn" %>
+          </div>
+          <% if @employee.errors[:image] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:image].each do |msg| %>
+                  <li>*Image <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
 
         <div class="form-group reg_section ">
-          <h1>Work Information</h1>    
-            <h3>Salary</h3>
+          <h1><span class="fa fa-pencil-square-o"></span> Work Information</h1>    
+            <h3><span class="fa fa-usd"></span> Salary</h3>
             <%= f.text_field :salary, class: 'w' , placeholder: "Enter Salary" %>
+            <% if @employee.errors[:salary] %>
+              <div class="text-danger">
+                <ul>
+                  <% @employee.errors[:salary].each do |msg| %>
+                    <li>*Salary <%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <% if @flag_new == 0 %>
-                <p><strong>Category : </strong><p>
-                <p>
-                    <%= Category.find_by(:id => @category_id).category %>
-                </p>
+              <% if (@employee.id==current_user.id) %>
+                 <h3><span class="fa fa-lock"></span> Password</h3>
+                  <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+                  <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
+                  <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+                  <% if @employee.errors[:password_confirmation] %>
+                    <div class="text-danger">
+                      <ul>
+                        <% @employee.errors[:password_confirmation].each do |msg| %>
+                          <li>*Password Confirmation <%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                  <h3><span class="fa fa-envelope"></span> Email</h3>
+                  <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+                  <% if @employee.errors[:email] %>
+                    <div class="text-danger">
+                      <ul>
+                        <% @employee.errors[:email].each do |msg| %>
+                          <li>*Email <%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+              <% end %>
+                <h3>Category:
+                    <%= Category.find_by(:id => @category_id).category %></h3>
+
+                
             <% end %> 
 
             <% if @flag_new == 1 %>
-                <h3>Category</h3>
+                <h3><span class="fa fa-sitemap"></span> Category</h3>
                 <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
+                <% if @employee.errors[:category_id] %>
+                  <div class="text-danger">
+                    <ul>
+                      <% @employee.errors[:category_id].each do |msg| %>
+                        <li>*Category <%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
 
                 <div id="notnormal">
-                    <h3>Password</h3>
+                    <h3><span class="fa fa-lock"></span> Password</h3>
                     <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
-                    <h3>Confirmation Password</h3>
+                    <% if @employee.errors[:password] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:password].each do |msg| %>
+                            <li>*Password <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
                     <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
-                    <h3>Email</h3>
+                    <% if @employee.errors[:password_confirmation] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:password_confirmation].each do |msg| %>
+                            <li>*Password Confirmation <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <h3><span class="fa fa-envelope"></span> Email</h3>
                     <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+                    <% if @employee.errors[:email] %>
+                      <div class="text-danger">
+                        <ul>
+                          <% @employee.errors[:email].each do |msg| %>
+                            <li>*Email <%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
                 </div>
             <% end %>
+        <% else %>
+          <h3><span class="fa fa-lock"></span> Password</h3>
+          <%= f.password_field :password, class: 'w' , placeholder: "Enter Password" %>
+          <h3><span class="fa fa-lock"></span> Confirmation Password</h3>
+          <%= f.password_field :password_confirmation, class: 'w',  placeholder: 'Confirm your password here'%>
+          <% if @employee.errors[:password_confirmation] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:password_confirmation].each do |msg| %>
+                  <li>*Password Confirmation <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-            <div class="actions">
-                <br>
-                <%= f.submit class: 'btn btn-success' %>
-            </div> 
-      </div>    
+          <h3><span class="fa fa-envelope"></span> Email</h3>
+          <%= f.email_field :email, class: 'w' , placeholder: "Enter Email" %>
+          <% if @employee.errors[:email] %>
+            <div class="text-danger">
+              <ul>
+                <% @employee.errors[:email].each do |msg| %>
+                  <li>*Email <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= fields_for :employee_phones do |p| %>
+            <%= phonn = '' %>
+            <% if @phones.blank? %>
+                <p> <%= phonn = '' %> </p>
+                 <h3><span class="fa fa-mobile"></span> Phone</h3>
+                 <%= p.text_field :phone , id:"phone", value:"",class: "w", readonly: true %><br>
+            <% else %>
+               <% @phones.each do |f| %>
+                  <p> <% phonn = phonn + f.phone + ',' %> </p>
+               <% end %>
+               <%= p.text_field :phone , id:"phone",class: "w", value: phonn , readonly: true %> <h3> <a href="#" onclick="del(<%=@employee.id %>)"> Delete Phone</a></h3> 
+            <% end %> 
+          <% end %>
+         
+          <h3><a href="#" onclick="add()" >Add Phone</a></h3>
+          <div id="phones">    
+          </div>
+          <div id="phonedel">
+          </div>
+
+
+
+          
+
+        <% end %>
+<div class="modal" id="basicModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        <div class="actions">
+            <br>
+            <%= f.submit class: 'btn btn-warning' %>
+        </div> 
+      </div> 
+      </div>   
   </section>
   
 <% end %>  
@@ -407,66 +318,43 @@ input[type=submit]:active {
 
 
 <script type="text/javascript">
-    var category = document.getElementById('employee_category_id');
-    if (category) {
-       target = document.getElementById('notnormal'); //div of input password
-       if (category.text == 'Normal') target.style.display='none';
-       category.onchange=function() {
-          var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
-          if (type == 'Normal') {
-             target.style.display = 'none';
-          } 
-          else {
-              arget.style.display= '';
-          }
-       }
+var x=1;
+  var counter=0;
+  var allValues = '';
+  var temp = "";
+  allValues=$( "#phone" ).val().slice(0,-1);
 
-      }
-
-
-      var x=1;
-var counter=0;
-var allValues = '';
-var temp = "";
-allValues=$( "#phone" ).val().slice(0,-1);
-
-var add = function() {
+  var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" style="width:350px;" id="'+x+'" />' ).append( '<input type="button" class="btn btn-primary" id="OK" value="ok" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
         
          // if (isNaN(value) || value < 1){
-         	
-         	re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
+          
+          re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
             if (re.test(value)) {
                if (allValues != ''){
             allValues =  allValues + ',' + value
-            
         }else{
           allValues =  allValues + value    
         }
         $("#phone").val(allValues);
         $("#1").val('');
-            
         }else{
-          alert('Please enter a valid phone number ');
-             
+                $('#modal-body').text('Please enter a valid phone number');
+		$('#basicModal').modal('toggle');
+            
         }
-
        });
-
-
     }
- 
-};
+  };
 
-var del = function(employeeid) {
-
-    var length_of_num = 0;
-    var index =0;
+  var del = function(employeeid) {
+  var length_of_num = 0;
+  var index =0;
    allValues = $("#phone").val();
    $("#phone").val('');
    var arr = allValues.split(",");
@@ -474,36 +362,54 @@ var del = function(employeeid) {
   for (var i=0 ; i< arr.length-1 ; i++){
      var div=document.createElement("div");
      var elem = document.createElement("input");
-                 elem.id =i;
-                 elem.type = 'button';
-                 elem.value = 'x'; 
+     elem.id =i;
+     elem.type = 'button';
+     elem.value = 'x'; 
      div.id= i;
      div.value=arr[i];
-                 div.innerHTML = arr[i];
-                 elem.onclick=function(){
-                   var el = document.getElementById(this.id);
-                   var dataString = el.value;
-               
-                   allValues = allValues.replace(dataString + ',', ""); 
-        $.ajax({
-      method: "POST",
-      url: '/delPhon',
-        dataType: "JSON",
-        data: { "phone": dataString},
-        complete: function(data)
-        { 
-           el.parentNode.removeChild( el );
-        }
-      });
-         };
+     div.innerHTML = arr[i];
+     elem.onclick=function(){
+           var el = document.getElementById(this.id);
+           var dataString = el.value;
+       
+           allValues = allValues.replace(dataString + ',', ""); 
+           $.ajax({
+              method: "POST",
+              url: '/delPhon',
+              dataType: "JSON",
+              data: { "phone": dataString},
+              complete: function(data)
+              { 
+                 el.parentNode.removeChild( el );
+              }
+          });
+      };
 
-        div.appendChild(elem);
-        document.getElementById('phonedel').appendChild(div);
+    div.appendChild(elem);
+    document.getElementById('phonedel').appendChild(div);
   }
 };
 
+  document.getElementById("uploadBtn").onchange = function () {
+      document.getElementById("uploadFile").value = this.value;
+  };
+
+  var category = document.getElementById('employee_category_id');
+  if (category) {
+     target = document.getElementById('notnormal'); //div of input password
+     if (category.text == 'Normal') target.style.display='none';
+     category.onchange=function() {
+        var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
+        if (type == 'Normal') {
+           target.style.display = 'none';
+        } 
+        else {
+            arget.style.display= '';
+        }
+     }
+
+    }
 
 
-
-
- </script>
+  
+</script>

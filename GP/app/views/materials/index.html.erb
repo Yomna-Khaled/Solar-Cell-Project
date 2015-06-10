@@ -12,16 +12,16 @@
         <table class="table table-hover table-responsive ">
           <thead >
             <tr >
-              <th class="text-center"><h1>Image</h1></th>
-              <th class="text-center"><h1>Name</h1></th>
-              <th class="text-center"><h1>Serial Number</h1></th>
-              <th class="text-center"><h1>Quantity</h1></th>
-              <th class="text-center"><h1>Vendor</h1></th> 
+              <th class="text-center"><h3>Image</h3></th>
+              <th class="text-center"><h3>Name</h3></th>
+              <th class="text-center"><h3>Serial Number</h3></th>
+              <th class="text-center"><h3>Quantity</h3></th>
+              <th class="text-center"><h3>Vendor</h3></th> 
               <% if current_category.category!="Stock Keeper"%>
-              <th class="text-center"><h1>Price</h1></th>
+              <th class="text-center"><h3>Price</h3></th>
               <%end%>              
-              <th class="text-center"><h1>Show</h1></th>
-              <th class="text-center"><h1>Edit</h1></th>
+              <th class="text-center"><h3>Show</h3></th>
+              <th class="text-center"><h3>Edit</h3></th>
             </tr>
 
           </thead>
@@ -33,7 +33,7 @@
                 <td class="text-center text-capitalize"><%= material.name %></td>
                 <td class="text-center"><%= material.serial_number %></td>
                 <td class="text-center"><%= material.quantity_value %>_<%= material.quantity.unit_name %></td>
-                <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
+                <td class="text-center"><%= @material_vendor.where("material_id=? AND date IS NULL",material.id).order(updated_at: :desc)[0].vendor.name %></td>
                 <% if current_category.category!="Stock Keeper"%>
                 <td class="text-center"><%= material.price %></td>
                 <% end %>

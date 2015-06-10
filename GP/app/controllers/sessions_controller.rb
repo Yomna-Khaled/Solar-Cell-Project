@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+   skip_before_action :verify_authenticity_token
   skip_before_filter :authenticate
   skip_before_filter :forgetpassword 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

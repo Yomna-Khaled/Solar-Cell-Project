@@ -68,11 +68,12 @@ body {
 }
 
 a {
-  color:#FF3679;
+  color:#2A4E6E;
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
+  background-color: #2A4E6E;
 }
 .container {
   width: 500px;
@@ -138,7 +139,7 @@ a:hover {
   line-height: 40px;
   font-size: 13px;
   font-weight: bold;
-  color:#000;
+  color:#2A4E6E;
    margin: 5px 0;
   /*text-align: center;*/
   border-bottom:1px solid #EDEDED;
@@ -149,7 +150,7 @@ a:hover {
 }
 
 .table tr {
-  font-size: 25px;
+  font-size: 18px;
 }
 
 .register input[type=text], .register input[type=number], .register input[type=file], .register input[type=password] ,.register select,.register textarea {
@@ -535,14 +536,14 @@ background-color: #303E49;
 }
 
 .sidebar-nav li a {
-  color: #2A4E6E;
+  color: #FFFFFF;
   display: block;
   text-decoration: none;
 }
 
 .sidebar-nav li a:hover {
-  color: #fff;
-  background-color: #2A4E6E;
+  color: #000;
+  background-color:  #E9F0F5;
   text-decoration: none;
 }
 

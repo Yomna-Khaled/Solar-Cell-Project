@@ -1,5 +1,6 @@
 class VendorSparesController < ApplicationController
   before_action :set_vendor_spare, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
@@ -8,23 +9,37 @@ class VendorSparesController < ApplicationController
   # GET /vendor_spares
   # GET /vendor_spares.json
   def index
-    @vendor_spares = VendorSpare.all
+    if  false
+      @vendor_spares = VendorSpare.all
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendor_spares/1
   # GET /vendor_spares/1.json
   def show
+    if  false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # GET /vendor_spares/new
   def new
-    @vendor_spare = VendorSpare.new
-
+    if  false
+      @vendor_spare = VendorSpare.new
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end  
   end
 
   # GET /vendor_spares/1/edit
   def edit
-   
+    if  false
+      else
+      render :file => "/public/404.html",:status  => "404" 
+    end
   end
 
   # POST /vendor_spares
@@ -60,11 +75,16 @@ class VendorSparesController < ApplicationController
   # DELETE /vendor_spares/1
   # DELETE /vendor_spares/1.json
   def destroy
+    if  false
       @vendor_spare.destroy
       respond_to do |format|
       format.html { redirect_to vendor_spares_url }
       format.json { head :no_content }
-    end
+      end
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
+
   end
 
   private

@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -9,21 +10,37 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.all
+    if false
+      @properties = Property.all
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   # GET /properties/1
   # GET /properties/1.json
   def show
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end 
   end
 
   # GET /properties/new
   def new
-    @property = Property.new
+    if false
+      @property = Property.new
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # GET /properties/1/edit
   def edit
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   # POST /properties
@@ -52,11 +69,15 @@ class PropertiesController < ApplicationController
   # DELETE /properties/1
   # DELETE /properties/1.json
   def destroy
-    @property.destroy
-    respond_to do |format|
-      format.html { redirect_to properties_url }
-      format.json { head :no_content }
-    end
+    if false
+      @property.destroy
+      respond_to do |format|
+        format.html { redirect_to properties_url }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   private

@@ -1,4 +1,5 @@
 class LookupPricesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_lookup_price, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
@@ -26,7 +27,7 @@ class LookupPricesController < ApplicationController
 
   # GET /lookup_prices/new
   def new
-    if logged_in? and (current_category.category=="Sales")
+    if false
        @lookup_price = LookupPrice.new
     else
        render :file => "/public/404.html",:status  => "404" 
@@ -80,11 +81,15 @@ class LookupPricesController < ApplicationController
   # DELETE /lookup_prices/1
   # DELETE /lookup_prices/1.json
   def destroy
-    @lookup_price.destroy
-    respond_to do |format|
-      format.html { redirect_to lookup_prices_url, notice: 'Lookup price was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if false
+      @lookup_price.destroy
+      respond_to do |format|
+        format.html { redirect_to lookup_prices_url, notice: 'Lookup price was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end   
   end
 
   private

@@ -1,6 +1,8 @@
 class BuyersController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_buyer, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  
   # Render 404 page when record not found
   def render_404      
      render :file => "/public/404.html", :status => 404
@@ -155,24 +157,17 @@ def update
     end
   end
 
-
-
-
-
-
-
-
-
-
-  
-
   # DELETE /buyers/1
   # DELETE /buyers/1.json
   def destroy
-    @buyer.destroy
-    respond_to do |format|
-      format.html { redirect_to buyers_url, notice: 'Buyer was successfully destroyed.' }
-      format.json { head :no_content }
+    if  false
+      @buyer.destroy
+      respond_to do |format|
+        format.html { redirect_to buyers_url, notice: 'Buyer was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"   
     end
   end
 

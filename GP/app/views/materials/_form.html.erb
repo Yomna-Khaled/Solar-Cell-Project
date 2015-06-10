@@ -48,7 +48,7 @@
         <% end %>
   </div>
   <div class="actions">
-    <%= f.submit class: 'btn btn-success' %>
+    <%= f.submit class: 'btn btn-warning' %>
   </div>
   <% else %>
  
@@ -130,24 +130,26 @@
             <% else %>
               <%= f.select :quantity_id, options_from_collection_for_select(@quantites, "id", "unit_name",@material.quantity_id),{} , {:style=> "width:100px" }%>
             <%end%>
+          </div>   
         <!-- add new quantity using ajax-->
         <a id="unitlink" class="btn btn-link" style="text-align: left" 
         onclick="showunitform()"><h3> <span class="fa fa-plus-circle"></span>  Add Quantity Unit</h3></a>
+       
         <div id="addnewunit" style="display:none" class="form-group">
              <h2> <span class="fa fa-plus-circle"></span> New Quantity unit </h2>
             
             <div class="form-group">
               <h3>Unit Name</h3>
-              <input type="text" id="unitname" style="width:100px">
+              <input type="text" id="unitname" placeholder="Enter Unit Name...">
             </div>
             <div class="actions">
-              <a onclick="unitajax()" class="btn btn-success"> <span class="fa fa-check"></span> Add Quantity</a>
-              <a onclick="canceladdunit()" class="btn btn-warning"> <span class="fa fa-times"></span> Cancel</a>
+              <a onclick="unitajax()" class="btn btn-info"> <span class="fa fa-check"></span> Add Quantity</a>
+              <a onclick="canceladdunit()" class="btn btn-danger"> <span class="fa fa-times"></span> Cancel</a>
             </div>
         </div>
           <!-- end of adding new unit using ajax -->
     
-    </div>
+    
   
   <!-- end of div for quantites -->
   
@@ -202,7 +204,7 @@
 
       <h1><span class="fa fa-info-circle"></span> Material Vendor </h1>
     <h3>Vendor </h3>
-    <select id="vendor" name="vendor">
+    <select id="vendor" name="vendor" required >
       <% @vendors.each do |vendor| %>
         <% if @flag == "new" %>
           <option value="<%= vendor.id %>"><%= vendor.name %></option>
@@ -233,8 +235,8 @@
           <input type="text" id="vendoremail" placeholder:"Enter Vendor Email....">
         </div>
         <div class="actions">
-          <a onclick="vendorajax()" class="btn btn-success"><span class="fa fa-check"></span> Add Vendor</a>
-          <a onclick="canceladdvendor()" class="btn btn-warning"><span class="fa fa-times"></span> Cancel</a>
+          <a onclick="vendorajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>
         </div>
       </div>
     <!-- end of adding new vendor using ajax -->
@@ -263,7 +265,7 @@
             <td id="value_<%= property.id %>" style="display:none;" 
             onkeyup="propertyvalue(this)">
               <h3 style="margin-left:100px;">value</h3>
-              <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
+              <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;" placeholder="Enter Value...">
             </td>
           </tr>   
         <% else %>
@@ -276,7 +278,7 @@
               </td>
               <td id="value_<%= property.id %>" style="display:block;" onkeyup="propertyvalue(this)">
                 <h3 style="margin-left:100px;">value</h3>
-                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>" style="width:100px;margin-left:100px;">
+                <input type="text" id="<%= property.id %>_value" value="<%=property_value%>" style="width:100px;margin-left:100px;" placeholder="Enter Value...">
               </td>
             <% else %>
               <td>
@@ -285,7 +287,7 @@
               </td>
               <td id="value_<%= property.id %>" style="display:none;" onkeyup="propertyvalue(this)">
                 <h3 style="margin-left:100px;">value</h3>
-                <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;">
+                <input type="text" id="<%= property.id %>_value" style="width:100px;margin-left:100px;" placeholder="Enter Value...">
               </td>
             <% end %>
           </tr>
@@ -304,14 +306,14 @@
         <input type="text" id="propertyname" placeholder="Enter Property....">
       </div>
       <div class="actions">
-        <a onclick="propertyajax()" class="btn btn-success"><span class="fa fa-check"></span> Add Property</a>
-        <a onclick="canceladdproperty()" class="btn btn-warning"><span class="fa fa-times"></span> Cancel</a>
+        <a onclick="propertyajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Property</a>
+        <a onclick="canceladdproperty()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>
       </div>
     </div>
       <!-- end of adding new property using ajax -->
   </div>
 <!-- this for alerts -->
-<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">Click to open Modal</a>
+
 <div class="modal" id="basicModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -331,7 +333,7 @@
 <!-- end alerts  -->
   
   <div class="actions">
-    <%= f.submit class: 'btn btn-success' %>
+    <%= f.submit class: 'btn btn-warning' %>
   </div>
  
   <% end %>

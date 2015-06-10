@@ -1,6 +1,8 @@
 class MaterialsController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_material, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  
   # Render 404 page when record not found
     def render_404      
        render :file => "/public/404.html", :status => 404
@@ -51,7 +53,7 @@ class MaterialsController < ApplicationController
       @properties = Property.all
       @material_property = MaterialProperty.all
       # to select the latest vendor for material 
-      @materialvendor = MaterialVendor.where("material_id=?",@material.id)
+      @materialvendor = MaterialVendor.where("material_id=? AND date IS NULL",@material.id)
       @materialvendor_sorted = @materialvendor.order(updated_at: :desc)
       @vendor_id =  @materialvendor_sorted[0].vendor_id
       # to select all properties for material
@@ -93,7 +95,7 @@ class MaterialsController < ApplicationController
             end
           end
         end
-        @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id, date: Date.today )
+        @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id)
         @materialvendor.save
         format.html { redirect_to @material}
         format.json { render :show, status: :created, location: @material }
@@ -114,12 +116,18 @@ class MaterialsController < ApplicationController
 def update
   @vendoredit_id = params['vendor']; #to get vendor of certain material 
   @selected_properties = params['propertycheck']; #it is an array of selected properties
-  @vendororiginal_id = MaterialVendor.where("material_id=?",@material.id)[0].vendor_id
-  # render plain: @selected_properties.inspect
+  @current_vendor_record = MaterialVendor.where("material_id=? AND date IS NULL ",@material.id)
+  @vendororiginal_id = @current_vendor_record[0].vendor_id
+
   respond_to do |format|
     if @material.update(material_params)
       if @vendoredit_id != @vendororiginal_id
-        @materialvendor = MaterialVendor.new(material_id: @material.id, vendor_id: @vendoredit_id, date: Date.today )
+        @record_id = @current_vendor_record[0].id
+        # update last record to set end date for last vendor
+        @last_material_vendor = MaterialVendor.find_by(id: @record_id)
+        @last_material_vendor.update(date: Date.today)
+        # create new record with the new vendor for this material
+        @materialvendor = MaterialVendor.new(material_id: @material.id, vendor_id: @vendoredit_id) 
         @materialvendor.save  
       end
       @material_properties_last = MaterialProperty.where("material_id = ? ", @material.id)
@@ -167,11 +175,15 @@ end
   # DELETE /materials/1
   # DELETE /materials/1.json
   def destroy
-    @material.destroy
-    respond_to do |format|
-      format.html { redirect_to materials_url  }
-      format.json { head :no_content }
-    end
+    if false
+      @material.destroy
+      respond_to do |format|
+        format.html { redirect_to materials_url  }
+        format.json { head :no_content }
+      end
+    else
+      render :file => "/public/404.html",:status  => "404"  
+    end   
   end
 
   private

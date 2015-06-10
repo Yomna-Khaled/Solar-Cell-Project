@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :lookup_prices
 
   resources :sold_panels
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   post '/shifts/:id/endshift', to: 'shifts#endshift'
   get '/shifts/showendshift', to: 'shifts#showendshift'
   get '/shifts/currentshift', to: 'shifts#currentshift' 
+
 
 
   resources :categories
@@ -46,8 +46,8 @@ Rails.application.routes.draw do
   resources :material_properties
 
 
-
-
+  
+  resources :properties
   resources :properties
   resources :materials
   resources :quantities
@@ -63,8 +63,9 @@ Rails.application.routes.draw do
 
 
   post 'forget_password' => 'sessions#forget_password'
-
   get 'forget_password' => 'sessions#forget_password_form'
+
+
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'

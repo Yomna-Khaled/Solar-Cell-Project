@@ -1,67 +1,98 @@
-<div class="container" style="width: calc(60%);">
+<div class="container" style="width: calc(80%);">
  
-      <h1 class="page-header text-capitalize" style="font-size:30px;"><span class="fa fa-eye"> <%=  @material.name %> Details</h1>
+      <h1 class="page-header text-capitalize" style="font-size:30px; color:#2A4E6E"><span class="fa fa-eye"> <%=  @material.name %> Details</h1>
   
 
-  <div class="row">
-    <div class="col-md-3">
-      <br><br>
-      <img src="<%= @material.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
-    </div> 
+ 
+      <div class="row">
+        <div class="col-md-3">
+          <br>
+          <img src="<%= @material.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
+        </div> 
 
-    <div class="col-md-9">
-      <div class="page-header">
-           <h1><span class="fa fa-info-circle"></span> Basic Infro.</h1>
+     
+      <div class="col-md-9">
+      <section class="register" >  
+        <div class="reg_section">
+        
+               <h3><span class="fa fa-info-circle"></span> Basic Information</h3>
+     
+
+          <ul class="list-group">
+            <li class="list-group-item">Serial_Number: <%= @material.serial_number %></li>
+            <li class="list-group-item">Price: <%= @material.price %></li>
+          </ul>
+        </div>
+
+
+        <div class="reg_section">
+              <h3><span class="fa fa-floppy-o"></span> Stock Information</h3>
+           
+
+          <ul class="list-group">
+            <li class="list-group-item">Quantity :  <%= @material.quantity_value %> <%= @material.quantity.unit_name %></li>
+            <li class="list-group-item">StockNo: <%= @material.stockNo  %></li>
+            <li class="list-group-item">Shelf No: <%= @material.shelfNo  %></li>
+            <li class="list-group-item">Min Number: <%= @material.Min_Number %></li>
+          </ul>
+        </div>
+
+       <div class="reg_section">   
+        <h3><span class="fa fa-calendar"></span> Material Date</h3>
+          
+
+          <ul class="list-group">
+            <li class="list-group-item">Production date: <%= @material.production_date %></li>
+            <li class="list-group-item">Expiration date: <%= @material.expiration_date %></li>
+          </ul>
       </div>
 
-      <ul class="list-group">
-        <li class="list-group-item">Serial_Number: <%= @material.serial_number %></li>
-        <li class="list-group-item">Price: <%= @material.price %></li>
-      </ul>
-
-
-      <div class="page-header">
-          <h1><span class="fa fa-floppy-o"></span> Stock Info.</h1>
-      </div>
-
-      <ul class="list-group">
-        <li class="list-group-item">Quantity :  <%= @material.quantity_value %> <%= @material.quantity.unit_name %></li>
-        <li class="list-group-item">StockNo: <%= @material.stockNo  %></li>
-        <li class="list-group-item">Shelf No: <%= @material.shelfNo  %></li>
-        <li class="list-group-item">Min Number: <%= @material.Min_Number %></li>
-      </ul>
-
-      <div class="page-header">
-          <h1><span class="fa fa-calendar"></span> Material Date</h1>
-      </div>
-
-      <ul class="list-group">
-        <li class="list-group-item">Production date: <%= @material.production_date %></li>
-        <li class="list-group-item">Expiration date: <%= @material.expiration_date %></li>
-      </ul>
-
-      <div class="page-header">
-          <h1><span class="fa fa-user"></span> Material Vendor</h1>
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item"> Vendor Name: <%= @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
-      </ul>     
-       
-      <div class="page-header">
-          <h1><span class="fa fa-list-ul"></span> Material Properties</h1>
-      </div>
-
-      <ul class="list-group">
-        <% index = 1%>
-        <% @material_properties.each do |materialproperty| %>
-            <li class="list-group-item">
-              <%= materialproperty.property.name %> : 
-              <%= materialproperty.value %>
+        <div class="reg_section">
+              <h3><span class="fa fa-user"></span> Material Vendor</h3>
+         
+          <ul class="list-group">
+            <li class="list-group-item"> Vendor Name: <%= @material_vendor.where("material_id=? AND date IS NULL",@material.id).order(updated_at: :desc)[0].vendor.name %></li>
+            <li class="list-group-item">Material_Vendors_History: 
+            <button id="showvendorhistory" onclick="showvendorhistory()" class="btn btn-sm btn-info" style="margin-left: 300px;">Show History</button>
+            <% @allvendors =  @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)%>
+            <table class="table table-hover table-responsive " id="historytable" style="display:none;">
+            <tr class="success">
+              <th class="text-center"><h3>Vendor Name</h3></th>
+              <th class="text-center"><h3>Start Date</h3></th>
+              <th class="text-center"><h3>End Date</h3></th>
+            </tr>
+              <% @allvendors.each do |vendor| %>
+                <tr class="success">
+                  <% next if vendor.date == nil %>
+                  <td class="text-center"><%=vendor.vendor.name%></td>
+                  <td class="text-center"><%=vendor.created_at.strftime('%Y-%m-%d')%></td>
+                  <td class="text-center"><%=vendor.date%></td>
+                </tr>
+              <% end -%>
+            </table>
             </li>
-            <%index+=1%>
-        <%end%>   
-      </ul>
-    </div>
-  </div>
+          </ul>     
+      </div>
+
+         <div class="reg_section">
+              <h3><span class="fa fa-list-ul"></span> Material Properties</h3>
+        
+
+          <ul class="list-group">
+            <% index = 1%>
+            <% @material_properties.each do |materialproperty| %>
+                <li class="list-group-item text-capitalize">
+                  <%= materialproperty.property.name %> : 
+                  <%= materialproperty.value %>
+                </li>
+                <%index+=1%>
+            <%end%>   
+          </ul>
+        </div>
+        </section>
+        </div>
+         
+      </div>
+ 
 </div>  
 
