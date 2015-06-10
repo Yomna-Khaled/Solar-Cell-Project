@@ -9,14 +9,20 @@ class ShiftsController < ApplicationController
   def render_404      
      render :file => "/public/404.html", :status => 404
   end
+
+  def allshifts
+    if current_category.category=="Admin"
+      @shifts = Shift.all
+      @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
+  end  
    
   def report
-
-      if logged_in? and current_category.category=="Shift Manager"
-	    
+      if  current_category.category=="Shift Manager" or current_category.category=="Admin"
 	    puts params[:id]
 	    @total_power=0
-
 	    @shift = Shift.where("id = ? ", params[:id])
 	    if @shift[0].end_shift_date != nil 
 	
@@ -55,13 +61,9 @@ class ShiftsController < ApplicationController
   end
 
   def index
-
- 
    if logged_in? and current_category.category=="Shift Manager"
-
     @shifts = Shift.where("employee_id = ?" , current_user.id )
     @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
-
     @manager = current_user.full_name
     respond_to do |format|
       format.html
@@ -70,8 +72,7 @@ class ShiftsController < ApplicationController
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
-
-     else
+    else
       render :file => "/public/404.html",:status  => "404"  
     end 
   end
@@ -79,7 +80,7 @@ class ShiftsController < ApplicationController
   # GET /shifts/1
   # GET /shifts/1.json
   def show
-     if logged_in? and current_category.category=="Shift Manager"
+     if current_category.category=="Shift Manager" or current_category.category=="Admin"
      else
       render :file => "/public/404.html",:status  => "404" 
     end   
@@ -102,6 +103,8 @@ class ShiftsController < ApplicationController
       render :file => "/public/404.html",:status  => "404"    
     end
   end
+
+
 
   # POST /shifts
   # POST /shifts.json
@@ -173,7 +176,7 @@ class ShiftsController < ApplicationController
 
   def startshift
 
-if logged_in? and current_category.category=="Shift Manager" 
+if current_category.category=="Shift Manager" 
      @shift = Shift.new(start_shift_params)
       
            respond_to do |format|
@@ -223,7 +226,7 @@ if logged_in? and current_category.category=="Shift Manager"
 	    respond_to do |format|
 	     if @shift.update(end_shift_params)
 
-		format.html { redirect_to shifts_path, notice: 'Shift was successfully updated.' }
+		format.html { redirect_to shifts_path }
 		format.json { render :show, status: :ok, location: @shift }
 	      else
 		@inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
@@ -262,14 +265,6 @@ if logged_in? and current_category.category=="Shift Manager"
     end 
   end
   
-
-
-
-
-
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shift

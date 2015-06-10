@@ -8,7 +8,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts
   # GET /spare_parts.json
   def index
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
         @spare_parts = SparePart.all
         @spare_parts = SparePart.paginate(:page => params[:page], :per_page => 6)
     else
@@ -19,7 +19,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/1
   # GET /spare_parts/1.json
   def show
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
      else
       render :file => "/public/404.html",:status  => "404"  
     end

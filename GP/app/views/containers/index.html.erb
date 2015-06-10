@@ -12,7 +12,9 @@
 		        <th class="text-center"><h3>Price</h3></th>
 		        <th class="text-center"><h3>Total power</h3></th>
 		        <th class="text-center"><h3>Show</h3></th>
+		        <% if current_category.category!="Admin" %>
 		        <th class="text-center"><h3>Edit</h3></th>
+		        <%end%>
 		      </tr>
 		    </thead>
 			<tbody>
@@ -24,7 +26,9 @@
 				      <td class="text-center"><%= container.price %></td>
 				      <td class="text-center"><%= container.total_power %></td>
 				      <td class="text-center"><%= link_to 'Show', container, class:"btn btn-info" %></td>
+				      <% if current_category.category!="Admin" %>
 				      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
+				      <%end%>
 				      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
 		                       
                                          <button  class="btn btn-danger"  onclick="mychange(this)">+</button>

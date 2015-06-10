@@ -9,7 +9,7 @@ class CrewsController < ApplicationController
   end
   
   def index
-    if logged_in? and current_category.category=="HR"
+    if current_category.category=="HR" or current_category.category=="Admin"
       @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html", :status => 404 
@@ -18,7 +18,7 @@ class CrewsController < ApplicationController
 
   # GET /crews/1
   def show
-    if logged_in? and current_category.category=="HR"
+    if  current_category.category=="HR" or current_category.category=="Admin"
     @crew = Crew.find(params[:id])
     @employees = Employee.where("crew_id = ?" , params[:id])
     else

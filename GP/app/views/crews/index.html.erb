@@ -9,7 +9,9 @@
                   <th class="text-center"><h3>Crew Name</h3></th>
                   <th class="text-center"><h3>No of workers</h3></th>
                   <th class="text-center"><h3>Show</h3></th>
+                  <% if current_category.category!="Admin" %>
                   <th class="text-center"><h3>Edit</h3></th>
+                  <%end%>
                 </tr>
               </thead>
               <tbody>
@@ -18,7 +20,9 @@
                     <td class="text-center"><%= crew.name %></td>
                     <td class="text-center"><%= crew.no_of_workers %></td>
                     <td class="text-center"><%= link_to 'Show', crew, class:"btn btn-info" %></td>
+                    <% if current_category.category!="Admin" %>
                     <td class="text-center"><%= link_to 'Edit', edit_crew_path(crew), class:"btn btn-danger"  %></td>
+                    <%end%>
                   </tr>
                 <% end %>
               </tbody>

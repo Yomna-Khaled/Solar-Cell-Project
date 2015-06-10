@@ -41,6 +41,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <p>you can go to <span><a href="/employees">home</a></span> page</p>
           <% elsif (current_category.category=="Sales")%>
             <p>you can go to <span><a href="/sold_panels/new">home</a></span> page</p>
+          <% elsif (current_category.category=="Admin")%>
+            <p>you can go to <span><a href="/materials">home</a></span> page</p>
           <% else %>
             <p>you can go to <span><a <%redirect_to  @employee %>>home</a></span> page</p>
           <% end %>

@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   end
   
   def index
-    if logged_in? and current_category.category=="HR"
+    if current_category.category=="HR" or current_category.category=="Admin"
       @employees = Employee.all
       @employees = Employee.paginate(:page => params[:page], :per_page => 6)
     else
@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1
   def show
-    if current_category.category=="HR" or @employee.id == current_user.id
+    if current_category.category=="HR" or @employee.id == current_user.id or current_category.category=="Admin"
       @employee_phones = EmployeePhone.where("employee_id=?",@employee.id)
     else
       render :file => "/public/404.html",:status  => "404" 

@@ -8,7 +8,7 @@ class MachinesController < ApplicationController
   # GET /machines
   # GET /machines.json
   def index
-    if logged_in? and (current_category.category=="Sales")
+    if current_category.category=="Sales"or current_category.category=="Admin"
        @machines = Machine.all
     else
        render :file => "/public/404.html",:status  => "404"  
@@ -17,7 +17,7 @@ class MachinesController < ApplicationController
 
   # GET /machines/1
   def show
-    if logged_in? and (current_category.category=="Sales")
+    if current_category.category=="Sales" or current_category.category=="Admin"
       else
        render :file => "/public/404.html",:status  => "404"  
      end

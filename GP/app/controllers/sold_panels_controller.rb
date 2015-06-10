@@ -8,7 +8,7 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels
   # GET /sold_panels.json
   def index
-    if logged_in? and  current_category.category=="Sales"
+    if current_category.category=="Sales" or current_category.category=="Admin"
       @sold_panels = SoldPanel.all
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -18,7 +18,7 @@ class SoldPanelsController < ApplicationController
   # GET /sold_panels/1
   # GET /sold_panels/1.json
   def show
-    if logged_in? and  current_category.category=="Sales"
+    if  current_category.category=="Sales" or current_category.category=="Admin"
       puts @sold_panel.buyer_id
       @buyer=Buyer.where("id= ?",@sold_panel.buyer_id)
       puts @buyer.name
