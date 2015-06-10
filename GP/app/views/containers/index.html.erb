@@ -27,7 +27,7 @@
 				      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
 				      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
 		                       
-                                         <button  class="btn btn-danger"  onclick="mychange(this)">+</button>
+                                         <button  class="btn btn-danger" id="mybtn" >+</button>
                                       
 		              </td>            
 				    </tr>
@@ -44,7 +44,7 @@
 											<td><h3>Sub Type</h3></td>	
 											<td><h3>Cells no.</h3></td>  
 											<td><h3>power</h3></td>
-				                                
+				                                                        <td><h3>sold</h3></td>
 						              	</tr>
 							    	</thead> 
 				                    <tbody>
@@ -56,13 +56,17 @@
 									       <td ><%= solar_panel.subtype%> </td>	              
 											  <td > <%= solar_panel.cellno %></td> 
 											  <td ><%= solar_panel.power %></td>
-				                               
+				                                                          <% if solar_panel.sold_panel_id.nil?%> 
+				                                                          <td ><span class="fa fa-times"></span></td>
+                                                                                        <% else %>   
+                                                                                      <td ><span class="fa fa-check"></span></td>
+                                                                                        <%end%>  
 							     		  </tr>  
 							    		<% end %> 
 				                    </tbody> 
 			                    </table>
                                       <%else%>
-                                          <div class="collapse , demo<%=i%> alert alert-danger " >no panels"</div>   
+                                        <div> <div> <div class="collapse , demo<%=i%> alert alert-danger " >no panels"</div></div></div>   
                                       <% end %> 
 		               </td>
 		             </tr>
@@ -77,20 +81,13 @@
 </div>
   
 <script>
-var mychange = function(param) {     
+$('.collapse').on('shown.bs.collapse', function (e) {
 
-if (param.innerHTML=="+"){
-
- param.innerHTML="-";
-
-}
-
-else if (param.innerHTML=="-")
-{
- param.innerHTML="+";
-}
-
-};
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('-')
+})
+$('.collapse').on('hidden.bs.collapse', function (e) {
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('+')
+})
 
 
 </script>

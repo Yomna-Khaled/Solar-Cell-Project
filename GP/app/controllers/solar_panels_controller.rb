@@ -1,6 +1,7 @@
 class SolarPanelsController < ApplicationController
   before_action :set_solar_panel, only: [:show, :edit, :update, :destroy]
   before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
+  skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
@@ -70,7 +71,7 @@ class SolarPanelsController < ApplicationController
     if logged_in? and( current_category.category=="Shift Manager" )
       @flag=true
 	    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
-      @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f)) 
+      @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f),:power=>solar_panel_params[:power].to_f) 
 	    respond_to do |format|
 	      if @solar_panel.save
                @shift[0].update_attributes(:production_rate => ((@shift[0].production_rate)+1))  
@@ -97,7 +98,7 @@ class SolarPanelsController < ApplicationController
             @oldcontainer=Container.find(@old_solar_panel.container_id)
             @power=@oldcontainer.total_power-@old_solar_panel.power 
             @oldcontainer.update_attributes(:total_power => @power)
-            if @solar_panel.update(solar_panel_params)
+            if @solar_panel.update(solar_panel_params.merge!(:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f))
                 @container=Container.find(@solar_panel.container_id)     
                 @power=@container.total_power+@solar_panel.power 
                 @container.update_attributes(:total_power => @power)

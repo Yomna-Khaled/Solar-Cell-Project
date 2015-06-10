@@ -1,4 +1,5 @@
 class QuantitiesController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_quantity, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

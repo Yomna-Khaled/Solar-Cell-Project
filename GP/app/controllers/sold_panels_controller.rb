@@ -1,6 +1,7 @@
 class SoldPanelsController < ApplicationController
   before_action :set_sold_panel, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  skip_before_action :verify_authenticity_token
 # Render 404 page when record not found
   def render_404      
      render :file => "/public/404.html", :status => 404
