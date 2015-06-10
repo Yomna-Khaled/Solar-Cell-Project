@@ -204,7 +204,7 @@
 
       <h1><span class="fa fa-info-circle"></span> Material Vendor </h1>
     <h3>Vendor </h3>
-    <select id="vendor" name="vendor">
+    <select id="vendor" name="vendor" required >
       <% @vendors.each do |vendor| %>
         <% if @flag == "new" %>
           <option value="<%= vendor.id %>"><%= vendor.name %></option>

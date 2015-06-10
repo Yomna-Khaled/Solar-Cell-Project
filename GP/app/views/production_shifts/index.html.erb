@@ -34,7 +34,7 @@
   function accept(ptr){
     var i = ptr.parentNode.parentNode.rowIndex;
     console.log(ptr.parentNode.parentNode.id);
-    alert(ptr.id.split("_")[2]);
+   
     $.ajax({
       type: "POST",
       url: "/production_shifts/accept",

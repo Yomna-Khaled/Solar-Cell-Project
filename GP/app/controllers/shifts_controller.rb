@@ -1,7 +1,9 @@
 class ShiftsController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_shift, only: [:show,:edit, :update, :destroy]
   before_action :end_set_shift, only: [:showendshift,:endshift] #showendshift render end view
   before_action  :set_controller_serial_ids,only:[:currentshift]
+   
   # GET /shifts
   # GET /shifts.json
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -269,6 +271,7 @@ if current_category.category=="Shift Manager"
     # Use callbacks to share common setup or constraints between actions.
     def set_shift
       @shift = Shift.find(params[:id])
+      
     end
     def end_set_shift
       @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first

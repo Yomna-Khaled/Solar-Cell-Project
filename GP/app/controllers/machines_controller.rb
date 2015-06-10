@@ -1,4 +1,5 @@
 class MachinesController < ApplicationController  
+   skip_before_action :verify_authenticity_token
   before_action :set_machine, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
@@ -17,7 +18,7 @@ class MachinesController < ApplicationController
 
   # GET /machines/1
   def show
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if false
       else
        render :file => "/public/404.html",:status  => "404"  
      end
@@ -44,7 +45,8 @@ class MachinesController < ApplicationController
 
     respond_to do |format|
       if @machine.save
-        format.html { redirect_to @machine  }
+
+        format.html { redirect_to  machines_path  }
         format.json { render :show, status: :created, location: @machine }
       else
         format.html { render :new }
@@ -67,7 +69,7 @@ class MachinesController < ApplicationController
   def update
     respond_to do |format|
       if @machine.update(machine_params)
-        format.html { redirect_to @machine  }
+        format.html { redirect_to machines_path  }
         format.json { render :show, status: :ok, location: @machine }
       else
         format.html { render :edit }

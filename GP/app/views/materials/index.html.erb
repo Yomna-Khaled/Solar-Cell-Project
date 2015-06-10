@@ -35,7 +35,7 @@
                 <td class="text-center text-capitalize"><%= material.name %></td>
                 <td class="text-center"><%= material.serial_number %></td>
                 <td class="text-center"><%= material.quantity_value %>_<%= material.quantity.unit_name %></td>
-                <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
+                <td class="text-center"><%= @material_vendor.where("material_id=? AND date IS NULL",material.id).order(updated_at: :desc)[0].vendor.name %></td>
                 <% if current_category.category!="Stock Keeper"%>
                 <td class="text-center"><%= material.price %></td>
                 <% end %>

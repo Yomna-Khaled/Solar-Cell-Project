@@ -1,4 +1,5 @@
 
+
 <div class="container" style="width: calc(80%);">
  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Panels</h1>
  <section class="register" >  
@@ -9,23 +10,25 @@
 
 <div class="row">
   
-    <select class="target col-md-3" style="width:110px;margin-left:10px;margin-top:15px" >
+ <!--    <select class="target col-md-3" style="width:110px;margin-left:10px;margin-top:15px" >
         <option value="all">All</option>
         <option value="sold">Sold</option>
         <option value="unsold">Unsold</option>
     
-    </select> 
+    </select> --> 
  
    
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
     
-        
-    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class:"col-md-3" ,style:"width:300px;") %>
+        <%= select_tag(:soldtype, options_for_select([['ALL', 'all'], ['Sold', 'sold'],['Unsold','unsold']]),onchange: "searchciteria()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
+
+    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class: "col-md-3" ,style:"width:300px;") %>
       
 
         
         <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
-        <%= hidden_field_tag :searchciteria, "power" %>
+        <%= hidden_field_tag :searchcriteria, "power" %>
+        <%= hidden_field_tag :soldornot, "ALL" %>
         
        
         
@@ -39,9 +42,9 @@
 </div>
   <section class="register" >  
     <div class="reg_section">
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-responsive mytable" >
           <thead>
-            <tr>
+            <tr class="sold unsold">
             	  <th class="text-center" ><h3>Serialno</h3></th>
             	  <th class="text-center" ><h3>Type</h3></th>
             	  <th class="text-center" ><h3>Subtype</h3></th>
@@ -78,24 +81,5 @@
  </div>
 
 </div> 
-<script>
-var rows = $('table.mytable tr');
 
 
-$( ".target" ).change(function() {
-if ($(".target").val()=="unsold")
-{
-    var unsold = rows.filter('.unsold').show();
-    rows.not( unsold ).hide();
-}
-else if ($(".target").val()=="sold")
-{
-var sold = rows.filter('.sold').show();
-    rows.not( sold ).hide();
-}
-else
-{
-rows.show();
-}
-});
-</script>

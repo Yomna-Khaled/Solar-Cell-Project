@@ -1,7 +1,7 @@
 
   
 
-<div class="container" style="width: calc(80%);">
+<div class="container" style="width: calc(90%);">
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-book"></span> My Shifts</h1>
 
 <section class="register" >  
@@ -10,21 +10,21 @@
 		  <thead>
 		    <tr>
 		      
-		      <th>Crew</th>
-		      <th>Start shift date</th>
-		      <th>End shift date</th>
-		      <th>Start shift time</th>
-		      <th>End shift time</th>
-		      <th>Production rate</th>
-		      <th>Show</th>
-		      <th>print report</th>
+		      <th><h3>Crew</h3></th>
+		      <th><h3>Start shift date</h3></th>
+		      <th><h3>End shift date</h3></th>
+		      <th><h3>Start shift time</h3></th>
+		      <th><h3>End shift time</h3></th>
+		      <th><h3>Production rate</h3></th>
+		      <th><h3>Show</h3></th>
+		      <th><h3>Report</h3></th>
 		    
 		    </tr>
 		  </thead>
 
-		  <tbody>
-            <% i=0 %>
-		    <% @shifts.each do |shift| %>   
+		  	<tbody>
+            	<% i=0 %>
+		    	<% @shifts.each do |shift| %>   
 
 				<td><%= shift.crew.name %></td>
 				<td><%= shift.start_shift_date %></td>
@@ -33,83 +33,76 @@
 				<%unless shift.end_shift_time.nil?%>
 					<td><%= shift.end_shift_time.strftime('%H:%M:%S') %></td>
 
-					<% else %>
-                                        <td></td>  
-                                        <%end%>
-					<td><%= shift.production_rate %></td>
-					<td><%= link_to 'Show', shift %></td>
-					<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") %></td>
-					<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-					 <button  class="btn btn-danger"  onclick="mychange(this)">+</button>
-					</td>
-		       
+				<% else %>
+                	<td></td>  
+                 <%end%>
+				<td><%= shift.production_rate %></td>
+				<td><%= link_to 'Show', shift, class: "btn btn-info"  %></td>
+				<td> <%= link_to "Download", report_path( :id => shift.id , :format => "pdf") , class: "btn btn-primary" %></td>
+				<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
+				<button  class="btn btn-warning" id="mybtn"  >+</button>
+				</td>
+	       
+		
 
-			 </tr>
-                     
-		       <tr>
-			<td  colspan="12" style="border:0px; padding:0px">
-			<% if shift.solar_panels.length > 0 %>
-                          <table class="table table-hover">
-				<thead>
-					<tr class="collapse , demo<%=i%>">
+		       <tr >
 
-						<th text-align="center">serialNo</th>
-						<th text-align="center">power</th>
-						<th text-align="center">celltype</th>
-						<th text-align="center">sub type</th>
+						<td colspan="12" style="border:0px; padding:0px">
+						<% if shift.solar_panels.length > 0 %>
+						<table class="table table-hover">
+							<thead>
+								<tr class="collapse , demo<%=i%> success" >
+									<th text-align="center"><h3>serialNo</h3></th>
+									<th text-align="center"><h3>power</h3></th>
+									<th text-align="center"><h3>celltype</h3></th>
+									<th text-align="center"><h3>sub type</h3></th>
+							 		<th text-align="center"><h3> Edit</h3></th> 
+			                        <th text-align="center"><h3>show</h3></th>  
+						 		</tr>
+			                </thead>
+							<tbody>
+			                    <% shift.solar_panels.each do |solar_panel| %>  
+							    <tr class="collapse , demo<%=i%> success" >
+							   	
+								    <td><%= solar_panel.serialNo%></td> 
+								    <td><%= solar_panel.power %></td>
+								    <td><%= solar_panel.celltype %></td>
+								    <td><%= solar_panel.subtype%></td>
+								    
+								    <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-danger" %></td>
+							        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>  
 						 
-				 		<th text-align="center"><span class="fa fa-edit">Edit</th> 
-                                                <th text-align="center">show</th>  
-			 		</tr>
-                                   </thead>
-				    <tbody>
-                                    <% shift.solar_panels.each do |solar_panel| %>  
-				    <tr class="collapse , demo<%=i%>" >
-				   	
-					    <td><%= solar_panel.serialNo%></td> 
-					    <td><%= solar_panel.power %></td>
-					    <td><%= solar_panel.celltype %></td>
-					    <td><%= solar_panel.subtype%></td>
-					    
-					    <td><%= button_to 'Edit', edit_solar_panel_path(solar_panel),method: :get %></td>
-				            <td><%= button_to 'show', solar_panel_path(solar_panel),method: :get %></td>  
-			  
-					
-				     </tr> 
-				     <% end %>
-                                  </tbody>
-		                  </table>
-                              <%else%>
-                                <div class="collapse , demo<%=i%>" >"no panels"</div>   
-                               <% end %>  
-				   </td></tr>
+							    </tr> 
+							    <% end %>
+			                </tbody>
+					</table>
+				<%else%>
+                                         <div> <div> <div class="collapse , demo<%=i%> alert alert-danger " >no panels</div></div></div>   
+                               <% end %> 
+						</td>
+
 				   <% i=i+1 %>
-	
-    <% end %>
+			</tr>
+    	<% end %>
   
-  </tbody>
-</table>
+  		</tbody>
+	</table>
 
 <%= will_paginate @shifts, renderer: BootstrapPagination::Rails %>
 
 </div>      
+</section>
+</div>
 
-<br>
+
 <script>
-var mychange = function(param) {     
+$('.collapse').on('shown.bs.collapse', function (e) {
 
-if (param.innerHTML=="+"){
-
- param.innerHTML="-";
-
-}
-
-else if (param.innerHTML=="-")
-{
- param.innerHTML="+";
-}
-
-};
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('-')
+})
+$('.collapse').on('hidden.bs.collapse', function (e) {
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('+')
+})
 
 
 </script>

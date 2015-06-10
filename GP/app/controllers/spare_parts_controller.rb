@@ -1,6 +1,7 @@
 class SparePartsController < ApplicationController
   before_action :set_spare_part, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  skip_before_action :verify_authenticity_token
 # Render 404 page when record not found
   def render_404      
      render :file => "/public/404.html", :status => 404
@@ -43,7 +44,7 @@ class SparePartsController < ApplicationController
     if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
       @vendors = Vendor.all
       @machines = Machine.all 
-      @sparevendor = VendorSpare.where("spare_part_id=?",@spare_part.id)
+      @sparevendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id)
       @sparevendor_sorted = @sparevendor.order(updated_at: :desc)
       @vendor_id =  @sparevendor_sorted[0].vendor_id
       @flag="edit"
@@ -82,12 +83,18 @@ class SparePartsController < ApplicationController
   # PATCH/PUT /spare_parts/1.json
   def update
     @vendoredit_id = params['vendor']; #to get vendor of certain material
-    @vendororiginal_id = VendorSpare.where("spare_part_id=?",@spare_part.id)[0].vendor_id
+    @current_vendor_record = VendorSpare.where("spare_part_id=? AND date IS NULL ",@spare_part.id)
+    @vendororiginal_id = @current_vendor_record[0].vendor_id
     respond_to do |format|
       if @spare_part.update(spare_part_params)
         if @vendoredit_id != @vendororiginal_id
-         @vendorspare = VendorSpare.new(vendor_id: @vendor_id, spare_part_id: @spare_part.id )
-         @vendorspare.save
+        @record_id = @current_vendor_record[0].id
+        # update last record to set end date for last vendor
+        @last_sparepart_vendor = VendorSpare.find_by(id: @record_id)
+        @last_sparepart_vendor.update(date: Date.today)
+        # create new record with the new vendor for this material
+        @vendorspare = VendorSpare.new(spare_part_id: @spare_part.id, vendor_id: @vendoredit_id) 
+        @vendorspare.save 
         end
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
         format.json { render :show, status: :ok, location: @spare_part }

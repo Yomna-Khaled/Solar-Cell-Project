@@ -1,4 +1,5 @@
 class LookupPricesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_lookup_price, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
