@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
      render :file => "/public/404.html", :status => 404
   end
   def new
-    if logged_in?
-      flash[:success] = 'You are already logged_in' # Not quite right!    
+    if logged_in?   
       redirect_to current_user
     end
   end
