@@ -1,6 +1,7 @@
 class SolarPanelsController < ApplicationController
   before_action :set_solar_panel, only: [:show, :edit, :update, :destroy]
   before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
+  skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      

@@ -27,7 +27,7 @@
 				      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
 				      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
 		                       
-                                         <button  class="btn btn-danger"  onclick="mychange(this)">+</button>
+                                         <button  class="btn btn-danger" id="mybtn" >+</button>
                                       
 		              </td>            
 				    </tr>
@@ -66,7 +66,7 @@
 				                    </tbody> 
 			                    </table>
                                       <%else%>
-                                          <div class="collapse , demo<%=i%> alert alert-danger " >no panels"</div>   
+                                        <div> <div> <div class="collapse , demo<%=i%> alert alert-danger " >no panels"</div></div></div>   
                                       <% end %> 
 		               </td>
 		             </tr>
@@ -81,20 +81,13 @@
 </div>
   
 <script>
-var mychange = function(param) {     
+$('.collapse').on('shown.bs.collapse', function (e) {
 
-if (param.innerHTML=="+"){
-
- param.innerHTML="-";
-
-}
-
-else if (param.innerHTML=="-")
-{
- param.innerHTML="+";
-}
-
-};
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('-')
+})
+$('.collapse').on('hidden.bs.collapse', function (e) {
+$(e.currentTarget).parent().parent().parent().parent().prev().find('#mybtn').text('+')
+})
 
 
 </script>

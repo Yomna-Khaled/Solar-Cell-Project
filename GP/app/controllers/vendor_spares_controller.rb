@@ -1,5 +1,6 @@
 class VendorSparesController < ApplicationController
   before_action :set_vendor_spare, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      

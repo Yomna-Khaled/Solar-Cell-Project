@@ -1,6 +1,7 @@
 class SolarPanelsController < ApplicationController
   before_action :set_solar_panel, only: [:show, :edit, :update, :destroy]
   before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
+    skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
@@ -12,10 +13,10 @@ class SolarPanelsController < ApplicationController
   def index
     if logged_in? and current_category.category=="Sales"
       if params[:search]
-        if params[:searchciteria] == 'serialno'
-          @solar_panels = SolarPanel.searchserialno(params[:search]).order("created_at DESC")
+        if params[:searchcriteria] == 'serialno'
+          @solar_panels = SolarPanel.searchserialno(params[:search],params[:soldornot]).order("created_at DESC")
         else
-          @solar_panels = SolarPanel.searchpower(params[:search]).order("created_at DESC")
+          @solar_panels = SolarPanel.searchpower(params[:search],params[:soldornot]).order("created_at DESC")
         end
       else
        @solar_panels = SolarPanel.all

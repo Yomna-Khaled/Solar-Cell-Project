@@ -1,39 +1,55 @@
 
-<%= hidden_field_tag("current_shift_id", current_shift.id, :id => "current_shift_id") %>
+<div class="container" style="width: calc(70%);">
 
-<p>
-  <strong>Employee:</strong>
-  <%= @shift.employee.full_name %>
-</p>
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span>  Shift Information</h1>
 
-<p>
-  <strong>Crew:</strong>
-  <%= @shift.crew.name %>
-</p>
+    <section class="register">
+      <div class="form-group reg_section ">
+	   
+		      <ul class="list-group">
+					   <li class="list-group-item">
+                <h3 style="display:inline-block;"> <span class="fa fa-user"></span> shiftmanager:</h3> 
+                <p style="display:inline-block; font-size:20px;"><%= @shift.employee.full_name %> </p> 
+                                              
+             </li>
+					   <li class="list-group-item">
+                <h3 style="display:inline-block;"><strong>  crew name:</strong></h3> 
+                <p style="display:inline-block; font-size:20px;"><%= @shift.crew.name %></p>
+             </li>
+					   <li class="list-group-item">
+                <h3 style="display:inline-block;"><strong> <span class="fa fa-calendar"></span> start_shift_date: </strong></h3>  
+                <p style="display:inline-block;font-size:20px;"><%= @shift.start_shift_date %></p>
+             </li>   
+            <li class="list-group-item">
+                <h3 style="display:inline-block;"><span class="fa fa-clock-o"></span> <strong>start_shift_time:</strong></h3> 
+                <p style="display:inline-block;font-size:20px;"><%= @shift.start_shift_time.strftime('%H:%M:%S') %></p>
+            </li>
+               </li>
+					   <li class="list-group-item">
+                <h3 style="display:inline-block;"><strong> <span class="fa fa-calendar"></span> end_shift_date: </strong></h3>  
+                <p style="display:inline-block;font-size:20px;"><%= @shift.end_shift_date %></p>
+             </li>   
+            <li class="list-group-item">
+                <h3 style="display:inline-block;"><span class="fa fa-clock-o"></span> <strong>end_shift_time:</strong></h3> 
+               <%unless @shift.end_shift_time.nil?%>
+                  <p style="display:inline-block;font-size:20px;"> <%= @shift.end_shift_time.strftime('%H:%M:%S') %></p>
+               <% else %>
+  
+               <% end %>                           
+            </li>		
+			
+            <li class="list-group-item">
+                <h3 style="display:inline-block;"><strong><span class="fa fa-sort-numeric-asc"></span> No.of produced panel:</strong></h3>
+                <p style="display:inline-block;font-size:20px;"><%= @shift.production_rate %></p>
+            </li>
+					  
+            
+					        
+		    </ul>  
 
-<p>
-  <strong>Start shift date:</strong>
-  <%= @shift.start_shift_date %>
-</p>
+    </div>
+  </section>
 
-<p>
-  <strong>End shift date:</strong>
-  <%= @shift.end_shift_date %>
-</p>
 
-<p>
-  <strong>Start shift time:</strong>
-  <%= @shift.start_shift_time %>
-</p>
-
-<p>
-  <strong>End shift time:</strong>
-  <%= @shift.end_shift_time %>
-</p>
-
-<p>
-  <strong>Production rate:</strong>
-  <%= @shift.production_rate %>
-</p>
-
+</div>
 

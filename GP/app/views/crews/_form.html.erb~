@@ -1,58 +1,148 @@
 <%= form_for(@crew) do |f| %>
-  <% if @crew.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+  <section class="register">
+    <div class="form-group reg_section ">
+        <h1><span class="fa fa-info-circle"></span> Crew Information</h1>
+        <h3>Crew Name</h3>
+        <%= f.text_field :name, class: 'w' , placeholder: "Enter crew name" ,id: "crew"%>
+        <% if @crew.errors[:name] %>
+          <div class="text-danger">
+            <ul>
+              <% @crew.errors[:name].each do |msg| %>
+                <li>*Crew Name <%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-      <ul>
-      <% @crew.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <h3>Number of workers</h3>
+          <%if( @clear==1 ) %>
+              <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()",value:""%>
+          <% end %>
+          <%if( @clear!=1 ) %>
+              <%= f.text_field :no_of_workers, class: 'w' , placeholder: "Enter Numbers of workers" ,id: "no_of_workers" ,onkeyup: "addworkers()"%>
+          <% end %>
+        <div id="versionsDiv">
+        </div>
+        <div id="Div">
+        </div>
+        <br>
+        <%= hidden_field_tag("workers", "", :id => "workers") %>
+<div class="modal" id="basicModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :no_of_workers %><br>
-   <%= f.text_field :no_of_workers , id: "member", name: "member", value: "" %>
-   
   </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-<a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
-    <div id="containe"/>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</div>
+        <div class="actions">
+          <%= f.submit :submit, class: 'btn btn-primary' ,disabled: @disabled, id:"btn" %>
+        </div>
+        <h1> <span class="fa fa-user"></span> Names of employees</h1>
+        <div id="Woker_names" class="text-capitalize">
+          <% if @flag_new==0 %>
+            <% @employees.each do |employee| %>
+              <%= employee.full_name %> <br>
+            <% end %>
+          <% end %>
+        </div>
+        <p id="number_of_normal_workers" hidden><%= @number_of_normal_workers  %></p>
+        <p id="workers_in_crews" hidden><%= @number_of_normal_workers  %></p>
+      </div>
+  </section> 
 <% end %>
 
+  
+<script type="text/javascript">
+    var counter = 0;
+    var no_workers = 0 ;
+    var ids = new Array(); 
+    var Woker_names = document.getElementById("Woker_names");
+    var number_of_normal_workers = document.getElementById("number_of_normal_workers").innerHTML;
+  function addworkers () {
+    document.getElementById("btn").disabled = true;
+    Woker_names=document.getElementById("Woker_names");
+    var myNode = document.getElementById("versionsDiv");
+    myNode.innerHTML = ''; //to remove all select menus on key up 
+    Woker_names.innerHTML = ''; //to clear div which appen workers name on it
+    ids = []; //to clear array 
+    counter = 0; //to reset couter
+    document.getElementById("btn").disabled = true;
+    no_workers = document.getElementById( "no_of_workers" ).value;
+    if(no_workers)
+    {
+      if( no_workers % 1 === 0 )
+      {
+        if(Number(number_of_normal_workers) < Number(no_workers))
+        {
+          
+        
+ $('#modal-body').text(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
+		$('#basicModal').modal('toggle'); 
+          
 
-<script type='text/javascript'>
-        function addFields(){
-            // Number of inputs to create
-            var number = document.getElementById("member").value;
-            // Container <div> where dynamic content will be placed
-            var containe = document.getElementById("containe");
-            // Clear previous contents of the container
-            while (containe.hasChildNodes()) {
-                containe.removeChild(containe.lastChild);
-            }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                containe.appendChild(document.createTextNode("Member " + (i+1)));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("select");
-                input.type = "text";
-                input.name = "member" + i;
-                containe.appendChild(input);
-                // Append a line break 
-                containe.appendChild(document.createElement("br"));
-            }
+           document.getElementById( "no_of_workers" ).value= "";
         }
-    </script>
+        else
+        {
+          var posting = $.get( "/crews/get_employees" );
+          for(var i = 0 ; i < Number(no_workers) ; i++)
+          {
+            posting.done(function( data ) {
+              $("#versionsDiv").append(data);
+            });         
+          }                                                  
+        }
+      }
+      else
+      {
+         $('#modal-body').text('Please insert a number');
+		$('#basicModal').modal('toggle'); 
+          
+
+      }
+    }  
+    else
+    {
+      myNode.innerHTML = '';
+    }
+  } 
+
+
+function get_value(elem){  //onchange function of select menu
+  val = elem.value
+  if( ids.indexOf(val)== -1 ) //check if employee is selected before
+  {
+    counter = counter + 1;
+    ids.push(val) 
+    elem.parentElement.style.display = 'none';
+    var para = document.createElement("p");
+    var node = document.createTextNode(elem.options[elem.selectedIndex].text);
+    para.appendChild(node);
+    document.getElementById("Woker_names").appendChild(para)
+    workers = document.getElementById('workers');
+    if(counter == no_workers)  
+    {
+      document.getElementById("btn").disabled = false;
+      workers.value = ids.valueOf();
+      
+    }
+
+  }
+  else
+  {
+      elem.parentElement.style.display = true;
+      BootstrapDialog.alert("Employee is already in the crew");
+  }
+}
+</script>
+
+<%= javascript_include_tag "application" %>
