@@ -1,71 +1,70 @@
-<div class="container text-center">
-<%= form_for(@vendor) do |f| %>
-  <% if @vendor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
 
+<%= form_for(@vendor) do |f| %>
+  
+
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
+    <h3>Name</h3>
+    <%= f.text_field :name %>
+    
+  <% if @vendor.errors[:name].any? %>
+    <div id="error_explanation">  
       <ul>
-      <% @vendor.errors.full_messages.each do |message| %>
+      <% @vendor.errors[:name].each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+  
 
 
-<div class="panel panel-success" style="margin-top: 50px">
-<div class="panel-body">
-
-
-  <div class="field form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :email %><br>
+  
+    <h3><span class="fa fa-envelope"></span> Email</h3>
     <%= f.text_field :email %>
-  </div>
-
-
-
-
-
+    <% if @vendor.errors[:email].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @vendor.errors[:email].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
 
 
 <div class="field form-group">
-   <%= f.label :Phones %><br>
-   <% if @flag == "new" %> 
- <%= fields_for :vendor_phones do |p| %> 	
-    <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+
+
+  <% if @flag == "new" %> 
+        <%= fields_for :vendor_phones do |p| %> 	
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
+	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+        <% end %>
+
+  <%else %>
+      <%= fields_for :vendor_phones do |p| %>
+      <%= phonn = '' %>
+      <% if @phones.blank? %>
+          <p> <%= phonn = '' %> </p>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+      
+      <% else %>
+         <% @phones.each do |f| %>
+          <p> <% phonn = phonn + f.phone + ',' %> </p>
+        <% end %>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)" class="btn btn-link" style="text-align: left"><h3>Delete Phone</h3></a> <br>
+      <% end %> 
     <% end %>
+  <%end %>
 
-<%else %>
-<%= fields_for :vendor_phones do |p| %>
-
-    <%= phonn = '' %>
-
-
-<% if @phones.blank? %>
-
-<p> <%= phonn = '' %> </p>
-
-<% else %>
-
-
-   <% @phones.each do |f| %>
-     <p>
-   <% phonn = phonn + f.phone + ',' %>
-     </p>
-   <% end %>
-<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)">Delete Phone</a> <br>
-<% end %> 
-<% end %>
-<%end %>
 
 </div>
 
-<a href="#" onclick="add()" >Add</a>
+<a href="#" onclick="add()" class="btn btn-link" style="text-align: left"><h3>Add Phone</h3></a>
 
 <div id="phones">
     
@@ -76,13 +75,31 @@
 </div>
 
 
-  <div class="actions form-group">
-    <%= f.submit "Submit", class: "btn btn-success" %>
+
+
+<div class="modal" id="basicModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+      </div>
+    </div>
   </div>
 </div>
+
+  <div class="actions">
+    <%= f.submit "Submit", class: "btn btn-warning" %>
+  </div>
 </div>
 <% end %>
-</div>
+</section >
 
 
 
@@ -90,54 +107,65 @@
 var x=1;
 var counter=0;
 var allValues = '';
+var temp = "";
 allValues=$( "#phone" ).val().slice(0,-1);
 
-
 var add = function() {
-	if (counter === 0 ) {
-		  	 counter =  1;
-		  	 
-		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
-		    x=x+1;
-		    $( "#OK" ).click(function() {
-			var value = $("#1").val();
-		    if (isNaN(value)){
-		        alert('string ');
-		    }else{
-		    	
-			    if (allValues != ''){
-					allValues =  allValues + ',' + value
-				}else{
-				 	allValues =  allValues + value		
-				}
-				$("#phone").val(allValues);
-				$("#1").val('');		
-		    }
+  if (counter === 0 ) {
+         counter =  1;
+        // $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input type="text" id="'+x+'" style="width:350px;" />' ).append( '<input type="button" id="OK" value="ok" class="btn btn-primary"   />' );
+        x=x+1;
+        $( "#OK" ).click(function() {
+      var value = $("#1").val();
+        //if (isNaN(value) || value < 1){
+        re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
+        if (re.test(value)) {
+                if (allValues != ''){
+            allValues =  allValues + ',' + value
+	        }else{
+	          allValues =  allValues + value    
+	        }
+	        $("#phone").val(allValues);
+	        $("#1").val(''); 
+        }else{
+          $('#modal-body').text('Please enter a valid phone number');
+		$('#basicModal').modal('toggle');
+          
 
-		   });
+        }
+
+       });
+
+
     }
+ 
 };
 
-
 var del = function(vendorid) {
-     
-	 var phons_num = $("#phone").val();
-         $("#phone").val('');
-	 var arr = phons_num.split(",");
+
+    var length_of_num = 0;
+    var index =0;
+	 allValues = $("#phone").val();
+   $("#phone").val('');
+	 var arr = allValues.split(",");
+
 	for (var i=0 ; i< arr.length-1 ; i++){
 		 var div=document.createElement("div");
-                 var elem = document.createElement("input");
+     var elem = document.createElement("input");
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
+                 elem.setAttribute("class", "btn-sm btn-danger");
+                 elem.setAttribute("style","margin-left:70px;")
 		 div.id= i;
 		 div.value=arr[i];
                  div.innerHTML = arr[i];
                  elem.onclick=function(){
                    var el = document.getElementById(this.id);
                    var dataString = el.value;
-
-
+               
+                   allValues = allValues.replace(dataString + ',', ""); 
 		    $.ajax({
 			method: "POST",
 			url: '/delPhone',
@@ -148,15 +176,10 @@ var del = function(vendorid) {
 					 el.parentNode.removeChild( el );
 				}
 			});
-
-
 		     };
 
 		    div.appendChild(elem);
-                    document.getElementById('phonedel').appendChild(div);
-	            }
+        document.getElementById('phonedel').appendChild(div);
+	}
 };
-
-
-
 </script>

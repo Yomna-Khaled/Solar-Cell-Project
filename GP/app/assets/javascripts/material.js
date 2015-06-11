@@ -163,3 +163,14 @@ function canceladdproperty(){
 	$("#propertylink").css("display", "block");	
 }
 
+function showvendorhistory () {
+	var button_text = $('#showvendorhistory').text();
+	console.log(button_text);
+	
+	if (button_text == "Show History") {
+		$('#showvendorhistory').text("Hide History");
+	} else{
+		$('#showvendorhistory').text("Show History");
+	};
+	$('#historytable').toggle();
+}

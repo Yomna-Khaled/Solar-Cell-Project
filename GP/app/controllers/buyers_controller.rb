@@ -1,6 +1,8 @@
 class BuyersController < ApplicationController
+   skip_before_action :verify_authenticity_token
   before_action :set_buyer, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  
   # Render 404 page when record not found
   def render_404      
      render :file => "/public/404.html", :status => 404
@@ -8,7 +10,7 @@ class BuyersController < ApplicationController
   # GET /buyers
   # GET /buyers.json
   def index
-    if logged_in? and current_category.category=="Sales"
+    if current_category.category=="Sales" or current_category.category=="Admin"
       @buyers = Buyer.all
       @buyers = Buyer.paginate(:page => params[:page], :per_page => 6)
     else
@@ -24,7 +26,7 @@ class BuyersController < ApplicationController
   # GET /buyers/1
   # GET /buyers/1.json
   def show
-    if logged_in? and current_category.category=="Sales"
+    if current_category.category=="Sales" or current_category.category=="Admin"
       @buyer_phones = BuyerPhone.where("buyer_id=?",@buyer.id)
     else
       render :file => "/public/404.html",:status  => "404" 

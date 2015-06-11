@@ -18,10 +18,12 @@
               <th class="text-center"><h3>Quantity</h3></th>
               <th class="text-center"><h3>Vendor</h3></th> 
               <% if current_category.category!="Stock Keeper"%>
-              <th class="text-center"><h3>Price</h3></th>
+                <th class="text-center"><h3>Price</h3></th>
               <%end%>              
               <th class="text-center"><h3>Show</h3></th>
-              <th class="text-center"><h3>Edit</h3></th>
+              <% if current_category.category!="Admin" %>
+                <th class="text-center"><h3>Edit</h3></th>
+              <% end %>
             </tr>
 
           </thead>
@@ -33,12 +35,14 @@
                 <td class="text-center text-capitalize"><%= material.name %></td>
                 <td class="text-center"><%= material.serial_number %></td>
                 <td class="text-center"><%= material.quantity_value %>_<%= material.quantity.unit_name %></td>
-                <td class="text-center"><%= @material_vendor.where("material_id=?",material.id).order(updated_at: :desc)[0].vendor.name %></td>
+                <td class="text-center"><%= @material_vendor.where("material_id=? AND date IS NULL",material.id).order(updated_at: :desc)[0].vendor.name %></td>
                 <% if current_category.category!="Stock Keeper"%>
                 <td class="text-center"><%= material.price %></td>
                 <% end %>
                 <td class="text-center"><%= link_to 'Show', material, class: "btn btn-info" %></td>
+                <% if current_category.category!="Admin" %>
                 <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-danger" %></td>
+                <%end %>
               </tr>
             <% end %>
           </tbody>

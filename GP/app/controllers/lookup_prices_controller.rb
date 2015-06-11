@@ -1,4 +1,5 @@
 class LookupPricesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_lookup_price, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
@@ -8,7 +9,7 @@ class LookupPricesController < ApplicationController
   # GET /lookup_prices
   # GET /lookup_prices.json
   def index
-    if logged_in? and (current_category.category=="Sales") 
+    if current_category.category=="Sales" or current_category.category=="Admin"
       @lookup_prices = LookupPrice.all
     else
        render :file => "/public/404.html",:status  => "404"  
@@ -18,7 +19,7 @@ class LookupPricesController < ApplicationController
   # GET /lookup_prices/1
   # GET /lookup_prices/1.json
   def show
-     if logged_in? and (current_category.category=="Sales")
+     if current_category.category=="Sales" or current_category.category=="Admin"
      else
        render :file => "/public/404.html",:status  => "404"  
      end
@@ -35,7 +36,7 @@ class LookupPricesController < ApplicationController
 
   # GET /lookup_prices/1/edit
   def edit
-      if logged_in? and (current_category.category=="Sales")
+      if current_category.category=="Sales" or current_category.category=="Admin"
      else
        render :file => "/public/404.html",:status  => "404" 
      end
@@ -45,7 +46,6 @@ class LookupPricesController < ApplicationController
   # POST /lookup_prices.json
   def create
     @lookup_price = LookupPrice.new(lookup_price_params)
-
     respond_to do |format|
       if @lookup_price.save
         format.html { redirect_to @lookup_price, notice: 'Lookup price was successfully created.' }

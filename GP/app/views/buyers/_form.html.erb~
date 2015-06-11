@@ -1,78 +1,59 @@
-<div class="container text-center">
-<%= form_for(@buyer) do |f| %>
-  <% if @buyer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@buyer.errors.count, "error") %> prohibited this buyer from being saved:</h2>
 
+<%= form_for(@buyer) do |f| %>
+  
+
+<section class="register">
+    <div class="form-group reg_section ">
+    <h1><span  aria-hidden="true"></span><span class="fa fa-info-circle"></span> Buyer Information</h1>
+  
+  
+    <h3>Name</h3>
+    <%= f.text_field :name ,placeholder:"Enter Buyer Name..." %>
+    <% if @buyer.errors[:name].any? %>
+    <div id="error_explanation">  
       <ul>
-      <% @buyer.errors.full_messages.each do |message| %>
+      <% @buyer.errors[:name].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+    <h3><span class="fa fa-home"></span> Address</h3>
+    <%= f.text_field :addess,placeholder: "Enter Buyer Address...." %>
+    <% if @buyer.errors[:addess].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:addess].each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
+    <h3><span class="fa fa-map-marker"></span> City</h3>
+    <%= f.text_field :city ,placeholder:"Enter Buyer City...."%>
 
-<div class="panel panel-success" style="margin-top: 50px">
-<div class="panel-body">
-
-
-
-  <div class="field form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :addess %><br>
-    <%= f.text_field :addess %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-
-
-<<<<<<< HEAD
-<div class="field form-group">
-   
-   <% if @flag == "new" %> 
- <%= fields_for :buyer_phones do |p| %> 	
-    <%= p.label :phone %><br>
-	<%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
-    <% end %>
-
-<%else %>
-<%= fields_for :buyer_phones do |p| %>
-
-    <%= phonn = '' %>
-
-
-<% if @phones.blank? %>
-
-<p> <%= phonn = '' %> </p>
-
-<% else %>
-
-
-   <% @phones.each do |f| %>
-     <p>
-   <% phonn = phonn + f.phone + ',' %>
-     </p>
-   <% end %>
-<%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)">Delete Phone</a> <br>
-<% end %> 
-<% end %>
-<%end %>
-=======
+    <% if @buyer.errors[:city].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:city].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
 
 
 
 <div class="field form-group">
+
 
   <% if @flag == "new" %> 
-        <%= fields_for :buyer_phones do |p| %>   
-           <%= p.label :phone %><br>
-           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+        <%= fields_for :buyer_phones do |p| %> 	
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
+	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %>
         <% end %>
 
   <%else %>
@@ -80,24 +61,24 @@
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
-           <%= p.label :phone %><br>
-           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+           <h3><span class="fa fa-mobile"></span> Phone</h3>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %>
       
       <% else %>
          <% @phones.each do |f| %>
           <p> <% phonn = phonn + f.phone + ',' %> </p>
         <% end %>
-          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)">Delete Phone</a> <br>
+          <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@buyer.id %>)" class="btn btn-link" style="text-align: left"><h3>Delete Phone</h3></a> 
       <% end %> 
     <% end %>
   <%end %>
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+
 
 </div>
 
-<a href="#" onclick="add()" >Add</a>
+<a href="#" onclick="add()" class="btn btn-link" style="text-align: left"><h3>Add Phone</h3></a>
 
-<div id="phones">
+<div id="phones" >
     
 </div>
 
@@ -105,21 +86,32 @@
     
 </div>
 
-<<<<<<< HEAD
 
-
-
-
-
-=======
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
-<div class="actions form-group">
-    <%= f.submit "Submit", class: "btn btn-success" %>
+<div class="modal" id="basicModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
+
+<div class="actions">
+    <%= f.submit "Submit", class: "btn btn-warning" %>
+  </div>
+
+
 <% end %>
-</div>
+</section >
 
 
 
@@ -128,101 +120,70 @@
 var x=1;
 var counter=0;
 var allValues = '';
-<<<<<<< HEAD
-allValues=$( "#phone" ).val().slice(0,-1);
-alert (counter);
-
-var add = function() {
-	if (counter === 0 ) {
-		  	 counter =  1;
-		  	 
-		    $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
-		    x=x+1;
-		    $( "#OK" ).click(function() {
-			var value = $("#1").val();
-		    if (isNaN(value)){
-		        alert('string ');
-		    }else{
-		    	
-			    if (allValues != ''){
-					allValues =  allValues + ',' + value
-				}else{
-				 	allValues =  allValues + value		
-				}
-				$("#phone").val(allValues);
-				$("#1").val('');		
-		    }
-
-		   });
-    }
-};
-
-
-var del = function(buyerid) {
-     
-	 var phons_num = $("#phone").val();
-         $("#phone").val('');
-	 var arr = phons_num.split(",");
-	for (var i=0 ; i< arr.length-1 ; i++){
-		 var div=document.createElement("div");
-                 var elem = document.createElement("input");
-                 elem.id =i;
-                 elem.type = 'button';
-                 elem.value = 'x'; 
-		 div.id= i;
-		 div.value=arr[i];
-=======
 var temp = "";
 allValues=$( "#phone" ).val().slice(0,-1);
+
 var add = function() {
   if (counter === 0 ) {
          counter =  1;
-        $('#phones').append('<input type="text" id="'+x+'" />' ).append( '<input type="button" id="OK" value="ok" />' );
+        $('#phones').append('<input placeholder="Enter Phone Number.." type="text" id="'+x+'" style="width:350px;" />' ).append( '<input type="button" id="OK" value="ok" class="btn btn-primary"   />' );
+// $('#phones').append('<input type="button" id="OK" value="ok" class="btn btn-success" />' ).append( '<input type="text" id="'+x+'" />' );
         x=x+1;
         $( "#OK" ).click(function() {
       var value = $("#1").val();
-        if (isNaN(value) || value < 1){
-            alert('string ');
-        }else{
-          
-          if (allValues != ''){
+        //if (isNaN(value) || value < 1){
+        re=/\(?(\+?[0-9]{2})\)?([ -]?)([0-9]{2})\2([0-9]{1})/;
+        if (re.test(value)) {
+                if (allValues != ''){
             allValues =  allValues + ',' + value
-            
+	        }else{
+	          allValues =  allValues + value    
+	        }
+	        $("#phone").val(allValues);
+	        $("#1").val(''); 
         }else{
-          allValues =  allValues + value    
-        }
-        $("#phone").val(allValues);
-        $("#1").val('');    
+
+        $('#modal-body').text('Please enter a valid phone number');
+		$('#basicModal').modal('toggle'); 
+          
+
+
+      
+
         }
 
        });
+
 
     }
  
 };
 
 var del = function(buyerid) {
+
     var length_of_num = 0;
     var index =0;
-   allValues = $("#phone").val();
+	 allValues = $("#phone").val();
    $("#phone").val('');
-   var arr = allValues.split(",");
-  for (var i=0 ; i< arr.length-1 ; i++){
-     var div=document.createElement("div");
+	 var arr = allValues.split(",");
+
+	for (var i=0 ; i< arr.length-1 ; i++){
+		 var div=document.createElement("div");
      var elem = document.createElement("input");
                  elem.id =i;
                  elem.type = 'button';
                  elem.value = 'x'; 
-     div.id= i;
-     div.value=arr[i];
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
+                 elem.setAttribute("class", "btn btn-danger");
+                 elem.setAttribute("style","margin-left:70px;")
+		 div.id= i;
+		 div.value=arr[i];
                  div.innerHTML = arr[i];
                  elem.onclick=function(){
                    var el = document.getElementById(this.id);
                    var dataString = el.value;
-<<<<<<< HEAD
-
-
+                   // document.getElementById("elem").setAttribute("class", "btn btn-success");
+               
+                   allValues = allValues.replace(dataString + ',', ""); 
 		    $.ajax({
 			method: "POST",
 			url: '/delPhonee',
@@ -233,35 +194,10 @@ var del = function(buyerid) {
 					 el.parentNode.removeChild( el );
 				}
 			});
-
-
 		     };
 
 		    div.appendChild(elem);
-                    document.getElementById('phonedel').appendChild(div);
-	            }
-};
-
-
-
-=======
-               
-                   allValues = allValues.replace(dataString + ',', ""); 
-        $.ajax({
-      method: "POST",
-      url: '/delPhone',
-        dataType: "JSON",
-        data: { "phone": dataString},
-        complete: function(data)
-        { 
-           el.parentNode.removeChild( el );
-        }
-      });
-         };
-
-        div.appendChild(elem);
         document.getElementById('phonedel').appendChild(div);
-  }
+	}
 };
->>>>>>> ebb6cfa4df32c78f4bab353876d31a3e060efee2
 </script>

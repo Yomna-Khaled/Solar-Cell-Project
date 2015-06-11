@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :lookup_prices
 
   resources :sold_panels
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   post '/shifts/:id/endshift', to: 'shifts#endshift'
   get '/shifts/showendshift', to: 'shifts#showendshift'
   get '/shifts/currentshift', to: 'shifts#currentshift' 
+  get '/shifts/allshifts', to: 'shifts#allshifts'
 
 
 
@@ -21,7 +21,6 @@ Rails.application.routes.draw do
 
   
   
-
   resources :vendor_spares
 
   resources :spare_parts
@@ -47,8 +46,8 @@ Rails.application.routes.draw do
   resources :material_properties
 
 
-
-
+  
+  resources :properties
   resources :properties
   resources :materials
   resources :quantities
