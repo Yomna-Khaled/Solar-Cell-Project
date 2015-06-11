@@ -11,32 +11,25 @@ class ShiftsController < ApplicationController
   end
    
   def report
-
       if logged_in? and current_category.category=="Shift Manager"
-	    
-	    puts params[:id]
 	    @total_power=0
-
 	    @shift = Shift.where("id = ? ", params[:id])
 	    if @shift[0].end_shift_date != nil 
-	
             @shift_produced_rate = @shift[0].production_rate
 
 	    @manager = current_user.full_name
 	    @crew_member_numbers = Crew.find(@shift[0].crew_id)
 	    @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
-
 	    @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
-	    
 	    @solar_panels.each do|solar|
 	      @total_power = @total_power + solar.power
 	    end
 	  
 	     @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
 	     @materials_used_id.each do |m|
-		puts m.material.name
-		puts m.material_quantity
+      		puts m.material.name
+      		puts m.material_quantity
 	     end
 	  
 	    respond_to do |format|
