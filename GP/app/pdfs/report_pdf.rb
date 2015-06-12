@@ -37,7 +37,7 @@ class ReportPdf < Prawn::Document
   def shift_Info
     # shift info title
   formatted_text [
-     {:text => "Shift Basic Information :" , :color => "FF0FF" , :styles => [:bold]} ,    
+     {:text => "Shift Basic Information :" , :styles => [:bold]} ,    
   ]
 
   #SIFT BASIC INFORMATION:
@@ -47,10 +47,10 @@ class ReportPdf < Prawn::Document
         move_down 10
 
         start_Time = @shifts[0].start_shift_time.to_s.sub("2000-01-01", "") 
-        start_Time = start_Time.to_s.sub("UTC", "") 
+        start_Time = start_Time.to_s.sub("+0200", "") 
         
         end_Time = @shifts[0].end_shift_time.to_s.sub("2000-01-01", "") 
-        end_Time = end_Time.to_s.sub("UTC", "")
+        end_Time = end_Time.to_s.sub("+0200", "")
         #start date for shift
         formatted_text [
            {:text => "Start Date :" , :styles => [:bold] } ,
@@ -60,7 +60,7 @@ class ReportPdf < Prawn::Document
           #End date for shift
         formatted_text [
            {:text => "End Date :" , :styles => [:bold] } ,
-           {:text => " #{@shifts[0].end_shift_date.to_s}  @  #{end_Time}" }
+           {:text => " #{@shifts[0].end_shift_date.to_s}  @ #{end_Time}" }
         ]
 
         #shift manager
@@ -75,7 +75,7 @@ class ReportPdf < Prawn::Document
 
   #CREW INFORMATIONS
   formatted_text [
-     {:text => "Crew Information :" , :color => "FF0FF" , :styles => [:bold]} ,    
+     {:text => "Crew Information :" , :styles => [:bold]} ,    
   ]
 
  i = @crew_member_number.no_of_workers.to_i * 10;
@@ -114,7 +114,7 @@ class ReportPdf < Prawn::Document
 
   #PRODUCTION INFORMATIONS
   formatted_text [
-     {:text => "Production Information :" , :color => "FF0FF" , :styles => [:bold]} ,    
+     {:text => "Production Information :" , :styles => [:bold]} ,    
   ]
 
   bounding_box([0,cursor],:width=>500,:height=>40) do
@@ -138,7 +138,7 @@ class ReportPdf < Prawn::Document
   end
   move_down 10
    formatted_text [
-     {:text => "Stock State Befor and After Production :" , :color => "FF0FF" , :styles => [:bold]} ,    
+     {:text => "Stock State Befor and After Production :" , :styles => [:bold]} ,    
   ]
                
 end

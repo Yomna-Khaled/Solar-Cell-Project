@@ -41,11 +41,12 @@ class ShiftsController < ApplicationController
 	    end
 	  
 	     @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
-	     @materials_used_id.each do |m|
+	    puts "==============================================="
+       @materials_used_id.each do |m|
       		puts m.material.name
       		puts m.material_quantity
 	     end
-	  
+	    puts "==============================================="
 	    respond_to do |format|
 	      format.html
 	      format.pdf do
@@ -220,7 +221,7 @@ if current_category.category=="Shift Manager"
    if logged_in? and current_category.category=="Shift Manager"
             @unacceptedshifts=ProductionShift.where(@shift.id)
              for i in 0..(@unacceptedshifts.all.length-1)
-                 if (@unacceptedshifts[i].accepted ="false")
+                 if (@unacceptedshifts[i].accepted == "false")
                      @unacceptedshifts[i].destroy  
                  end
              end   
