@@ -48,19 +48,20 @@ Rails.application.routes.draw do
 
   
   resources :properties
-  resources :properties
   resources :materials
   resources :quantities
 
   root 'sessions#new'
   get 'login' => 'sessions#new'
-  get 'report' => 'shifts#report'  
+  get 'report' => 'shifts#report' 
+ 
   post 'login' => 'sessions#create' 
   delete 'logout' => 'sessions#destroy'
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
   post 'production_shifts/accept' =>'production_shifts#accept'
 
+  get 'material' => 'materials#report'
 
   post 'forget_password' => 'sessions#forget_password'
   get 'forget_password' => 'sessions#forget_password_form'
