@@ -8,6 +8,7 @@ class MaterialsController < ApplicationController
        render :file => "/public/404.html", :status => 404
     end
 
+    
   # GET /materials
   # GET /materials.json
   def index    
@@ -21,12 +22,25 @@ class MaterialsController < ApplicationController
     end   
   end
 
+
   # GET /materials/1
   # GET /materials/1.json
   def show
     if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @material_vendor = MaterialVendor.all
       @material_properties = MaterialProperty.where("material_id=?",@material.id)
+      
+
+      #report part for materials 
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = MaterialPdf.new(@material , @material_vendor , @material_properties )
+          send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
+        end
+      end
+
+
     else
       render :file => "/public/404.html",:status  => "404" 
     end  
