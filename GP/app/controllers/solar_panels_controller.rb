@@ -11,16 +11,20 @@ class SolarPanelsController < ApplicationController
   
 
   def index
-    if logged_in? and current_category.category=="Sales"
+    if current_category.category=="Sales" or current_category.category=="Admin"
       if params[:search]
         if params[:searchcriteria] == 'serialno'
           @solar_panels = SolarPanel.searchserialno(params[:search],params[:soldornot]).order("created_at DESC")
+
+          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 6)
         else
           @solar_panels = SolarPanel.searchpower(params[:search],params[:soldornot]).order("created_at DESC")
+          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 6)
+
         end
       else
        @solar_panels = SolarPanel.all
-       @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 6)
+       @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 2)
      end
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -29,7 +33,7 @@ class SolarPanelsController < ApplicationController
 
   # GET /solar_panels/1
   def show
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Shift Manager")
+    if current_category.category=="Sales" or current_category.category=="Shift Manager" or current_category.category=="Admin"
     else
        render :file => "/public/404.html",:status  => "404" 
     end

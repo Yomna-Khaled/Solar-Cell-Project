@@ -11,7 +11,7 @@ class MaterialsController < ApplicationController
   # GET /materials
   # GET /materials.json
   def index    
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @materials = Material.all
       @materials = Material.paginate(:page => params[:page], :per_page => 10)
       @material_vendor = MaterialVendor.all
@@ -24,7 +24,7 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @material_vendor = MaterialVendor.all
       @material_properties = MaterialProperty.where("material_id=?",@material.id)
     else

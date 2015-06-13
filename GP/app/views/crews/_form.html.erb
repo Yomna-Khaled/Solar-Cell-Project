@@ -82,14 +82,10 @@
       if( no_workers % 1 === 0 )
       {
         if(Number(number_of_normal_workers) < Number(no_workers))
-        {
-          
-        
- $('#modal-body').text(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
-		$('#basicModal').modal('toggle'); 
-          
-
-           document.getElementById( "no_of_workers" ).value= "";
+        {        
+          $('#modal-body').text(" The available number of workers only "+number_of_normal_workers+" so you can’t add "+ no_workers +" workers to this crew");
+          $('#basicModal').modal('toggle'); 
+          document.getElementById( "no_of_workers" ).value= "";
         }
         else
         {
@@ -104,10 +100,8 @@
       }
       else
       {
-         $('#modal-body').text('Please insert a number');
-		$('#basicModal').modal('toggle'); 
-          
-
+        $('#modal-body').text('Please insert a number');
+		    $('#basicModal').modal('toggle'); 
       }
     }  
     else

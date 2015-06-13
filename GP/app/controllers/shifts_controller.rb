@@ -11,36 +11,42 @@ class ShiftsController < ApplicationController
   def render_404      
      render :file => "/public/404.html", :status => 404
   end
+
+  def allshifts
+    if current_category.category=="Admin"
+      @shifts = Shift.all
+      @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
+    else
+      render :file => "/public/404.html",:status  => "404" 
+    end   
+  end  
    
   def report
 
-      if logged_in? and current_category.category=="Shift Manager"
-	    
+      if  current_category.category=="Shift Manager" or current_category.category=="Admin"
 	    puts params[:id]
-	    @total_power=0
 
+	    @total_power=0
 	    @shift = Shift.where("id = ? ", params[:id])
 	    if @shift[0].end_shift_date != nil 
-	
             @shift_produced_rate = @shift[0].production_rate
 
 	    @manager = current_user.full_name
 	    @crew_member_numbers = Crew.find(@shift[0].crew_id)
 	    @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
-
 	    @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
-	    
 	    @solar_panels.each do|solar|
 	      @total_power = @total_power + solar.power
 	    end
 	  
 	     @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
-	     @materials_used_id.each do |m|
-		puts m.material.name
-		puts m.material_quantity
+	    puts "==============================================="
+       @materials_used_id.each do |m|
+      		puts m.material.name
+      		puts m.material_quantity
 	     end
-	  
+	    puts "==============================================="
 	    respond_to do |format|
 	      format.html
 	      format.pdf do
@@ -57,13 +63,9 @@ class ShiftsController < ApplicationController
   end
 
   def index
-
- 
    if logged_in? and current_category.category=="Shift Manager"
-
     @shifts = Shift.where("employee_id = ?" , current_user.id )
     @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
-
     @manager = current_user.full_name
     respond_to do |format|
       format.html
@@ -72,17 +74,45 @@ class ShiftsController < ApplicationController
         send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
       end
     end
-
-     else
+    else
       render :file => "/public/404.html",:status  => "404"  
     end 
   end
 
   # GET /shifts/1
   # GET /shifts/1.json
-  def show
+
+   def show
      if logged_in? and current_category.category=="Shift Manager" 
+     @mat_qt= ProductionShift.select('materials.name ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ", @shift.id,).group("material_id")
+     @allmat=Material.all 
+     
+     @act_mat= Array.new 
+     @th_mat= Array.new 
+     @waste=Array.new
+     @shinsertedpanels=Shift.where('shifts.id=?',@shift.id).first.production_rate
+     
+     for i in 0...@allmat.length  
+      @matsum=@mat_qt.where(:'materials.name' => @allmat[i].name)
+      if @matsum.exists?
+        @matsum=@matsum.first.sum
+        @act_mat.push ([@allmat[i].name,@matsum])
+        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels]) 
+       if @matsum-(2*@shinsertedpanels) >0
+      
+           @waste.push ([@allmat[i].name,@matsum-(2*@shinsertedpanels)]) 
+       else
+           @waste.push ([@allmat[i].name,0]) 
+       end  
+     else
        
+       @act_mat.push ([@allmat[i].name,0]) 
+       @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])
+        @waste.push ([@allmat[i].name,0]) 
+      
+      end 
+     end
+     
      else
       render :file => "/public/404.html",:status  => "404" 
     end   
@@ -105,6 +135,8 @@ class ShiftsController < ApplicationController
       render :file => "/public/404.html",:status  => "404"    
     end
   end
+
+
 
   # POST /shifts
   # POST /shifts.json
@@ -176,7 +208,7 @@ class ShiftsController < ApplicationController
 
   def startshift
 
-if logged_in? and current_category.category=="Shift Manager" 
+if current_category.category=="Shift Manager" 
      @shift = Shift.new(start_shift_params)
       
            respond_to do |format|
@@ -219,14 +251,14 @@ if logged_in? and current_category.category=="Shift Manager"
    if logged_in? and current_category.category=="Shift Manager"
             @unacceptedshifts=ProductionShift.where(@shift.id)
              for i in 0..(@unacceptedshifts.all.length-1)
-                 if (@unacceptedshifts[i].accepted ="false")
+                 if (@unacceptedshifts[i].accepted == "false")
                      @unacceptedshifts[i].destroy  
                  end
              end   
 	    respond_to do |format|
 	     if @shift.update(end_shift_params)
 
-		format.html { redirect_to shifts_path, notice: 'Shift was successfully updated.' }
+		format.html { redirect_to shifts_path }
 		format.json { render :show, status: :ok, location: @shift }
 	      else
 		@inserted_panels = SolarPanel.where("shift_id = ?", @shift[0].id ).count
@@ -265,14 +297,6 @@ if logged_in? and current_category.category=="Shift Manager"
     end 
   end
   
-
-
-
-
-
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shift

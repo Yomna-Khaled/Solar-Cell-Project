@@ -115,7 +115,7 @@ function unitajax () {
 	});
 	}
 	else{
-		$('#modal-body').text('To Add New Unit You have to Enter Unit Name');
+		$('#modal-body').text('You have to Enter Unit Name');
 		$('#basicModal').modal('toggle');
 	}
 }

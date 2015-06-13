@@ -10,7 +10,7 @@ class ContainersController < ApplicationController
   # GET /containers
   # GET /containers.json
   def index
-    if logged_in? and current_category.category=="Sales"
+    if  current_category.category=="Sales" or current_category.category=="Admin"
      @containers = Container.all
      @containers = Container.paginate(:page => params[:page], :per_page => 6)
 
@@ -22,7 +22,7 @@ class ContainersController < ApplicationController
   # GET /containers/1
   # GET /containers/1.json
   def show
-    if logged_in? and current_category.category=="Sales"
+    if current_category.category=="Sales" or current_category.category=="Admin"
      else
       render :file => "/public/404.html",:status  => "404"   
     end  
