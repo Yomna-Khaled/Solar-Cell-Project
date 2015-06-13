@@ -81,8 +81,32 @@ class ShiftsController < ApplicationController
 
   # GET /shifts/1
   # GET /shifts/1.json
-  def show
-     if current_category.category=="Shift Manager" or current_category.category=="Admin"
+
+   def show
+     if logged_in? and current_category.category=="Shift Manager" 
+     @mat_qt= ProductionShift.select('materials.name ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ", @shift.id,).group("material_id")
+     @allmat=Material.all 
+     
+     @act_mat= Array.new 
+     @th_mat= Array.new 
+     @waste=Array.new
+     @shinsertedpanels=Shift.where('shifts.id=?',@shift.id).first.production_rate
+     
+     for i in 0...@allmat.length  
+      @matsum=@mat_qt.where(:'materials.name' => @allmat[i].name)
+      if @matsum.exists?
+        @matsum=@matsum.first.sum
+        @act_mat.push ([@allmat[i].name,@matsum])
+        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])  
+        @waste.push ([@allmat[i].name,@matsum-(2*@shinsertedpanels)]) 
+      else
+       
+       @act_mat.push ([@allmat[i].name,0]) 
+       @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])
+       @waste.push ([@allmat[i].name,0-(2*@shinsertedpanels)]) 
+      end 
+     end
+     
      else
       render :file => "/public/404.html",:status  => "404" 
     end   
