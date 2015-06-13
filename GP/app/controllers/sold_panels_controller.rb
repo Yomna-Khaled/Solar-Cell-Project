@@ -55,9 +55,14 @@ class SoldPanelsController < ApplicationController
   # POST /sold_panels.json
   def create
     @sold_panel = SoldPanel.new(:buyer_id=> params[:buyer_id],:totalPrice=> params[:totalPrice],:totalPower=>params[:totalPower])
-   
+    # puts('+++++++++++++++++++++++++++++++++++++++')
+    # puts params[:buyer_id]
+    # puts params[:totalPrice]
+    # puts params[:totalPower]
 
-    respond_to do |format|
+    # puts('+++++++++++++++++++++++++++++++++++++++')
+# @sold_panel.inspect
+   # render plain: @sold_panel.save # respond_to do |format|
       if @sold_panel.save
         params[:solar_panel_id].each_with_index do |item,i|
            SolarPanel.where("id = ? ", params[:solar_panel_id][i]).update_all(:sold_panel_id => @sold_panel.id )
