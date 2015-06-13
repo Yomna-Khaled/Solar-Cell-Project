@@ -6,6 +6,9 @@
 
 <section class="register" >  
   <div class="reg_section">
+<%= javascript_include_tag "../../assets/javascripts/highcharts.js", "chartkick" %>
+
+<%= pie_chart Shift.group(:production_rate).count %>
 		<table class="table table-stripped table-responsive">
 		  <thead>
 		    <tr>
@@ -20,7 +23,7 @@
 		      <th><h3>Report</h3></th>
 		    
 		    </tr>
-		  </thead>
+		  </thead>shifts
 
 		  	<tbody>
             	<% i=0 %>

@@ -5,7 +5,17 @@
 
     <section class="register">
       <div class="form-group reg_section ">
-	   
+<h3>Used Materials</h3>
+<div id="chart-105" style="height: 300px;">
+
+<%= column_chart [
+  {name: "used", data: @act_mat},
+  {name: "theoritical", data:@th_mat  },
+  {name: "waste", data: @waste },
+], {stacked: false,colors: ["#3366cc", "#ff9900", "#dc3912"],library: {hAxis: {title: "materials"}, vAxis: {title: "usage"}}} %>
+
+
+</div>	   
 		      <ul class="list-group">
 					   <li class="list-group-item">
                 <h3 style="display:inline-block;"> <span class="fa fa-user"></span> shiftmanager:</h3> 
