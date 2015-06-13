@@ -6,7 +6,7 @@
 
 <section class="register" >  
   <div class="reg_section">
-
+<h3>percentage of production rate in all shifts</h3>
 <%= pie_chart Shift.group(:production_rate).count %>
 		<table class="table table-stripped table-responsive">
 		  <thead>
@@ -88,12 +88,14 @@
     	<% end %>
   
   		</tbody>
+
 	</table>
 
-<%= will_paginate @shifts, renderer: BootstrapPagination::Rails %>
 
 </div>      
 </section>
+<%= will_paginate @solar_panels, renderer: BootstrapPagination::Rails %>
+
 </div>
 
 

@@ -97,13 +97,19 @@ class ShiftsController < ApplicationController
       if @matsum.exists?
         @matsum=@matsum.first.sum
         @act_mat.push ([@allmat[i].name,@matsum])
-        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])  
-        @waste.push ([@allmat[i].name,@matsum-(2*@shinsertedpanels)]) 
-      else
+        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels]) 
+       if @matsum-(2*@shinsertedpanels) >0
+      
+           @waste.push ([@allmat[i].name,@matsum-(2*@shinsertedpanels)]) 
+       else
+           @waste.push ([@allmat[i].name,0]) 
+       end  
+     else
        
        @act_mat.push ([@allmat[i].name,0]) 
        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])
-       @waste.push ([@allmat[i].name,0-(2*@shinsertedpanels)]) 
+        @waste.push ([@allmat[i].name,0]) 
+      
       end 
      end
      

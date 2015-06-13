@@ -75,11 +75,14 @@
               </tr>
             <% end %>
           </tbody>
+            
         </table>
-   
+           <%= will_paginate @solar_panels, renderer: BootstrapPagination::Rails %>
+ 
   </section> 
- </div>
+  
+</div>
 
 </div> 
 
->>>>>>> 59ecfb909b0997e2943cbc7c40b58909e9758899
+
