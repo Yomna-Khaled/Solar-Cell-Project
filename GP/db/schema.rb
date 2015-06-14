@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613213710) do
+
+ActiveRecord::Schema.define(version: 20150613202737) do
+
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -28,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150613213710) do
     t.string   "city",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "email",      limit: 255
   end
 
   create_table "categories", force: :cascade do |t|
@@ -109,7 +112,11 @@ ActiveRecord::Schema.define(version: 20150613213710) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "vendor_id",  limit: 4
+    t.string   "serialNo",   limit: 255
   end
+
+  add_index "machines", ["vendor_id"], name: "fk_rails_bf41765213", using: :btree
 
   create_table "material_properties", force: :cascade do |t|
     t.integer  "material_id", limit: 4
@@ -252,6 +259,14 @@ ActiveRecord::Schema.define(version: 20150613213710) do
   add_index "vendor_containers", ["container_id"], name: "index_vendor_containers_on_container_id", using: :btree
   add_index "vendor_containers", ["vendor_id"], name: "index_vendor_containers_on_vendor_id", using: :btree
 
+  create_table "vendor_machines", force: :cascade do |t|
+    t.integer  "vendor_id",  limit: 4
+    t.integer  "machine_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.date     "date"
+  end
+
   create_table "vendor_phones", force: :cascade do |t|
     t.integer  "vendor_id",  limit: 4
     t.string   "phone",      limit: 255
@@ -277,6 +292,10 @@ ActiveRecord::Schema.define(version: 20150613213710) do
     t.string   "email",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "address",    limit: 255
+    t.string   "city",       limit: 255
+    t.string   "type",       limit: 255
+    t.string   "ventype",    limit: 255
   end
 
   add_foreign_key "buyer_phones", "buyers"
@@ -285,6 +304,7 @@ ActiveRecord::Schema.define(version: 20150613213710) do
   add_foreign_key "employee_phones", "employees"
   add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
+  add_foreign_key "machines", "vendors"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
   add_foreign_key "material_vendors", "materials"

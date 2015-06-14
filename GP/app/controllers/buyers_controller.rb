@@ -179,7 +179,7 @@ def update
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def buyer_params
-      params.require(:buyer).permit(:name, :addess, :city)
+      params.require(:buyer).permit(:name, :addess, :city,:email )
     end
     def phone_params
       params.require(:buyer).permit(:phone)

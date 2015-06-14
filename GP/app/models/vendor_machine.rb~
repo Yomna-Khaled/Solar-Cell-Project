@@ -1,0 +1,2 @@
+class VendorMachine < ActiveRecord::Base
+end

@@ -45,7 +45,7 @@ class SoldPanelsController < ApplicationController
 
   # GET /sold_panels/1/edit
   def edit
-    if logged_in? and current_category.category=="S"
+    if logged_in? and current_category.category=="Sales"
     else
       render :file => "/public/404.html",:status  => "404" 
     end 
@@ -54,14 +54,12 @@ class SoldPanelsController < ApplicationController
   # POST /sold_panels
   # POST /sold_panels.json
   def create
-     puts('+++++++++++++++++++++++++++++++++++++++')
-  
-   @sold_panel = SoldPanel.new(:buyer_id=> params[:buyer_id],:totalPrice=> params[:totalPrice],:totalPower=>params[:totalPower])
-    
 
-    # puts('+++++++++++++++++++++++++++++++++++++++')
-# @sold_panel.inspect
-   # render plain: @sold_panel.save # 
+  
+ 
+    @sold_panel = SoldPanel.new(:buyer_id=> params[:buyer_id],:totalPrice=> params[:totalPrice],:totalPower=>params[:totalPower])
+   
+
     respond_to do |format|
        if @sold_panel.save
         
@@ -71,7 +69,7 @@ class SoldPanelsController < ApplicationController
         format.html { redirect_to @sold_panel, notice: 'Sold panel was successfully created.' }
         format.json { render :show, status: :created, location: @sold_panel }
        else
-          puts "noooooooooooooooooooooooooo"
+         
         format.html { render :new }
         format.json { render json: @sold_panel.errors, status: :unprocessable_entity }
        end

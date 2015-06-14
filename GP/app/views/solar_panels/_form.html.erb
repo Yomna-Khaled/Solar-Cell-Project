@@ -58,7 +58,7 @@
                            </div>
        	             <% end %>
 	        <h3> Type </h3>
-		    <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
+		    <%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
                        <% if @solar_panel.errors[:celltype].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:celltype].each do |msg| %>
@@ -67,7 +67,7 @@
                            </div>
        	             <% end %>
 	        <h3> Subtype </h3>
-		    <%= f.select :subtype , [['two pathpar','two pathpar'],['three pathpar','three pathpar']] %>
+		    <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
                     <% if @solar_panel.errors[:subtype].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:subtype].each do |msg| %>
