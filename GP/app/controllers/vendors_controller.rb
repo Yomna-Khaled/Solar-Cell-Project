@@ -151,7 +151,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vendor_params
-      params.require(:vendor).permit(:name, :email )
+      params.require(:vendor).permit(:name, :email, :ventype , :address, :city)
     end
 
 	 def phone_params
