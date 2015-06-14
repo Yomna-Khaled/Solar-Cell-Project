@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601170437) do
+ActiveRecord::Schema.define(version: 20150613213710) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 20150601170437) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
-    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -93,6 +92,7 @@ ActiveRecord::Schema.define(version: 20150601170437) do
     t.string   "full_name",          limit: 255
     t.text     "education",          limit: 65535
     t.string   "email",              limit: 255
+    t.string   "status",             limit: 255
   end
 
   add_index "employees", ["category_id"], name: "index_employees_on_category_id", using: :btree

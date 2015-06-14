@@ -36,6 +36,9 @@
 </div>
 
 <script>
+ window.dispatcher = new WebSocketRails('localhost:3000');
+
+window.enjoy=dispatcher.subscribe ("yoyo");
 index_checked=0; //to enable submit button
 var field_id;
 var manager=$("#manager").val();
@@ -78,9 +81,7 @@ function matvalue(ptr){
 
 
 
-window.dispatcher = new WebSocketRails('localhost:3000/websocket');
 
-window.enjoy=dispatcher.subscribe ("yoyo");
 
 $("#order").click(function(){
   shift_id=$("#shift_id").val();
@@ -91,6 +92,8 @@ $("#order").click(function(){
     sent=sent+"<tr id="+shift_id+"><td>"+manager+"</td><td>"+array[i].split(",")[0]+"</td><td>"+array[i].split(",")[1]+"</td><td><button class='btn btn-primary' onclick='accept(this)' id="+array[i].split(",")[0]+"_"+array[i].split(",")[1]+"_"+array[i].split(",")[2]+">accept</button></td></tr>"
 
   }
+
+  
 	
 enjoy.trigger ('order',sent);
 

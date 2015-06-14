@@ -7,6 +7,27 @@ class EmployeesController < ApplicationController
   def render_404      
      render :file => "/public/404.html", :status => 404
   end
+  def fire
+     @employee=Employee.where("id= ?",params[:id]).update_all(:status => "no" )
+     @employees = Employee.all
+      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+       render plain:"ok"
+  end
+  def search
+    if params[:type]=="current"
+      @employees=Employee.where("status= ?","yes")
+      render partial: 'find'
+    elsif params[:type]=="past"
+      @employees=Employee.where("status= ?","no")
+      render partial: 'find'
+    else
+      @employees=Employee.all
+      render partial: 'find'
+
+
+        
+    end
+  end  
   
   def index
     if current_category.category=="HR" or current_category.category=="Admin"

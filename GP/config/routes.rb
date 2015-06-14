@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
 
 
+
   resources :categories
   get 'sessions/new'
   get "crews/get_employees"=>"crews#get_employees"
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   resources :employee_managers
   resources :employee_phones
   resources :employees
+
   resources :crews
   resources :vendor_containers
 
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
   post 'production_shifts/accept' =>'production_shifts#accept'
+   post 'employees/fire'=> 'employees#fire'
+   post 'employees/search'=> 'employees#search' 
 
 
   post 'forget_password' => 'sessions#forget_password'
