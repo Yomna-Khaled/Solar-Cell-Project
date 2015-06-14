@@ -19,7 +19,9 @@
 
           <ul class="list-group">
             <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
+            <% if current_category.category=="Sales" or current_category.category=="Admin"%>
             <li class="list-group-item">Price: <%= @spare_part.price %></li>
+            <% end -%>
           </ul>
       </div>
 
@@ -31,7 +33,7 @@
         <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
       </ul>
      </div>
-
+      <% if current_category.category=="Sales" or current_category.category=="Admin"%>
        <div class="reg_section">
         <h3><span class="fa fa-user "> </span> Vendor Information</h3>
         <ul class="list-group">
@@ -57,7 +59,8 @@
             </table>
           </li>
         </ul>
-      </div> 
+      </div>
+    <% end -%> 
 
   </section>
 </div>    

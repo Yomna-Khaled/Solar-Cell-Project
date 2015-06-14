@@ -9,7 +9,7 @@ class LookupPricesController < ApplicationController
   # GET /lookup_prices
   # GET /lookup_prices.json
   def index
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if current_category.category=="Admin"
       @lookup_prices = LookupPrice.all
     else
        render :file => "/public/404.html",:status  => "404"  
@@ -19,7 +19,7 @@ class LookupPricesController < ApplicationController
   # GET /lookup_prices/1
   # GET /lookup_prices/1.json
   def show
-     if current_category.category=="Sales" or current_category.category=="Admin"
+     if current_category.category=="Admin"
      else
        render :file => "/public/404.html",:status  => "404"  
      end
@@ -36,7 +36,7 @@ class LookupPricesController < ApplicationController
 
   # GET /lookup_prices/1/edit
   def edit
-      if current_category.category=="Sales" or current_category.category=="Admin"
+      if current_category.category=="Admin"
      else
        render :file => "/public/404.html",:status  => "404" 
      end

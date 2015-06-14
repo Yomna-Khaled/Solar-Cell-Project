@@ -10,8 +10,8 @@
             <th class="text-center"><h3>Name</h3></th>
             <th class="text-center"><h3>Quantity</h3></th>
             <th class="text-center"><h3>Machine</h3></th>
+            <% if current_category.category=="Sales" or current_category.category=="Admin"%>
             <th class="text-center"><h3>Vendor</h3></th>
-            <% if current_category.category!="Stock Keeper" %>
             <th class="text-center"><h3>Price</h3></th>
             <% end %>
             <th class="text-center"><h3>Show</h3></th>
@@ -28,8 +28,8 @@
           <td class="text-center" ><%= spare_part.quantity %></td>
           <% machine = Machine.find_by(id: spare_part.machine_id) %>
           <td class="text-center" ><%= machine.name %></td>
+          <% if current_category.category=="Sales" or current_category.category=="Admin"%>
           <td class="text-center" ><%= @spare_part_vendor = VendorSpare.where("spare_part_id=? AND date IS NULL",spare_part.id).order(updated_at: :desc)[0].vendor.name %></td>
-          <% if current_category.category!="Stock Keeper" %>
           <td class="text-center" ><%= spare_part.price %></td>
           <% end %>
           <td class="text-center" ><%= link_to 'Show', spare_part, class:"btn btn-info" %></td>

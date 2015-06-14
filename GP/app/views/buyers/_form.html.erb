@@ -18,6 +18,18 @@
       </ul>
     </div>
   <% end %>
+
+  <h3><span class="fa fa-envelope"></span> Email</h3>
+    <%= f.text_field :email,placeholder: "Enter Buyer Email...." %>
+    <% if @buyer.errors[:email].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:email].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   
     <h3><span class="fa fa-home"></span> Address</h3>
     <%= f.text_field :addess,placeholder: "Enter Buyer Address...." %>
