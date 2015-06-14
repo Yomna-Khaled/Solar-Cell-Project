@@ -29,5 +29,7 @@
       </table>
     </div>
   </section>
-      
+      <div >
+         <%= will_paginate @vendors, renderer: BootstrapPagination::Rails %>
+      </div>
 </div>      

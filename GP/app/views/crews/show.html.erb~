@@ -1,20 +1,36 @@
+<div class="container"  style="width: calc(70%);">
+  
+      <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"></span> Crew Information</h1>
 
-  <h1 class="page-header text-primary">Crew Name:</h1>
-
-  <strong><%= @crew.name %></strong>
-<h1 class="page-header text-primary">No of workers:</h1>
-
-  <strong><%= @crew.no_of_workers %></strong>
-
-
-<h1 class="page-header text-primary">Member Names</h1>
-
-  <% @employees.each do |employee| %>
-
-      <p><strong><%= employee.full_name %></strong></p>
-
-  <% end %>
-
+  <div class="row">
+     
+<section class="register" >  
+% if current_category.category!="Admin" %>
+        <div style="float:right;"> 
+          <%= link_to 'Edit', edit_crew_path(@crew), class:"btn btn-info"  %>
+        </div> 
+   <%end%>
+  <div class="reg_section">
+   
+   <h3><span class="fa fa-folder"></span> Basic Information</h3>
 
 
+	<ul class="list-group">
+		<li class="list-group-item">Crew Name: <%= @crew.name %></li>
+		<li class="list-group-item">Number of workers: <%= @crew.no_of_workers %></li>
+	</ul>
+
+
+	<h3><span class="fa fa-user"></span> Members Name</h3>
+
+
+	<ul class="list-group">
+		<% @employees.each do |employee| %>
+			<li class="list-group-item text-capitalize"><%= employee.full_name %></li>
+  		<% end %>
+	</ul>
+ </div>
+ </section>	
+</div>
+</div>	
 

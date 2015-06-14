@@ -5,7 +5,7 @@
 <section class="register">
     <div class="form-group reg_section ">
     <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
-    <h3>Name</h3>
+    <h3><span class="fa fa-user">Name</h3>
     <%= f.text_field :name %>
     
   <% if @vendor.errors[:name].any? %>

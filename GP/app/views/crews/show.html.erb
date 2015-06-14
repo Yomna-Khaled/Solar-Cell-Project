@@ -5,8 +5,13 @@
   <div class="row">
      
 <section class="register" >  
+  <% if current_category.category!="Admin" %>
+        <div style="float:right;"> 
+          <%= link_to 'Edit', edit_crew_path(@crew), class:"btn btn-info"  %>
+        </div> 
+   <%end%>
   <div class="reg_section">
-
+   
    <h3><span class="fa fa-folder"></span> Basic Information</h3>
 
 

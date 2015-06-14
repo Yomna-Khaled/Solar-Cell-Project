@@ -3,8 +3,8 @@
 
   <div class="form-group reg_section">
       
-    <h1 class="center fa fa-info-circle"> Machine Information</h1>
-    <h3>Name</h3>
+    <h1><span class="fa fa-info-circle"></span> Machine Information</h1>
+    <h3><span class="fa fa-cog" > Name</span></h3>
     <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
     <% if @machine.errors[:name].present? %>
         <div class="text-danger ">
@@ -15,7 +15,7 @@
         <% end %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-warning" %>
   </div>
   </section
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601170437) do
+ActiveRecord::Schema.define(version: 20150614090819) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -37,14 +37,16 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   end
 
   create_table "containers", force: :cascade do |t|
-    t.float    "width",       limit: 24
-    t.float    "height",      limit: 24
-    t.string   "serialNo",    limit: 255
-    t.integer  "capacity",    limit: 4
-    t.float    "price",       limit: 24,  default: 0.0
-    t.float    "total_power", limit: 24,  default: 0.0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.float    "width",                  limit: 24
+    t.float    "height",                 limit: 24
+    t.string   "serialNo",               limit: 255
+    t.integer  "capacity",               limit: 4
+    t.float    "price",                  limit: 24,  default: 0.0
+    t.float    "total_power",            limit: 24,  default: 0.0
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "containerdimensionunit", limit: 255
+    t.boolean  "sold",                   limit: 1,   default: false
   end
 
   create_table "crews", force: :cascade do |t|
@@ -80,7 +82,6 @@ ActiveRecord::Schema.define(version: 20150601170437) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
-    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -210,6 +211,7 @@ ActiveRecord::Schema.define(version: 20150601170437) do
     t.integer  "shift_id",        limit: 4
     t.integer  "cellno",          limit: 4
     t.integer  "sold_panel_id",   limit: 4
+    t.string   "dimensionunit",   limit: 255
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree

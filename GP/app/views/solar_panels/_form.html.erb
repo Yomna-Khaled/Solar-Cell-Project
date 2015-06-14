@@ -23,6 +23,16 @@
 				<%end%> 
                            </div>
        	      <% end %>
+              <h3> Dimension Unit </h3>
+		    <%= f.select :dimensionunit , [['mm','mm'],['inches','inches'],['feet','feet']] %>
+                    <% if @solar_panel.errors[:dimensionunit].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:dimensionunit].each do |msg| %>
+		                          <p><%= "* dimensionunit. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %> 
+
 
       </div>
       <div class="form-group reg_section"> 
@@ -84,6 +94,13 @@
 				<%end%> 
                            </div>
        	         <% end %> 
+                 
+               
+                  <h3><span class="fa fa-sort-numeric-asc"></span> theoritical category <h3>  
+                  <%= f.select :theoreticalcategory_id, @thcategoriesopt %>              
+                  
+
+ 
       </div> 
        <div class="form-group reg_section"> 
 	      <h1><span class="fa fa-info-circle"></span> Container Information</h1>

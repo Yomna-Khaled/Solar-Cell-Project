@@ -3,11 +3,15 @@
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Vendor Information</h1>
   
  
-    <section class="register" >  
+    <section class="register" > 
+        <div style="float:right;">  
+            <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" %>
+            </div> 
         <div class="reg_section">
+            
             <h3>Basic Infromation</h3>
-  
-
+            
+            
             <ul class="list-group">
               <li class="list-group-item">Name: <%= @vendor.name %></li>
               <li class="list-group-item">Email:  <%= @vendor.email %></li>

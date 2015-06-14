@@ -1,26 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="width: calc(70%);">
 
-<p>
-  <strong>Name:</strong>
-  <%= @vendor.name %>
-</p>
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Vendor Information</h1>
+  
+ 
+    <section class="register" > 
+        <div style="float:right;">  
+            <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-danger" %>
+            </div> 
+        <div class="reg_section">
+            
+            <h3>Basic Infromation</h3>
+            
+            
+            <ul class="list-group">
+              <li class="list-group-item">Name: <%= @vendor.name %></li>
+              <li class="list-group-item">Email:  <%= @vendor.email %></li>
+            </ul>
+        </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @vendor.email %>
-</p>
+    <div class="reg_section">
+      <h3>Contact Information</h3>
 
-<strong>Phones:</strong>
-  <% index = 1%>
-    <% @vendor_phones.each do |vendorphone| %>
-      <p>
-        <strong><%=index%>-<%= vendorphone.phone %>  </strong>
-         
-          <%index+=1%>
-      </p>
-    <%end%>   
-</p>
+      <ul class="list-group">
+          <% index = 1%>
+            <% @vendor_phones.each do |vendorphone| %>
+              <li class="list-group-item text-capitalize">Phone <%=index%>:<%= vendorphone.phone %></li>
+               <%index+=1%>
+          <%end%> 
+      </ul>
+    </div>
+    </section>
+ 
+</div>  
 
-
-<%= link_to 'Edit', edit_vendor_path(@vendor) %> |
-<%= link_to 'Back', vendors_path %>
