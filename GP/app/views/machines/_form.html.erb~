@@ -4,7 +4,11 @@
   <div class="form-group reg_section">
       
     <h1><span class="fa fa-info-circle"></span> Machine Information</h1>
+<<<<<<< HEAD
     <h3><span class="fa fa-cog" > Name</span></h3>
+=======
+    <h3>Name</h3>
+>>>>>>> 114dd89c3751f378f4944c0efe769a9680168460
     <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
     <% if @machine.errors[:name].present? %>
         <div class="text-danger ">
@@ -13,6 +17,43 @@
               <% end %>
         </div>
         <% end %>
+
+
+
+
+
+<h1 ><span class="fa fa-user"></span> Vendor Information</h1>
+		        <!-- for get all vendors to select one of them -->
+			<h3>Vendor</h3>
+			<% if @flag == "new" %>
+			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") ,  :required => true %>
+			<%else%>
+			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) ,:required => true %>
+			<%end%>
+                        <% if @machine.errors[:vendor].present? %>
+		           <div class="text-danger">
+				<% @machine.errors[:vendor].each do |msg| %>
+		                          <p><%= "* vendor "+msg %><p>
+				<%end%> 
+                           </div>
+       			<% end %>
+
+
+<h3 class="fa fa-sort-numeric-asc"> serial_number</h3></br>
+		    <% if @flag == "edit" %>
+			<%= f.text_field :serialNo, :readonly => true %>
+		    <%else%> 
+			<%= f.text_field :serialNo ,placeholder:" Enter machine Serial Number..." %>
+                        <% if @machine.errors[:serialNo].present? %>
+			  <div class="text-danger">
+			      <% @machine.errors[:serialNo].each do |msg| %>
+                                 <p><%= "* serialNo "+msg %><p>
+			      <%end%> 
+                          </div>
+                        <% end %>
+<% end %>
+
+
   </div>
   <div class="actions">
     <%= f.submit class:"btn btn-warning" %>

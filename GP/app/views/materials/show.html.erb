@@ -26,7 +26,9 @@
 
           <ul class="list-group">
             <li class="list-group-item">Serial_Number: <%= @material.serial_number %></li>
+            <% if current_category.category=="Sales" or current_category.category=="Admin"%>
             <li class="list-group-item">Price: <%= @material.price %></li>
+            <% end -%>
           </ul>
         </div>
 
@@ -52,7 +54,7 @@
             <li class="list-group-item">Expiration date: <%= @material.expiration_date %></li>
           </ul>
       </div>
-
+      <% if current_category.category=="Sales" or current_category.category=="Admin"%>
         <div class="reg_section">
               <h3><span class="fa fa-user"></span> Material Vendor</h3>
          
@@ -79,7 +81,7 @@
             </li>
           </ul>     
       </div>
-
+      <% end -%>
          <div class="reg_section">
               <h3><span class="fa fa-list-ul"></span> Material Properties</h3>
         

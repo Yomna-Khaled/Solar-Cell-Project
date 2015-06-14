@@ -32,7 +32,41 @@
       </ul>
     </div>
   <% end %>
+
+   <h3> Type </h3>
+        <%= f.select :ventype , [['local', 'local'], ['foreign','foreign']] %>
+                       <% if @vendor.errors[:ventype].present? %>
+               <div class="text-danger">
+        <% @vendor.errors[:ventype].each do |message| %>
+                              <p><%= "* ventype. "+message %><p>
+        <%end%> 
+                           </div>
+                     <% end %> 
  
+ <h3><span class="fa fa-home"></span> Address</h3>
+    <%= f.text_field :address,placeholder: "Enter Vendor Address...." %>
+    <% if @vendor.errors[:address].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @vendor.errors[:address].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <h3><span class="fa fa-map-marker"></span> City</h3>
+    <%= f.text_field :city ,placeholder:"Enter Vendor City...."%>
+
+    <% if @vendor.errors[:city].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @vendor.errors[:city].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
 
 <div class="field form-group">

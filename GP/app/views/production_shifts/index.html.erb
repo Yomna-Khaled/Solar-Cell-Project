@@ -31,6 +31,12 @@
 
 
 <script>
+window.dispatcher = new WebSocketRails('localhost:3000');
+  window.enjoy=dispatcher.subscribe ("yoyo");
+  enjoy.bind('order', function(task) {
+    console.log( task);
+    $('myTable').prepend(task);
+  });
   function accept(ptr){
     var i = ptr.parentNode.parentNode.rowIndex;
     console.log(ptr.parentNode.parentNode.id);
@@ -52,10 +58,5 @@
       }
     });   
   }
-  window.dispatcher = new WebSocketRails('localhost:3000/websocket');
-  window.enjoy=dispatcher.subscribe ("yoyo");
-  enjoy.bind('order', function(task) {
-    console.log( task);
-    $('myTable').prepend(task);
-  });
+  
 </script>
