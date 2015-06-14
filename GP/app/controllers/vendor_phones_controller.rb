@@ -8,8 +8,7 @@ class VendorPhonesController < ApplicationController
   end
   # GET /vendor_phones
   # GET /vendor_phones.json
-  def index
-    
+  def index  
     if  false 
       @vendor_phones = VendorPhone.all
     else

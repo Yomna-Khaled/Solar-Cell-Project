@@ -1,0 +1,71 @@
+<%= form_for(@theoreticalcategory) do |f| %>
+ <section class="register">
+    <div class="form-group reg_section ">
+        <h1><span class="fa fa-info-circle"></span> Theoretical Category Information</h1>
+        <h3>Category Name</h3>
+        <%= f.text_field :name, class: 'w' , placeholder: "Enter Category Name" ,id: "crew"%>
+        <% if @theoreticalcategory.errors[:name] %>
+          <div class="text-danger">
+            <ul>
+              <% @theoreticalcategory.errors[:name].each do |msg| %>
+                <li>*Category Name <%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %><br>
+
+        <h1><span class="fa fa-info-circle"></span> Material Information</h1>
+        <br>
+ 
+        <% if @flag_new == 1 %>
+          <% @materials.each do |material| %>
+           <h3 class="text-capitalize"><%= material.name %></h3>
+          <%= text_field_tag(material.name, "", :id => material.id, :placeholder=> "Enter Material Value" ,:onkeyup => "validation(this.id)" , :required => true )%>
+          <% end %>
+        <% end %>
+
+
+        <% if @flag_new == 0 %>
+          <% @material_theoretical.each do |m| %>
+           <h3 class="text-capitalize"><%= m.material.name %></h3>
+          <%= text_field_tag(m.material.name, m.value, :id => m.material_id, :placeholder=> "Enter Material Value" ,:onkeyup => "validation(this.id)" , :required => true )%>
+          <% end %>
+        <% end%>
+
+        <br><div class="actions">
+          <%= f.submit :submit, class: 'btn btn-warning' %>
+        </div>
+        <div class="modal" id="basicModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Warning</h4>
+              </div>
+              <div class="modal-body">
+                <p id="modal-body"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div> 
+
+ </section>     
+<% end %>
+
+<script type="text/javascript">
+  function validation (id) {
+     var val = document.getElementById(id).value;
+     if( val % 1 !== 0 )
+        {
+          document.getElementById(id).value = "";
+          $('#modal-body').text('Please insert a number');
+          $('#basicModal').modal('toggle'); 
+        }
+  }
+
+
+</script>

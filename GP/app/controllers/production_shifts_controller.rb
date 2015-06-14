@@ -11,15 +11,11 @@ class ProductionShiftsController < ApplicationController
   def index
     if logged_in? and current_category.category=="Stock Keeper" 
         @production_shifts = ProductionShift.where("accepted= ?","false")
-        
-        
         @production_shifts.each do |m|
           puts m.material.name
           # @shift_info = Shift.where("id = ? " , m.shift_id)
           # #puts @shift_info[0].employee_id
           # @employee=Employee.where("id= ?",@shift_info[0].employee_id)
-
-          
         end
     else
        render :file => "/public/404.html",:status  => "404" 
@@ -87,20 +83,14 @@ class ProductionShiftsController < ApplicationController
   # POST /production_shifts
   # POST /production_shifts.json
   def create
-
-  #   @production_shift = ProductionShift.new(production_shift_params)
- # render plain:  params[params[:material_id][0]]
-  
     @shift=Shift.maximum("id");
     params[:material_id].each_with_index do |item,i|
-  @production_shift = ProductionShift.new(:shift_id=>@shift,:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]],:accepted=>"false")
-  @production_shift.save
-end
+      @production_shift = ProductionShift.new(:shift_id=>@shift,:material_id=> params[:material_id][i],:material_quantity=> params[params[:material_id][i]],:accepted=>"false")
+      @production_shift.save
+    end
    @materials = Material.all 
-   
    redirect_to new_production_shift_path
-   #render :new
-end
+  end
 
 
   # PATCH/PUT /production_shifts/1

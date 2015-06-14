@@ -1,0 +1,23 @@
+<%= form_for(@production_rate) do |f| %>
+  <section class="register">
+      <div class="form-group reg_section ">
+          <h1><span class="fa fa-info-circle"></span> Production Rate </h1>
+          <h3>Production Rate</h3>
+          <%= f.text_field :number_of_panels_per_hour, class: 'w' , placeholder: "Enter Production Rate" %>
+          <% if @production_rate.errors[:number_of_panels_per_hour] %>
+            <div class="text-danger">
+              <ul>
+                <% @production_rate.errors[:number_of_panels_per_hour].each do |msg| %>
+                  <li>*Production Rate <%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %><br>
+        <div class="actions">
+          <%= f.submit :submit , class: 'btn btn-warning' %>
+        </div>
+      </div>
+  </section>       
+<% end %>
+
+

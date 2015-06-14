@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601170437) do
+ActiveRecord::Schema.define(version: 20150613204300) do
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 20150601170437) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
-    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -122,6 +121,17 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   add_index "material_properties", ["material_id"], name: "index_material_properties_on_material_id", using: :btree
   add_index "material_properties", ["property_id"], name: "index_material_properties_on_property_id", using: :btree
 
+  create_table "material_theoreticals", force: :cascade do |t|
+    t.string   "value",                  limit: 255
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "theoreticalcategory_id", limit: 4
+    t.integer  "material_id",            limit: 4
+  end
+
+  add_index "material_theoreticals", ["material_id"], name: "index_material_theoreticals_on_material_id", using: :btree
+  add_index "material_theoreticals", ["theoreticalcategory_id"], name: "index_material_theoreticals_on_theoreticalcategory_id", using: :btree
+
   create_table "material_vendors", force: :cascade do |t|
     t.integer  "vendor_id",   limit: 4
     t.integer  "material_id", limit: 4
@@ -153,6 +163,12 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   end
 
   add_index "materials", ["quantity_id"], name: "index_materials_on_quantity_id", using: :btree
+
+  create_table "production_rates", force: :cascade do |t|
+    t.string   "number_of_panels_per_hour", limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
 
   create_table "production_shifts", force: :cascade do |t|
     t.integer  "material_id",       limit: 4
@@ -197,24 +213,26 @@ ActiveRecord::Schema.define(version: 20150601170437) do
 
   create_table "solar_panels", force: :cascade do |t|
     t.date     "production_date"
-    t.float    "height",          limit: 24
-    t.float    "width",           limit: 24
-    t.float    "power",           limit: 24
-    t.string   "celltype",        limit: 255
-    t.string   "subtype",         limit: 255
-    t.float    "price",           limit: 24,  default: 0.0
-    t.string   "serialNo",        limit: 255
-    t.integer  "container_id",    limit: 4
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "shift_id",        limit: 4
-    t.integer  "cellno",          limit: 4
-    t.integer  "sold_panel_id",   limit: 4
+    t.float    "height",                 limit: 24
+    t.float    "width",                  limit: 24
+    t.float    "power",                  limit: 24
+    t.string   "celltype",               limit: 255
+    t.string   "subtype",                limit: 255
+    t.float    "price",                  limit: 24,  default: 0.0
+    t.string   "serialNo",               limit: 255
+    t.integer  "container_id",           limit: 4
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "shift_id",               limit: 4
+    t.integer  "cellno",                 limit: 4
+    t.integer  "sold_panel_id",          limit: 4
+    t.integer  "theoreticalcategory_id", limit: 4
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
   add_index "solar_panels", ["shift_id"], name: "index_solar_panels_on_shift_id", using: :btree
   add_index "solar_panels", ["sold_panel_id"], name: "index_solar_panels_on_sold_panel_id", using: :btree
+  add_index "solar_panels", ["theoreticalcategory_id"], name: "index_solar_panels_on_theoreticalcategory_id", using: :btree
 
   create_table "sold_panels", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -240,6 +258,12 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   end
 
   add_index "spare_parts", ["machine_id"], name: "index_spare_parts_on_machine_id", using: :btree
+
+  create_table "theoreticalcategories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "vendor_containers", force: :cascade do |t|
     t.integer  "vendor_id",    limit: 4
@@ -287,6 +311,8 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   add_foreign_key "employees", "crews"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
+  add_foreign_key "material_theoreticals", "materials"
+  add_foreign_key "material_theoreticals", "theoreticalcategories"
   add_foreign_key "material_vendors", "materials"
   add_foreign_key "material_vendors", "vendors"
   add_foreign_key "materials", "quantities"
@@ -297,6 +323,7 @@ ActiveRecord::Schema.define(version: 20150601170437) do
   add_foreign_key "solar_panels", "containers"
   add_foreign_key "solar_panels", "shifts"
   add_foreign_key "solar_panels", "sold_panels"
+  add_foreign_key "solar_panels", "theoreticalcategories"
   add_foreign_key "sold_panels", "buyers"
   add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"

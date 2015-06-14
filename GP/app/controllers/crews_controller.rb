@@ -20,8 +20,8 @@ class CrewsController < ApplicationController
   # GET /crews/1
   def show
     if  current_category.category=="HR" or current_category.category=="Admin"
-    @crew = Crew.find(params[:id])
-    @employees = Employee.where("crew_id = ?" , params[:id])
+      @crew = Crew.find(params[:id])
+      @employees = Employee.where("crew_id = ?" , params[:id])
     else
       render :file => "/public/404.html", :status => 404 
     end 
