@@ -1,31 +1,21 @@
 <div class="container"  style="width: calc(70%);">
-  
-      <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"></span> Crew Information</h1>
-
-  <div class="row">
-     
-<section class="register" >  
-  <div class="reg_section">
-
-   <h3><span class="fa fa-folder"></span> Basic Information</h3>
-
-
-	<ul class="list-group">
-		<li class="list-group-item">Crew Name: <%= @crew.name %></li>
-		<li class="list-group-item">Number of workers: <%= @crew.no_of_workers %></li>
-	</ul>
-
-
-	<h3><span class="fa fa-user"></span> Members Name</h3>
-
-
-	<ul class="list-group">
-		<% @employees.each do |employee| %>
-			<li class="list-group-item text-capitalize"><%= employee.full_name %></li>
-  		<% end %>
-	</ul>
- </div>
- </section>	
-</div>
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"></span> Crew Information</h1>
+	<div class="row">   
+		<section class="register" >  
+		  <div class="reg_section">
+			   <h3><span class="fa fa-folder"></span> Basic Information</h3>
+				<ul class="list-group">
+					<li class="list-group-item">Crew Name: <%= @crew.name %></li>
+					<li class="list-group-item">Number of workers: <%= @crew.no_of_workers %></li>
+				</ul>
+				<h3><span class="fa fa-user"></span> Members Name</h3>
+				<ul class="list-group">
+					<% @employees.each do |employee| %>
+						<li class="list-group-item text-capitalize"><%= employee.full_name %></li>
+			  		<% end %>
+				</ul>
+		 	</div>
+		 </section>	
+	</div>
 </div>	
 

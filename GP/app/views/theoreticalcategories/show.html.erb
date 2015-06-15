@@ -1,0 +1,22 @@
+<div class="container"  style="width: calc(70%);">
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" >Category Information</h1>
+	<div class="row">   
+		<section class="register" >  
+		  <div class="reg_section">
+			   <h3><span class="fa fa-folder"></span> Basic Information</h3>
+				<ul class="list-group">
+					<li class="list-group-item">Category Name: <%= @theoreticalcategory.name %></li>
+				</ul>
+
+				<h3>Materials Value</h3>
+				<ul class="list-group">
+					<% @materials_theoretical.each do |m| %>
+					<% material = Material.find_by(m.material_id) %>
+						<li class="list-group-item text-capitalize"><%= m.material.name %> : <%= m.value %> Unit</li>
+			  		<% end %>
+				</ul>
+		 	</div>
+		 </section>	
+	</div>
+</div>	
+

@@ -1,0 +1,31 @@
+<div class="container" style="width: calc(70%);">
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E">All Theoretical Category</h1>
+    <section class="register" >  
+        <div class="reg_section">
+            <table class="table table-hover table-responsive"> 
+              <thead>
+                <tr>
+                  <th class="text-center"><h3>Category Name</h3></th>
+                  <th class="text-center"><h3>Show</h3></th>
+                  <th class="text-center"><h3>Edit</h3></th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <% @theoreticalcategories.each do |theoreticalcategory| %>
+                  <tr>
+                    <td class="text-center"><%= theoreticalcategory.name %></td>
+                    <td class="text-center"><%= link_to 'Show', theoreticalcategory , class:"btn btn-info" %></td>
+                    <td class="text-center"><%= link_to 'Edit', edit_theoreticalcategory_path(theoreticalcategory), class:"btn btn-danger"  %></td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+    </section>
+
+<%= will_paginate @crews, renderer: BootstrapPagination::Rails %>
+</div>    
+
+

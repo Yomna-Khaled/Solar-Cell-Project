@@ -9,6 +9,7 @@ gem "paperclip", "~> 4.2"
 gem 'mysql2'
 gem 'responders', '~> 2.0'
 gem 'prawn'
+gem "chartkick"
 
 gem 'prawn-table', '~> 0.1.0'
 # Use SCSS for stylesheets

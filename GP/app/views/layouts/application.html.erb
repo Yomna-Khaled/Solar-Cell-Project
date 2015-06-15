@@ -16,7 +16,6 @@
 }
 </style>
 	<% if logged_in? %> 
-
 	    <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
 	    <div id="sidebar-wrapper">
 	        <ul class="sidebar-nav">
@@ -48,6 +47,8 @@
 				<% end %>
 	              
 		        <% if current_category.category == "Shift Manager" %>
+		        	<li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
+		        	<li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
 	                <li><%= link_to ' Home', crew_home_path %></li>
 					<li><%= link_to ' Start Shift', shifts_showstartshift_path %></li>
 				 	<li><%= link_to ' End Shift', shifts_showendshift_path  %></li>
@@ -64,7 +65,13 @@
 				<% end %>
 
 				<% if current_category.category == "Admin" %>
+
 				<li><%= link_to ' Requests', sales_admins_path %></li>
+
+				    <li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
+				    <li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
+				    <li><%= link_to 'Productio Rate', production_rates_path %></li>
+
 					<li><%= link_to ' All Panels', solar_panels_path %></li>
 					<li><%= link_to ' All Materials', materials_path %></li>
 					<li><%= link_to ' All Spare Parts', spare_parts_path %></li>
