@@ -1,0 +1,35 @@
+ 
+  
+<%= form_for(@sales_admin) do |f| %>
+<section class="register">
+  <% if @sales_admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sales_admin.errors.count, "error") %> prohibited this sales_admin from being saved:</h2>
+
+      <ul>
+      <% @sales_admin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group reg_section ">
+    <h1><span class="fa fa-info-circle"></span> Order Information </h1>
+  
+   <h3>power </h3>
+    <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
+  
+  <h3> Type </h3>
+    
+<%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
+  
+  <h3> SubType </h3>
+   
+   <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
+  
+  <div class="actions">
+    <%= f.submit class:"btn btn-warning" %>
+  </div>
+<% end %>
+</div>
+</section>

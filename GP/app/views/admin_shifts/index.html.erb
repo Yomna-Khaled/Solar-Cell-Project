@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Admin Shifts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Power</th>
+      <th>Type</th>
+      <th>Subtype</th>
+      <th>Employee</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_shifts.each do |admin_shift| %>
+      <tr>
+        <td><%= admin_shift.power %></td>
+        <td><%= admin_shift.type %></td>
+        <td><%= admin_shift.subtype %></td>
+        <td><%= admin_shift.employee %></td>
+        <td><%= link_to 'Show', admin_shift %></td>
+        <td><%= link_to 'Edit', edit_admin_shift_path(admin_shift) %></td>
+        <td><%= link_to 'Destroy', admin_shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin shift', new_admin_shift_path %>

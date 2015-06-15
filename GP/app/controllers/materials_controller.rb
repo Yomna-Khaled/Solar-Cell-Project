@@ -12,7 +12,7 @@ class MaterialsController < ApplicationController
   # GET /materials
   # GET /materials.json
   def index    
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @materials = Material.all
       @materials = Material.paginate(:page => params[:page], :per_page => 10)
       @material_vendor = MaterialVendor.all
@@ -26,11 +26,9 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @material_vendor = MaterialVendor.all
       @material_properties = MaterialProperty.where("material_id=?",@material.id)
-      
-
       #report part for materials 
       respond_to do |format|
         format.html
@@ -48,9 +46,9 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if  current_category.category=="Buyer"
       @material = Material.new
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @flag = "new"
@@ -61,7 +59,7 @@ class MaterialsController < ApplicationController
 
   # GET /materials/1/edit
   def edit
-   if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper") 
+   if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper") 
       @vendors = Vendor.all
       @quantites = Quantity.all
       @properties = Property.all
@@ -160,7 +158,7 @@ def update
         end  
       end
 
-      format.html { redirect_to @material, notice: 'Material was successfully updated.' }
+      format.html { redirect_to @material }
       format.json { render :show, status: :ok, location: @material }
     else
       format.html { render :edit }

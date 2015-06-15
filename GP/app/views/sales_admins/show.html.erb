@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Power:</strong>
+  <%= @sales_admin.power %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @sales_admin.celltype %>
+</p>
+
+<p>
+  <strong>Subtype:</strong>
+  <%= @sales_admin.subtype %>
+</p>
+
+<%= link_to 'Edit', edit_sales_admin_path(@sales_admin) %> |
+<%= link_to 'Back', sales_admins_path %>

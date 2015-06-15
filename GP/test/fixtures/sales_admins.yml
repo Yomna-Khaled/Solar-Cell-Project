@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  power: 1.5
+  type: 
+  subtype: MyString
+
+two:
+  power: 1.5
+  type: 
+  subtype: MyString
