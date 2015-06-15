@@ -1,35 +1,47 @@
- 
-  
 <%= form_for(@sales_admin) do |f| %>
-<section class="register">
-  <% if @sales_admin.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sales_admin.errors.count, "error") %> prohibited this sales_admin from being saved:</h2>
-
-      <ul>
-      <% @sales_admin.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+  <section class="register">
+    <div class="form-group reg_section ">
+      <h1><span class="fa fa-info-circle"></span> Order Information </h1>
+      <h3><span class="fa fa-bolt"></span> Power </h3>
+      <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
+      <% if @sales_admin.errors[:power] %>
+        <div class="text-danger">
+          <ul>
+            <% @sales_admin.errors[:power].each do |msg| %>
+              <li>*Power <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="form-group reg_section ">
-    <h1><span class="fa fa-info-circle"></span> Order Information </h1>
-  
-   <h3>power </h3>
-    <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
-  
-  <h3> Type </h3>
+
+      <h3><span class="fa fa-sitemap"></span> Type </h3> 
+      <%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
+      <% if @sales_admin.errors[:celltype] %>
+        <div class="text-danger">
+          <ul>
+            <% @sales_admin.errors[:celltype].each do |msg| %>
+              <li>*Type <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     
-<%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
+      <h3><span class="fa fa-sitemap"></span> SubType </h3>
+      <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
+      <% if @sales_admin.errors[:subtype] %>
+        <div class="text-danger">
+          <ul>
+            <% @sales_admin.errors[:subtype].each do |msg| %>
+              <li>*SubType <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+      <div class="actions">
+        <%= f.submit "Order",class:"btn btn-warning" %>
+      </div>
   
-  <h3> SubType </h3>
-   
-   <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
-  
-  <div class="actions">
-    <%= f.submit class:"btn btn-warning" %>
-  </div>
-<% end %>
-</div>
-</section>
+    </div>
+  </section>
+<% end %>  

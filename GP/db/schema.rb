@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615081342) do
+ActiveRecord::Schema.define(version: 20150615082608) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
-    t.string   "type",        limit: 255
+    t.string   "celltype",    limit: 255
     t.string   "subtype",     limit: 255
     t.integer  "employee_id", limit: 4
     t.datetime "created_at",              null: false
