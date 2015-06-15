@@ -13,8 +13,8 @@
           <tbody>
             <% @production_rates.each do |production_rate| %>
               <tr>
-                <td><%= production_rate.number_of_panels_per_hour %></td>
-                <td><%= link_to 'Edit', edit_production_rate_path(production_rate), class:"btn btn-danger" %></td>
+                <td class="text-center"><%= production_rate.number_of_panels_per_hour %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_production_rate_path(production_rate), class:"btn btn-danger" %></td>
               </tr>
             <% end %>
           </tbody>
