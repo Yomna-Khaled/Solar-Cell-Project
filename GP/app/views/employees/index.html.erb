@@ -16,9 +16,10 @@
               <th class="text-center"><h3>Education</h3></th>
               <th class="text-center"><h3>Category</h3></th>
               <th class="text-center"><h3>Show</h3></th>
-              <% if current_category.category!="Admin" %>
+              <% if current_category.category != "Admin" %>
               <th class="text-center"><h3>Edit</h3></th>
               <%end%>
+              <th class="text-center"><h3>Remove</h3></th>
             </tr>
           </thead>
           <tbody>
@@ -33,14 +34,18 @@
               <td class="text-center"><%= category.category %></td>
               <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
               <% if current_category.category!="Admin" %>
-              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" %></td>
-            <% if employee.status=="yes" %>
-              <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
-              <% else %>
-              <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
-              <%end %>
-
+                <% if employee.status== "no" %>
+                  <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true   %></td>
+                <% end %>
+                <% if employee.status== "yes" %>
+                  <td class="text-center"><%= link_to 'Edit',edit_employee_path(employee), class:"btn btn-danger", id: employee.id.to_s+"e"  %></td>
+                <% end %>
               <%end%>
+              <% if employee.status=="yes" %>
+                <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
+                <% else %>
+                <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
+              <%end %>
             </tr>
             <% end %>
           </tbody>
@@ -53,7 +58,6 @@
 
 <script>
 $(".fire").click(function(){
-  console.log(this.id);
   var id =this.id;
   $.ajax({
       type: "POST",
@@ -62,8 +66,8 @@ $(".fire").click(function(){
       data: { 'id':this.id},
       complete: function(data)
       {
-         $("#"+id).html("Not Available");
-        console.log($("#"+id));
+        $("#"+id).html("Not Available");
+        document.getElementById(id+"e").removeAttribute('href');    
       }
     });
 });

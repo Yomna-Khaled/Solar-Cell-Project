@@ -9,10 +9,12 @@
 		      <tr>
 		        <th class="text-center"><h3>Serialno</h3></th>
 		        <th class="text-center"><h3>Capacity</h3></th>
+		        <% if current_category.category =="Buyer" or current_category.category=="Admin" %>
 		        <th class="text-center"><h3>Price</h3></th>
+		        <% end %>
 		        <th class="text-center"><h3>Total power</h3></th>
 		        <th class="text-center"><h3>Show</h3></th>
-		        <% if current_category.category!="Admin" %>
+		        <% if current_category.category =="Buyer" %>
 		        <th class="text-center"><h3>Edit</h3></th>
 		        <%end%>
 		      </tr>
@@ -23,19 +25,20 @@
 				    <tr >
 				      <td class="text-center"><%= container.serialNo %></td>
 				      <td class="text-center"><%= container.capacity %></td>
-				      <td class="text-center"><%= container.price %></td>
+				      <% if current_category.category =="Buyer" or current_category.category=="Admin" %>
+				      	<td class="text-center"><%= container.price %></td>
+				      <%end%>
 				      <td class="text-center"><%= container.total_power %></td>
 				      <td class="text-center"><%= link_to 'Show', container, class:"btn btn-info" %></td>
-				      <% if current_category.category!="Admin" %>
-				      <td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
+				      <% if current_category.category=="Buyer" %>
+				      	<td class="text-center"><%= link_to 'Edit', edit_container_path(container), class:"btn btn-danger" %></td>
 				      <%end%>
-				      <td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">
-		                       
-                                         <button  class="btn btn-danger" id="mybtn" >+</button>
-                                      
-		              </td>            
+				      <% if current_category.category=="Sales" or current_category.category=="Admin"  %>
+				      	<td data-toggle="collapse"  data-target=".demo<%=i%>" class="text-center,accordion-toggle">       
+                        	<button  class="btn btn-danger" id="mybtn" >+</button>         
+		              	</td> 
+		              <%end %>           
 				    </tr>
-		              
 		              <tr>
 		               <td  colspan="12" style="border:0px">     
 		                    <% if container.solar_panels.length > 0 %>
@@ -48,7 +51,7 @@
 											<td><h3>Sub Type</h3></td>	
 											<td><h3>Cells no.</h3></td>  
 											<td><h3>power</h3></td>
-				                                                        <td><h3>sold</h3></td>
+				                            <td><h3>sold</h3></td>
 						              	</tr>
 							    	</thead> 
 				                    <tbody>
@@ -57,14 +60,14 @@
 										      <td ><%= solar_panel.serialNo%> </td>  	
 							                      <td><%= solar_panel.production_date %></td>                  
 											  <td ><%= solar_panel.celltype %> </td>
-									       <td ><%= solar_panel.subtype%> </td>	              
+									       <td ><%= solar_panel.subtype%> </td>	          
 											  <td > <%= solar_panel.cellno %></td> 
 											  <td ><%= solar_panel.power %></td>
-				                                                          <% if solar_panel.sold_panel_id.nil?%> 
-				                                                          <td ><span class="fa fa-times"></span></td>
-                                                                                        <% else %>   
-                                                                                      <td ><span class="fa fa-check"></span></td>
-                                                                                        <%end%>  
+				                              <% if solar_panel.sold_panel_id.nil?%> 
+				                                <td ><span class="fa fa-times"></span></td>
+                                              <% else %>   
+                                                <td ><span class="fa fa-check"></span></td>
+                                              <%end%>  
 							     		  </tr>  
 							    		<% end %> 
 				                    </tbody> 

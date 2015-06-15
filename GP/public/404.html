@@ -46,6 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             
           <% elsif (current_category.category=="Buyer")%>
             <p>you can go to <span><a href="/materials">home</a></span> page</p>  
+
           <% else %>
             <p>you can go to <span><a <%redirect_to  @employee %>>home</a></span> page</p>
           <% end %>
