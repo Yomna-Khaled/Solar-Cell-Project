@@ -104,8 +104,7 @@ class ShiftsController < ApplicationController
 				  end 
 				  if @matsum.exists?
 				    @matsum=@matsum.first.sum
-            puts "___________"
-            puts  @allmat[i].name  
+             
 				    @act_mat.push ([@allmat[i].name,@matsum])
 				    @th_mat.push ([@allmat[i].name,@th_mat_qt])
 					   if @matsum-(@th_mat_qt) >0
@@ -115,8 +114,7 @@ class ShiftsController < ApplicationController
 					   end  
 				  else
 						@act_mat.push ([@allmat[i].name,0]) 
-             puts "___________"
-            puts  @allmat[i].name 
+            
 						@th_mat.push ([@allmat[i].name,@th_mat_qt])
 						@waste.push ([@allmat[i].name,0]) 
 					end 
