@@ -1,57 +1,88 @@
-
 <%= form_for(@vendor) do |f| %>
-  
-
-<section class="register">
+  <section class="register">
     <div class="form-group reg_section ">
-    <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
-    <h3><span class="fa fa-user">Name</h3>
-    <%= f.text_field :name %>
-    
-  <% if @vendor.errors[:name].any? %>
-    <div id="error_explanation">  
-      <ul>
-      <% @vendor.errors[:name].each do |message| %>
-        <li><%= message %></li>
+
+      <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
+      <h3><span class="fa fa-user"> Name</span></h3>
+      <%= f.text_field :name %>
+
+      <% if @vendor.errors[:name] %>
+        <div class="text-danger">
+          <ul>
+            <% @vendor.errors[:name].each do |msg| %>
+              <li>*Vendor Name <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
 
-
-  
-    <h3><span class="fa fa-envelope"></span> Email</h3>
-    <%= f.text_field :email %>
-    <% if @vendor.errors[:email].any? %>
-    <div id="error_explanation">  
-      <ul>
-      <% @vendor.errors[:email].each do |message| %>
-        <li><%= message %></li>
+      <h3><span class="fa fa-envelope"></span> Email</h3>
+      <%= f.text_field :email %>
+      <% if @vendor.errors[:email] %>
+        <div class="text-danger">
+          <ul>
+            <% @vendor.errors[:email].each do |msg| %>
+              <li>*Vendor Email <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
- 
+
+      <h3> Type </h3>
+      <%= f.select :ventype , [['local', 'local'], ['foreign','foreign']] %>
+      <% if @vendor.errors[:ventype] %>
+        <div class="text-danger">
+          <ul>
+            <% @vendor.errors[:ventype].each do |msg| %>
+              <li>*Vendor type <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+        
+
+      <h3><span class="fa fa-home"></span> Address</h3>
+      <%= f.text_field :address,placeholder: "Enter Vendor Address...." %>
+      <% if @vendor.errors[:address] %>
+        <div class="text-danger">
+          <ul>
+            <% @vendor.errors[:address].each do |msg| %>
+              <li>*Vendor type <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+        
+
+      <h3><span class="fa fa-map-marker"></span> City</h3>
+      <%= f.text_field :city ,placeholder:"Enter Vendor City...."%>
+      <% if @vendor.errors[:city] %>
+        <div class="text-danger">
+          <ul>
+            <% @vendor.errors[:city].each do |msg| %>
+              <li>*City <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+    <div class="field form-group">
 
 
-<div class="field form-group">
-
-
-  <% if @flag == "new" %> 
+      <% if @flag == "new" %> 
         <%= fields_for :vendor_phones do |p| %> 	
            <h3><span class="fa fa-mobile"></span> Phone</h3>
-	         <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
-        <% end %>
+           <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
+      <% end %>
 
-  <%else %>
+     <%else %>
       <%= fields_for :vendor_phones do |p| %>
       <%= phonn = '' %>
       <% if @phones.blank? %>
           <p> <%= phonn = '' %> </p>
            <h3><span class="fa fa-mobile"></span> Phone</h3>
            <%= p.text_field :phone , id:"phone", value:"" , readonly: true %><br>
-      
       <% else %>
          <% @phones.each do |f| %>
           <p> <% phonn = phonn + f.phone + ',' %> </p>
@@ -59,48 +90,43 @@
           <%= p.text_field :phone , id:"phone", value: phonn , readonly: true %>  <a href="#" onclick="del(<%=@vendor.id %>)" class="btn btn-link" style="text-align: left"><h3>Delete Phone</h3></a> <br>
       <% end %> 
     <% end %>
-  <%end %>
+    <%end %>
 
 
-</div>
+    </div>
 
-<a href="#" onclick="add()" class="btn btn-link" style="text-align: left"><h3>Add Phone</h3></a>
+      <a href="#" onclick="add()" class="btn btn-link" style="text-align: left"><h3>Add Phone</h3></a>
 
-<div id="phones">
-    
-</div>
-
-<div id="phonedel">
-    
-</div>
-
-
-
-
-<div class="modal" id="basicModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Warning</h4>
+      <div id="phones">
       </div>
-      <div class="modal-body">
-        <p id="modal-body"></p>
+
+      <div id="phonedel">
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+
+      <div class="modal" id="basicModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+              <p id="modal-body"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-warning" %>
       </div>
     </div>
-  </div>
-</div>
-
-  <div class="actions">
-    <%= f.submit "Submit", class: "btn btn-warning" %>
-  </div>
-</div>
+  
+  </section >
 <% end %>
-</section >
-
 
 
 <script>

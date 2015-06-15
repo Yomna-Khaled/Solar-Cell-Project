@@ -3,7 +3,7 @@
       <div class="form-group reg_section ">
           <h1><span class="fa fa-info-circle"></span> Production Rate </h1>
           <h3>Production Rate</h3>
-          <%= f.text_field :number_of_panels_per_hour, class: 'w' , placeholder: "Enter Production Rate" %>
+          <%= f.text_field :number_of_panels_per_hour, class: 'w' , placeholder: "Enter Production Rate", :onkeyup => "validation(this.id)" %>
           <% if @production_rate.errors[:number_of_panels_per_hour] %>
             <div class="text-danger">
               <ul>
@@ -17,7 +17,37 @@
           <%= f.submit :submit , class: 'btn btn-warning' %>
         </div>
       </div>
-  </section>       
+  </section> 
+          <div class="modal" id="basicModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Warning</h4>
+              </div>
+              <div class="modal-body">
+                <p id="modal-body"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> OK</button>
+              </div>
+            </div>
+          </div>
+        </div>      
 <% end %>
 
+
+<script type="text/javascript">
+  function validation (id) {
+     var val = document.getElementById(id).value;
+     if( val % 1 !== 0 )
+        {
+          document.getElementById(id).value = "";
+          $('#modal-body').text('Please insert a number');
+          $('#basicModal').modal('toggle'); 
+        }
+  }
+
+
+</script>
 

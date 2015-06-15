@@ -97,16 +97,10 @@ class ShiftsController < ApplicationController
 				  @th_mat_qt=0   
 				  for j in 0...@solars.length
 				        @th_cat=@solars[j].theoreticalcategory_id
-                puts 'ggggggggggggggggggggg'
-                puts @allmat[i].id
-				        @th_mat_i=MaterialTheoretical.where('theoreticalcategory_id =? and material_id=?',@th_cat,@allmat[i].id).first.value
-				        puts "ggggggggggggggggggg"
-                puts @th_mat_i
-                puts '_______'
-                puts @th_mat_i
+                @th_mat_i=MaterialTheoretical.where('theoreticalcategory_id =? and material_id=?',@th_cat,@allmat[i].id).first.value
+				        
                 @th_mat_qt=@th_mat_qt+@th_mat_i.to_i
-                puts '_______'
-                puts @th_mat_qt  
+                
 				  end 
 				  if @matsum.exists?
 				    @matsum=@matsum.first.sum

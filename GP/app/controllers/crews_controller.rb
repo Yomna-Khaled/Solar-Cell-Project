@@ -44,7 +44,7 @@ class CrewsController < ApplicationController
 
   def get_employees
     category = Category.where("category = ? " , "Normal")
-    @employees = Employee.where("category_id = ? " , category[0].id)
+    @employees = Employee.where("category_id = ? " , category[0].id).where("status =? " , "yes")
     puts (@employees.count)
     render partial: "employees";
   end
@@ -57,23 +57,22 @@ class CrewsController < ApplicationController
     @employees=Employee.where("crew_id = ?",params[:id])
     category = Category.where("category = ? " , "Normal")
     @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
-
   end
 
-def home
- @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
-  if @shift.exists?
-	   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
-	   if !@crewid 
-	   	@crewid = ' ';
-	    @crew_name = ' ';
-	   else
-	    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
-	   end
-  else 
-	   redirect_to  shifts_showstartshift_path 
+  def home
+   @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+    if @shift.exists?
+  	   @crewid = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL").first
+  	   if !@crewid 
+  	   	@crewid = ' ';
+  	    @crew_name = ' ';
+  	   else
+  	    @crew_name = Employee.where("crew_id = ? ", @crewid.crew_id ).select([:full_name])  
+  	   end
+    else 
+  	   redirect_to  shifts_showstartshift_path 
+    end
   end
-end
 
   # POST /crews
   def create

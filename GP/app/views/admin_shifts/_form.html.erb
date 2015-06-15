@@ -1,0 +1,37 @@
+<%= form_for(@admin_shift) do |f| %>
+ <section class="register">
+  <div class="form-group reg_section">
+  <% if @admin_shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_shift.errors.count, "error") %> prohibited this admin_shift from being saved:</h2>
+
+      <ul>
+      <% @admin_shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<h1 ><span class="fa fa-info-circle"></span> Order Information</h1>
+  
+   <h3>Power </h3>
+    <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
+  
+  <h3> Type </h3>
+    
+<%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
+  
+  <h3> SubType </h3>
+   
+   <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
+  
+   <h3>Shift Manager </h3>
+   <%= f.select :employee_id , options_from_collection_for_select(@managers, "id", "full_name"),:required => true %>
+  
+  <div class="actions">
+    <%= f.submit  " Order" ,class: "btn btn-warning" %>
+  </div>
+</div>
+</section>
+<% end %>
+

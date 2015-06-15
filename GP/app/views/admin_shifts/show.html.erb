@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Power:</strong>
+  <%= @admin_shift.power %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @admin_shift.celltype %>
+</p>
+
+<p>
+  <strong>Subtype:</strong>
+  <%= @admin_shift.subtype %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @admin_shift.employee %>
+</p>
+
+<%= link_to 'Edit', edit_admin_shift_path(@admin_shift) %> |
+<%= link_to 'Back', admin_shifts_path %>

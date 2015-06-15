@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  resources :admin_shifts
+  resources :sales_admins
+
   resources :production_rates
   resources :material_theoreticals
   resources :material_theoreticals
@@ -11,6 +15,7 @@ Rails.application.routes.draw do
   resources :theoreticalcategories
   resources :material_theoretical_categories
   resources :theoretical_categories
+
   resources :lookup_prices
 
   resources :sold_panels
@@ -86,6 +91,7 @@ Rails.application.routes.draw do
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
+  post 'vendors/black' =>'vendors#black'
 
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'

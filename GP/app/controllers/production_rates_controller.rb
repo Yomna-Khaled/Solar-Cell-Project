@@ -46,7 +46,7 @@ class ProductionRatesController < ApplicationController
       @production_rate = ProductionRate.new(production_rate_params)
       respond_to do |format|
         if @production_rate.save
-          format.html { redirect_to @production_rate, notice: 'Production rate was successfully created.' }
+          format.html { redirect_to @production_rate }
           format.json { render :show, status: :created, location: @production_rate }
         else
           format.html { render :new }
@@ -63,7 +63,7 @@ class ProductionRatesController < ApplicationController
     if current_category.category == "Admin"
       respond_to do |format|
         if @production_rate.update(production_rate_params)
-          format.html { redirect_to @production_rate, notice: 'Production rate was successfully updated.' }
+          format.html { redirect_to @production_rate }
           format.json { render :show, status: :ok, location: @production_rate }
         else
           format.html { render :edit }
@@ -80,7 +80,7 @@ class ProductionRatesController < ApplicationController
     if false
       @production_rate.destroy
       respond_to do |format|
-        format.html { redirect_to production_rates_url, notice: 'Production rate was successfully destroyed.' }
+        format.html { redirect_to production_rates_url }
         format.json { head :no_content }
       end
     end  
