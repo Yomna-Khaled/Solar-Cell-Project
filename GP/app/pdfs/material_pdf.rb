@@ -6,6 +6,7 @@ class MaterialPdf < Prawn::Document
     @material_properties = material_properties
     
     logo
+    header
     material_basic_info
     stock_info
     material_date
@@ -23,6 +24,16 @@ class MaterialPdf < Prawn::Document
     end
     move_down 12
   end
+
+  def header
+  
+    text"Material Report", :align => :center, :size => 20 , :style => :bold
+     stroke do
+      horizontal_line 190 , 350
+    end
+    move_down 12
+  end
+
 
   def material_basic_info
       formatted_text [
@@ -154,7 +165,12 @@ class MaterialPdf < Prawn::Document
   def vendor_rows
     [['Vendor Name', 'Start Date', 'End Date' ]] +
       @allvendors.map do |vendor|
-          [vendor.vendor.name, vendor.created_at.strftime('%Y-%m-%d'), vendor.date ]
+            if vendor.date == nil
+                [vendor.vendor.name, vendor.created_at.strftime('%Y-%m-%d'), "current" ]     
+            else
+                [vendor.vendor.name, vendor.created_at.strftime('%Y-%m-%d'), vendor.date ]
+            end
+          
     end
   end
 
@@ -174,7 +190,7 @@ def material_property
      @material_properties.map do |materialproperty|
 
       formatted_text [
-           {:text => materialproperty.property.name , :styles => [:bold] } ,
+           {:text => materialproperty.property.name+": ", :styles => [:bold] } ,
            {:text => materialproperty.value }
         ]
         

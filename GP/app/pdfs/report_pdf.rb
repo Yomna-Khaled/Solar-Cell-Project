@@ -1,5 +1,5 @@
 class ReportPdf < Prawn::Document
-  def initialize(shift , manager ,crew_member_numbers ,shift_produced_rate ,total_power , materials_used_id , crew_Members)
+  def initialize(shift , manager ,crew_member_numbers ,shift_produced_rate ,total_power , materials_used_id , crew_Members , solar_panels)
     super()
     @shifts = shift
     @managers = manager
@@ -8,11 +8,14 @@ class ReportPdf < Prawn::Document
     @total_power = total_power
     @materials_used_id = materials_used_id
     @crew_Members = crew_Members
+    @solar_panels = solar_panels
 
     logo
     header
     shift_Info
+    solar_info
     table_content
+   
     
   end
  
@@ -149,16 +152,41 @@ end
       row(0).font_style = :bold
       self.header = true
       self.row_colors = ['DDDDDD', 'FFFFFF']
- end
+  end
 end
 
 
 
   def material_rows
+    move_down 10
     [['Material Name', 'Quantity Used in Shift', 'Theoritical Quantity ' , 'Wast Percentage %']] +
       @materials_used_id.map do |m|
-        percent = (m.material_quantity / (4 * @shifts[0].production_rate) )* 100
-      [m.material.name, m.material_quantity, "4" , percent ]
+        theoritical =0 ;
+        #calculating waste in materials 
+        #loop through all pannels/shift
+         @solar_panels.map do |p|
+            cat_id = p.theoreticalcategory_id
+            theoritical = theoritical + MaterialTheoreticals.where("material_id = ? AND theoreticalcategory_id = ? " , m.id , cat_id)[0].value;
+         end
+        #check type of each pannel and calculate the theoritical value 
+        #then calculate the percentatge 
+        percent = (m.sum / theoritical )* 100
+      [m.name, m.sum, "4" , percent ]
+    end
+  end
+
+  def solar_info
+    table pannel_rows do
+      row(0).font_style = :bold
+      self.header = true
+      self.row_colors = ['DDDDDD', 'FFFFFF']
+    end
+  end
+
+   def pannel_rows
+    [['Pannel Serial Number ', 'Type-SubType', 'Cell Numbers' , 'Power']] +
+      @solar_panels.map do |m|
+      [m.serialNo, m.celltype+" - "+m.subtype, m.cellno , m.power ]
     end
   end
 

@@ -36,21 +36,37 @@ class ShiftsController < ApplicationController
 	    @crew_Members = Employee.where("crew_id = ? " , @shift[0].crew_id)
 	    @solar_panels=SolarPanel.where("shift_id = ?" , @shift[0].id)
 
+
+      puts "ooooooooooooooooooooooooooooooooooo"
+       @solar_panels.each do |m|
+          puts m.serialNo
+          puts m.celltype
+          puts m.subtype
+          puts m.power
+          puts m.cellno
+       end
+
 	    @solar_panels.each do|solar|
 	      @total_power = @total_power + solar.power
 	    end
 	  
-	     @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
+
+      @materials_used_id= ProductionShift.select('materials.name ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ",  params[:id]).group("material_id")
+    
+	     # @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
 	    puts "==============================================="
        @materials_used_id.each do |m|
-      		puts m.material.name
-      		puts m.material_quantity
+      		# puts m.material.name
+      		# puts m.material_quantity
 	     end
 	    puts "==============================================="
+
+
+
 	    respond_to do |format|
 	      format.html
 	      format.pdf do
-		pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power , @materials_used_id , @crew_Members)
+		pdf = ReportPdf.new(@shift ,@manager ,@crew_member_numbers , @shift_produced_rate , @total_power , @materials_used_id , @crew_Members , @solar_panels)
 		send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
 	      end
 	    end
