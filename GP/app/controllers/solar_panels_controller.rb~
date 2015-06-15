@@ -1,6 +1,6 @@
 class SolarPanelsController < ApplicationController
   before_action :set_solar_panel, only: [:show, :edit, :update, :destroy]
-  before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
+  before_action  :set_controller_serial_ids,:set_theoriticalcategories_ids,only:[:new,:create,:edit,:update]
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
@@ -142,7 +142,7 @@ class SolarPanelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solar_panel_params
-      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width,:dimensionunit, :power,:cellno, :celltype, :subtype, :serialNo, :container_id)
+      params.require(:solar_panel).permit(:production_date, :expire_date, :height, :width,:dimensionunit, :power,:cellno, :celltype, :subtype, :serialNo, :theoreticalcategory_id,:container_id)
     end
 
     def solar_Salespanel_params
@@ -163,9 +163,9 @@ class SolarPanelsController < ApplicationController
     end
     def set_theoriticalcategories_ids
         @thcategoriesopt=[]       
-        for i in 0...(Theoreticalcategories.all.length)
-            @th_category = (Theoreticalcategories.all)[i]
-            @my2arr = [@th_category.name,@th_category.id]
+        for i in 0...(Theoreticalcategory.all.length)
+            @th_category = (Theoreticalcategory.all)[i]
+            @my2arr = [@th_category.name , @th_category.id]
             @thcategoriesopt.push(@my2arr)
             
         end   

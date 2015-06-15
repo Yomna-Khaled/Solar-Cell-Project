@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :production_rates
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :theoreticalcategories
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticalcategories
+  resources :theoreticalcategories
+  resources :material_theoretical_categories
+  resources :theoretical_categories
   resources :lookup_prices
 
   resources :sold_panels

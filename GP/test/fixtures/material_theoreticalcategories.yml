@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Material_id: 
+  Theoreticalcategory_id: 
+  value: MyString
+
+two:
+  Material_id: 
+  Theoreticalcategory_id: 
+  value: MyString
