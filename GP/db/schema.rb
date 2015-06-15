@@ -11,9 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20150615081342) do
 
-ActiveRecord::Schema.define(version: 20150613202737) do
+  create_table "admin_shifts", force: :cascade do |t|
+    t.float    "power",       limit: 24
+    t.string   "type",        limit: 255
+    t.string   "subtype",     limit: 255
+    t.integer  "employee_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
+  add_index "admin_shifts", ["employee_id"], name: "index_admin_shifts_on_employee_id", using: :btree
 
   create_table "buyer_phones", force: :cascade do |t|
     t.integer  "buyer_id",   limit: 4
@@ -187,6 +196,14 @@ ActiveRecord::Schema.define(version: 20150613202737) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "sales_admins", force: :cascade do |t|
+    t.float    "power",      limit: 24
+    t.string   "celltype",   limit: 255
+    t.string   "subtype",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.integer  "employee_id",      limit: 4
     t.integer  "crew_id",          limit: 4
@@ -288,16 +305,18 @@ ActiveRecord::Schema.define(version: 20150613202737) do
   add_index "vendor_spares", ["vendor_id"], name: "index_vendor_spares_on_vendor_id", using: :btree
 
   create_table "vendors", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "address",    limit: 255
-    t.string   "city",       limit: 255
-    t.string   "type",       limit: 255
-    t.string   "ventype",    limit: 255
+    t.string   "name",        limit: 255
+    t.string   "email",       limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "address",     limit: 255
+    t.string   "city",        limit: 255
+    t.string   "type",        limit: 255
+    t.string   "ventype",     limit: 255
+    t.string   "blacklisted", limit: 255
   end
 
+  add_foreign_key "admin_shifts", "employees"
   add_foreign_key "buyer_phones", "buyers"
   add_foreign_key "employee_managers", "crews"
   add_foreign_key "employee_managers", "employees"
