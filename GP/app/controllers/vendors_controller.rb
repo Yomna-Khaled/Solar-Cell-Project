@@ -9,10 +9,64 @@ class VendorsController < ApplicationController
   # GET /vendors
   # GET /vendors.json
   def index
-    if  current_category.category=="Sales" or current_category.category=="Admin"
-         @vendors = Vendor.all
-         @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
+    if  current_category.category=="Sales" or current_category.category=="Admin" 
+      if params[:vendortype] == 'sparepart'
+        session[:vendortype] = 'sparepart'
+      elsif params[:vendortype] == 'material'
+          session[:vendortype] = 'material'
+      elsif params[:vendortype] == 'pallet'
+          session[:vendortype] = 'pallet'
+      end
 
+      if session[:vendortype] == 'sparepart'  
+        @listcritetia = "sparepart"
+        if params[:searchtype] == 'date'
+          @vendors = VendorSpare.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @sparepart = SparePart.where("name like ?", "%#{params[:search]}%")[0]
+          if @sparepart != nil
+            @vendors = VendorSpare.where("spare_part_id = ?", @sparepart.id).order("created_at DESC")
+          else
+            @vendors = VendorSpare.where("spare_part_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = VendorSpare.all.order(created_at: :desc)
+        end        
+        
+      elsif session[:vendortype] == 'pallet'  
+        @listcritetia = "pallet"
+        if params[:searchtype] == 'date'
+          @vendors = VendorContainer.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @container = Container.where("serialNo like ?", "%#{params[:search]}%")[0]
+          if @container != nil
+            @vendors = VendorContainer.where("container_id = ?", @container.id).order("created_at DESC")
+          else
+            @vendors = VendorContainer.where("container_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = VendorContainer.all.order(created_at: :desc)
+        end
+
+        
+
+
+      elsif session[:vendortype] == 'material' or session[:vendortype] == nil
+        @listcritetia = "material"
+        if params[:searchtype] == 'date'
+          @vendors = MaterialVendor.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @material = Material.where("name like ?", "%#{params[:search]}%")[0]
+          if @material != nil
+            @vendors = MaterialVendor.where("material_id = ?", @material.id).order("created_at DESC")
+          else
+            @vendors = MaterialVendor.where("material_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = MaterialVendor.all.order(created_at: :desc)
+        end
+       end
+      @vendors = @vendors.paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"  
     end     

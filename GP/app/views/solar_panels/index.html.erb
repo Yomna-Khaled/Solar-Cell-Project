@@ -9,36 +9,19 @@
  
 
 <div class="row">
-  
- <!--    <select class="target col-md-3" style="width:110px;margin-left:10px;margin-top:15px" >
-        <option value="all">All</option>
-        <option value="sold">Sold</option>
-        <option value="unsold">Unsold</option>
-    
-    </select> --> 
- 
-   
     <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
     
         <%= select_tag(:soldtype, options_for_select([['ALL', 'all'], ['Sold', 'sold'],['Unsold','unsold']]),onchange: "searchciteria()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
 
     	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class: "col-md-3" ,style:"width:300px;") %>
-      
 
-        
         <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
         <%= hidden_field_tag :searchcriteria, "power" %>
         <%= hidden_field_tag :soldornot, "ALL" %>
-        
-       
-        
+ 
         <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
-       
-    
-    <% end %>
 
- 
- 
+    <% end %> 
 </div>
   <section class="register" >  
     <div class="reg_section">
