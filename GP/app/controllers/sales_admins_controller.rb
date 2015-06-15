@@ -1,6 +1,6 @@
 class SalesAdminsController < ApplicationController
   before_action :set_sales_admin, only: [:show, :edit, :update, :destroy]
-  before_action  :set_controller_serial_ids,only:[:new,:create,:edit,:update]
+
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
@@ -18,6 +18,11 @@ class SalesAdminsController < ApplicationController
   # GET /sales_admins/1
   # GET /sales_admins/1.json
   def show
+    if false
+     else
+      render :file => "/public/404.html",:status  => "404"
+    end
+      
   end
 
   # GET /sales_admins/new

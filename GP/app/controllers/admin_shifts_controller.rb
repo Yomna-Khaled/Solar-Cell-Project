@@ -1,24 +1,47 @@
 class AdminShiftsController < ApplicationController
   before_action :set_admin_shift, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   # GET /admin_shifts
   # GET /admin_shifts.json
   def index
+    if logged_in? and( current_category.category=="Shift Manager" )
     @admin_shifts = AdminShift.all
+  else
+     render :file => "/public/404.html",:status  => "404"
+  end
+
   end
 
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json
   def show
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404"
+    end  
   end
 
   # GET /admin_shifts/new
   def new
+     if logged_in? and( current_category.category=="Admin" )
+    category=Category.where("category = ?","Shift Manager")
+    
+    @managers=Employee.where("category_id = ?",category[0].id)
     @admin_shift = AdminShift.new
+  else
+    render :file => "/public/404.html",:status  => "404"
+  end
+
   end
 
   # GET /admin_shifts/1/edit
   def edit
+    if false
+    else
+      render :file => "/public/404.html",:status  => "404"
+    end
   end
 
   # POST /admin_shifts
@@ -54,11 +77,15 @@ class AdminShiftsController < ApplicationController
   # DELETE /admin_shifts/1
   # DELETE /admin_shifts/1.json
   def destroy
+    if false
     @admin_shift.destroy
     respond_to do |format|
       format.html { redirect_to admin_shifts_url, notice: 'Admin shift was successfully destroyed.' }
       format.json { head :no_content }
     end
+  else
+    render :file => "/public/404.html",:status  => "404"
+  end
   end
 
   private
@@ -69,6 +96,6 @@ class AdminShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_shift_params
-      params.require(:admin_shift).permit(:power, :type, :subtype, :employee_id)
+      params.require(:admin_shift).permit(:power, :celltype, :subtype, :employee_id)
     end
 end
