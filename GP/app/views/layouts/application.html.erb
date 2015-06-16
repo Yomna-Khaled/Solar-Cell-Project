@@ -83,6 +83,9 @@
 					<li><%= link_to ' All Crews', crews_path %></li>
 					<li><%= link_to ' All Shifts', shifts_allshifts_path %></li>
 					<li><%= link_to ' Order Shift', new_admin_shift_path %></li>
+
+					<li><%= link_to ' All Orders To Shift', admin_shifts_path %></li>
+
 				<% end %>
 
 				<% if current_category.category == "Buyer" %>

@@ -1,18 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="width: calc(70%);">
+ 
+      <h1 class="page-header" style="font-size:30px;color:#2A4E6E" ><span class="fa fa-info-circle"></span> Order Information</h1>
+<section class="register">
+  <div class="reg_section">
+  <div class="page-header">
+    <h3><span class="fa fa-info-circle"></span> Basic Infromation</h3>
+  </div>
 
-<p>
-  <strong>Power:</strong>
-  <%= @sales_admin.power %>
-</p>
+  <ul class="list-group">
+    <li class="list-group-item">Power: <%= @sales_admin.power %></li>
+     <li class="list-group-item">Type:   <%= @sales_admin.celltype %></li>
+    <li class="list-group-item">SubType:  <%= @sales_admin.subtype %></li>
+   
+    
+  </ul>
 
-<p>
-  <strong>Type:</strong>
-  <%= @sales_admin.celltype %>
-</p>
+ 
 
-<p>
-  <strong>Subtype:</strong>
-  <%= @sales_admin.subtype %>
-</p>
+  
+ </div> 
+</section>
+</div>  
 
 
