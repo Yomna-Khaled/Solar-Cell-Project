@@ -25,15 +25,13 @@ class AdminShiftsController < ApplicationController
 
   # GET /admin_shifts/new
   def new
-     if logged_in? and( current_category.category=="Admin" )
-    category=Category.where("category = ?","Shift Manager")
-    
-    @managers=Employee.where("category_id = ?",category[0].id)
-    @admin_shift = AdminShift.new
-  else
-    render :file => "/public/404.html",:status  => "404"
-  end
-
+    if logged_in? and( current_category.category=="Admin" )
+        category=Category.where("category = ?","Shift Manager")
+        @managers=Employee.where("category_id = ?",category[0].id)
+        @admin_shift = AdminShift.new
+    else
+      render :file => "/public/404.html",:status  => "404"
+    end
   end
 
   # GET /admin_shifts/1/edit
@@ -48,12 +46,13 @@ class AdminShiftsController < ApplicationController
   # POST /admin_shifts.json
   def create
     @admin_shift = AdminShift.new(admin_shift_params)
-
     respond_to do |format|
       if @admin_shift.save
         format.html { redirect_to @admin_shift, notice: 'Admin shift was successfully created.' }
         format.json { render :show, status: :created, location: @admin_shift }
       else
+        category=Category.where("category = ?","Shift Manager")
+        @managers=Employee.where("category_id = ?",category[0].id)
         format.html { render :new }
         format.json { render json: @admin_shift.errors, status: :unprocessable_entity }
       end

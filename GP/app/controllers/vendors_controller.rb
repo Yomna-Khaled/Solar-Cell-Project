@@ -64,8 +64,8 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-          last_id = Vendor.maximum('id')
-          Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
+          #last_id = Vendor.maximum('id')
+          #Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
