@@ -2,7 +2,9 @@ class AdminShiftsController < ApplicationController
   before_action :set_admin_shift, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
+  def render_404      
+    render :file => "/public/404.html", :status => 404,:layout => false
+  end
   # GET /admin_shifts
   # GET /admin_shifts.json
   def index

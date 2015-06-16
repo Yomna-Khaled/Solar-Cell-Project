@@ -4,7 +4,7 @@ class SoldPanelsController < ApplicationController
   skip_before_action :verify_authenticity_token
 # Render 404 page when record not found
   def render_404      
-     render :file => "/public/404.html", :status => 404
+     render :file => "/public/404.html", :status => 404,:layout => false
   end
   # GET /sold_panels
   # GET /sold_panels.json
