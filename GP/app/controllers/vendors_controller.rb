@@ -19,7 +19,16 @@ class VendorsController < ApplicationController
 
   end
   def black
-      @vendor=Vendor.where("id= ?",params[:id]).update_all(:blacklisted => "yes" )
+      @vendor=Vendor.where("id= ?",params[:id])
+
+      puts @vendor[0].blacklisted
+      if @vendor[0].blacklisted=="yes"
+
+      @vendor.update_all(:blacklisted => "no" )
+    else
+      puts "here"
+      @vendor.update_all(:blacklisted => "yes" )
+    end
       render plain: "ok"
   end  
 
