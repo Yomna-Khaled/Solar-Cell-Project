@@ -10,6 +10,7 @@
       <th class="text-center"><h3>Power</h3></th>
       <th class="text-center"><h3>Type</h3></th>
       <th class="text-center"><h3>Subtype</h3></th>
+       <th class="text-center"><h3>Done</h3></th>
        
     </tr>
   </thead>
@@ -17,10 +18,12 @@
   <tbody>
     <% @admin_shifts.each do |admin_shift| %>
       <tr>
+        <% if admin_shift.employee_id == current_user.id%>
         <td class="text-center"><%= admin_shift.power %></td>
         <td class="text-center"><%= admin_shift.celltype %></td>
         <td class="text-center"><%= admin_shift.subtype %></td>
-        
+        <td class="text-center"><a class="done btn btn-danger" id="<%= admin_shift.id %>">Done</a></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,3 +33,22 @@
 
 </div>
 
+<script>
+$(".done").click(function(){
+
+    console.log(this.id)
+    var id =this.id
+    $.ajax({
+      type: "POST",
+      url: "/admin_shifts/accept",
+      dataType: "JSON",
+      data: { 'id':id},
+      complete: function(data)
+      {
+   
+        $("#"+id).closest('tr').remove();
+      }
+    });
+  });
+
+</script>

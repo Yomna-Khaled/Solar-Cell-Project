@@ -14,6 +14,7 @@ class ShiftsController < ApplicationController
 
   def allshifts
     if current_category.category=="Admin"
+      
       @shifts = Shift.all
       @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
     else
@@ -64,6 +65,17 @@ class ShiftsController < ApplicationController
 
   def index
    if logged_in? and current_category.category=="Shift Manager"
+     @prod_qt= Shift.group("production_rate").count
+     #@prod_qt.each { |key,value| @prod_qt[:(key+"production_rate")] = @prod_qt.delete :key }
+     #puts @prod_rate=@prod_qt.to_a
+     @prod_rate= Array.new
+     puts '_______________'
+     puts @prod_qt
+     for i in 0...@prod_qt.length
+     @prod_rate.push ([@prod_qt.keys[i].to_s + " panels produced",@prod_qt.values[i]]) 
+     end 
+     puts "yyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+     puts  @prod_rate
     @shifts = Shift.where("employee_id = ?" , current_user.id )
     @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     @manager = current_user.full_name
@@ -84,6 +96,9 @@ class ShiftsController < ApplicationController
 
    def show
      if logged_in? and current_category.category=="Shift Manager" 
+     
+     puts '______________-'
+     puts @prod_qt
      @mat_qt= ProductionShift.select('materials.name,materials.id ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ", @shift.id).group("material_id")
      @allmat=Material.all 
      

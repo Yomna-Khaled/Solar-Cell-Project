@@ -11,16 +11,20 @@
       <th class="text-center"><h3>Type</h3></th>
       <th class="text-center"><h3>Subtype</h3></th>
       <th class="text-center"><h3>Order Shift</h3></th>
+       <th class="text-center"><h3>Done</h3></th>
        
     </tr>
   </thead>
 
   <tbody>
     <% @sales_admins.each do |sales_admin| %>
-      <tr>
+      <tr id="<%=sales_admin.id %>"+"table">
         <td class="text-center"><%= sales_admin.power %></td>
         <td class="text-center"><%= sales_admin.celltype %></td>
         <td class="text-center"><%= sales_admin.subtype %></td>
+        <td class="text-center"><%= link_to ' Order Shift', new_admin_shift_path ,class: "btn btn-info"%></td>
+        <td class="text-center"><a class="done btn btn-danger" id="<%= sales_admin.id %>">Done</a></td>
+
         
       </tr>
     <% end %>
@@ -30,3 +34,21 @@
 </section>
 
 </div>
+<script>
+  $(".done").click(function(){
+
+    console.log(this.id)
+    var id =this.id
+    $.ajax({
+      type: "POST",
+      url: "/sales_admins/accept",
+      dataType: "JSON",
+      data: { 'id':id},
+      complete: function(data)
+      {
+   
+        $("#"+id).closest('tr').remove();
+      }
+    });
+  });
+</script>
