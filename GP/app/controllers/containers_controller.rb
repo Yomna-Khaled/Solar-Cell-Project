@@ -42,7 +42,7 @@ class ContainersController < ApplicationController
   # GET /containers/1/edit
   def edit
    if  current_category.category=="Buyer" 
-    @vendors = Vendor.all
+    @vendors = Vendor.where("blacklisted = ? " , "no")
     @containervendor = VendorContainer.where("container_id=? AND date IS NULL",@container.id)
     @containervendor_sorted = @containervendor.order(updated_at: :desc)
     @vendor_id =  @containervendor_sorted[0].vendor_id
@@ -69,7 +69,7 @@ class ContainersController < ApplicationController
         format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         format.html { render :new }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end
@@ -96,7 +96,7 @@ class ContainersController < ApplicationController
         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
         format.json { render :show, status: :ok, location: @container }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         format.html { render :edit }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end

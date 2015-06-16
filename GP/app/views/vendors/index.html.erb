@@ -1,47 +1,53 @@
-<div class="container" style="width: calc(70%);">
+<div class="container" style="width: calc(80%);">
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span> All Vendors</h1>
 
   <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="/vendors?vendortype=material">Material Vendors</a></li>
-    <li role="presentation"><a href="/vendors?vendortype=sparepart">SparePart Vendors</a></li>
-    <li role="presentation"><a href="/vendors?vendortype=pallet">Pallet Vendors</a></li>
-    <li role="presentation"><a href="#">Machine Vendors</a></li>
+    <li role="presentation" ><a href="/vendors?vendortype=sparepart">SparePart Vendors</a></li>
+    <li role="presentation" ><a href="/vendors?vendortype=pallet">Pallet Vendors</a></li>
+    <li role="presentation" ><a href="/vendors?vendortype=machine">Machine Vendors</a></li>
   </ul>
   <!-- search part by name of date -->
-<div class="row">
-    <%= form_tag(vendors_path, :method => "get", id: "search-form" , :class => "navbar-form pull-right") do %>
-
-        <%= select_tag(:searching, options_for_select([['Search_by_Date', 1], ['Search_by_Name', 2]]),onchange: "searchvendors()",class: "col-md-3" ,style:"width:300px;") %>
-
-        <%= text_field_tag :search, params[:search], placeholder: "Search Vendors",class:"col-md-3" %>
-        <%= hidden_field_tag :searchtype, "date" %>
-
-        <%= hidden_field_tag :searchby, session[:vendortype] %>
-
-        <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
-    <% end %>
-</div>
-<!-- end of search -->
-  <section class="register" >  
+  <section class="register" > 
     <div class="reg_section">
+      <div class="row">
+          <%= form_tag(vendors_path, :method => "get", id: "search-form" , :class => "navbar-form pull-right") do %>
 
+            <%= select_tag(:ventype, options_for_select([['ALL', 'all'], ['Local', 'local'],['Foreign','foreign']]),onchange: "searchvendors()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
+
+              <%= select_tag(:searching, options_for_select([['Search_by_Date', 1], ['Search_by_Name', 2]]),onchange: "searchvendors()",class: "col-md-3" ,style:"width:300px;") %>
+
+              <%= text_field_tag :search, params[:search], placeholder: "Search Vendors",class:"col-md-3" %>
+              <%= hidden_field_tag :searchtype, "date" %>
+              <%= hidden_field_tag :searchbyvendortype, "all" %>
+              <%= hidden_field_tag :searchby, session[:vendortype] %>
+              <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
+          <% end %>
+      </div>
+    </div>
+<!-- end of search -->
+    <div class="reg_section">
       <table class="table table-hover table-responsive">
         <thead>
           <tr>
             <th class="text-center" ><h3>Name</h3></th>
             <th class="text-center" ><h3>Email</h3></th>
-            <%if @listcritetia != "all" %>
+            <th class="text-center" ><h3>Vendor Type</h3></th>
+            <%if @listcriteria != "all" %>
               <th class="text-center" ><h3>Start Date</h3></th>
               <th class="text-center" ><h3>End Date</h3></th>
             <%end%>
-            <%if @listcritetia == "material"%>
+            <%if @listcriteria == "material"%>
               <th class="text-center" ><h3>Material Name</h3></th>
             <%end%>
-            <%if @listcritetia == "sparepart" %>
+            <%if @listcriteria == "sparepart" %>
               <th class="text-center" ><h3>SparePart Name</h3></th>
             <%end%>
-            <%if @listcritetia == "pallet" %>
+            <%if @listcriteria == "pallet" %>
               <th class="text-center" ><h3>Conatainer Serial No.</h3></th>
+            <%end%>
+            <%if @listcriteria == "machine" %>
+              <th class="text-center" ><h3>Machine Name</h3></th>
             <%end%>
             <th class="text-center" ><h3>Show</h3></th>
             <% if current_category.category!="Admin" %>
@@ -52,13 +58,22 @@
 
         <tbody>
           <% @vendors.each do |vendor| %>
+          <!-- local -->
             <tr>
-              <%if @listcritetia == "all" %>
+              <%if @listcriteria == "all" %>
+                <%if @vendorcriteria != vendor.ventype &&  @vendorcriteria != 'all' &&  @vendorcriteria != nil%>
+                <%next%>
+                <%end%>
                 <td class="text-center" ><%= vendor.name %></td>
                 <td class="text-center" ><%= vendor.email %></td>
+                <td class="text-center" ><%= vendor.vendtype %></td>
               <%else%>
+                <%if @vendorcriteria != vendor.vendor.ventype &&  @vendorcriteria != 'all'&&  @vendorcriteria != nil %>
+                <%next%>
+                <%end%>
                 <td class="text-center" ><%= vendor.vendor.name %></td>
                 <td class="text-center" ><%= vendor.vendor.email %></td>
+                <td class="text-center" ><%= vendor.vendor.ventype %></td>
                 <td class="text-center" ><%=vendor.created_at.strftime('%Y-%m-%d')%></td>
                 <%if vendor.date == nil%>
                   <td class="text-center" >Current</td>
@@ -66,19 +81,22 @@
                   <td class="text-center" ><%=vendor.date%></td>
                 <%end%>
                 
-                <%if @listcritetia == "material"%>
+                <%if @listcriteria == "material"%>
                   <td class="text-center" ><%= vendor.material.name %></td>
                 <%end%>
-                <%if @listcritetia == "sparepart" %>
+                <%if @listcriteria == "sparepart" %>
                   <td class="text-center" ><%= vendor.spare_part.name %></td>
                 <%end%>
-                <%if @listcritetia == "pallet" %>
+                <%if @listcriteria == "pallet" %>
                   <td class="text-center" ><%= vendor.container.serialNo %></td>
                 <%end%>
+                <%if @listcriteria == "machine" %>
+                  <td class="text-center" ><%= vendor.machine.name %></td>
+                <%end%>
               <%end%>
-              <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-info" %></td>
+              <td class="text-center" ><%= link_to 'Show', vendor.vendor, class:"btn btn-info" %></td>
               <% if current_category.category!="Admin" %>
-              <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-danger" %></td>
+              <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor.vendor), class:"btn btn-danger" %></td>
               <%end%>
             </tr>
           <% end %>
@@ -91,9 +109,7 @@
       </div>
     </div>
 <script type="text/javascript">
-  function searchvendors(){
-    console.log($("#searchby"))
-    
+  function searchvendors(){ 
   var searchciteria_value = $("#searching" ).val();
   var searchciteria_text = $("#searching option:selected").text();
   var searchciteria = searchciteria_text.split("_")[2];
@@ -102,6 +118,14 @@
     $('#searchtype').val('date')
   } else{
     $('#searchtype').val('name')
+  };
+  var ventype=$("#ventype").val();
+  if (ventype == 'local' ) {
+    $('#searchbyvendortype').val('local');
+  } else if (ventype == 'foreign') {
+    $('#searchbyvendortype').val('foreign');
+  } else{ //ALL
+    $('#searchbyvendortype').val('all');
   };
 }
 </script>

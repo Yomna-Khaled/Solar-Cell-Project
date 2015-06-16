@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616085541) do
+ActiveRecord::Schema.define(version: 20150616220047) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24

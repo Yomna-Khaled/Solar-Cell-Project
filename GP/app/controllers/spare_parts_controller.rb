@@ -42,7 +42,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/1/edit
   def edit
     if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper")
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @machines = Machine.all 
       @sparevendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id)
       @sparevendor_sorted = @sparevendor.order(updated_at: :desc)
@@ -66,7 +66,7 @@ class SparePartsController < ApplicationController
         format.json { render :show, status: :created, location: @spare_part }
  
       else
-	    @vendors = Vendor.all
+	    @vendors = Vendor.where("blacklisted = ? " , "no")
       @machines = Machine.all 
       @flag="new"
         format.html { render :new }
@@ -99,7 +99,7 @@ class SparePartsController < ApplicationController
         format.html { redirect_to @spare_part, notice: 'Spare part was successfully updated.' }
         format.json { render :show, status: :ok, location: @spare_part }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         @machines = Machine.all 
         format.html { render :edit }
         format.json { render json: @spare_part.errors, status: :unprocessable_entity }
