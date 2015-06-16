@@ -8,7 +8,7 @@ class SalesAdminsController < ApplicationController
   # GET /sales_admins.json
   def index
      if logged_in? and( current_category.category=="Admin" )
-    @sales_admins = SalesAdmin.all
+    @sales_admins = SalesAdmin.where("done IS NULL")
   else
       render :file => "/public/404.html",:status  => "404"
   end
@@ -18,12 +18,20 @@ class SalesAdminsController < ApplicationController
   # GET /sales_admins/1
   # GET /sales_admins/1.json
   def show
-    if false
+    if if logged_in? and( current_category.category=="Sales" )
      else
       render :file => "/public/404.html",:status  => "404"
     end
       
   end
+
+  def accept
+    puts params[:id]
+    puts "================"
+    @sales_admin=SalesAdmin.where("id= ?",params[:id]).update_all(:done => "yes" )
+    render plain: "ok"
+
+  end 
 
   # GET /sales_admins/new
   def new

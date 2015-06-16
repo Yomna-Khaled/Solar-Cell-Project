@@ -6,8 +6,8 @@ class AdminShiftsController < ApplicationController
   # GET /admin_shifts
   # GET /admin_shifts.json
   def index
-    if logged_in? and( current_category.category=="Shift Manager" )
-    @admin_shifts = AdminShift.all
+    if logged_in? and( current_category.category=="Shift Manager" || current_category.category=="Admin")
+    @admin_shifts = AdminShift.where("done IS NULL")
   else
      render :file => "/public/404.html",:status  => "404"
   end
@@ -17,11 +17,18 @@ class AdminShiftsController < ApplicationController
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json
   def show
-    if false
+    if logged_in? and( current_category.category=="Admin" )
     else
       render :file => "/public/404.html",:status  => "404"
     end  
   end
+  def accept
+    puts params[:id]
+    puts "================"
+    @sales_admin=AdminShift.where("id= ?",params[:id]).update_all(:done => "yes" )
+    render plain: "ok"
+
+  end 
 
   # GET /admin_shifts/new
   def new
