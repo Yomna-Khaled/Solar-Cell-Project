@@ -143,13 +143,12 @@ end
   # POST /vendors
   # POST /vendors.json
   def create
-    @vendor = Vendor.new(vendor_params)
-    respond_to do |format|
-      if @vendor.save
-        last_id = Vendor.maximum('id')
-        Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
-        if defined? params[:vendor_phones][:phone] 
-          arr= params[:vendor_phones][:phone].split(",")
+
+	@vendor = Vendor.new(vendor_params)
+      respond_to do |format|
+        if @vendor.save
+          if defined? params[:vendor_phones][:phone] 
+            arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
               @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 

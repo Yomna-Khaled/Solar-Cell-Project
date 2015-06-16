@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20150616220047) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
-    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -338,13 +337,13 @@ ActiveRecord::Schema.define(version: 20150616220047) do
   create_table "vendors", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "email",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "address",     limit: 255
     t.string   "city",        limit: 255
     t.string   "type",        limit: 255
     t.string   "ventype",     limit: 255
-    t.string   "blacklisted", limit: 255
+    t.string   "blacklisted", limit: 255, default: "no"
   end
 
   add_foreign_key "admin_shifts", "employees"

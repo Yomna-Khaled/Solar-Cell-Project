@@ -1,31 +1,46 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="width: calc(70%);">
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span> All Buyers</h1>
 
-<h1>Listing Buyers</h1>
+  <section class="register" >  
+    <div class="reg_section">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Addess</th>
-      <th>City</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <table class="table table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="text-center"><h3>Name</h3></th>
+            <th class="text-center"><h3>Email</h3></th>
+            <th class="text-center"><h3>Address</h3></th>
+            <th class="text-center"><h3>City</h3></th>
+            <th class="text-center"><h3>Show</h3></th>
+            <% if current_category.category!="Admin" %>
+            <th class="text-center">Edit</h3></th>
+            <%end%>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @buyers.each do |buyer| %>
-      <tr>
-        <td><%= buyer.name %></td>
-        <td><%= buyer.addess %></td>
-        <td><%= buyer.city %></td>
-        <td><%= link_to 'Show', buyer %></td>
-        <td><%= link_to 'Edit', edit_buyer_path(buyer) %></td>
-        <td><%= link_to 'Destroy', buyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tbody>
+          <% @buyers.each do |buyer| %>
+            <tr>
+               <td class="text-center"><%= buyer.name %></td>
+               <td class="text-center"><%= buyer.email %></td>
+               <td class="text-center"><%= buyer.addess %></td>
+               <td class="text-center"><%= buyer.city %></td>
+               <td class="text-center"><%= link_to 'Show', buyer, class:"btn btn-info" %></td>
+              <% if current_category.category!="Admin" %>
+          <td class="text-center"><%= link_to 'Edit', edit_buyer_path(buyer), class:"btn btn-danger" %></td>
+              <%end%>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section> 
+      <div >
+        <%= will_paginate @buyers, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
 
-<br>
 
-<%= link_to 'New Buyer', new_buyer_path %>
+
+
+

@@ -1,9 +1,9 @@
-
-
 <div class="container" style="width: calc(80%);">
  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Panels</h1>
  <section class="register" >  
     <div class="reg_section">
+
+
   <div class="row">
       <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
           <%= select_tag(:soldtype, options_for_select([['ALL', 'all'], ['Sold', 'sold'],['Unsold','unsold']]),onchange: "searchciteria()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
@@ -14,6 +14,7 @@
           <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%> 
       <% end %>
   </div>
+
   <section class="register" >  
     <div class="reg_section">
         <table class="table table-hover table-responsive mytable" >
