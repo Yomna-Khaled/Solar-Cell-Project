@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Material Theoreticals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @material_theoreticals.each do |material_theoretical| %>
+      <tr>
+        <td><%= material_theoretical.value %></td>
+        <td><%= link_to 'Show', material_theoretical %></td>
+        <td><%= link_to 'Edit', edit_material_theoretical_path(material_theoretical) %></td>
+        <td><%= link_to 'Destroy', material_theoretical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Material theoretical', new_material_theoretical_path %>

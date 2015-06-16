@@ -18,3 +18,5 @@
 //= require websocket_rails/main
 //= require jsapi.js
 //= require chartkick
+//= require websocket_rails/main
+

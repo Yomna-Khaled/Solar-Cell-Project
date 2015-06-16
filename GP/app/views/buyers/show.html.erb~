@@ -1,8 +1,18 @@
 <div class="container" style="width: calc(70%);">
-  <div class="page-header" style="font-size:35px;">
+
+  <div class="page-header"style="font-size:30px;color:#2A4E6E">
+
+ <% if current_category.category!="Admin" %>
+         <%= link_to 'Edit', edit_buyer_path(@buyer) %>
+  <%end%>
+ 
       <h1><span class="fa fa-info-circle"></span> Buyer Information</h1>
   </div>
-  <div class="raw">
+  <div class="row">
+<<<<<<< HEAD
+ <section class="register" >  
+=======
+>>>>>>> ff0df81cdaad46b4ae122dd57cefdc55b33e14cd
   <div class="page-header">
     <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
   </div>
@@ -25,5 +35,6 @@
            <%index+=1%>
       <%end%> 
   </ul>
+ </section>
  </div> 
 </div>  

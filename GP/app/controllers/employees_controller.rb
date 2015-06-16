@@ -7,11 +7,32 @@ class EmployeesController < ApplicationController
   def render_404      
      render :file => "/public/404.html", :status => 404
   end
+
+  def fire
+     @employee=Employee.where("id= ?",params[:id]).update_all(:status => "no" )
+     @employees = Employee.all
+     @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+     render plain:"ok"
+  end
+  
+  def search
+    admin = Category.find_by(category: "Admin")
+    if params[:type]=="current"
+      @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
+      render partial: 'find'
+    elsif params[:type]=="past"
+      @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
+      render partial: 'find'
+    else
+      @employees=Employee.all
+      render partial: 'find'
+    end
+  end  
   
   def index
     if current_category.category=="HR" or current_category.category=="Admin"
-      @employees = Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+      admin = Category.find_by(category: "Admin")
+      @employees = Employee.where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"
     end   
@@ -69,6 +90,8 @@ class EmployeesController < ApplicationController
       end
       respond_to do |format|
         if @employee.save
+          last_id = Employee.maximum('id')
+          Employee.where("id = ? ", last_id).update_all(:status => "yes" )
           if defined? params[:employee_phones][:phone] 
               arr= params[:employee_phones][:phone].split(",")
               arr.each do |c|
@@ -107,7 +130,6 @@ class EmployeesController < ApplicationController
         if  employee_params[:password] == ""
           no_password_update = 1
         end
-
         if @employee.update(employee_params)
           if params[:employee_phones][:phone]==" "
             @employeephone = EmployeePhone.new(phone: ' ', employee_id: @employee.id) 
@@ -167,7 +189,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit( :email, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name, :password_confirmation)
+      params.require(:employee).permit( :email, :salary, :education_level , :education, :Governamental_ID,  :category_id, :crew_id, :image, :password , :full_name, :password_confirmation ,:status)
     end
 
     def phone_params

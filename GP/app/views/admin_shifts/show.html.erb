@@ -1,0 +1,24 @@
+
+<div class="container" style="width: calc(70%);">
+ 
+      <h1 class="page-header" style="font-size:30px;color:#2A4E6E" ><span class="fa fa-info-circle"></span> Order Information</h1>
+<section class="register">
+  <div class="reg_section">
+  <div class="page-header">
+    <h3><span class="fa fa-info-circle"></span> Basic Infromation</h3>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">Power: <%= @admin_shift.power %></li>
+     <li class="list-group-item">Type:   <%= @admin_shift.celltype %></li>
+    <li class="list-group-item">SubType:  <%= @admin_shift.subtype %></li>
+   
+    <li class="list-group-item">Shift Manager:  <%= @admin_shift.employee.full_name %> </li>
+  </ul>
+
+ 
+
+  
+ </div> 
+</section>
+</div>  

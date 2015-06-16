@@ -21,7 +21,16 @@
 				<%end%> 
                              </div>
        		       <% end %>		
-								
+			<h3  ><span class="fa fa-cube"></span> Dimension Unit</h3>
+		       <%= f.select :containerdimensionunit , [['mm','mm'],['inches','inches'],['feet','feet']] %>
+                    <% if @container.errors[:containerdimensionunit].present? %>
+		           <div class="text-danger">
+				<% @container.errors[:containerdimensionunit].each do |msg| %>
+		                          <p><%= "* dimension unit. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %> 	
+					
 	</div> 
         <!-- info part --> 
 	<div  class="form-group reg_section">
@@ -63,7 +72,7 @@
 	<div class="form-group reg_section">
 	      <h1 ><span class="fa fa-user"></span> Vendor Information</h1>
 		        <!-- for get all vendors to select one of them -->
-			<h3>Vendor</h3>
+			<h3><span class="fa fa-user"></span> Vendor</h3>
 			<% if @flag == "new" %>
 			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") ,  :required => true %>
 			<%else%>

@@ -1,15 +1,21 @@
-
-<strong>crew names:</strong>
+<div class="container" style="width: calc(70%);">
+<h1 class="page-header" style="font-size:30px; color:#2A4E6E"> <span class="fa fa-users"></span> Your Crew Members</h1>
+ <section class="register" >  
+    <div class="reg_section">
 
 <% if @crew_name.blank? %>
-  <p>No crews</p>
+  <div class="alert alert-danger">
+There are no crews...Please add them</div>
 <% else %>
+<ol>
    <% @crew_name.each do |f| %>
-    <p>
-   <%= f.full_name %>
-  </p>
-  <% end %>
+     <li class="text-capitalize">  <%= f.full_name  %></li>
+   <% end %>
+</ol>
 <% end %>
+</div>
+</section>
+</div>
 
 
 

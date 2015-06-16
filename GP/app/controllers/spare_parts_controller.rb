@@ -9,7 +9,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts
   # GET /spare_parts.json
   def index
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
         @spare_parts = SparePart.all
         @spare_parts = SparePart.paginate(:page => params[:page], :per_page => 6)
     else
@@ -20,7 +20,7 @@ class SparePartsController < ApplicationController
   # GET /spare_parts/1
   # GET /spare_parts/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
      else
       render :file => "/public/404.html",:status  => "404"  
     end
@@ -28,9 +28,9 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/new
   def new
-    if logged_in? and current_category.category=="Sales"      
+    if  current_category.category=="Buyer"      
         @spare_part = SparePart.new
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         @machines = Machine.all
         @flag="new"
     else
@@ -41,7 +41,7 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/1/edit
   def edit
-    if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper")
+    if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper")
       @vendors = Vendor.all
       @machines = Machine.all 
       @sparevendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id)

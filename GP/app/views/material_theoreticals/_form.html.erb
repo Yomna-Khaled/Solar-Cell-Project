@@ -1,0 +1,21 @@
+<%= form_for(@material_theoretical) do |f| %>
+  <% if @material_theoretical.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@material_theoretical.errors.count, "error") %> prohibited this material_theoretical from being saved:</h2>
+
+      <ul>
+      <% @material_theoretical.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

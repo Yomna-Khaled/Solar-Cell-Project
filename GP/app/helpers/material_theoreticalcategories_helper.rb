@@ -1,0 +1,2 @@
+module MaterialTheoreticalcategoriesHelper
+end

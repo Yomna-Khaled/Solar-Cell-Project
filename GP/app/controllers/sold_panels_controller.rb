@@ -54,21 +54,32 @@ class SoldPanelsController < ApplicationController
   # POST /sold_panels
   # POST /sold_panels.json
   def create
+
+  
+ 
     @sold_panel = SoldPanel.new(:buyer_id=> params[:buyer_id],:totalPrice=> params[:totalPrice],:totalPower=>params[:totalPower])
-   
-    puts @sold_panel.inspect
+
     respond_to do |format|
-      if @sold_panel.save
+       if @sold_panel.save
+        
         params[:solar_panel_id].each_with_index do |item,i|
            SolarPanel.where("id = ? ", params[:solar_panel_id][i]).update_all(:sold_panel_id => @sold_panel.id )
+           @solarpanel=SolarPanel.where("id = ? ", params[:solar_panel_id][i])
+           @container=Container.find(@solarpanel.first.container_id)
+  	   @power=@container.total_power-@solarpanel.first.power 
+  	   @container.update_attributes(:total_power => @power)
+           if @container.total_power == 0
+              @container.update_attributes(:sold => true)
+           end
         end
         format.html { redirect_to @sold_panel, notice: 'Sold panel was successfully created.' }
         format.json { render :show, status: :created, location: @sold_panel }
-      else
+       else
+         
         format.html { render :new }
         format.json { render json: @sold_panel.errors, status: :unprocessable_entity }
-      end
-    end
+       end
+     end
   end
 
   # PATCH/PUT /sold_panels/1

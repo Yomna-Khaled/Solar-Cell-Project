@@ -9,7 +9,7 @@ class MachinesController < ApplicationController
   # GET /machines
   # GET /machines.json
   def index
-    if current_category.category=="Sales"or current_category.category=="Admin"
+    if current_category.category=="Buyer"or current_category.category=="Admin"
        @machines = Machine.all
     else
        render :file => "/public/404.html",:status  => "404"  
@@ -26,9 +26,9 @@ class MachinesController < ApplicationController
 
   # GET /machines/new
   def new
-    if logged_in? and (current_category.category=="Sales")
+    if current_category.category=="Buyer"
       @machine = Machine.new
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @flag="new"
     else
        render :file => "/public/404.html",:status  => "404"  
@@ -37,40 +37,51 @@ class MachinesController < ApplicationController
 
   # GET /machines/1/edit
   def edit
-      @vendors = Vendor.all
+    if current_category.category=="Buyer"
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @machinevendor = VendorMachine.where("machine_id=? AND date IS NULL",@machine.id)
       @machinevendor_sorted = @machinevendor.order(updated_at: :desc)
       @vendor_id =  @machinevendor_sorted[0].vendor_id
       @flag="edit"
+    else
+       render :file => "/public/404.html",:status  => "404"  
+     end  
   end
 
   # POST /machines
   # POST /machines.json
   def create
-    @machine = Machine.new(machine_params)
-    @vendor_id = params['vendor'];
-
-    respond_to do |format|
-      if @machine.save
-        @vendormachine = VendorMachine.new(vendor_id: @vendor_id, machine_id: @machine.id )        
-        @machine_id=Machine.maximum('id')
-        @machine_id = params['vendor_id'];
-        @vendormachine.save
-        format.html { redirect_to  machines_path  }
-        format.json { render :show, status: :created, location: @machine }
-      else
-        @vendors = Vendor.all
-        format.html { render :new }
-        format.json { render json: @machine.errors, status: :unprocessable_entity }
+    if current_category.category=="Buyer"
+      @machine = Machine.new(machine_params)
+      @vendor_id = params['vendor'];
+      respond_to do |format|
+        if @machine.save
+          @vendormachine = VendorMachine.new(vendor_id: @vendor_id, machine_id: @machine.id )        
+          @machine_id=Machine.maximum('id')
+          @machine_id = params['vendor_id'];
+          @vendormachine.save
+          format.html { redirect_to  machines_path  }
+          format.json { render :show, status: :created, location: @machine }
+        else
+          @vendors = Vendor.all
+          format.html { render :new }
+          format.json { render json: @machine.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    else
+       render :file => "/public/404.html",:status  => "404"  
+    end  
   end
 
   def machinecreate
-    @machinename=params[:machinename]
-    @machine = Machine.new(name: @machinename)
-    @machine.save
-    render json: @machine
+    if current_category.category=="Buyer"
+      @machinename=params[:machinename]
+      @machine = Machine.new(name: @machinename)
+      @machine.save
+      render json: @machine
+    else
+       render :file => "/public/404.html",:status  => "404"  
+    end 
   end
 
 
@@ -81,7 +92,6 @@ class MachinesController < ApplicationController
     @vendoredit_id = params['vendor']; #to get vendor of certain machine
     @current_vendor_record = VendorMachine.where("machine_id=? AND date IS NULL",@machine.id)
     @vendororiginal_id =@current_vendor_record[0].vendor_id
-
     respond_to do |format|
       if @machine.update(machine_params)
          if @vendoredit_id != @vendororiginal_id

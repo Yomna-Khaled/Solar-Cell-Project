@@ -9,25 +9,38 @@ class VendorsController < ApplicationController
   # GET /vendors
   # GET /vendors.json
   def index
-    if  current_category.category=="Sales" or current_category.category=="Admin"
-         @vendors = Vendor.all
-         @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
-
+    if  current_category.category=="Buyer" or current_category.category=="Admin"
+     @vendors = Vendor.all
+     @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"  
     end     
 
   end
+  def black
+
+      @vendor=Vendor.where("id= ?",params[:id])
+
+      puts @vendor[0].blacklisted
+      if @vendor[0].blacklisted=="yes"
+
+      @vendor.update_all(:blacklisted => "no" )
+    else
+      puts "here"
+      @vendor.update_all(:blacklisted => "yes" )
+    end
+      render plain: "ok"
+  end  
 
 def pho
-@vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
-@vendorphones_selected[0].destroy
+  @vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
+  @vendorphones_selected[0].destroy
 end
 
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Admin"
       @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -36,7 +49,7 @@ end
 
   # GET /vendors/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and current_category.category=="Buyer"
       @vendor = Vendor.new
       @flag="new"
     else
@@ -46,7 +59,7 @@ end
 
   # GET /vendors/1/edit
   def edit
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and current_category.category=="Buyer"
 	      @flag="edit"
         @vendor = Vendor.find(params[:id])
         @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
@@ -61,6 +74,8 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
+          last_id = Vendor.maximum('id')
+          Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|

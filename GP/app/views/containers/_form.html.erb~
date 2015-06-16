@@ -2,9 +2,9 @@
   
     <section class="register">
 	<div class="form-group reg_section">
-	      <span ><h1  class="fa fa-cube">Palet dimensions</h1></span></br>
-		  <h3 class="fa fa-arrows-h">width</h3>
-		      <%= f.number_field :width ,step:0.01  %>
+	      <h1 ><span class="fa fa-cube"></span> Palet dimensions</h1></br>
+		  <h3 ><span class="fa fa-arrows-h"></span> width</h3>
+		      <%= f.number_field :width ,step:0.01 ,placeholder:"Enter Palet Width..." %>
                       <% if @container.errors[:width].present? %>
 			     <div class="text-danger">
 				  <% @container.errors[:width].each do |msg| %>
@@ -12,8 +12,8 @@
 				  <%end%> 
 			     </div>
        		     <% end %>							 
-                  <h3 class="fa fa-arrows-v" >height</h3>
-		       <%= f.number_field :height ,step:0.01 %>
+                  <h3  ><span class="fa fa-arrows-v"></span>height</h3>
+		       <%= f.number_field :height ,step:0.01 ,placeholder:"Enter Palet Height...."%>
                        <% if @container.errors[:height].present? %>
 			     <div class="text-danger">
 				<% @container.errors[:height].each do |msg| %>
@@ -21,16 +21,25 @@
 				<%end%> 
                              </div>
        		       <% end %>		
-								
+			<h3  ><span class="fa fa-calculator"></span> Dimension Unit</h3>
+		       <%= f.select :containerdimensionunit , [['mm','mm'],['inches','inches'],['feet','feet']] %>
+                    <% if @container.errors[:containerdimensionunit].present? %>
+		           <div class="text-danger">
+				<% @container.errors[:containerdimensionunit].each do |msg| %>
+		                          <p><%= "* dimension unit. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %> 	
+					
 	</div> 
         <!-- info part --> 
 	<div  class="form-group reg_section">
-            <h1 class="fa fa-info" >Palet Basic Informations</h1><br/>
-		<h3 class="fa fa-sort-numeric-asc">serial_number</h3></br>
+            <h1 ><span class="fa fa-info-circle"></span> Palet Basic Information</h1><br/>
+		<h3 class="fa fa-sort-numeric-asc"> serial_number</h3></br>
 		    <% if @flag == "edit" %>
 			<%= f.text_field :serialNo, :readonly => true %>
 		    <%else%> 
-			<%= f.text_field :serialNo %>
+			<%= f.text_field :serialNo ,placeholder:" Enter Palet Serial Number..." %>
                         <% if @container.errors[:serialNo].present? %>
 			  <div class="text-danger">
 			      <% @container.errors[:serialNo].each do |msg| %>
@@ -39,8 +48,8 @@
                           </div>
                         <% end %>	
 		    <%end%>  
-		<h3 class="fa fa-cubes"> capacity </h3>
-		     <%= f.number_field :capacity  %>
+		<h3 ><span class="fa fa-cubes"></span> capacity </h3>
+		     <%= f.number_field :capacity ,placeholder:"Enter Palet Capacity" %>
                         <% if @container.errors[:capacity].present? %>
 			      <div class="text-danger">
 				 <% @container.errors[:capacity].each do |msg| %>
@@ -48,7 +57,7 @@
 			         <%end%> 
                               </div>
        			<% end %>	
-               <h3 class="fa fa-money"> price </h3>
+               <h3 ><span class="fa fa-usd"></span>  price </h3>
 		      <%= f.number_field :price ,step:0.0000001  %>
 			  <% if @container.errors[:price].present? %>
 				<div class="text-danger">
@@ -61,9 +70,9 @@
           <!-- end -->
        	<!-- vendors part -->    
 	<div class="form-group reg_section">
-	      <h1 class="fa fa-user">Palet vendors</h1>
+	      <h1 ><span class="fa fa-user"></span> Vendor Information</h1>
 		        <!-- for get all vendors to select one of them -->
-			<h3>Vendor</h3>
+			<h3><span class="fa fa-user"></span> Vendor</h3>
 			<% if @flag == "new" %>
 			  <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") ,  :required => true %>
 			<%else%>
@@ -72,30 +81,30 @@
                         <% if @container.errors[:vendor].present? %>
 		           <div class="text-danger">
 				<% @container.errors[:vendor].each do |msg| %>
-		                          <p><%= "* price "+msg %><p>
+		                          <p><%= "* vendor "+msg %><p>
 				<%end%> 
                            </div>
        			<% end %>	
 			<!-- add new vendor using ajax-->
 			<a id="vendorlink" class="btn btn-link" style="text-align: left"
-			onclick="showvendorform()"><h3 class="fa fa-plus" >Add new Vendor</h3></a><br/>
+			onclick="showvendorform()"><h3><span class="fa fa-plus" ></span>Add new Vendor</h3></a><br/>
 			<div id="addnewvendor" style="display:none" >
-			 <h1 > New Vendor</h1>
+			 <h2 ><span class="fa fa-plus-circle"></span> New Vendor</h2>
 			     <h3>Vendor Name</h3>
-			       <input type="text" id="vendorname" >
-			     <h3>Vendor Email</h3>
-			       <input type="text" id="vendoremail" >
+			       <input type="text" id="vendorname" placeholder="Enter Vendor Name....">
+			     <h3><span class="fa fa-envelope-o"></span> Vendor Email</h3>
+			       <input type="text" id="vendoremail" placeholder="Enter Vendor Email....">
                         
 			<div class="actions">
-			     <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
-			     <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+			     <a onclick="vendorajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Vendor</a>
+			     <a onclick="canceladdvendor()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>
 			</div>
 	                </div> 
 										<!-- end of adding new vendor using ajax -->
 									
 									<!-- end of div for vendors -->
                    <div class="actions">
-			<%= f.submit class: 'btn btn-success' %>
+			<%= f.submit class: 'btn btn-warning' %>
                    </div>
 	 </div>
 

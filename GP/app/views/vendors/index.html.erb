@@ -11,21 +11,30 @@
             <th class="text-center" ><h3>Email</h3></th>
             <th class="text-center" ><h3>Show</h3></th>
             <% if current_category.category!="Admin" %>
-            <th class="text-center" ><h3>Edit</h3></th>
+              <th class="text-center" ><h3>Edit</h3></th>
             <%end%>
           </tr>
         </thead>
 
         <tbody>
           <% @vendors.each do |vendor| %>
+          <% if vendor.blacklisted=="yes" %>
+            <tr class="danger">
+              <td class="text-center" ><%= vendor.name %></td>
+              <td class="text-center" ><%= vendor.email %></td>
+              <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-info" %></td>
+              <td class="text-center" ><span class="fa fa-times-circle"></span></td>
+            </tr>
+            <% else %>
             <tr>
               <td class="text-center" ><%= vendor.name %></td>
               <td class="text-center" ><%= vendor.email %></td>
               <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-info" %></td>
-              <% if current_category.category!="Admin" %>
+              <% if current_category.category!="Admin"  %>
               <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-danger" %></td>
               <%end%>
             </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>
