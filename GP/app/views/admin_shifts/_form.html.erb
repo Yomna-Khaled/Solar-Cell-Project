@@ -1,37 +1,59 @@
 <%= form_for(@admin_shift) do |f| %>
  <section class="register">
   <div class="form-group reg_section">
-  <% if @admin_shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@admin_shift.errors.count, "error") %> prohibited this admin_shift from being saved:</h2>
-
-      <ul>
-      <% @admin_shift.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <h1 ><span class="fa fa-info-circle"></span> Order Information</h1>
+    <h3> <span class="fa fa-bolt"></span> Power</h3>
+      <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
+        <% if @admin_shift.errors[:power] %>
+          <div class="text-danger">
+            <ul>
+              <% @admin_shift.errors[:power].each do |msg| %>
+                <li>*Power <%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+  
+    <h3><span class="fa fa-sitemap"></span> Type </h3>
+    <%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
+   <% if @admin_shift.errors[:celltype] %>
+      <div class="text-danger">
+        <ul>
+          <% @admin_shift.errors[:celltype].each do |msg| %>
+            <li>*Type <%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <h3><span class="fa fa-sitemap"></span> SubType </h3>
+    <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
+   <% if @admin_shift.errors[:subtype] %>
+      <div class="text-danger">
+        <ul>
+          <% @admin_shift.errors[:subtype].each do |msg| %>
+            <li>*SubType <%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <h3><span class="fa fa-user"></span> Shift Manager </h3>
+    <%= f.select :employee_id , options_from_collection_for_select(@managers, "id", "full_name"),:required => true %>
+     <% if @admin_shift.errors[:employee_id] %>
+        <div class="text-danger">
+          <ul>
+            <% @admin_shift.errors[:employee_id].each do |msg| %>
+              <li>*Manager <%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+  
+    <div class="actions">
+      <%= f.submit  " Order" ,class: "btn btn-warning" %>
     </div>
-  <% end %>
-<h1 ><span class="fa fa-info-circle"></span> Order Information</h1>
-  
-   <h3>Power </h3>
-    <%= f.number_field :power ,placeholder:"Enter The Required Power"%>
-  
-  <h3> Type </h3>
-    
-<%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
-  
-  <h3> SubType </h3>
-   
-   <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
-  
-   <h3>Shift Manager </h3>
-   <%= f.select :employee_id , options_from_collection_for_select(@managers, "id", "full_name"),:required => true %>
-  
-  <div class="actions">
-    <%= f.submit  " Order" ,class: "btn btn-warning" %>
   </div>
-</div>
 </section>
 <% end %>
 

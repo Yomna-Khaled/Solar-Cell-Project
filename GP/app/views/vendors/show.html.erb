@@ -5,11 +5,14 @@
  
 
     <section class="register" >
-    <a class="btn btn-danger pull-right black" id="<%= @vendor.id %>"><% if @vendor.blacklisted=="no" %>Black List<% else %>Short List<% end %>
+    <a class="btn btn-danger pull-right black showbtn" id="<%= @vendor.id %>" onclick="showButton(this)"><% if @vendor.blacklisted=="no" %>Black List<% else %>Short List<% end %></a>
+        
+             
 
-    <div style="float:right;">  
-            <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" %>
-            </div>  
+                <div style="float:right;">
+                   <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" , id: "editVendor" ,:style => 'display: none'%>
+                </div>
+                  
         <div class="reg_section">
           
             
@@ -40,6 +43,8 @@
  
 </div>  
 <script>
+if($('.showbtn').text()=='Black List')
+      {$("#editVendor").show();}
 $(".black").click(function(){
   var id=this.id;
   $.ajax({
@@ -64,5 +69,17 @@ $(".black").click(function(){
     });
 
 });
+
+function showButton(elem){
+
+    if($(elem).text()=='Short List')
+      {$("#editVendor").show();}
+    if($(elem).text()=='Black List')
+      {$("#editVendor").hide();}
+       
+}
+
+                
+               
 </script>
 

@@ -44,16 +44,20 @@ function vendorajax () {
 	$("#vendorlink").css("display", "block");
 	var vendorname = $("#vendorname").val();
 	var vendoremail = $("#vendoremail").val();
-	if (vendorname!=""&&vendoremail!="") {
+	var vendoraddress = $("#vendoraddress").val();
+	var vendorcity = $("#vendorcity").val();
+	var vendortype = $("#vendortype").val();
+	if (vendorname!=""&&vendoremail!=""&&vendoraddress!="") {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	if (re.test(vendoremail)) {
     $.ajax({
         method: "POST",
         url: '/materialvendorcreate',
 		dataType: "JSON",
-		data: { 'vendorname': vendorname ,'vendoremail': vendoremail},
+		data: { 'vendorname': vendorname ,'vendoremail': vendoremail,
+		'vendoraddress':vendoraddress,'vendorcity':vendorcity,'vendortype':vendortype},
 		complete: function(data)
-		{	
+		{	console.log(JSON.parse(data.responseText));
 			var vendorid = JSON.parse(data.responseText).id
 			$('#vendor')
 	        .append($("<option></option>")
@@ -61,6 +65,8 @@ function vendorajax () {
 	        .text(vendorname)); 
 	        $("#vendorname").val("");
 	        $("#vendoremail").val("");
+	        $("#vendoraddress").val("");
+	        $("#vendorcity").val("");
 		}
 	});
 	}
@@ -73,15 +79,26 @@ function vendorajax () {
 		if (vendorname=="") {
 			$('#modal-body').text('To Add New Vendor You have to Enter Vendor Name');
 			$('#basicModal').modal('toggle');
-		} else{
+		} else if(vendoraddress==""){
+			$('#modal-body').text('To Add New Vendor You have to Enter Vendor Address');
+			$('#basicModal').modal('toggle');
+		} else if (vendorcity=="") {
+			$('#modal-body').text('To Add New Vendor You have to Enter Vendor City');
+			$('#basicModal').modal('toggle');
+		}
+		else{
 			$('#modal-body').text('To Add New Vendor You have to Enter Vendor Email');
 			$('#basicModal').modal('toggle');
 		};
 	}
 }
 function canceladdvendor(){
+    $("#vendorname").val("");
+    $("#vendoremail").val("");
+    $("#vendoraddress").val("");
+    $("#vendorcity").val("");
 	$("#addnewvendor").css("display", "none");
-	$("#vendorlink").css("display", "block");	
+	$("#vendorlink").css("display", "block");
 }
 
 //for adding new quantity unit

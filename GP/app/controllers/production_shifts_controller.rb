@@ -3,7 +3,7 @@ class ProductionShiftsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
-     render :file => "/public/404.html", :status => 404
+     render :file => "/public/404.html", :status => 404,:layout => false
   end
   # GET /production_shifts
   # GET /production_shifts.json

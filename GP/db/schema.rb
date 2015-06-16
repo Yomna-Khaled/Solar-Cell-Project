@@ -337,13 +337,13 @@ ActiveRecord::Schema.define(version: 20150616085541) do
   create_table "vendors", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "email",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "address",     limit: 255
     t.string   "city",        limit: 255
     t.string   "type",        limit: 255
     t.string   "ventype",     limit: 255
-    t.string   "blacklisted", limit: 255
+    t.string   "blacklisted", limit: 255, default: "no"
   end
 
   add_foreign_key "admin_shifts", "employees"
