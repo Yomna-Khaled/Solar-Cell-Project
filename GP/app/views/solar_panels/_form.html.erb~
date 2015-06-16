@@ -23,6 +23,16 @@
 				<%end%> 
                            </div>
        	      <% end %>
+              <h3> Dimension Unit </h3>
+		    <%= f.select :dimensionunit , [['mm','mm'],['inches','inches'],['feet','feet']] %>
+                    <% if @solar_panel.errors[:dimensionunit].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:dimensionunit].each do |msg| %>
+		                          <p><%= "* dimensionunit. "+msg %><p>
+				<%end%> 
+                           </div>
+       	             <% end %> 
+
 
       </div>
       <div class="form-group reg_section"> 
@@ -58,7 +68,7 @@
                            </div>
        	             <% end %>
 	        <h3> Type </h3>
-		    <%= f.select :celltype , [['mono crystaline', 'mono crystaline'], ['poly crystaline','poly crystaline']] %>
+		    <%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
                        <% if @solar_panel.errors[:celltype].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:celltype].each do |msg| %>
@@ -84,6 +94,19 @@
 				<%end%> 
                            </div>
        	         <% end %> 
+                 
+                 <%= @thcategoriesopt %>
+                  <h3><span class="fa fa-sort-numeric-asc"></span> theoritical category <h3>  
+                  <%= f.select :theoreticalcategory_id, @thcategoriesopt %>              
+                  <% if @solar_panel.errors[:theoreticalcategory_id].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:theoreticalcategory_id].each do |msg| %>
+		                          <p><%= "* theoreticalcategory. "+msg %><p>
+				<%end%> 
+                           </div>
+       	         <% end %> 
+
+ 
       </div> 
        <div class="form-group reg_section"> 
 	      <h1><span class="fa fa-info-circle"></span> Container Information</h1>

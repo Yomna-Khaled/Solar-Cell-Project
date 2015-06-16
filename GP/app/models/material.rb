@@ -1,6 +1,6 @@
 class Material < ActiveRecord::Base
 	include Paperclip::Glue
-	has_many :theoreticalcategories, through: :material_theoretical
+        has_many :theoreticalcategories, through: :material_theoretical
 	belongs_to :quantity
 	has_many :materialproperty
 	has_many :materialvendor

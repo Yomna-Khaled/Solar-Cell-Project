@@ -1,24 +1,67 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @spare_part.name %>
-</p>
+<div class="container" style="width: calc(80%);">
+ 
+      <h1 class="page-header text-capitalize"  style="font-size:30px; color:#2A4E6E" ><span class="fa fa-eye "> </span> <%= @spare_part.name %> Details</h1>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @spare_part.quantity %>
-</p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @spare_part.price %>
-</p>
+  <div class="row">
+  <div class="col-md-3">
+      <br>
+      <img src="<%= @spare_part.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
+  </div>
+  
 
-<p>
-  <strong>Machine:</strong>
-  <%= @spare_part.machine %>
-</p>
+  <div class="col-md-9">
+    <section class="register" > 
+        <div style="float:right;">  
+            <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info" %>
+            </div>  
+        <div class="reg_section">
+          <h3><span class="fa fa-info-circle "> </span> Basic Information</h3>
+      
 
-<%= link_to 'Edit', edit_spare_part_path(@spare_part) %> |
-<%= link_to 'Back', spare_parts_path %>
+          <ul class="list-group">
+            <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
+            <li class="list-group-item">Price: <%= @spare_part.price %></li>
+          </ul>
+      </div>
+
+       <div class="reg_section">
+        <h3><span class="fa fa-wrench "> </span> Machine Information</h3>
+       
+
+      <ul class="list-group">
+        <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
+      </ul>
+     </div>
+
+       <div class="reg_section">
+        <h3><span class="fa fa-user "> </span> Vendor Information</h3>
+        <ul class="list-group">
+          <li class="list-group-item">Vendor Name: <%= @spare_part_vendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id).order(updated_at: :desc)[0].vendor.name%></li>
+
+          <li class="list-group-item">SparePart_Vendors_History: 
+            <button id="showvendorhistory" onclick="showvendorhistory()" class="btn btn-sm btn-info" style="margin-left: 300px;">Show History</button>
+            <% @allvendors =  VendorSpare.where("spare_part_id=?",@spare_part.id).order(updated_at: :desc)%>
+            <table class="table table-hover table-responsive " id="historytable" style="display:none;">
+            <tr class="success">
+              <th class="text-center"><h3>Vendor Name</h3></th>
+              <th class="text-center"><h3>Start Date</h3></th>
+              <th class="text-center"><h3>End Date</h3></th>
+            </tr>
+              <% @allvendors.each do |vendor| %>
+                <tr class="success">
+                  <% next if vendor.date == nil %>
+                  <td class="text-center"><%=vendor.vendor.name%></td>
+                  <td class="text-center"><%=vendor.created_at.strftime('%Y-%m-%d')%></td>
+                  <td class="text-center"><%=vendor.date%></td>
+                </tr>
+              <% end -%>
+            </table>
+          </li>
+        </ul>
+      </div> 
+
+  </section>
+</div>    
+</div> 

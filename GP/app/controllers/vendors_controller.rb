@@ -10,15 +10,15 @@ class VendorsController < ApplicationController
   # GET /vendors.json
   def index
     if  current_category.category=="Buyer" or current_category.category=="Admin"
-         @vendors = Vendor.all
-         @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
-
+     @vendors = Vendor.all
+     @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"  
     end     
 
   end
   def black
+
       @vendor=Vendor.where("id= ?",params[:id])
 
       puts @vendor[0].blacklisted
@@ -33,8 +33,8 @@ class VendorsController < ApplicationController
   end  
 
 def pho
-@vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
-@vendorphones_selected[0].destroy
+  @vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
+  @vendorphones_selected[0].destroy
 end
 
   # GET /vendors/1
@@ -74,6 +74,8 @@ end
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
+          last_id = Vendor.maximum('id')
+          Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|

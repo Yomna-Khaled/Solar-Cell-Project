@@ -10,7 +10,7 @@ class ContainersController < ApplicationController
   # GET /containers
   # GET /containers.json
   def index
-    if  current_category.category=="Sales" or current_category.category=="Admin"
+    if  current_category.category=="Sales" or current_category.category=="Admin" or current_category.category=="Buyer"
      @containers = Container.all
      @containers = Container.paginate(:page => params[:page], :per_page => 6)
 
@@ -22,7 +22,7 @@ class ContainersController < ApplicationController
   # GET /containers/1
   # GET /containers/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if current_category.category=="Sales" or current_category.category=="Admin" or current_category.category=="Buyer"
      else
       render :file => "/public/404.html",:status  => "404"   
     end  
@@ -30,9 +30,9 @@ class ContainersController < ApplicationController
 
   # GET /containers/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if  current_category.category=="Buyer"
        @container = Container.new
-       @vendors = Vendor.all
+       @vendors = Vendor.where("blacklisted = ? " , "no")
        @flag="new"
     else
       render :file => "/public/404.html",:status  => "404"   
@@ -41,7 +41,7 @@ class ContainersController < ApplicationController
 
   # GET /containers/1/edit
   def edit
-   if logged_in? and current_category.category=="Sales" 
+   if  current_category.category=="Buyer" 
     @vendors = Vendor.all
     @containervendor = VendorContainer.where("container_id=? AND date IS NULL",@container.id)
     @containervendor_sorted = @containervendor.order(updated_at: :desc)
@@ -126,7 +126,7 @@ class ContainersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
-      params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
+      params.require(:container).permit(:width, :height, :containerdimensionunit ,:serialNo, :capacity, :price, :total_power)
     end
     
     def authenticate

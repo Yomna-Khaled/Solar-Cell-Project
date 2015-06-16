@@ -1,31 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="width: calc(70%);">
+ <% if current_category.category!="Admin" %>
+         <%= link_to 'Edit', edit_buyer_path(@buyer) %>
+  <%end%>
+  <div class="page-header" style="font-size:35px;">
+      <h1><span class="fa fa-info-circle"></span> Buyer Information</h1>
+  </div>
+  <div class="raw">
+  <div class="page-header">
+    <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @buyer.name %>
-</p>
+  <ul class="list-group">
+    <li class="list-group-item">Name: <%= @buyer.name %></li>
+    <li class="list-group-item"><span class="fa fa-home"></span> Address:  <%= @buyer.addess %></li>
+    <li class="list-group-item"><span class="fa fa-map-marker"></span> City:  <%= @buyer.city %></li>
+  </ul>
 
-<p>
-  <strong>Addess:</strong>
-  <%= @buyer.addess %>
-</p>
+  <div class="page-header">
+    <h1><span class="fa fa-info-circle"></span> Contact Infrormation</h1>
+  </div>
 
-<p>
-  <strong>City:</strong>
-  <%= @buyer.city %>
-</p>
-
-<strong>Phones:</strong>
-  <% index = 1%>
-    <% @buyer_phones.each do |buyerphone| %>
-      <p>
-        <strong><%=index%>-<%= buyerphone.phone %></strong>      
-          <%index+=1%>
-      </p>
-    <%end%>   
-</p>
-
-<%= will_paginate @buyers %>
-
-<%= link_to 'Edit', edit_buyer_path(@buyer) %> |
-<%= link_to 'Back', buyers_path %>
+  <ul class="list-group">
+      <% index = 1%>
+        <% @buyer_phones.each do |buyerphone| %>
+          <li class="list-group-item text-capitalize"><span class="fa fa-mobile"></span> Phone <%=index%>:<%= buyerphone.phone %></li>
+           <%index+=1%>
+      <%end%> 
+  </ul>
+ </div> 
+</div>  

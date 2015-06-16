@@ -7,18 +7,21 @@ class EmployeesController < ApplicationController
   def render_404      
      render :file => "/public/404.html", :status => 404
   end
+
   def fire
      @employee=Employee.where("id= ?",params[:id]).update_all(:status => "no" )
      @employees = Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
-       render plain:"ok"
+     @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+     render plain:"ok"
   end
+  
   def search
+    admin = Category.find_by(category: "Admin")
     if params[:type]=="current"
-      @employees=Employee.where("status= ?","yes")
+      @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
       render partial: 'find'
     elsif params[:type]=="past"
-      @employees=Employee.where("status= ?","no")
+      @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
       render partial: 'find'
     else
       @employees=Employee.all
@@ -28,8 +31,8 @@ class EmployeesController < ApplicationController
   
   def index
     if current_category.category=="HR" or current_category.category=="Admin"
-      @employees = Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+      admin = Category.find_by(category: "Admin")
+      @employees = Employee.where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"
     end   

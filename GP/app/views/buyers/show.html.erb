@@ -1,5 +1,11 @@
 <div class="container" style="width: calc(70%);">
+
   <div class="page-header"style="font-size:30px;color:#2A4E6E">
+
+ <% if current_category.category!="Admin" %>
+         <%= link_to 'Edit', edit_buyer_path(@buyer) %>
+  <%end%>
+ 
       <h1><span class="fa fa-info-circle"></span> Buyer Information</h1>
   </div>
   <div class="row">
