@@ -65,7 +65,7 @@ class ShiftsController < ApplicationController
   def index
    if logged_in? and current_category.category=="Shift Manager"
     @shifts = Shift.where("employee_id = ?" , current_user.id )
-    @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
+    @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     @manager = current_user.full_name
     respond_to do |format|
       format.html
@@ -84,34 +84,41 @@ class ShiftsController < ApplicationController
 
    def show
      if logged_in? and current_category.category=="Shift Manager" 
-     @mat_qt= ProductionShift.select('materials.name ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ", @shift.id,).group("material_id")
+     @mat_qt= ProductionShift.select('materials.name,materials.id ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ", @shift.id).group("material_id")
      @allmat=Material.all 
      
      @act_mat= Array.new 
      @th_mat= Array.new 
      @waste=Array.new
-     @shinsertedpanels=Shift.where('shifts.id=?',@shift.id).first.production_rate
-     
+     #@shinsertedpanels=Shift.where('shifts.id=?',@shift.id).first.production_rate
+     @solars=@shift.solar_panels
      for i in 0...@allmat.length  
-      @matsum=@mat_qt.where(:'materials.name' => @allmat[i].name)
-      if @matsum.exists?
-        @matsum=@matsum.first.sum
-        @act_mat.push ([@allmat[i].name,@matsum])
-        @th_mat.push ([@allmat[i].name,2*@shinsertedpanels]) 
-       if @matsum-(2*@shinsertedpanels) >0
-      
-           @waste.push ([@allmat[i].name,@matsum-(2*@shinsertedpanels)]) 
-       else
-           @waste.push ([@allmat[i].name,0]) 
-       end  
-     else
-       
-       @act_mat.push ([@allmat[i].name,0]) 
-       @th_mat.push ([@allmat[i].name,2*@shinsertedpanels])
-        @waste.push ([@allmat[i].name,0]) 
-      
-      end 
-     end
+				  @matsum=@mat_qt.where(:'materials.name' => @allmat[i].name)
+				  @th_mat_qt=0   
+				  for j in 0...@solars.length
+				        @th_cat=@solars[j].theoreticalcategory_id
+                @th_mat_i=MaterialTheoretical.where('theoreticalcategory_id =? and material_id=?',@th_cat,@allmat[i].id).first.value
+				        
+                @th_mat_qt=@th_mat_qt+@th_mat_i.to_i
+                
+				  end 
+				  if @matsum.exists?
+				    @matsum=@matsum.first.sum
+             
+				    @act_mat.push ([@allmat[i].name,@matsum])
+				    @th_mat.push ([@allmat[i].name,@th_mat_qt])
+					   if @matsum-(@th_mat_qt) >0
+						   @waste.push ([@allmat[i].name,@matsum-(@th_mat_qt)]) 
+						 else
+					     @waste.push ([@allmat[i].name,0]) 
+					   end  
+				  else
+						@act_mat.push ([@allmat[i].name,0]) 
+            
+						@th_mat.push ([@allmat[i].name,@th_mat_qt])
+						@waste.push ([@allmat[i].name,0]) 
+					end 
+      end
      
      else
       render :file => "/public/404.html",:status  => "404" 

@@ -1,0 +1,5 @@
+class Addcategorytopanel < ActiveRecord::Migration
+  def change
+      add_reference :solarpanels, :theoreticalcategories, index: true
+  end
+end

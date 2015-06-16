@@ -1,13 +1,19 @@
 <div class="container" style="width: calc(80%);">
  
       <h1 class="page-header text-capitalize" style="font-size:30px; color:#2A4E6E"><span class="fa fa-eye"> <%=  @material.name %> Details</h1>
-  
-
+          
  
       <div class="row">
         <div class="col-md-3">
           <br>
+          
+
           <img src="<%= @material.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
+           <% if current_category.category!="Admin" %>
+            
+               <%= link_to 'Edit', edit_material_path(@material), class:"btn btn-info , col-md-11" %>
+            
+            <% end %> 
         </div> 
 
      

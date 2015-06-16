@@ -4,7 +4,11 @@
   <div class="form-group reg_section">
       
     <h1><span class="fa fa-info-circle"></span> Machine Information</h1>
+<<<<<<< HEAD
+    <h3><span class="fa fa-cog" > Name</span></h3>
+=======
     <h3>Name</h3>
+>>>>>>> 114dd89c3751f378f4944c0efe769a9680168460
     <%= f.text_field :name ,placeholder:"Enter Machine Name....."%>
     <% if @machine.errors[:name].present? %>
         <div class="text-danger ">

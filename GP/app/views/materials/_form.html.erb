@@ -53,9 +53,9 @@
   <% else %>
  
     <div class="form-group reg_section ">
-      <h1><span class="fa fa-info-circle"></span>  Material Information</h1>
+      <h1><span class="fa fa-info-circle"> </span> Material Information</h1> 
   
-        <h3>Name</h3>
+        <h3><span class="fa fa-cube"></span> Name</h3> 
         <%= f.text_field :name,class: "w", placeholder:"Enter Material Name...." %>
 
         <% if @material.errors[:name].present? %>
@@ -203,7 +203,7 @@
  <div class="reg_section">
 
       <h1><span class="fa fa-info-circle"></span> Material Vendor </h1>
-    <h3>Vendor </h3>
+    <h3><span class="fa fa-user"></span> Vendor </h3>
     <select id="vendor" name="vendor" required >
       <% @vendors.each do |vendor| %>
         <% if @flag == "new" %>

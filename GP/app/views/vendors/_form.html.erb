@@ -1,8 +1,9 @@
 <%= form_for(@vendor) do |f| %>
   <section class="register">
     <div class="form-group reg_section ">
+
       <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
-      <h3>Name</h3>
+      <h3><span class="fa fa-user"> Name</span></h3>
       <%= f.text_field :name %>
 
       <% if @vendor.errors[:name] %>
@@ -13,6 +14,7 @@
             <% end %>
           </ul>
         </div>
+
       <% end %>
 
       <h3><span class="fa fa-envelope"></span> Email</h3>
