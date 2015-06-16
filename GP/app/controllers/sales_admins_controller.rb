@@ -3,7 +3,9 @@ class SalesAdminsController < ApplicationController
 
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
+  def render_404      
+     render :file => "/public/404.html", :status => 404,:layout => false
+  end
   # GET /sales_admins
   # GET /sales_admins.json
   def index

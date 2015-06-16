@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :render_404# Render 404 page when record not found
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   def render_404      
-    render :file => "/public/404.html", :status => 404
+    render :file => "/public/404.html", :status => 404,:layout => false
   end
 
 
