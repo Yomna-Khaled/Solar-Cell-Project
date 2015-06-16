@@ -1,12 +1,18 @@
 <div class="container"  style="width: calc(70%);">
+
   
       <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"></span> Crew Information</h1>
 
   <div class="row">
      
 <section class="register" >  
+  <% if current_category.category!="Admin" %>
+        <div style="float:right;"> 
+          <%= link_to 'Edit', edit_crew_path(@crew), class:"btn btn-info"  %>
+        </div> 
+   <%end%>
   <div class="reg_section">
-
+   
    <h3><span class="fa fa-folder"></span> Basic Information</h3>
 
 
@@ -27,5 +33,6 @@
  </div>
  </section>	
 </div>
+
 </div>	
 

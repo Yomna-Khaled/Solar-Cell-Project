@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  resources :admin_shifts
+  resources :sales_admins
+
+  resources :production_rates
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :theoreticalcategories
+  resources :material_theoreticals
+  resources :material_theoreticals
+  resources :material_theoreticalcategories
+  resources :theoreticalcategories
+  resources :material_theoretical_categories
+  resources :theoretical_categories
+
   resources :lookup_prices
 
   resources :sold_panels
@@ -11,6 +28,7 @@ Rails.application.routes.draw do
   get '/shifts/showendshift', to: 'shifts#showendshift'
   get '/shifts/currentshift', to: 'shifts#currentshift' 
   get '/shifts/allshifts', to: 'shifts#allshifts'
+
 
 
 
@@ -30,6 +48,7 @@ Rails.application.routes.draw do
   resources :employee_managers
   resources :employee_phones
   resources :employees
+
   resources :crews
   resources :vendor_containers
 
@@ -60,6 +79,8 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
   post 'production_shifts/accept' =>'production_shifts#accept'
+   post 'employees/fire'=> 'employees#fire'
+   post 'employees/search'=> 'employees#search' 
 
   get 'material' => 'materials#report'
 
@@ -70,6 +91,7 @@ Rails.application.routes.draw do
 
   post 'delPhon' => 'employees#pho'
   post 'delPhonee' => 'buyers#pho'
+  post 'vendors/black' =>'vendors#black'
 
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'

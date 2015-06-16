@@ -4,25 +4,16 @@
  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" > <span class="fa fa-list"></span> All Panels</h1>
  <section class="register" >  
     <div class="reg_section">
-
-
- 
-
-<div class="row">
-    <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
-    
-        <%= select_tag(:soldtype, options_for_select([['ALL', 'all'], ['Sold', 'sold'],['Unsold','unsold']]),onchange: "searchciteria()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
-
-    	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class: "col-md-3" ,style:"width:300px;") %>
-
-        <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
-        <%= hidden_field_tag :searchcriteria, "power" %>
-        <%= hidden_field_tag :soldornot, "ALL" %>
- 
-        <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
-
-    <% end %> 
-</div>
+  <div class="row">
+      <%= form_tag(solar_panels_path, :method => "get", id: "search-form" , :class => "navbar-form pull-left" , :style => "display:inline-block;" ) do %>
+          <%= select_tag(:soldtype, options_for_select([['ALL', 'all'], ['Sold', 'sold'],['Unsold','unsold']]),onchange: "searchciteria()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px") %>
+      	  <%= select_tag(:searching, options_for_select([['Search_by_power', 1], ['Search_by_serialno', 2]]),onchange: "searchciteria()",class: "col-md-3" ,style:"width:300px;") %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Panels",class:"col-md-3" %>
+          <%= hidden_field_tag :searchcriteria, "power" %>
+          <%= hidden_field_tag :soldornot, "ALL" %>
+          <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%> 
+      <% end %>
+  </div>
   <section class="register" >  
     <div class="reg_section">
         <table class="table table-hover table-responsive mytable" >
@@ -35,10 +26,10 @@
             	  <th class="text-center" ><h3>Power</h3></th>
             	  <th class="text-center" ><h3>Price</h3></th>
             	  <th class="text-center" ><h3>Show</h3></th>
-
-    <tbody>
-      <% @solar_panels.each do |solar_panel| %>
-       
+            </tr>
+          </thead>    
+          <tbody>
+              <% @solar_panels.each do |solar_panel| %>
          <tr>  
 
        <% if solar_panel.sold_panel_id.nil? %>

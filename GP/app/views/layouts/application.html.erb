@@ -16,7 +16,6 @@
 }
 </style>
 	<% if logged_in? %> 
-
 	    <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
 	    <div id="sidebar-wrapper">
 	        <ul class="sidebar-nav">
@@ -40,22 +39,17 @@
 
 				<% if current_category.category == "Sales" %>
 				  <li><%= link_to ' All Panels', solar_panels_path %></li>
-				  <li><%= link_to ' All Materials', materials_path %></li>
-				  <li><%= link_to ' Add Material', new_material_path  %></li>
-				  <li><%= link_to ' All Spare Parts', spare_parts_path %></li>
-				  <li><%= link_to ' Add Spare Part', new_spare_part_path  %></li>
-				  <li><%= link_to ' All Vendors', vendors_path %></li>
-				  <li><%= link_to ' Add Vendor', new_vendor_path  %></li>
-				  <li><%= link_to ' All Machines ', machines_path %></li>
-				  <li><%= link_to ' Add Machine', new_machine_path  %></li>
 				  <li><%= link_to ' All Pallets', containers_path %></li>
-				  <li><%= link_to ' Add Pallet', new_container_path  %></li>
 				  <li><%= link_to ' Add Buyer', new_buyer_path %></li>
 				  <li><%= link_to ' All Orders', sold_panels_path %></li>
 				  <li><%= link_to ' Order panel', new_sold_panel_path  %></li>
+				  <li><%= link_to ' Order Admin', new_sales_admin_path  %></li>
 				<% end %>
 	              
 		        <% if current_category.category == "Shift Manager" %>
+		        	<li><%= link_to 'Admin Requests', admin_shifts_path  %></li>
+		        	<li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
+		        	<li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
 	                <li><%= link_to ' Home', crew_home_path %></li>
 					<li><%= link_to ' Start Shift', shifts_showstartshift_path %></li>
 				 	<li><%= link_to ' End Shift', shifts_showendshift_path  %></li>
@@ -72,6 +66,10 @@
 				<% end %>
 
 				<% if current_category.category == "Admin" %>
+					<li><%= link_to ' Requests', sales_admins_path %></li>
+				    <li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
+				    <li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
+				    <li><%= link_to 'Production Rate', production_rates_path %></li>
 					<li><%= link_to ' All Panels', solar_panels_path %></li>
 					<li><%= link_to ' All Materials', materials_path %></li>
 					<li><%= link_to ' All Spare Parts', spare_parts_path %></li>
@@ -84,16 +82,29 @@
 					<li><%= link_to ' All Employee', employees_path  %></li>
 					<li><%= link_to ' All Crews', crews_path %></li>
 					<li><%= link_to ' All Shifts', shifts_allshifts_path %></li>
+					<li><%= link_to ' Order Shift', new_admin_shift_path %></li>
 				<% end %>
 
-
+				<% if current_category.category == "Buyer" %>
+				  <li><%= link_to ' All Materials', materials_path %></li>
+				  <li><%= link_to ' Add Material', new_material_path  %></li>
+				  <li><%= link_to ' All Spare Parts', spare_parts_path %></li>
+				  <li><%= link_to ' Add Spare Part', new_spare_part_path  %></li>
+				  <li><%= link_to ' All Vendors', vendors_path %></li>
+				  <li><%= link_to ' Add Vendor', new_vendor_path  %></li>
+				  <li><%= link_to ' All Machines ', machines_path %></li>
+				  <li><%= link_to ' Add Machine', new_machine_path  %></li>
+				  <li><%= link_to ' All Pallets', containers_path %></li>
+				  <li><%= link_to ' Add Pallet', new_container_path  %></li>
+				<% end %>
 			</ul>
 	<% end %>
 
        
     </div>
         <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+        <div class="alert alert-<%= key %>"><%= value %>
+    </div>
     <% end %>
 
 <%= yield %>

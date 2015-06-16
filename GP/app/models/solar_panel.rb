@@ -1,8 +1,10 @@
 class SolarPanel < ActiveRecord::Base
   belongs_to :container
   belongs_to :shift
-  validates  :production_date, :height, :width, :power , :celltype, :subtype, :price, :serialNo, :container_id,:cellno,   
-  presence: true
+ validates  :production_date, :height, :width, :power , :celltype, :subtype, :price, :serialNo, :container_id,:theoreticalcategory_id,:cellno,presence: true  
+
+  belongs_to :theoreticalcategory
+ 
   validates_uniqueness_of :serialNo
   
   def self.searchserialno(query,type)

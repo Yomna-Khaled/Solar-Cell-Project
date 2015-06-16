@@ -1,82 +1,61 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Width:</strong>
-  <%= @container.width %>
-</p>
-
-<p>
-  <strong>Height:</strong>
-  <%= @container.height %>
-</p>
-
-<p>
-  <strong>Serialno:</strong>
-  <%= @container.serialNo %>
-</p>
-
-<p>
-  <strong>Capacity:</strong>
-  <%= @container.capacity %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @container.price %>
-</p>
-
-<p>
-  <strong>Total power:</strong>
-  <%= @container.total_power %>
-</p>
-
-<p>
-  <strong>Vendor:</strong>
-        <% @spare_part_vendor = VendorSpare.where("spare_part_id=?", @spare_part.id).order(updated_at: :desc)[0] %>
-        <% vendor = Vendor.find_by(id: @spare_part_vendor.vendor_id) %>
-        <td><%= vendor.name %></td>
- </p> 
-================================================================================
-<% @container.solar_panels.each do |solarpanel| %>
-  <p>
-    <strong>Production Date:</strong>
-    <%= solarpanel.production_date %>
-  </p>
- <p>
-    <strong>Height:</strong>
-    <%= solarpanel.height %>
-  </p>
-  <p>
-    <strong>Width:</strong>
-    <%= solarpanel.width %>
-  </p>
-  <p>
-    <strong>power:</strong>
-    <%= solarpanel.power %>
-  </p>
- 
-  <p>
-    <strong>cell type:</strong>
-    <%= solarpanel.celltype %>
-  </p>
-  <p>
-    <strong>sub type:</strong>
-    <%= solarpanel.subtype %>
-  </p>
-  <p>
-    <strong>price:</strong>
-    <%= solarpanel.price %>
-  </p>
-  <p>
-    <strong>serial No:</strong>
-    <%= solarpanel.serialNo %>
-  </p>
-  <p>
-    <strong>number of cells:</strong>
-    <%= solarpanel.cellno %>
-  </p>
+<div class="container" style="width: calc(60%);">
   
- 
-****************************************
-<% end %>
+      <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Container Information</h1>
 
+  <div class="row">
+
+      
+<section class="register" >
+                        <div style="float:right;">     
+                       <% if current_category.category!="Admin" %>
+		          <%= link_to 'Edit', edit_container_path(@container), class:"btn btn-info" %>
+		        <%end%> 
+                         </div> 
+  <div class="reg_section">
+    <h3><span class="fa fa-info-circle"></span> Basic Infromation</h3>
+    <ul class="list-group">
+      <li class="list-group-item"><span class="fa fa-arrows-h"></span> Width: <%= @container.width %><%= @container.containerdimensionunit %></li>
+      <li class="list-group-item"><span class="fa fa-arrows-v"></span> Height: <%= @container.height %><%= @container.containerdimensionunit %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span>  Serial No.: <%= @container.serialNo %></li>
+      <li class="list-group-item"><span class="fa fa-sort-numeric-asc"></span>  Capacity.: <%= @container.capacity %></li>
+    </ul>
+  </div>
+
+  <div class="reg_section"> 
+      <h3><span class="fa fa-bolt"></span> Power and Price</h3>
+  
+    <ul class="list-group">
+      <li class="list-group-item"><span class="fa fa-bolt"></span> Power: <%= @container.total_power %></li>
+      <li class="list-group-item"><span class="fa fa-usd"></span> Price: <%= @container.price %></li>
+    </ul>
+  </div>
+
+   <div class="reg_section"> 
+      <h3><span class="fa fa-user"></span> Vendor</h3>
+  
+    <ul class="list-group">
+    <li class="list-group-item"><span class="fa fa-user"></span> Vendor Name: <%=@container_vendor = VendorContainer.where("container_id=? AND date IS NULL", @container.id).order(updated_at: :desc)[0].vendor.name %></li>
+    <li class="list-group-item"><span class="fa fa-history"></span> Container_Vendors_History: 
+    <button id="showvendorhistory" onclick="showvendorhistory()" class="btn btn-sm btn-info" style="margin-left: 350px;">Show History</button>
+    <% @allvendors =  VendorContainer.where("container_id=?",@container.id).order(updated_at: :desc)%>
+    <table class="table table-hover table-responsive " id="historytable" style="display:none;">
+    <tr class="success">
+      <th class="text-center"><h3>Vendor Name</h3></th>
+      <th class="text-center"><h3>Start Date</h3></th>
+      <th class="text-center"><h3>End Date</h3></th>
+    </tr>
+      <% @allvendors.each do |vendor| %>
+        <tr class="success">
+          <% next if vendor.date == nil %>
+          <td class="text-center"><%=vendor.vendor.name%></td>
+          <td class="text-center"><%=vendor.created_at.strftime('%Y-%m-%d')%></td>
+          <td class="text-center"><%=vendor.date%></td>
+        </tr>
+      <% end -%>
+    </table>
+    </li>
+    </ul>
+  </div>
+ </section>
+ </div>
+ </div>

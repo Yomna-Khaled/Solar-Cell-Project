@@ -9,7 +9,7 @@ class VendorsController < ApplicationController
   # GET /vendors
   # GET /vendors.json
   def index
-    if  current_category.category=="Sales" or current_category.category=="Admin" 
+    if  current_category.category=="Buyer" or current_category.category=="Admin" 
       if params[:vendortype] == 'sparepart'
         session[:vendortype] = 'sparepart'
       elsif params[:vendortype] == 'material'
@@ -47,10 +47,6 @@ class VendorsController < ApplicationController
         else
           @vendors = VendorContainer.all.order(created_at: :desc)
         end
-
-        
-
-
       elsif session[:vendortype] == 'material' or session[:vendortype] == nil
         @listcritetia = "material"
         if params[:searchtype] == 'date'
@@ -72,16 +68,20 @@ class VendorsController < ApplicationController
     end     
 
   end
+  def black
+    @vendor=Vendor.where("id= ?",params[:id]).update_all(:blacklisted => "yes" )
+    render plain: "ok"
+  end  
 
 def pho
-@vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
-@vendorphones_selected[0].destroy
+  @vendorphones_selected = VendorPhone.where("phone = ?",params[:phone])
+  @vendorphones_selected[0].destroy
 end
 
   # GET /vendors/1
   # GET /vendors/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Admin"
       @vendor_phones = VendorPhone.where("vendor_id=?",@vendor.id)
     else
       render :file => "/public/404.html",:status  => "404" 
@@ -90,7 +90,7 @@ end
 
   # GET /vendors/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and current_category.category=="Buyer"
       @vendor = Vendor.new
       @flag="new"
     else
@@ -100,7 +100,7 @@ end
 
   # GET /vendors/1/edit
   def edit
-    if logged_in? and current_category.category=="Sales"
+    if logged_in? and current_category.category=="Buyer"
 	      @flag="edit"
         @vendor = Vendor.find(params[:id])
         @phones = VendorPhone.where("vendor_id = ? ", @vendor.id ).select([:phone])
@@ -112,37 +112,46 @@ end
   # POST /vendors
   # POST /vendors.json
   def create
-	@vendor = Vendor.new(vendor_params)
-      respond_to do |format|
-        if @vendor.save
-          if defined? params[:vendor_phones][:phone] 
-            arr= params[:vendor_phones][:phone].split(",")
+    @vendor = Vendor.new(vendor_params)
+    respond_to do |format|
+      if @vendor.save
+        last_id = Vendor.maximum('id')
+        Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
+        if defined? params[:vendor_phones][:phone] 
+          arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
-                @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
-                @vendorphone.save  
+              @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+              @vendorphone.save  
               end
             end
           else
-            @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-            @vendorphone.save            
-	        end    
-          format.html { redirect_to @vendor }
-          format.json { render :show, status: :created, location: @vendor }
-        else
-	           params[:vendor_phones][:phone]==" "
-            format.html { render :new }
-            format.json { render json: @vendor.errors, status: :unprocessable_entity }
-        end
+          @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+          @vendorphone.save            
+        end    
+        format.html { redirect_to @vendor }
+        format.json { render :show, status: :created, location: @vendor }
+      else
+        params[:vendor_phones][:phone]==" "
+        format.html { render :new }
+        format.json { render json: @vendor.errors, status: :unprocessable_entity }
+      end
+    end
   end
-end
 
   def materialvendorcreate
     @vendorname=params[:vendorname]
     @vendoremail = params[:vendoremail]
-    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
-    @vendor.save
-    render json: @vendor
+    @vendortype = params[:vendortype]
+    @vendoraddress = params[:vendoraddress]
+    @vendorcity = params[:vendorcity]
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail,address:@vendoraddress,
+    city:@vendorcity,ventype:@vendortype, blacklisted: 'no')
+    if @vendor.save
+      render json: @vendor
+    else
+      puts @vendor.errors.full_messages
+    end
   end 
 
 
@@ -166,13 +175,8 @@ end
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
         end
-
-
   	 end
          end    
-
-
-
         format.html { redirect_to @vendor }
         format.json { render :show, status: :ok, location: @vendor }
       else
@@ -205,7 +209,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vendor_params
-      params.require(:vendor).permit(:name, :email )
+      params.require(:vendor).permit(:name, :email, :ventype , :address, :city)
     end
 
 	 def phone_params

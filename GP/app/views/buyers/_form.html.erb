@@ -7,12 +7,24 @@
     <h1><span  aria-hidden="true"></span><span class="fa fa-info-circle"></span> Buyer Information</h1>
   
   
-    <h3>Name</h3>
+    <h3><span class="fa fa-user"></span>Name</h3>
     <%= f.text_field :name ,placeholder:"Enter Buyer Name..." %>
     <% if @buyer.errors[:name].any? %>
     <div id="error_explanation">  
       <ul>
       <% @buyer.errors[:name].each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3><span class="fa fa-envelope"></span> Email</h3>
+    <%= f.text_field :email,placeholder: "Enter Buyer Email...." %>
+    <% if @buyer.errors[:email].any? %>
+    <div id="error_explanation">  
+      <ul>
+      <% @buyer.errors[:email].each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
