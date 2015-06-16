@@ -5,17 +5,14 @@
  
 
     <section class="register" >
-    <div style="float:right;">  
-            <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" %>
-            </div> 
-    <a class="btn btn-danger pull-right black" id="<%= @vendor.id %>">
-      <% if @vendor.blacklisted=="no" %>
+    <a class="btn btn-danger pull-right black showbtn" id="<%= @vendor.id %>" onclick="showButton(this)"><% if @vendor.blacklisted=="no" %>Black List<% else %>Short List<% end %></a>
+        
+             
 
-      Black List
-        <% else %>
-        Short List
-        <% end %>
-    </a>  
+                <div style="float:right;">
+                   <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" , id: "editVendor" ,:style => 'display: none'%>
+                </div>
+                  
         <div class="reg_section">
           
             
@@ -48,7 +45,6 @@
 <script>
 $(".black").click(function(){
   var id=this.id;
-  console.log(this.id);
   $.ajax({
       type: "POST",
       url: "/vendors/black",
@@ -56,11 +52,33 @@ $(".black").click(function(){
       data: { 'id':id},
       complete: function(data)
       {
-         $("#"+id).html("Short List");
+        if(($("#"+id).html()).trim()=="Short List")
+        {
+          $("#"+id).html("Black List")
+        }
+        else if(($("#"+id).html()).trim()=="Black List")
+        {
+           $("#"+id).html("Short List");
+
+        }
+        
         
       }
     });
 
 });
+if($('.showbtn').text()=='Black List')
+      {$("#editVendor").show();}
+function showButton(elem){
+
+    if($(elem).text()=='Short List')
+      {$("#editVendor").show();}
+    if($(elem).text()=='Black List')
+      {$("#editVendor").hide();}
+       
+}
+
+                
+               
 </script>
 
