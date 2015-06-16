@@ -8,7 +8,7 @@
             <div style="float:right;">  
                <%= link_to 'Edit', edit_solar_panel_path(@solar_panel), class:"btn btn-info" %>
             </div>  
-            <%end%> 
+            <% end %> 
     <div class="reg_section">
       
           <h3>Solar Panel Dimensions</h3>
@@ -45,6 +45,13 @@
         <li class="list-group-item">Serial No: <%= @solar_panel.container.serialNo %></li>
         
       </ul>
+          <h3>Category Information</h3>
+       
+      <ul class="list-group">
+        <li class="list-group-item">Category Name: <%= @solar_panel.theoreticalcategory.name %></li>
+      </ul>
+
+
     </div>
 
      
