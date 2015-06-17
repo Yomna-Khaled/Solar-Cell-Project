@@ -59,7 +59,11 @@
         <tbody>
           <% @vendors.each do |vendor| %>
           <!-- local -->
-            <tr>
+          <% if vendor.vendor.blacklisted =="yes" %>
+            <tr class="danger">
+              <%else %>
+              <tr>
+                <%end%>
               <%if @listcriteria == "all" %>
                 <%if @vendorcriteria != vendor.ventype &&  @vendorcriteria != 'all' &&  @vendorcriteria != nil%>
                 <%next%>
@@ -95,7 +99,7 @@
                 <%end%>
               <%end%>
               <td class="text-center" ><%= link_to 'Show', vendor.vendor, class:"btn btn-info" %></td>
-              <% if current_category.category!="Admin" %>
+              <% if current_category.category!="Admin" &&  vendor.vendor.blacklisted == "no" %>
               <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor.vendor), class:"btn btn-danger" %></td>
               <%end%>
             </tr>
