@@ -110,7 +110,7 @@ class ShiftsController < ApplicationController
   # GET /shifts/1.json
 
    def show
-     if logged_in? and current_category.category=="Shift Manager" 
+     if logged_in? and current_category.category=="Shift Manager" or current_category.category=="Admin"
      
      puts '______________-'
      puts @prod_qt
