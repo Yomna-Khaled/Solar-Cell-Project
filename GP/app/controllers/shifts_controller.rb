@@ -287,6 +287,10 @@ if current_category.category=="Shift Manager"
 
   def endshift
    if logged_in? and current_category.category=="Shift Manager"
+       @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
+     
+       if @shift.exists?
+            @shift = @shift.first 
             @unacceptedshifts=ProductionShift.where(@shift.id)
              for i in 0..(@unacceptedshifts.all.length-1)
                  if (@unacceptedshifts[i].accepted == "false")
@@ -304,7 +308,9 @@ if current_category.category=="Shift Manager"
 		format.json { render json: @shift.errors, status: :unprocessable_entity }
 	     end
 	   end
-
+       else 
+          redirect_to  shifts_showstartshift_path 
+        end
 
     else
        render :file => "/public/404.html",:status  => "404"  
