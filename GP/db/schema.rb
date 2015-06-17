@@ -255,8 +255,8 @@ ActiveRecord::Schema.define(version: 20150616085541) do
     t.integer  "shift_id",               limit: 4
     t.integer  "cellno",                 limit: 4
     t.integer  "sold_panel_id",          limit: 4
-    t.integer  "theoreticalcategory_id", limit: 4
     t.string   "dimensionunit",          limit: 255
+    t.integer  "theoreticalcategory_id", limit: 4
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
