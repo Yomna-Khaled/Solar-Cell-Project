@@ -20,7 +20,7 @@ class SalesAdminsController < ApplicationController
   # GET /sales_admins/1
   # GET /sales_admins/1.json
   def show
-    if if logged_in? and( current_category.category=="Sales" )
+    if  logged_in? and( current_category.category=="Sales" )
      else
       render :file => "/public/404.html",:status  => "404"
     end
