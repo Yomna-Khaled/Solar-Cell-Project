@@ -111,6 +111,12 @@ class MaterialsController < ApplicationController
         end
         @materialvendor = MaterialVendor.new(material_id: material_id, vendor_id: @vendor_id)
         @materialvendor.save
+      
+        @allcategories=Theoreticalcategory.all  
+        for i in 0...@allcategories.length
+          @materialtheoritical=MaterialTheoretical.new(material_id: material_id, theoreticalcategory_id: @allcategories[i].id , value: 0)
+          @materialtheoritical.save
+        end
         format.html { redirect_to @material}
         format.json { render :show, status: :created, location: @material }
       else

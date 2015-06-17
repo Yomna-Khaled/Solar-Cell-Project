@@ -126,7 +126,7 @@ class ContainersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
-      params.require(:container).permit(:width, :height, :serialNo, :capacity, :price, :total_power)
+      params.require(:container).permit(:width, :height, :containerdimensionunit ,:serialNo, :capacity, :price, :total_power)
     end
     
     def authenticate

@@ -1,114 +1,149 @@
 <style>
-#error_explanation {
-  color: red;
-  background-color: white;
-  border: white;
+.file{
+   margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius:3px;
+  --webkit-border-radius: 5px;
+  outline:3px solid rgba(200, 105, 137, 0.09);
+  -moz-outline-radius:7px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  margin:10px 0;
 }
-
-.field_with_errors {
-    background-color: white;
-}
-
 </style>
 
 
-
-
-<div class="container text-center">
 <%= form_for(@spare_part) do |f| %>
-  <% if @spare_part.errors.any? %>
-    <div id="error_explanation">
-     <div class="alert alert-danger">
-      <h2><%= pluralize(@spare_part.errors.count, "error") %>. 
-      <ul>
-      <% @spare_part.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <section class="register">
+    <h1><span class="fa fa-info-circle"></span> Spare Part Information</h1>
+  <div class="form-group reg_section">
+    <h3><span class="fa fa-wrench"></span> Name</h3>
+    <%= f.text_field :name, placeholder:"Enter Spare Part Name....."%>
+    <% if @spare_part.errors[:name].present? %>
+        <div class="text-danger">
+          <% @spare_part.errors[:name].each do |msg| %>
+              <p><%= "* name "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>    
+    <h3><span class="fa fa-sort-numeric-asc"></span> Quantity</h3> 
+    <%= f.number_field :quantity ,placeholder:"Enter Spare Part Quantity..." %>
+     <% if @spare_part.errors[:quantity].present? %>
+        <div class="text-danger">
+           <% @spare_part.errors[:quantity].each do |msg| %>
+              <p><%= "* quantity "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>
+  <h3><span class="fa fa-usd"></span> Price</h3>
+    <%= f.number_field :price ,step:0.1 ,placeholder:"Enter Spare Part Price...."%>
+     <% if @spare_part.errors[:price].present? %>
+        <div class="text-danger">
+           <% @spare_part.errors[:price].each do |msg| %>
+              <p><%= "* price "+msg %></p> 
+              <% end %>
+        </div>
+    <% end %>
+   <h3><span class="fa fa-file-image-o"> Spare Part Image</span></h3>
+   <input id="uploadFile" placeholder="Choose File" disabled="disabled" class="file"/>
+
+         <div class="fileUpload btn btn-primary">
+          <span class="fa fa-paperclip"> Upload</span>
+
+           <%= f.file_field :avatar ,class: "upload", id:"uploadBtn" %> 
+   
+  </div>
+
+  </div>
+
+  <div class="form-group reg_section">
+    <h1><span class="fa fa-info-circle"></span> Machine Information</h1>
+   <h3><span class="fa fa-cog"></span>Machine</h3>
+    <% if @flag == "new" %>
+      <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name"),{ :include_blank => false }, { :class => 'form-control' , :required => true} %>
+    <%else%>
+     <%= f.select :machine_id, options_from_collection_for_select(@machines, "id", "name", @spare_part.machine_id) ,{ :include_blank => false }, { :class => 'form-control' , :required => true }%>
+    <%end%>
+    <!-- add new quantity using ajax-->
+    <a id="machinelink" class="btn btn-link" style="text-align: left" 
+    onclick="showmachineform()"><h3><span class="fa fa-plus-circle"></span> Add Machine</h3></a>
+    <div id="addnewmachine" style="display:none" class="form-group">
+      <h2><span class="fa fa-plus-circle"></span>
+        New Machine
+      </h2>
+      
+       <h3>Machine Name</h3>
+        <input type="text" id="machinename" placeholder="Enter Machine Name.....">
+    
+      <div class="actions">
+        <a onclick="machineajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Machine</a>
+        <a onclick="canceladdmachine()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>
+      </div>
+        </div>
     </div>
-  <% end %>
+      <!-- end of adding new machine using ajax -->
+  
 
-
-<div class="panel panel-success" style="margin-top: 50px">
-<div class="panel-body">
-
-
-  <div class="field form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name ,class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :quantity %><br>
-    <%= f.number_field :quantity ,class: 'form-control' %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :price %><br>
-    <%= f.number_field :price ,step:0.1 , class: 'form-control' %>
-  </div>
-
-  <div class="field form-group">
-    <%= f.label :machine_id %><br>
-    <%= f.collection_select(:machine_id, Machine.all, :id, :name ) %>
-  </div>
-
-
-
-<div class="form-group">
-  <%= f.label :Vendor %><br>
-  <select id="vendor" name="vendor" class="form-control">
-    <% @vendors.each do |vendor| %>
-       <% if @flag == "new" %>
-      <option value="<%= vendor.id %>"><%= vendor.name %></option>
-       <%else %>
-        <% if @vendor_id == vendor.id &&%>
-          <option value="<%= vendor.id %>" selected><%= vendor.name %></option>
-          <%else%>
-          <option value="<%= vendor.id %>"><%= vendor.name %></option>
-        <%end%>   
-      <%end %>
-    <% end -%>
-  </select>
-<!-- add new vendor using ajax-->
+  <!-- for get all vendors to select one of them -->
+  <div class="form-group reg_section">
+    <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
+    <h3><span class="fa fa-user"></span>Vendor</h3>
+    <% if @flag == "new" %>
+    <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name") , class: 'form-control', :required => true %>
+    <%else%>
+     <%= select_tag "vendor", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) , class: 'form-control',:required => true %>
+     <%end%>
+   <!-- add new vendor using ajax-->
     <a id="vendorlink" class="btn btn-link" style="text-align: left"
-    onclick="showvendorform()">Add new Vendor</a>
+    onclick="showvendorform()"><h3><span class="fa fa-plus-circle"></span> Add new Vendor</h3></a>
       <div id="addnewvendor" style="display:none" class="form-group">
-         <h1>
-          <span class="label label-default">New Vendor</span>
-        </h1>
-        <div class="form-group">
-          <label>Vendor Name</label>
-          <input type="text" id="vendorname" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Vendor Email</label>
-          <input type="text" id="vendoremail" class="form-control">
-        </div>
+         <h2><span class="fa fa-plus-circle"></span> 
+         New Vendor
+        </h2>
+        
+          <h3>Vendor Name</h3>
+          <input type="text" id="vendorname" placeholder="Enter Vendor Name.....">
+        
+      
+          <h3><span class="fa fa-envelope-o"></span> Vendor Email</h3>
+          <input type="text" id="vendoremail"placeholder="Enter Vendor Email...." >
+        
         <div class="actions">
-          <a onclick="vendorajax()" class="btn btn-success">Add Vendor</a>
-          <a onclick="canceladdvendor()" class="btn btn-warning">Cancel</a>
+          <a onclick="vendorajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Vendor</a>
+          <a onclick="canceladdvendor()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>
         </div>
       </div>
     <!-- end of adding new vendor using ajax -->
-
-</div>
-
-
-
-
-<div class="form-group">
-   <%= f.label :Spare_part_Photo %><br>
-    <%= f.file_field :avatar %>
   </div>
+  <!-- end of div for vendors -->
 
 
 
-<div class="actions form-group">
-    <%= f.submit "Submit", class: "btn btn-success" %>
-  </div>
-</div>
 
+
+   
+  
+
+
+
+<div class="actions">
+  
+    <%= f.submit class: 'btn btn-warning' %>
+  
 </div>
 <% end %>
-</div>
+<script>
+document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+</script>
+
 
 

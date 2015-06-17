@@ -5,14 +5,21 @@ class AdminShiftsController < ApplicationController
 
   # GET /admin_shifts
   # GET /admin_shifts.json
+
   def index
     if logged_in? and( current_category.category=="Shift Manager" )
-    @admin_shifts = AdminShift.all
+       @admin_shifts = AdminShift.all
   else
      render :file => "/public/404.html",:status  => "404"
   end
 
   end
+
+
+def notification
+  @shifts_notification = AdminShift.all.count
+  render json: @shifts_notification
+end
 
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json

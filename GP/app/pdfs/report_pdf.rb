@@ -23,7 +23,7 @@ class ReportPdf < Prawn::Document
     logopath =  "#{Rails.root}/app/assets/images/header.jpg"
     image logopath, :width => 550, :height => 60
     stroke do
-      horizontal_line 0 , 600
+      horizontal_line 0 , 550
     end
     move_down 12
   end

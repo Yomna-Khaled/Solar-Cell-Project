@@ -49,14 +49,16 @@ ActiveRecord::Schema.define(version: 20150615082608) do
   end
 
   create_table "containers", force: :cascade do |t|
-    t.float    "width",       limit: 24
-    t.float    "height",      limit: 24
-    t.string   "serialNo",    limit: 255
-    t.integer  "capacity",    limit: 4
-    t.float    "price",       limit: 24,  default: 0.0
-    t.float    "total_power", limit: 24,  default: 0.0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.float    "width",                  limit: 24
+    t.float    "height",                 limit: 24
+    t.string   "serialNo",               limit: 255
+    t.integer  "capacity",               limit: 4
+    t.float    "price",                  limit: 24,  default: 0.0
+    t.float    "total_power",            limit: 24,  default: 0.0
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "containerdimensionunit", limit: 255
+    t.boolean  "sold",                   limit: 1,   default: false
   end
 
   create_table "crews", force: :cascade do |t|
@@ -253,6 +255,7 @@ ActiveRecord::Schema.define(version: 20150615082608) do
     t.integer  "cellno",                 limit: 4
     t.integer  "sold_panel_id",          limit: 4
     t.integer  "theoreticalcategory_id", limit: 4
+    t.string   "dimensionunit",          limit: 255
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree

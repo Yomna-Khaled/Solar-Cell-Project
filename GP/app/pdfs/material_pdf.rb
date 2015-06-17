@@ -17,10 +17,10 @@ class MaterialPdf < Prawn::Document
 
 
   def logo
-    logopath =  "#{Rails.root}/app/assets/images/logo.png"
-    image logopath, :width => 100, :height => 60
+    logopath =  "#{Rails.root}/app/assets/images/header.jpg"
+    image logopath, :width => 550, :height => 60
     stroke do
-      horizontal_line 0 , 600
+      horizontal_line 0 , 550
     end
     move_down 12
   end
@@ -131,7 +131,7 @@ class MaterialPdf < Prawn::Document
  @vendor_name = @material_vendor.where("material_id=? AND date IS NULL",@material.id).order(updated_at: :desc)[0].vendor.name
  @allvendors =  @material_vendor.where("material_id=?",@material.id).order(updated_at: :desc)
 
-    i = @allvendors.count * 40 
+    i = @allvendors.count * 55 
       bounding_box([0,cursor],:width=>500,:height=>40+ i.to_i) do
         transparent(0.5){stroke_bounds}
         indent(20) do

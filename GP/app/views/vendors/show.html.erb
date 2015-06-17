@@ -3,7 +3,11 @@
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Vendor Information</h1>
   
  
+
     <section class="register" >
+    <div style="float:right;">  
+            <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" %>
+            </div> 
     <a class="btn btn-danger pull-right black" id="<%= @vendor.id %>">
       <% if @vendor.blacklisted=="no" %>
 
@@ -18,7 +22,7 @@
             <h3>Basic Information </h3>
   
 
-            <ul class="list-group">
+   <ul class="list-group">
               <li class="list-group-item">Name: <%= @vendor.name %></li>
               <li class="list-group-item"><span class="fa fa-envelope"></span> Email:  <%= @vendor.email %></li>
               <li class="list-group-item"><span class="fa fa-home"></span> Address:  <%= @vendor.address %></li>
