@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150616220047) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
+    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -255,8 +256,8 @@ ActiveRecord::Schema.define(version: 20150616220047) do
     t.integer  "shift_id",               limit: 4
     t.integer  "cellno",                 limit: 4
     t.integer  "sold_panel_id",          limit: 4
-    t.string   "dimensionunit",          limit: 255
     t.integer  "theoreticalcategory_id", limit: 4
+    t.string   "dimensionunit",          limit: 255
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree

@@ -17,7 +17,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <style type="text/css">
   body {
   background:url(/3.jpeg) no-repeat ;
- 
   font-family: 'open_sanslight';
   font-size: 100%;
   background-repeat: no-repeat;
@@ -44,8 +43,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <p>you can go to <span><a href="/sold_panels/new">home</a></span> page</p>
           <% elsif (current_category.category=="Admin")%>
             <p>you can go to <span><a href="/materials">home</a></span> page</p>
+            
           <% elsif (current_category.category=="Buyer")%>
-            <p>you can go to <span><a href="/materials">home</a></span> page</p>
+            <p>you can go to <span><a href="/materials">home</a></span> page</p>  
+
           <% else %>
             <p>you can go to <span><a <%redirect_to  @employee %>>home</a></span> page</p>
           <% end %>

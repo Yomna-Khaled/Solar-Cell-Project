@@ -90,6 +90,8 @@ class MaterialsController < ApplicationController
   # POST /materials.json
   def create
     @vendor_id = params['vendor']; #to get vendor of certain material 
+    puts "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    puts @vendor_id
     @selected_properties = params['propertycheck']; #it is an array of selected properties
     # render plain: @selected_properties
     @material = Material.new(material_params)

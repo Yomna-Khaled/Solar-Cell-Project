@@ -172,6 +172,7 @@ end
   def materialvendorcreate
     @vendorname=params[:vendorname]
     @vendoremail = params[:vendoremail]
+
     @vendortype = params[:vendortype]
     @vendoraddress = params[:vendoraddress]
     @vendorcity = params[:vendorcity]
@@ -182,6 +183,7 @@ end
     else
       puts @vendor.errors.full_messages
     end
+
   end 
 
 
