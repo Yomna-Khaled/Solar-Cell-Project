@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617144930) do
+ActiveRecord::Schema.define(version: 20150617151840) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
@@ -125,11 +125,8 @@ ActiveRecord::Schema.define(version: 20150617144930) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "vendor_id",  limit: 4
     t.string   "serialNo",   limit: 255
   end
-
-  add_index "machines", ["vendor_id"], name: "fk_rails_bf41765213", using: :btree
 
   create_table "material_properties", force: :cascade do |t|
     t.integer  "material_id", limit: 4
@@ -356,7 +353,6 @@ ActiveRecord::Schema.define(version: 20150617144930) do
   add_foreign_key "employee_phones", "employees"
   add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
-  add_foreign_key "machines", "vendors"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
   add_foreign_key "material_theoreticals", "materials"
