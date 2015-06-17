@@ -1,6 +1,58 @@
+<div class="container" style="width: calc(80%);">
+ 
+      <h1 class="page-header text-capitalize"  style="font-size:30px; color:#2A4E6E" ><span class="fa fa-eye "> </span> <%= @machine.name %> Details</h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @machine.name %>
-</p>
+
+  <div class="row">
+  
+  <div class="col-md-9">
+    <section class="register" > 
+        <% if current_category.category=="Buyer" or current_category.category!="Admin" %>
+        <div style="float:right;">  
+            <%= link_to 'Edit', edit_machine_path(@machine), class:"btn btn-info" %>
+         </div> 
+         <%end%> 
+        <div class="reg_section">
+          <h3><span class="fa fa-info-circle "> </span> Basic Information</h3>
+      
+
+          <ul class="list-group">
+            <li class="list-group-item">Serial No: <%= @machine.serialNo %></li>
+          </ul>
+      </div>
+
+       <div class="reg_section">
+      <% if current_category.category=="Buyer" or current_category.category=="Admin"%>
+       <div class="reg_section">
+        <h3><span class="fa fa-user "> </span> Vendor Information</h3>
+        <ul class="list-group">
+          <li class="list-group-item">Vendor Name: <%= @machine_vendor = VendorMachine.where("machine_id=? AND date IS NULL",@machine.id).order(updated_at: :desc)[0].vendor.name%></li>
+
+          <li class="list-group-item">Machine_Vendors_History: 
+            <button id="showvendorhistory" onclick="showvendorhistory()" class="btn btn-sm btn-info" style="margin-left: 300px;">Show History</button>
+            <% @allvendors =  VendorMachine.where("machine_id=?",@machine.id).order(updated_at: :desc)%>
+            <table class="table table-hover table-responsive " id="historytable" style="display:none;">
+            <tr class="success">
+              <th class="text-center"><h3>Vendor Name</h3></th>
+              <th class="text-center"><h3>Start Date</h3></th>
+              <th class="text-center"><h3>End Date</h3></th>
+            </tr>
+              <% @allvendors.each do |vendor| %>
+                <tr class="success">
+                  <% next if vendor.date == nil %>
+                  <td class="text-center"><%=vendor.vendor.name%></td>
+                  <td class="text-center"><%=vendor.created_at.strftime('%Y-%m-%d')%></td>
+                  <td class="text-center"><%=vendor.date%></td>
+                </tr>
+              <% end -%>
+            </table>
+          </li>
+        </ul>
+      </div>
+    <% end -%> 
+
+  </section>
+</div>    
+</div> 
+
 
