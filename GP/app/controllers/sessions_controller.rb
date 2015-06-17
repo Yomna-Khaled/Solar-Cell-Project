@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   def create
     if params[:session][:password] != ""
       password=Digest::MD5.hexdigest(params[:session][:password])
-      @employee = Employee.find_by(email: params[:session][:email].downcase , password: password)
+      @employee = Employee.find_by(email: params[:session][:email].downcase , password: password , status: "yes")
       if @employee
         # Log the user in and redirect to the user's show page.
         log_in @employee
