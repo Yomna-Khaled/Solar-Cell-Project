@@ -18,7 +18,7 @@ class MachinesController < ApplicationController
 
   # GET /machines/1
   def show
-    if false
+    if current_category.category=="Buyer"or current_category.category=="Admin"
       else
        render :file => "/public/404.html",:status  => "404"  
      end
