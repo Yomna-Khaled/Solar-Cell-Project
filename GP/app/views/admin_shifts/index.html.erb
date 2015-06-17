@@ -10,7 +10,9 @@
       <th class="text-center"><h3>Power</h3></th>
       <th class="text-center"><h3>Type</h3></th>
       <th class="text-center"><h3>Subtype</h3></th>
+      <% if current_category.category == "Shift Manager" %>
        <th class="text-center"><h3>Done</h3></th>
+       <% end %>
        
     </tr>
   </thead>
@@ -18,11 +20,13 @@
   <tbody>
     <% @admin_shifts.each do |admin_shift| %>
       <tr>
-        <% if admin_shift.employee_id == current_user.id%>
+        <% if admin_shift.employee_id == current_user.id || current_category.category=="Admin"%>
         <td class="text-center"><%= admin_shift.power %></td>
         <td class="text-center"><%= admin_shift.celltype %></td>
         <td class="text-center"><%= admin_shift.subtype %></td>
+        <% if admin_shift.employee_id == current_user.id %>
         <td class="text-center"><a class="done btn btn-danger" id="<%= admin_shift.id %>">Done</a></td>
+        <% end %>
         <% end %>
       </tr>
     <% end %>

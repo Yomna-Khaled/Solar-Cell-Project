@@ -10,9 +10,13 @@ class AdminShiftsController < ApplicationController
 
   def index
 
-    if logged_in? and( current_category.category=="Shift Manager" || current_category.category=="Admin")
+    if logged_in? and( current_category.category=="Shift Manager")
     @admin_shifts = AdminShift.where("done IS NULL")
 
+  elsif logged_in? and(current_category.category=="Admin")
+    puts "================================="
+    @admin_shifts = AdminShift.all
+    puts @admin_shifts.inspect
   else
      render :file => "/public/404.html",:status  => "404"
   end
