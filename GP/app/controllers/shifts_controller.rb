@@ -92,7 +92,7 @@ class ShiftsController < ApplicationController
      end 
      
     @shifts = Shift.where("employee_id = ?" , current_user.id )
-    @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
+    @shifts = @shifts.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     @manager = current_user.full_name
     respond_to do |format|
       format.html
