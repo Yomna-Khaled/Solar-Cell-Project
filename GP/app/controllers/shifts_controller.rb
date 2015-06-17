@@ -16,7 +16,7 @@ class ShiftsController < ApplicationController
     if current_category.category=="Admin"
       
       @shifts = Shift.all
-      @shifts = Shift.paginate(:page => params[:page], :per_page => 6)
+      @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     else
       render :file => "/public/404.html",:status  => "404" 
     end   
@@ -52,13 +52,14 @@ class ShiftsController < ApplicationController
 	    end
 	  
 
-      @materials_used_id= ProductionShift.select('materials.name ,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ",  params[:id]).group("material_id")
+      @materials_used_id= ProductionShift.select('materials.name ,materials.id,sum(material_quantity) as sum').joins(:material).where("shift_id = ? and accepted= 'true' ",  params[:id]).group("material_id")
     
 	     # @materials_used_id= ProductionShift.where("shift_id = ? " , params[:id] )
 	    puts "==============================================="
        @materials_used_id.each do |m|
-      		# puts m.material.name
-      		# puts m.material_quantity
+      		puts m.name
+                       		puts m.id
+      	 puts m.sum
 	     end
 	    puts "==============================================="
 
