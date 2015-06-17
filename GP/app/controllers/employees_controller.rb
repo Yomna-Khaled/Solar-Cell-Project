@@ -9,7 +9,17 @@ class EmployeesController < ApplicationController
   end
 
   def fire
-     @employee=Employee.where("id= ?",params[:id]).update_all(:status => "no" )
+    puts "===============" 
+     @employee=Employee.where("id= ?",params[:id])
+     
+     puts @employee[0].crew_id
+     @crew_old = Crew.find_by(id: @employee[0].crew_id)
+     puts @crew_old.name
+
+     new_number =  @crew_old.no_of_workers.to_i - 1
+     Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
+     Employee.where("id= ?",params[:id]).update_all(:crew_id => 1 ).update_all(:status => "no" )
+
      @employees = Employee.all
      @employees = @employees.paginate(:page => params[:page], :per_page => 6)
      render plain:"ok"
