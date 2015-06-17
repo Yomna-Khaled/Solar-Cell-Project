@@ -39,7 +39,7 @@
                   <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true   %></td>
                 <% end %>
                 <% if employee.status== "yes" %>
-                  <td class="text-center"><%= link_to 'Edit',edit_employee_path(employee), class:"btn btn-danger"  %></td>
+                  <td class="text-center"><%= link_to 'Edit',edit_employee_path(employee), class:"btn btn-danger" , id: employee.id.to_s+"e"  %></td>
                 <% end %>
               <%end%>
               <% if employee.status=="yes" %>
@@ -68,6 +68,12 @@ $(".fire").click(function(){
       complete: function(data)
       {
         $("#"+id).html("Not Available");
+         $("#"+id+"e").attr('disabled',"disbaled");
+        $("#"+id+"e").click(function(){
+                alert('disabled');
+                return false;
+
+      });
         //document.getElementById(id+"e").removeAttribute('href');    
       }
     });
