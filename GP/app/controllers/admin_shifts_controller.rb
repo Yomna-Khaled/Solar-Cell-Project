@@ -37,6 +37,7 @@ end
       render :file => "/public/404.html",:status  => "404"
     end  
   end
+  
   def accept
     puts params[:id]
     puts "================"
@@ -49,7 +50,7 @@ end
   def new
     if logged_in? and( current_category.category=="Admin" )
         category=Category.where("category = ?","Shift Manager")
-        @managers=Employee.where("category_id = ?",category[0].id)
+        @managers=Employee.where("category_id = ?",category[0].id).where("status = ?","yes")
         @admin_shift = AdminShift.new
     else
       render :file => "/public/404.html",:status  => "404"
