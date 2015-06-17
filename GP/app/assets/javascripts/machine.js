@@ -9,12 +9,13 @@ function machineajax () {
 	$("#addnewmachine").css("display", "none");
 	$("#machinelink").css("display", "block");
 	var machinename = $("#machinename").val();
-	if (machinename!="") {
+	var machineserialno = $("#machineserialno").val();
+	if (machinename!="" && machineserialno!="") {
     $.ajax({
         method: "POST",
         url: '/machinecreate',
 		dataType: "JSON",
-		data: { 'machinename': machinename},
+		data: { 'machinename': machinename,'machineserialno': machineserialno},
 		complete: function(data)
 		{	
 			var machineid = JSON.parse(data.responseText).id
@@ -24,15 +25,23 @@ function machineajax () {
 	        .attr("value",machineid)
 	        .text(machinename)); 
 	        $("#machinename").val("");
+	        $("#machineserialno").val("");
 	        }else{
-	        	alert("This Machnie already Exists");
+	        	var errors = JSON.parse(data.responseText)
+				$('#modal-body').text('Machine '+errors[0]);
+				$('#basicModal').modal('toggle');
 	        }
 
 		}
 	});
 	}
 	else{
-		alert("To Add New machine You have to Enter machine Name");
+		if (machinename == "") {
+			$('#modal-body').text('To Add New machine You have to Enter machine Name');;
+		} else{
+			$('#modal-body').text('To Add New machine You have to Enter machine Serial No');
+		};
+		$('#basicModal').modal('toggle')
 	}
 }
 function canceladdmachine(){
