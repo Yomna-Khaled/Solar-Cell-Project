@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   post 'production_shifts/accept' =>'production_shifts#accept'
   post 'employees/fire'=> 'employees#fire'
   post 'employees/search'=> 'employees#search' 
+ 
   post 'sales_admins/accept'=> 'sales_admins#accept' 
   post 'admin_shifts/accept'=> 'admin_shifts#accept'
 

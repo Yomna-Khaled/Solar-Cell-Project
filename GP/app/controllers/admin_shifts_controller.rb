@@ -9,13 +9,14 @@ class AdminShiftsController < ApplicationController
   # GET /admin_shifts.json
 
   def index
-<<<<<<< HEAD
-    if logged_in? and( current_category.category=="Shift Manager" )
-       @admin_shifts = AdminShift.all
-=======
-    if logged_in? and( current_category.category=="Shift Manager" || current_category.category=="Admin")
+
+    if logged_in? and( current_category.category=="Shift Manager")
     @admin_shifts = AdminShift.where("done IS NULL")
->>>>>>> e4257eb94aa52b781a8988a2f61bc95621ee5c8b
+
+  elsif logged_in? and(current_category.category=="Admin")
+    puts "================================="
+    @admin_shifts = AdminShift.all
+    puts @admin_shifts.inspect
   else
      render :file => "/public/404.html",:status  => "404"
   end
@@ -36,6 +37,7 @@ end
       render :file => "/public/404.html",:status  => "404"
     end  
   end
+  
   def accept
     puts params[:id]
     puts "================"
@@ -48,7 +50,7 @@ end
   def new
     if logged_in? and( current_category.category=="Admin" )
         category=Category.where("category = ?","Shift Manager")
-        @managers=Employee.where("category_id = ?",category[0].id)
+        @managers=Employee.where("category_id = ?",category[0].id).where("status = ?","yes")
         @admin_shift = AdminShift.new
     else
       render :file => "/public/404.html",:status  => "404"

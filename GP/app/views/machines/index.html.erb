@@ -10,6 +10,7 @@
             <th class="text-center" ><h3>Serial No</h3></th>
             <th class="text-center" ><h3>Vendor</h3></th>
             <% if current_category.category!="Admin" %>
+            <th class="text-center" ><h3>Show</h3></th>
             <th class="text-center" ><h3>Edit</h3></th>
             <%end%>
           </tr>
@@ -22,6 +23,7 @@
               <td class="text-center" ><%= machine.serialNo %></td>
                <td class="text-center" ><%= @machine_vendor = VendorMachine.where("machine_id=? AND date IS NULL",machine.id).order(updated_at: :desc)[0].vendor.name %></td> 
               <% if current_category.category!="Admin" %>
+              <td class="text-center"><%= link_to 'Show', machine, class: "btn btn-info" %></td>
               <td class="text-center" > <%= link_to 'Edit', edit_machine_path(machine),class:"btn btn-danger"  %></td>
               <%end%>
             </tr>

@@ -14,6 +14,7 @@
               <% if current_category.category!="Admin" %>
               <th class="text-center"><h3>Edit</h3></th>
               <%end%>
+              <th class="text-center"><h3>Remove</h3></th>
             </tr>
           </thead>
           <tbody>
@@ -28,10 +29,12 @@
               <td class="text-center"><%= category.category %></td>
               <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
               <% if current_category.category!="Admin" %>
-              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" %></td>
+              
             <% if employee.status=="yes" %>
+            <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee) ,class: "btn btn-danger" , id: employee.id.to_s+"e"  %></td>
               <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
               <% else %>
+              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true  %></td>
               <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
               <%end %>
 
@@ -40,3 +43,45 @@
             <% end %>
           </tbody>
         </table>
+
+<script>
+$(".fire").click(function(){
+  var id =this.id;
+  $.ajax({
+      type: "POST",
+      url: "/employees/fire",
+      dataType: "JSON",
+      data: { 'id':this.id},
+      complete: function(data)
+      {
+        $("#"+id).html("Not Available");
+        console.log( $("#"+id+"edit"));
+       $("#"+id+"e").attr('disabled',"disbaled");
+        $("#"+id+"e").click(function(){
+                alert('disabled');
+                return false;
+
+      });
+        
+        //document.getElementById(id+"e").removeAttribute('href');    
+      }
+    });
+});
+function searchemp(){
+  console.log($("#search").val());
+  var type=$("#search").val();
+   $.ajax({
+      type: "POST",
+      url: "/employees/search",
+      dataType: "JSON",
+      data: { 'type':type},
+      complete: function(data)
+      {
+         $("#emp").html(data.responseText);
+        
+      }
+    });
+
+}
+
+</script>

@@ -188,7 +188,7 @@
 
             <% if @flag_new == 1 %>
                 <h3><span class="fa fa-sitemap"></span> Category</h3>
-                <%= f.select(:category_id, options_from_collection_for_select(Category.all , 'id' , 'category')  )%>
+                <%= f.select(:category_id, options_from_collection_for_select(Category.where("category != ? " , "Admin") , 'id' , 'category')  )%>
                 <% if @employee.errors[:category_id] %>
                   <div class="text-danger">
                     <ul>
@@ -281,11 +281,6 @@
           </div>
           <div id="phonedel">
           </div>
-
-
-
-          
-
         <% end %>
 <div class="modal" id="basicModal">
   <div class="modal-dialog">

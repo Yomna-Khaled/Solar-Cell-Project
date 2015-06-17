@@ -9,25 +9,38 @@ class EmployeesController < ApplicationController
   end
 
   def fire
-     @employee=Employee.where("id= ?",params[:id]).update_all(:status => "no" )
+    puts "===============" 
+     @employee=Employee.where("id= ?",params[:id])
+     
+     puts @employee[0].crew_id
+     @crew_old = Crew.find_by(id: @employee[0].crew_id)
+     puts @crew_old.name
+
+     new_number =  @crew_old.no_of_workers.to_i - 1
+     Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
+     Employee.where("id= ?",params[:id]).update_all(:crew_id => 1 ).update_all(:status => "no" )
+
      @employees = Employee.all
-     @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+
+     @employees = @employees.paginate(:page => params[:page], :per_page => 6)
      render plain:"ok"
   end
   
   def search
     admin = Category.find_by(category: "Admin")
     if params[:type]=="current"
+      
+      puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat current'
       @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
-      @employees = @employees.paginate(:page => params[:page], :per_page => 6)
+
       render partial: 'find'
     elsif params[:type]=="past"
+      puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat past'
       @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
-      @employees = @employees.paginate(:page => params[:page], :per_page => 6)
       render partial: 'find'
     else
-      @employees=Employee.all
-      @employees = Employee.paginate(:page => params[:page], :per_page => 6)
+      @employees=Employee.all.paginate(:page => params[:page], :per_page => 6)
+
       render partial: 'find'
     end
   end  
@@ -35,7 +48,8 @@ class EmployeesController < ApplicationController
   def index
     if current_category.category=="HR" or current_category.category=="Admin"
       admin = Category.find_by(category: "Admin")
-      @employees = Employee.where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 6)
+       # @employees=Employee.where("status= ?","yes")
+      @employees = Employee.where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 2)
     else
       render :file => "/public/404.html",:status  => "404"
     end   
