@@ -7,7 +7,7 @@
       
 <section class="register" >
                         <div style="float:right;">     
-                       <% if current_category.category!="Admin" %>
+				      <% if current_category.category=="Buyer" %>
 		          <%= link_to 'Edit', edit_container_path(@container), class:"btn btn-info" %>
 		        <%end%> 
                          </div> 

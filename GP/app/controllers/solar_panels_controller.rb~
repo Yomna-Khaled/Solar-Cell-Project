@@ -5,7 +5,7 @@ class SolarPanelsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
-     render :file => "/public/404.html", :status => 404
+     render :file => "/public/404.html", :status => 404,:layout => false
   end
   # GET /solar_panels
   
@@ -75,6 +75,7 @@ class SolarPanelsController < ApplicationController
     if logged_in? and( current_category.category=="Shift Manager" )
       @flag=true
 	    @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL")
+
       @solar_panel = SolarPanel.new(solar_panel_params.merge!(:shift_id =>@shift.first.id,:price=>(LookupPrice.where("name=?","watt").first.value)*solar_panel_params[:power].to_f),:power=>solar_panel_params[:power].to_f) 
 	    respond_to do |format|
 	      if @solar_panel.save

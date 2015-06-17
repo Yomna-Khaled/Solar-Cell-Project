@@ -1,9 +1,13 @@
 <div class="container"  style="width: calc(70%);">
     <h1 class="page-header" style="font-size:30px; color:#2A4E6E" >Category Information</h1>
 	<div class="row">   
-		<section class="register" >  
+		<section class="register" >
+                         <div style="float:right;">   
+                           <%= link_to 'Edit', edit_theoreticalcategory_path(@theoreticalcategory), class:"btn btn-info"  %>
+			 </div>  
 		  <div class="reg_section">
-			   <h3><span class="fa fa-folder"></span> Basic Information</h3>
+                            
+                            <h3><span class="fa fa-folder"></span> Basic Information</h3>
 				<ul class="list-group">
 					<li class="list-group-item">Category Name: <%= @theoreticalcategory.name %></li>
 				</ul>

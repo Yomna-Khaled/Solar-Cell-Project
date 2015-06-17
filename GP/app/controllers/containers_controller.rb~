@@ -5,12 +5,12 @@ class ContainersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   # Render 404 page when record not found
   def render_404      
-     render :file => "/public/404.html", :status => 404
+     render :file => "/public/404.html", :status => 404,:layout => false
   end
   # GET /containers
   # GET /containers.json
   def index
-    if  current_category.category=="Sales" or current_category.category=="Admin"
+    if  current_category.category=="Sales" or current_category.category=="Admin" or current_category.category=="Buyer"
      @containers = Container.all
      @containers = Container.paginate(:page => params[:page], :per_page => 6)
 
@@ -22,7 +22,7 @@ class ContainersController < ApplicationController
   # GET /containers/1
   # GET /containers/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Admin"
+    if current_category.category=="Sales" or current_category.category=="Admin" or current_category.category=="Buyer"
      else
       render :file => "/public/404.html",:status  => "404"   
     end  
@@ -30,9 +30,9 @@ class ContainersController < ApplicationController
 
   # GET /containers/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if  current_category.category=="Buyer"
        @container = Container.new
-       @vendors = Vendor.all
+       @vendors = Vendor.where("blacklisted = ? " , "no")
        @flag="new"
     else
       render :file => "/public/404.html",:status  => "404"   
@@ -41,8 +41,8 @@ class ContainersController < ApplicationController
 
   # GET /containers/1/edit
   def edit
-   if logged_in? and current_category.category=="Sales" 
-    @vendors = Vendor.all
+   if  current_category.category=="Buyer" 
+    @vendors = Vendor.where("blacklisted = ? " , "no")
     @containervendor = VendorContainer.where("container_id=? AND date IS NULL",@container.id)
     @containervendor_sorted = @containervendor.order(updated_at: :desc)
     @vendor_id =  @containervendor_sorted[0].vendor_id
@@ -69,7 +69,7 @@ class ContainersController < ApplicationController
         format.html { redirect_to @container}
         format.json { render :show, status: :created, location: @container }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         format.html { render :new }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end
@@ -96,7 +96,7 @@ class ContainersController < ApplicationController
         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
         format.json { render :show, status: :ok, location: @container }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         format.html { render :edit }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end

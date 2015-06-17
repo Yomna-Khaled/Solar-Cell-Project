@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616085541) do
+ActiveRecord::Schema.define(version: 20150617151840) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150616085541) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
+    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -124,11 +125,8 @@ ActiveRecord::Schema.define(version: 20150616085541) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "vendor_id",  limit: 4
     t.string   "serialNo",   limit: 255
   end
-
-  add_index "machines", ["vendor_id"], name: "fk_rails_bf41765213", using: :btree
 
   create_table "material_properties", force: :cascade do |t|
     t.integer  "material_id", limit: 4
@@ -307,12 +305,15 @@ ActiveRecord::Schema.define(version: 20150616085541) do
   add_index "vendor_containers", ["vendor_id"], name: "index_vendor_containers_on_vendor_id", using: :btree
 
   create_table "vendor_machines", force: :cascade do |t|
-    t.integer  "vendor_id",  limit: 4
-    t.integer  "machine_id", limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.date     "date"
+    t.integer  "vendor_id",  limit: 4
+    t.integer  "machine_id", limit: 4
   end
+
+  add_index "vendor_machines", ["machine_id"], name: "index_vendor_machines_on_machine_id", using: :btree
+  add_index "vendor_machines", ["vendor_id"], name: "index_vendor_machines_on_vendor_id", using: :btree
 
   create_table "vendor_phones", force: :cascade do |t|
     t.integer  "vendor_id",  limit: 4
@@ -341,7 +342,6 @@ ActiveRecord::Schema.define(version: 20150616085541) do
     t.datetime "updated_at",                             null: false
     t.string   "address",     limit: 255
     t.string   "city",        limit: 255
-    t.string   "type",        limit: 255
     t.string   "ventype",     limit: 255
     t.string   "blacklisted", limit: 255, default: "no"
   end
@@ -353,7 +353,6 @@ ActiveRecord::Schema.define(version: 20150616085541) do
   add_foreign_key "employee_phones", "employees"
   add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
-  add_foreign_key "machines", "vendors"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
   add_foreign_key "material_theoreticals", "materials"
@@ -373,6 +372,8 @@ ActiveRecord::Schema.define(version: 20150616085541) do
   add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"
+  add_foreign_key "vendor_machines", "machines"
+  add_foreign_key "vendor_machines", "vendors"
   add_foreign_key "vendor_phones", "vendors"
   add_foreign_key "vendor_spares", "spare_parts"
   add_foreign_key "vendor_spares", "vendors"
