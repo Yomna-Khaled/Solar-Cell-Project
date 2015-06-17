@@ -16,10 +16,10 @@ class SolarPanelsController < ApplicationController
         if params[:searchcriteria] == 'serialno'
           @solar_panels = SolarPanel.searchserialno(params[:search],params[:soldornot]).order("created_at DESC")
 
-          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 6)
+          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 2)
         else
           @solar_panels = SolarPanel.searchpower(params[:search],params[:soldornot]).order("created_at DESC")
-          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 6)
+          @solar_panels = @solar_panels.paginate(:page => params[:page], :per_page => 2)
 
         end
       else
