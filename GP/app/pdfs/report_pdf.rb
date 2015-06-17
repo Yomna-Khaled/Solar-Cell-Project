@@ -166,12 +166,16 @@ end
         #loop through all pannels/shift
          @solar_panels.map do |p|
             cat_id = p.theoreticalcategory_id
-            theoritical = theoritical + MaterialTheoreticals.where("material_id = ? AND theoreticalcategory_id = ? " , m.id , cat_id)[0].value;
+            puts "---------------------"
+            puts m.material.inspect
+            theoritical = theoritical.to_i + MaterialTheoretical.where("material_id = ? AND theoreticalcategory_id = ? " , m.id , cat_id)[0].value.to_i;
+           
+		
          end
         #check type of each pannel and calculate the theoritical value 
         #then calculate the percentatge 
         percent = (m.sum / theoritical )* 100
-      [m.name, m.sum, "4" , percent ]
+      [m.name, m.sum, theoritical , percent ]
     end
   end
 
