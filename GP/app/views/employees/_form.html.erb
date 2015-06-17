@@ -397,9 +397,10 @@ var x=1;
         var type = category.options[document.getElementById('employee_category_id').selectedIndex].text;
         if (type == 'Normal') {
            target.style.display = 'none';
+           document.getElementById("employee_email").value = ""
         } 
         else {
-            arget.style.display= '';
+            target.style.display= '';
         }
      }
 
