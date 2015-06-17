@@ -63,7 +63,7 @@ class MachinesController < ApplicationController
           format.html { redirect_to  machines_path  }
           format.json { render :show, status: :created, location: @machine }
         else
-          @vendors = Vendor.all
+          @vendors = Vendor.where("blacklisted = ? " , "no")
           format.html { render :new }
           format.json { render json: @machine.errors, status: :unprocessable_entity }
         end
@@ -106,7 +106,7 @@ class MachinesController < ApplicationController
         format.html { redirect_to machines_path  }
         format.json { render :show, status: :ok, location: @machine }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         format.html { render :edit }
         format.json { render json: @machine.errors, status: :unprocessable_entity }
       end

@@ -5,16 +5,8 @@ Rails.application.routes.draw do
 
   resources :production_rates
   resources :material_theoreticals
-  resources :material_theoreticals
-  resources :material_theoreticals
-  resources :material_theoreticals
   resources :theoreticalcategories
-  resources :material_theoreticals
-  resources :material_theoreticals
   resources :material_theoreticalcategories
-  resources :theoreticalcategories
-  resources :material_theoretical_categories
-  resources :theoretical_categories
 
   resources :lookup_prices
 
@@ -97,6 +89,8 @@ Rails.application.routes.draw do
 
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
+  post 'notification' => 'admin_shifts#notification'
+
   get '*url' => 'errors#routing'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

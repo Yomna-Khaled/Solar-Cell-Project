@@ -13,13 +13,16 @@ class VendorsController < ApplicationController
       if params[:vendortype] == 'sparepart'
         session[:vendortype] = 'sparepart'
       elsif params[:vendortype] == 'material'
-          session[:vendortype] = 'material'
+        session[:vendortype] = 'material'
       elsif params[:vendortype] == 'pallet'
-          session[:vendortype] = 'pallet'
+        session[:vendortype] = 'pallet'
+      elsif params[:vendortype] == 'machine'
+        session[:vendortype] = 'machine'
       end
 
       if session[:vendortype] == 'sparepart'  
-        @listcritetia = "sparepart"
+        @listcriteria = "sparepart"
+        @vendorcriteria = params[:searchbyvendortype]
         if params[:searchtype] == 'date'
           @vendors = VendorSpare.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
         elsif params[:searchtype] == 'name'
@@ -34,7 +37,8 @@ class VendorsController < ApplicationController
         end        
         
       elsif session[:vendortype] == 'pallet'  
-        @listcritetia = "pallet"
+        @listcriteria = "pallet"
+        @vendorcriteria = params[:searchbyvendortype]
         if params[:searchtype] == 'date'
           @vendors = VendorContainer.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
         elsif params[:searchtype] == 'name'
@@ -48,7 +52,8 @@ class VendorsController < ApplicationController
           @vendors = VendorContainer.all.order(created_at: :desc)
         end
       elsif session[:vendortype] == 'material' or session[:vendortype] == nil
-        @listcritetia = "material"
+        @listcriteria = "material"
+        @vendorcriteria = params[:searchbyvendortype]
         if params[:searchtype] == 'date'
           @vendors = MaterialVendor.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
         elsif params[:searchtype] == 'name'
@@ -61,6 +66,22 @@ class VendorsController < ApplicationController
         else
           @vendors = MaterialVendor.all.order(created_at: :desc)
         end
+
+        elsif session[:vendortype] == 'machine'  
+          @listcriteria = "machine"
+          @vendorcriteria = params[:searchbyvendortype]
+          if params[:searchtype] == 'date'
+            @vendors = VendorMachine.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+          elsif params[:searchtype] == 'name'
+            @machine = Machine.where("name like ?", "%#{params[:search]}%")[0]
+            if @machine != nil
+              @vendors = VendorMachine.where("machine_id = ?", @machine.id).order("created_at DESC")
+            else
+              @vendors = VendorMachine.where("machine_id = NULL").order("created_at DESC")
+            end
+          else
+            @vendors = VendorMachine.all.order(created_at: :desc)
+          end 
        end
       @vendors = @vendors.paginate(:page => params[:page], :per_page => 6)
     else
@@ -151,6 +172,7 @@ end
   def materialvendorcreate
     @vendorname=params[:vendorname]
     @vendoremail = params[:vendoremail]
+
     @vendortype = params[:vendortype]
     @vendoraddress = params[:vendoraddress]
     @vendorcity = params[:vendorcity]
@@ -161,6 +183,7 @@ end
     else
       puts @vendor.errors.full_messages
     end
+
   end 
 
 
