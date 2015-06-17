@@ -13,9 +13,11 @@
 
   <div class="col-md-9">
     <section class="register" > 
+        <% if current_category.category!="Admin" %>
         <div style="float:right;">  
             <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info" %>
-            </div>  
+         </div> 
+         <%end%> 
         <div class="reg_section">
           <h3><span class="fa fa-info-circle "> </span> Basic Information</h3>
       

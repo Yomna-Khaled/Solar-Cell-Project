@@ -90,10 +90,9 @@ class ShiftsController < ApplicationController
      for i in 0...@prod_qt.length
      @prod_rate.push ([@prod_qt.keys[i].to_s + " panels produced",@prod_qt.values[i]]) 
      end 
-     puts "yyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-     puts  @prod_rate
+     
     @shifts = Shift.where("employee_id = ?" , current_user.id )
-    @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
+    @shifts = @shifts.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     @manager = current_user.full_name
     respond_to do |format|
       format.html
@@ -111,7 +110,7 @@ class ShiftsController < ApplicationController
   # GET /shifts/1.json
 
    def show
-     if logged_in? and current_category.category=="Shift Manager" 
+     if logged_in? and ( current_category.category=="Shift Manager" or current_category.category=="Admin" )
      
      puts '______________-'
      puts @prod_qt

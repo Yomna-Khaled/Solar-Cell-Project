@@ -8,11 +8,11 @@
     <a class="btn btn-danger pull-right black showbtn" id="<%= @vendor.id %>" onclick="showButton(this)"><% if @vendor.blacklisted=="no" %>Black List<% else %>Short List<% end %></a>
         
              
-
+                <% if current_category.category!="Admin" %>
                 <div style="float:right;">
                    <%= link_to 'Edit', edit_vendor_path(@vendor), class:"btn btn-info" , id: "editVendor" ,:style => 'display: none'%>
                 </div>
-                  
+                <%end%>  
         <div class="reg_section">
           
             
