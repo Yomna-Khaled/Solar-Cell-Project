@@ -75,10 +75,14 @@ class MachinesController < ApplicationController
 
   def machinecreate
     if current_category.category=="Buyer"
-      @machinename=params[:machinename]
-      @machine = Machine.new(name: @machinename)
-      @machine.save
-      render json: @machine
+      @machinename = params[:machinename]
+      @machineserialno = params[:machineserialno]
+      @machine = Machine.new(name: @machinename,serialNo: @machineserialno)
+      if @machine.save
+        render json: @machine
+      else
+        render json: @machine.errors.full_messages
+      end
     else
        render :file => "/public/404.html",:status  => "404"  
     end 

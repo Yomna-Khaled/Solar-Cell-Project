@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616220047) do
+ActiveRecord::Schema.define(version: 20150617144930) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
@@ -256,8 +256,8 @@ ActiveRecord::Schema.define(version: 20150616220047) do
     t.integer  "shift_id",               limit: 4
     t.integer  "cellno",                 limit: 4
     t.integer  "sold_panel_id",          limit: 4
-    t.integer  "theoreticalcategory_id", limit: 4
     t.string   "dimensionunit",          limit: 255
+    t.integer  "theoreticalcategory_id", limit: 4
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
@@ -308,12 +308,15 @@ ActiveRecord::Schema.define(version: 20150616220047) do
   add_index "vendor_containers", ["vendor_id"], name: "index_vendor_containers_on_vendor_id", using: :btree
 
   create_table "vendor_machines", force: :cascade do |t|
-    t.integer  "vendor_id",  limit: 4
-    t.integer  "machine_id", limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.date     "date"
+    t.integer  "vendor_id",  limit: 4
+    t.integer  "machine_id", limit: 4
   end
+
+  add_index "vendor_machines", ["machine_id"], name: "index_vendor_machines_on_machine_id", using: :btree
+  add_index "vendor_machines", ["vendor_id"], name: "index_vendor_machines_on_vendor_id", using: :btree
 
   create_table "vendor_phones", force: :cascade do |t|
     t.integer  "vendor_id",  limit: 4
@@ -374,6 +377,8 @@ ActiveRecord::Schema.define(version: 20150616220047) do
   add_foreign_key "spare_parts", "machines"
   add_foreign_key "vendor_containers", "containers"
   add_foreign_key "vendor_containers", "vendors"
+  add_foreign_key "vendor_machines", "machines"
+  add_foreign_key "vendor_machines", "vendors"
   add_foreign_key "vendor_phones", "vendors"
   add_foreign_key "vendor_spares", "spare_parts"
   add_foreign_key "vendor_spares", "vendors"
