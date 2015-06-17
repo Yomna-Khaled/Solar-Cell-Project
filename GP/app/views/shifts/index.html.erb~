@@ -23,7 +23,7 @@
 		      <th><h3>Report</h3></th>
 		    
 		    </tr>
-		  </thead>shifts
+		  </thead>
 
 		  	<tbody>
             	<% i=0 %>

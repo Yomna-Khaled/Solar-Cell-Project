@@ -95,7 +95,7 @@
                            </div>
        	         <% end %> 
                  
-                 <%= @thcategoriesopt %>
+                 
                   <h3><span class="fa fa-sort-numeric-asc"></span> theoritical category <h3>  
                   <%= f.select :theoreticalcategory_id, @thcategoriesopt %>              
                   <% if @solar_panel.errors[:theoreticalcategory_id].present? %>
@@ -113,8 +113,16 @@
                   <h3><span class="fa fa-sort-numeric-asc"></span> Container SerialNo <h3>  
                     
                   <%= f.select :container_id, @containersopt %>
+                  <% if @solar_panel.errors[:container_id].present? %>
+		           <div class="text-danger">
+				<% @solar_panel.errors[:container_id].each do |msg| %>
+		                          <p><%= "* container "+msg %><p>
+				<%end%> 
+                           </div>
+       	         <% end %>  
+              
        </div>
-     
+            
      
     <% end %>
       <div class="actions">

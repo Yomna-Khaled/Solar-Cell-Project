@@ -51,10 +51,11 @@
             <% end %>
           </tbody>
         </table>
+        <%= will_paginate @employees, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
   </section>
-  <%= will_paginate @employees, renderer: BootstrapPagination::Rails %>
+  
 </div>      
 
 <script>
