@@ -5,16 +5,8 @@ Rails.application.routes.draw do
 
   resources :production_rates
   resources :material_theoreticals
-  resources :material_theoreticals
-  resources :material_theoreticals
-  resources :material_theoreticals
   resources :theoreticalcategories
-  resources :material_theoreticals
-  resources :material_theoreticals
   resources :material_theoreticalcategories
-  resources :theoreticalcategories
-  resources :material_theoretical_categories
-  resources :theoretical_categories
 
   resources :lookup_prices
 
@@ -79,8 +71,10 @@ Rails.application.routes.draw do
   get '/crew/home' , to: 'crews#home'
   post 'delPhone' => 'vendors#pho'
   post 'production_shifts/accept' =>'production_shifts#accept'
-   post 'employees/fire'=> 'employees#fire'
-   post 'employees/search'=> 'employees#search' 
+  post 'employees/fire'=> 'employees#fire'
+  post 'employees/search'=> 'employees#search' 
+  post 'sales_admins/accept'=> 'sales_admins#accept' 
+  post 'admin_shifts/accept'=> 'admin_shifts#accept'
 
   get 'material' => 'materials#report'
 

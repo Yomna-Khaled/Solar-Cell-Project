@@ -4,22 +4,104 @@ class VendorsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 # Render 404 page when record not found
   def render_404      
-     render :file => "/public/404.html", :status => 404
+     render :file => "/public/404.html", :status => 404,:layout => false
   end
   # GET /vendors
   # GET /vendors.json
   def index
-    if  current_category.category=="Buyer" or current_category.category=="Admin"
-     @vendors = Vendor.all
-     @vendors = Vendor.paginate(:page => params[:page], :per_page => 6)
+    if  current_category.category=="Buyer" or current_category.category=="Admin" 
+      if params[:vendortype] == 'sparepart'
+        session[:vendortype] = 'sparepart'
+      elsif params[:vendortype] == 'material'
+        session[:vendortype] = 'material'
+      elsif params[:vendortype] == 'pallet'
+        session[:vendortype] = 'pallet'
+      elsif params[:vendortype] == 'machine'
+        session[:vendortype] = 'machine'
+      end
+
+      if session[:vendortype] == 'sparepart'  
+        @listcriteria = "sparepart"
+        @vendorcriteria = params[:searchbyvendortype]
+        if params[:searchtype] == 'date'
+          @vendors = VendorSpare.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @sparepart = SparePart.where("name like ?", "%#{params[:search]}%")[0]
+          if @sparepart != nil
+            @vendors = VendorSpare.where("spare_part_id = ?", @sparepart.id).order("created_at DESC")
+          else
+            @vendors = VendorSpare.where("spare_part_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = VendorSpare.all.order(created_at: :desc)
+        end        
+        
+      elsif session[:vendortype] == 'pallet'  
+        @listcriteria = "pallet"
+        @vendorcriteria = params[:searchbyvendortype]
+        if params[:searchtype] == 'date'
+          @vendors = VendorContainer.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @container = Container.where("serialNo like ?", "%#{params[:search]}%")[0]
+          if @container != nil
+            @vendors = VendorContainer.where("container_id = ?", @container.id).order("created_at DESC")
+          else
+            @vendors = VendorContainer.where("container_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = VendorContainer.all.order(created_at: :desc)
+        end
+      elsif session[:vendortype] == 'material' or session[:vendortype] == nil
+        @listcriteria = "material"
+        @vendorcriteria = params[:searchbyvendortype]
+        if params[:searchtype] == 'date'
+          @vendors = MaterialVendor.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+        elsif params[:searchtype] == 'name'
+          @material = Material.where("name like ?", "%#{params[:search]}%")[0]
+          if @material != nil
+            @vendors = MaterialVendor.where("material_id = ?", @material.id).order("created_at DESC")
+          else
+            @vendors = MaterialVendor.where("material_id = NULL").order("created_at DESC")
+          end
+        else
+          @vendors = MaterialVendor.all.order(created_at: :desc)
+        end
+
+        elsif session[:vendortype] == 'machine'  
+          @listcriteria = "machine"
+          @vendorcriteria = params[:searchbyvendortype]
+          if params[:searchtype] == 'date'
+            @vendors = VendorMachine.where("date like ? OR created_at like ?", "%#{params[:search]}%","%#{params[:search]}%").order("created_at DESC")
+          elsif params[:searchtype] == 'name'
+            @machine = Machine.where("name like ?", "%#{params[:search]}%")[0]
+            if @machine != nil
+              @vendors = VendorMachine.where("machine_id = ?", @machine.id).order("created_at DESC")
+            else
+              @vendors = VendorMachine.where("machine_id = NULL").order("created_at DESC")
+            end
+          else
+            @vendors = VendorMachine.all.order(created_at: :desc)
+          end 
+       end
+      @vendors = @vendors.paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"  
     end     
 
   end
   def black
-    @vendor=Vendor.where("id= ?",params[:id]).update_all(:blacklisted => "yes" )
-    render plain: "ok"
+
+      @vendor=Vendor.where("id= ?",params[:id])
+
+      puts @vendor[0].blacklisted
+      if @vendor[0].blacklisted=="yes"
+
+      @vendor.update_all(:blacklisted => "no" )
+    else
+      puts "here"
+      @vendor.update_all(:blacklisted => "yes" )
+    end
+      render plain: "ok"
   end  
 
 def pho
@@ -61,42 +143,47 @@ end
   # POST /vendors
   # POST /vendors.json
   def create
+
 	@vendor = Vendor.new(vendor_params)
       respond_to do |format|
         if @vendor.save
-          last_id = Vendor.maximum('id')
-          Vendor.where("id = ? ", last_id).update_all(:blacklisted => "no" )
           if defined? params[:vendor_phones][:phone] 
             arr= params[:vendor_phones][:phone].split(",")
             arr.each do |c|
               if c != nil
-                @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
-                @vendorphone.save  
+              @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
+              @vendorphone.save  
               end
             end
           else
-            @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
-            @vendorphone.save            
-	        end    
-          format.html { redirect_to @vendor }
-          format.json { render :show, status: :created, location: @vendor }
-        else
-	           params[:vendor_phones][:phone]==" "
-            format.html { render :new }
-            format.json { render json: @vendor.errors, status: :unprocessable_entity }
-        end
+          @vendorphone = VendorPhone.new(phone: ' ', vendor_id: @vendor.id) 
+          @vendorphone.save            
+        end    
+        format.html { redirect_to @vendor }
+        format.json { render :show, status: :created, location: @vendor }
+      else
+        params[:vendor_phones][:phone]==" "
+        format.html { render :new }
+        format.json { render json: @vendor.errors, status: :unprocessable_entity }
+      end
+    end
   end
-end
 
   def materialvendorcreate
     @vendorname=params[:vendorname]
     @vendoremail = params[:vendoremail]
-    puts "+++++++++++++++++++++++++++++++++++++++++++++"
-    puts"d5lt hnaaaaaaaaaa"
-    @vendor = Vendor.new(name: @vendorname, email: @vendoremail)
-    @vendor.save
-    puts @vendor.inspect
-    render json: @vendor
+
+    @vendortype = params[:vendortype]
+    @vendoraddress = params[:vendoraddress]
+    @vendorcity = params[:vendorcity]
+    @vendor = Vendor.new(name: @vendorname, email: @vendoremail,address:@vendoraddress,
+    city:@vendorcity,ventype:@vendortype, blacklisted: 'no')
+    if @vendor.save
+      render json: @vendor
+    else
+      puts @vendor.errors.full_messages
+    end
+
   end 
 
 
@@ -120,13 +207,8 @@ end
            @vendorphone = VendorPhone.new(phone: c, vendor_id: @vendor.id) 
            @vendorphone.save 
         end
-
-
   	 end
          end    
-
-
-
         format.html { redirect_to @vendor }
         format.json { render :show, status: :ok, location: @vendor }
       else

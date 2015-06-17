@@ -1,18 +1,24 @@
 <div class="container" style="width: calc(70%);">
+
+  <div class="page-header"style="font-size:30px;color:#2A4E6E">
+
  <% if current_category.category!="Admin" %>
          <%= link_to 'Edit', edit_buyer_path(@buyer) %>
   <%end%>
-  <div class="page-header" style="font-size:35px;">
+ 
       <h1><span class="fa fa-info-circle"></span> Buyer Information</h1>
   </div>
-  <div class="raw">
+  <div class="row">
+
+ <section class="register" >  
+
   <div class="page-header">
     <h1><span class="fa fa-info-circle"></span> Basic Infromation</h1>
   </div>
 
   <ul class="list-group">
     <li class="list-group-item">Name: <%= @buyer.name %></li>
-     <li class="list-group-item"><span class="fa fa-envelope"></span>Email:  <%= @buyer.email %></li>
+     
     <li class="list-group-item"><span class="fa fa-home"></span> Address:  <%= @buyer.addess %></li>
     <li class="list-group-item"><span class="fa fa-map-marker"></span> City:  <%= @buyer.city %></li>
   </ul>
@@ -20,7 +26,7 @@
   <div class="page-header">
     <h1><span class="fa fa-info-circle"></span> Contact Infrormation</h1>
   </div>
-
+  <li class="list-group-item"><span class="fa fa-envelope"></span>Email:  <%= @buyer.email %></li>
   <ul class="list-group">
       <% index = 1%>
         <% @buyer_phones.each do |buyerphone| %>
@@ -28,5 +34,6 @@
            <%index+=1%>
       <%end%> 
   </ul>
+ </section>
  </div> 
 </div>  

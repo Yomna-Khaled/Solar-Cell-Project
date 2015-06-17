@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615082608) do
+ActiveRecord::Schema.define(version: 20150616220047) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150615082608) do
     t.integer  "employee_id", limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "done",        limit: 255
   end
 
   add_index "admin_shifts", ["employee_id"], name: "index_admin_shifts_on_employee_id", using: :btree
@@ -222,6 +223,7 @@ ActiveRecord::Schema.define(version: 20150615082608) do
     t.string   "subtype",    limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "done",       limit: 255
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -336,13 +338,13 @@ ActiveRecord::Schema.define(version: 20150615082608) do
   create_table "vendors", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "email",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "address",     limit: 255
     t.string   "city",        limit: 255
     t.string   "type",        limit: 255
     t.string   "ventype",     limit: 255
-    t.string   "blacklisted", limit: 255
+    t.string   "blacklisted", limit: 255, default: "no"
   end
 
   add_foreign_key "admin_shifts", "employees"

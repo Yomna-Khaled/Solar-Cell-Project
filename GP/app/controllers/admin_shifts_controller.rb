@@ -2,13 +2,20 @@ class AdminShiftsController < ApplicationController
   before_action :set_admin_shift, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
+  def render_404      
+    render :file => "/public/404.html", :status => 404,:layout => false
+  end
   # GET /admin_shifts
   # GET /admin_shifts.json
 
   def index
+<<<<<<< HEAD
     if logged_in? and( current_category.category=="Shift Manager" )
        @admin_shifts = AdminShift.all
+=======
+    if logged_in? and( current_category.category=="Shift Manager" || current_category.category=="Admin")
+    @admin_shifts = AdminShift.where("done IS NULL")
+>>>>>>> e4257eb94aa52b781a8988a2f61bc95621ee5c8b
   else
      render :file => "/public/404.html",:status  => "404"
   end
@@ -24,23 +31,28 @@ end
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json
   def show
-    if false
+    if logged_in? and( current_category.category=="Admin" )
     else
       render :file => "/public/404.html",:status  => "404"
     end  
   end
+  def accept
+    puts params[:id]
+    puts "================"
+    @sales_admin=AdminShift.where("id= ?",params[:id]).update_all(:done => "yes" )
+    render plain: "ok"
+
+  end 
 
   # GET /admin_shifts/new
   def new
-     if logged_in? and( current_category.category=="Admin" )
-    category=Category.where("category = ?","Shift Manager")
-    
-    @managers=Employee.where("category_id = ?",category[0].id)
-    @admin_shift = AdminShift.new
-  else
-    render :file => "/public/404.html",:status  => "404"
-  end
-
+    if logged_in? and( current_category.category=="Admin" )
+        category=Category.where("category = ?","Shift Manager")
+        @managers=Employee.where("category_id = ?",category[0].id)
+        @admin_shift = AdminShift.new
+    else
+      render :file => "/public/404.html",:status  => "404"
+    end
   end
 
   # GET /admin_shifts/1/edit
@@ -55,12 +67,13 @@ end
   # POST /admin_shifts.json
   def create
     @admin_shift = AdminShift.new(admin_shift_params)
-
     respond_to do |format|
       if @admin_shift.save
         format.html { redirect_to @admin_shift, notice: 'Admin shift was successfully created.' }
         format.json { render :show, status: :created, location: @admin_shift }
       else
+        category=Category.where("category = ?","Shift Manager")
+        @managers=Employee.where("category_id = ?",category[0].id)
         format.html { render :new }
         format.json { render json: @admin_shift.errors, status: :unprocessable_entity }
       end

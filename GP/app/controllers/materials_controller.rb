@@ -5,7 +5,7 @@ class MaterialsController < ApplicationController
   
   # Render 404 page when record not found
     def render_404      
-       render :file => "/public/404.html", :status => 404
+       render :file => "/public/404.html", :status => 404,:layout => false
     end
 
     
@@ -60,7 +60,7 @@ class MaterialsController < ApplicationController
   # GET /materials/1/edit
   def edit
    if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper") 
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @material_property = MaterialProperty.all
@@ -120,7 +120,7 @@ class MaterialsController < ApplicationController
         format.html { redirect_to @material}
         format.json { render :show, status: :created, location: @material }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         @quantites = Quantity.all
         @properties = Property.all
         @flag = "new"
@@ -171,7 +171,7 @@ def update
     else
       format.html { render :edit }
       format.json { render json: @material.errors, status: :unprocessable_entity }
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @material_property = MaterialProperty.all
