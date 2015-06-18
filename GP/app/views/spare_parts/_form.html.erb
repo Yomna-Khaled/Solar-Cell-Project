@@ -83,7 +83,14 @@
         <input type="text" id="machinename" placeholder="Enter Machine Name.....">
 
        <h3>Machine Serial No.</h3>
-        <input type="text" id="machineserialno" placeholder="Enter Machine Serial No.....">    
+        <input type="text" id="machineserialno" placeholder="Enter Machine Serial No.....">  
+
+      <h3>Vendor</h3>
+      <% if @flag == "new" %>
+        <%= select_tag "vendormachine", options_from_collection_for_select(@vendors, "id", "name") ,  :required => true %>
+      <%else%>
+        <%= select_tag "vendormachine", options_from_collection_for_select(@vendors, "id", "name", @vendor_id) ,:required => true %>
+      <%end%> 
       <div class="actions">
         <a onclick="machineajax()" class="btn btn-info"><span class="fa fa-check"></span> Add Machine</a>
         <a onclick="canceladdmachine()" class="btn btn-danger"><span class="fa fa-times"></span> Cancel</a>

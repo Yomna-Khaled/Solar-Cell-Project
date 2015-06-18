@@ -35,13 +35,13 @@ function propertyvalue (value) {
 
 //for adding new vendor
 function showvendorform () {
-	$("#addnewvendor").css("display", "block");
-	$("#vendorlink").css("display", "none");
+	$("#addnewvendor").show();
+	$("#vendorlink").hide();
 }
 
 function vendorajax () {
-	$("#addnewvendor").css("display", "none");
-	$("#vendorlink").css("display", "block");
+	$("#addnewvendor").hide();
+	$("#vendorlink").show();
 	var vendorname = $("#vendorname").val();
 	var vendoremail = $("#vendoremail").val();
 	var vendoraddress = $("#vendoraddress").val();
@@ -97,21 +97,21 @@ function canceladdvendor(){
     $("#vendoremail").val("");
     $("#vendoraddress").val("");
     $("#vendorcity").val("");
-	$("#addnewvendor").css("display", "none");
-	$("#vendorlink").css("display", "block");
+	$("#addnewvendor").hide();
+	$("#vendorlink").show();
 }
 
 //for adding new quantity unit
 function showunitform () {
-	$("#addnewunit").css("display", "block");
-	$("#unitlink").css("display", "none");
+	$("#addnewunit").show();
+	$("#unitlink").hide();
 }
 
 function unitajax () {
 
 
-	$("#addnewunit").css("display", "none");
-	$("#unitlink").css("display", "block");
+	$("#addnewunit").hide();
+	$("#unitlink").show();
 	var unitname = $("#unitname").val();
 	console.log(unitname);
 	if (unitname!="") {
@@ -137,20 +137,20 @@ function unitajax () {
 	}
 }
 function canceladdunit(){
-	$("#addnewunit").css("display", "none");
-	$("#unitlink").css("display", "block");	
+	$("#addnewunit").hide();
+	$("#unitlink").show();	
 }
 
 //for adding new property
 function showpropertyform () {
-	$("#addnewproperty").css("display", "block");
-	$("#propertylink").css("display", "none");
+	$("#addnewproperty").show();
+	$("#propertylink").hide();
 }
 
 function propertyajax () {
 
-	$("#addnewproperty").css("display", "none");
-	$("#propertylink").css("display", "block");	
+	$("#addnewproperty").hide();
+	$("#propertylink").show();	
 	var propertyname = $("#propertyname").val();
 	if (propertyname!="") {
     $.ajax({
@@ -176,8 +176,8 @@ function propertyajax () {
 	}
 }
 function canceladdproperty(){
-	$("#addnewproperty").css("display", "none");
-	$("#propertylink").css("display", "block");	
+	$("#addnewproperty").hide();
+	$("#propertylink").show();	
 }
 
 function showvendorhistory () {
