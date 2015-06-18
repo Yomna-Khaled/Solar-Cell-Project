@@ -54,7 +54,7 @@
 	
 		    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span>  Produced Solar Panel </h1>
 		    <div style="left : 700px; bottom:40px ;position: relative;">    
-			   <%= link_to "Newpanel", new_solar_panel_path ,method: :get  %>
+			   <%= link_to "Newpanel", new_solar_panel_path ,method: :get ,class: "btn btn-success" %>
 		    </div>
 
 	      <section class="register" >  

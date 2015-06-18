@@ -28,7 +28,7 @@
               <% category=Category.find_by(id: employee.category_id )%>
               <td class="text-center"><%= category.category %></td>
               <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
-              
+              <% if current_category.category!="Admin" %>
               
             <% if employee.status=="yes" %>
             <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee) ,class: "btn btn-danger" , id: employee.id.to_s+"e"  %></td>
@@ -36,7 +36,7 @@
               <% else %>
               <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true  %></td>
               <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
-             
+              <%end %>
 
               <%end%>
             </tr>
