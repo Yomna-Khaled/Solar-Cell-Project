@@ -73,7 +73,7 @@
 				<% if current_category.category == "Admin" %>
                                           <%  @Notification = 10 %>   
                                           <%  @Notification = @Notification +1 %>
-					<li><%= link_to ' Requests', sales_admins_path %><span id="adminNotifi" class="badge"></span></li>
+					<li><h3><%= link_to ' Requests', sales_admins_path  %><span id="adminNotifi" class="badge"></span></h3></li>
 				    <li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
 				    <li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
 				    <li><%= link_to 'Production Rate', production_rates_path %></li>
