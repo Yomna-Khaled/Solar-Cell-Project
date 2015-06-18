@@ -41,7 +41,7 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/1/edit
   def edit
-    if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper")
+    if logged_in? and (current_category.category=="Buyer" )
       @vendors = Vendor.where("blacklisted = ? " , "no")
       @machines = Machine.all 
       @sparevendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id)
@@ -87,7 +87,7 @@ class SparePartsController < ApplicationController
     @vendororiginal_id = @current_vendor_record[0].vendor_id
     respond_to do |format|
       if @spare_part.update(spare_part_params)
-        if @vendoredit_id != @vendororiginal_id
+        if @vendoredit_id.to_i != @vendororiginal_id.to_i
         @record_id = @current_vendor_record[0].id
         # update last record to set end date for last vendor
         @last_sparepart_vendor = VendorSpare.find_by(id: @record_id)

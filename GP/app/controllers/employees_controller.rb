@@ -35,14 +35,16 @@ class EmployeesController < ApplicationController
       
       @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
 
-      render partial: 'employee'
+      render partial: 'find'
     elsif params[:type]=="past"
       @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
-      render partial: 'employee'
+      render partial: 'find'
     else
+
       @employees=Employee.where("category_id != ? " , admin.id )
 
-      render partial: 'employee'
+
+      render partial: 'find'
     end
   end  
   

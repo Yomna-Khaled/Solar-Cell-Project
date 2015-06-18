@@ -29,7 +29,6 @@ def notification
   render json: @shifts_notification
 end
 
-
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json
   def show
