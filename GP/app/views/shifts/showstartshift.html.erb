@@ -10,17 +10,7 @@
 		
 
 <%= form_for @shift , :url=>shifts_startshift_path do |f| %>
-  <% if @shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
-
-      <ul>
-      <% @shift.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+ 
       
 	
      <div class="reg_section">
@@ -34,17 +24,13 @@
 	
 	<%= f.select(:crew_id, @crews ,{},{ :style => 'margin-left:10px;'}) %>
 
-	<% if @shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
-
-      <ul>
-      <% @shift.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<% if @shift.errors[:crew_id].present? %>
+		           <div class="text-danger">
+				<% @shift.errors[:crew_id].each do |msg| %>
+		                          <p><%= "* crew "+msg %><p>
+				<%end%> 
+                           </div>
+       			<% end %>
 </div>
 	
 

@@ -16,7 +16,7 @@ class ShiftsController < ApplicationController
     if current_category.category=="Admin"
       
       @shifts = Shift.all
-      @shifts = Shift.paginate(:page => params[:page], :per_page => 6).order(id: :desc)
+      @shifts = Shift.where("end_shift_date IS NOT NULL").paginate(:page => params[:page], :per_page => 6).order(id: :desc)
     else
       render :file => "/public/404.html",:status  => "404" 
     end   
@@ -290,6 +290,7 @@ if current_category.category=="Shift Manager"
        @shift = Shift.where("employee_id = ?", current_user.id ).where("end_shift_date IS NULL  AND end_shift_time IS NULL") 
      
        if @shift.exists?
+            @shift = @shift.first 
             @unacceptedshifts=ProductionShift.where(@shift.id)
              for i in 0..(@unacceptedshifts.all.length-1)
                  if (@unacceptedshifts[i].accepted == "false")
@@ -359,7 +360,7 @@ if current_category.category=="Shift Manager"
     def end_shift_params
        params[:shift][:end_shift_time]=Time.zone.now
        params[:shift][:end_shift_Date] =Time.zone.now.strftime('%d %b %Y')
-       params.require(:shift).permit(:production_rate,:end_shift_date,:end_shift_time)
+       params.require(:shift).permit(:end_shift_date,:end_shift_time)
     end 
 
     # Never trust parameters from the scary internet, only allow the white list through.

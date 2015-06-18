@@ -17,6 +17,11 @@ class SalesAdminsController < ApplicationController
 
   end
 
+  def adminnotification
+  @admin_notification = SalesAdmins.where('done IS NULL').count
+  render json: @admin_notification
+  end
+
   # GET /sales_admins/1
   # GET /sales_admins/1.json
   def show

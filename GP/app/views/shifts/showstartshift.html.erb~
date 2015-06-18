@@ -1,46 +1,49 @@
 <h3></h3>
-<div class="container">
+<div class="container" style="width: calc(70%);">
+   <h1 class="page-header" style="font-size:30px;color:#2A4E6E"><span class="fa fa-play-circle"></span> Start Shift</h1>
+<section class="register">
+    <div class="form-group reg_section ">
+   
+  
 
-<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h1>start shift</h1>
-		</div>
-		<div class="panel-body">
-		<center>
+		
+		
 
 <%= form_for @shift , :url=>shifts_startshift_path do |f| %>
-  <% if @shift.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this start_shift from being saved:</h2>
-
-      <ul>
-      <% @shift.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+ 
       
-		
-                <div class="field">
-                  <h4>shift manager name:   </h4>
-		  <h5><%= current_user.full_name %> </h5>
-		</div>
-     
-        <div class="field">
-	<%= f.label ('enter crew name:') %><br>
-	<%= f.select(:crew_id, @crews) %>
-	</div>
+	
+     <div class="reg_section">
+     <h3 style="display:inline-block;"><span class="fa fa-user"></span> Shift Manager Name:   </h3>
+		  <p style="display:inline-block;" class="text-capitalize"><%= current_user.full_name %> </p> 
+    </div>
+
+	
+       <div class="reg_section">
+          <h3><span class="fa fa-users"></span> Enter crew names:  </h3>
+	
+	<%= f.select(:crew_id, @crews ,{},{ :style => 'margin-left:10px;'}) %>
+
+	<% if @shift.errors[:crew_id].present? %>
+		           <div class="text-danger">
+				<% @shift.errors[:crew_id].each do |msg| %>
+		                          <p><%= "* crew "+msg %><p>
+				<%end%> 
+                           </div>
+       			<% end %>
+</div>
+	
 
   <%= f.hidden_field :start_shift_date , :value => Date.today %>
   <%= f.hidden_field :start_shift_time , :value => Time.now %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-warning"%>
   </div>
 <% end %>
-</center>
-		</div>
-	</div>
+</div>
+</section>
+		
+	
 </div>
 

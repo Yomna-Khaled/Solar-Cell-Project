@@ -17,10 +17,15 @@ class SalesAdminsController < ApplicationController
 
   end
 
+  def adminnotification
+  @admin_notification = SalesAdmins.where('done IS NULL').count
+  render json: @admin_notification
+  end
+
   # GET /sales_admins/1
   # GET /sales_admins/1.json
   def show
-    if if logged_in? and( current_category.category=="Sales" )
+    if  logged_in? and( current_category.category=="Sales" )
      else
       render :file => "/public/404.html",:status  => "404"
     end
@@ -107,4 +112,4 @@ class SalesAdminsController < ApplicationController
     def sales_admin_params
       params.require(:sales_admin).permit(:power, :celltype, :subtype)
     end
-  end
+end

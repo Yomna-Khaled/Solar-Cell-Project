@@ -30,16 +30,16 @@ class EmployeesController < ApplicationController
     admin = Category.find_by(category: "Admin")
     if params[:type]=="current"
       
-      @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 2)
+      @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
 
-      render partial: 'employee'
+      render partial: 'find'
     elsif params[:type]=="past"
       @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
-      render partial: 'employee'
+      render partial: 'find'
     else
-      @employees=Employee.all.paginate(:page => params[:page], :per_page => 6)
+      @employees=Employee.all.paginate(:page => params[:page], :per_page => 2)
 
-      render partial: 'employee'
+      render partial: 'find'
     end
   end  
   

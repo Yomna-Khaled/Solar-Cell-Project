@@ -41,7 +41,7 @@ class SparePartsController < ApplicationController
 
   # GET /spare_parts/1/edit
   def edit
-    if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper")
+    if logged_in? and (current_category.category=="Buyer" )
       @vendors = Vendor.where("blacklisted = ? " , "no")
       @machines = Machine.all 
       @sparevendor = VendorSpare.where("spare_part_id=? AND date IS NULL",@spare_part.id)
