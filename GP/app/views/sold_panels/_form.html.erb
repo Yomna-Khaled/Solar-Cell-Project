@@ -80,10 +80,10 @@
 </div>
 
 <script>
+
    
    function change(){
    $("#totalPower").val($("#power").val());
-   console.log($("table tr td" )[0] );
    for(i=0; i<$("table tr td" ).children().length;i++){
      if($("table tr td" ).children()[i].checked==true)
       $("table tr td" ).children()[i].checked=false;
@@ -95,33 +95,47 @@
    }
 
    function solvalue(ptr){
-    console.log(ptr.id);
+    
     var price=ptr.id.split("_")[5];
+    console.log( $("#totalPrice").val());
     var power=ptr.id.split("_")[4];
     var id=ptr.id.split("_")[3]
     var totalPower=$("#power").val();
     if(totalPower!=""){
       if(ptr.checked==true){
+        console.log("here")
       var oldpower=$("#power").val();
       $("#power").val(totalPower-power);
-      console.log($("#power").val());
+      
+     
       if($("#power").val()<0){
         BootstrapDialog.alert('you exceed the totalPower ');
         
         $("#power").val(oldpower);
         ptr.checked=false;
 
+        }
+         else
+        {
+          
+          console.log("here2")
+          if ($("#totalPrice").val() != ""){
+          $("#totalPrice").val(parseInt($("#totalPrice").val())+parseInt(price));
+        }
+        else
+        {
+           $("#totalPrice").val(price);
+        }
+           console.log( $("#totalPrice").val());
+
       }
-      else{
-      $("#totalPrice").val(price);
-    }
     if($("#power").val()==0){
       $("#order").attr('disabled',false);
     }
   }
     else if (ptr.checked==false){
        $("#power").val(parseInt(totalPower)+parseInt(power));
-       $("#totalPrice").val($("#totalPrice").val()-price);
+       $("#totalPrice").val(parseInt($("#totalPrice").val())-parseInt(price));
        $("#order").attr('disabled',true);
 
     }
