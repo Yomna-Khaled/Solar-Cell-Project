@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617151840) do
+ActiveRecord::Schema.define(version: 20150617144930) do
 
   create_table "admin_shifts", force: :cascade do |t|
     t.float    "power",       limit: 24
@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20150617151840) do
     t.float    "houre_rate",         limit: 24
     t.text     "education_level",    limit: 65535
     t.string   "Governamental_ID",   limit: 255
-    t.string   "user_type",          limit: 255
     t.integer  "crew_id",            limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -125,8 +124,11 @@ ActiveRecord::Schema.define(version: 20150617151840) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "vendor_id",  limit: 4
     t.string   "serialNo",   limit: 255
   end
+
+  add_index "machines", ["vendor_id"], name: "fk_rails_bf41765213", using: :btree
 
   create_table "material_properties", force: :cascade do |t|
     t.integer  "material_id", limit: 4
@@ -253,8 +255,8 @@ ActiveRecord::Schema.define(version: 20150617151840) do
     t.integer  "shift_id",               limit: 4
     t.integer  "cellno",                 limit: 4
     t.integer  "sold_panel_id",          limit: 4
-    t.string   "dimensionunit",          limit: 255
     t.integer  "theoreticalcategory_id", limit: 4
+    t.string   "dimensionunit",          limit: 255
   end
 
   add_index "solar_panels", ["container_id"], name: "index_solar_panels_on_container_id", using: :btree
@@ -353,6 +355,7 @@ ActiveRecord::Schema.define(version: 20150617151840) do
   add_foreign_key "employee_phones", "employees"
   add_foreign_key "employees", "categories"
   add_foreign_key "employees", "crews"
+  add_foreign_key "machines", "vendors"
   add_foreign_key "material_properties", "materials"
   add_foreign_key "material_properties", "properties"
   add_foreign_key "material_theoreticals", "materials"

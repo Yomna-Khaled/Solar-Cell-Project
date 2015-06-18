@@ -11,7 +11,7 @@ class CrewsController < ApplicationController
   
   def index
     if current_category.category=="HR" or current_category.category=="Admin"
-      @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 6)
+      @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 2)
     else
       render :file => "/public/404.html", :status => 404 
     end  
@@ -34,7 +34,7 @@ class CrewsController < ApplicationController
       @disabled=true
       @crew = Crew.new
       category = Category.where("category = ? " , "Normal")
-      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
+      @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).where("status =? " , "yes").count
       @crews = Crew.all
       puts(@crews.count)
     else
@@ -56,7 +56,7 @@ class CrewsController < ApplicationController
     puts params[:id]
     @employees=Employee.where("crew_id = ?",params[:id])
     category = Category.where("category = ? " , "Normal")
-    @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
+    @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).where("status =? " , "yes").count
   end
 
   def home
@@ -103,7 +103,7 @@ class CrewsController < ApplicationController
         @disabled=true
         @clear = 1
         category = Category.where("category = ? " , "Normal")
-        @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).count
+        @number_of_normal_workers = Employee.where("category_id = ? " , category[0].id).where("status =? " , "yes").count
         format.html { render :new }
         format.json { render json: @crew.errors, status: :unprocessable_entity }
       end
@@ -114,7 +114,10 @@ class CrewsController < ApplicationController
   def update
     respond_to do |format|
     array = params[:workers].split(',') 
+    if array.count != 0
+
     Employee.where("crew_id = ? ", @crew.id).update_all(:crew_id => 1 ) 
+  end
     if @crew.update(crew_params)
         array.each_with_index do |item,i|
           @employee = Employee.find_by(id: array[i])
