@@ -10,7 +10,7 @@ class SalesAdminsController < ApplicationController
   # GET /sales_admins.json
   def index
      if logged_in? and( current_category.category=="Admin" )
-    @sales_admins = SalesAdmin.where("done IS NULL")
+      @sales_admins = SalesAdmin.where("done IS NULL")
   else
       render :file => "/public/404.html",:status  => "404"
   end

@@ -32,14 +32,14 @@ class EmployeesController < ApplicationController
       
       @employees=Employee.where("status= ?","yes").where("category_id != ? " , admin.id )
 
-      render partial: 'find'
+      render partial: 'employee'
     elsif params[:type]=="past"
       @employees=Employee.where("status= ?","no").where("category_id != ? " , admin.id )
-      render partial: 'find'
+      render partial: 'employee'
     else
       @employees=Employee.all.paginate(:page => params[:page], :per_page => 2)
 
-      render partial: 'find'
+      render partial: 'employee'
     end
   end  
   

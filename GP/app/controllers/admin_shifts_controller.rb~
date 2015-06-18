@@ -15,7 +15,7 @@ class AdminShiftsController < ApplicationController
 
   elsif logged_in? and(current_category.category=="Admin")
     puts "================================="
-    @admin_shifts = AdminShift.all
+    @admin_shifts = AdminShift.where("done IS NULL")
     puts @admin_shifts.inspect
   else
      render :file => "/public/404.html",:status  => "404"
@@ -28,6 +28,7 @@ def notification
   @shifts_notification = AdminShift.where('employee_id = ? and done IS NULL',current_user.id).count
   render json: @shifts_notification
 end
+
 
   # GET /admin_shifts/1
   # GET /admin_shifts/1.json

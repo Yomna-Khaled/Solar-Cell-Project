@@ -10,7 +10,7 @@
       <img src="<%= @spare_part.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
       <% if current_category.category!="Admin" && current_category.category!="Stock Keeper" %>
          
-            <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info , col= md-11" %>
+            <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info , col-md-10" %>
         
          <%end%>  
   </div>
