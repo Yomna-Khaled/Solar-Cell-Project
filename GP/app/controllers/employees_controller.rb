@@ -10,16 +10,23 @@ class EmployeesController < ApplicationController
 
   def fire
     puts "===============" 
+    puts params[:id]
      @employee=Employee.where("id= ?",params[:id])
      
-     puts @employee[0].crew_id
+       if @employee[0].crew_id
+
      @crew_old = Crew.find_by(id: @employee[0].crew_id)
-     if @crew_old
+
+     puts @crew_old.no_of_workers
+   
 
      new_number =  @crew_old.no_of_workers.to_i - 1
      Crew.where("id = ? ", @crew_old.id).update_all(:no_of_workers =>  new_number )
-     Employee.where("id= ?",params[:id]).update_all(:crew_id => 1 ).update_all(:status => "no" )
+      Employee.where("id= ?",params[:id]).update_all(:status => "no" )
+     @emp=Employee.where("id= ?",params[:id]).update_all(:crew_id => 1 )
+     
     else
+     
       Employee.where("id= ?",params[:id]).update_all(:status => "no" )
     end 
 

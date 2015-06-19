@@ -1,5 +1,5 @@
 <div class="container"  style="width: calc(70%);">
-    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" >Category Information</h1>
+    <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-info-circle"></span> Category Information</h1>
 	<div class="row">   
 		<section class="register" >
                          <div style="float:right;">   
@@ -12,7 +12,7 @@
 					<li class="list-group-item">Category Name: <%= @theoreticalcategory.name %></li>
 				</ul>
 
-				<h3>Materials Value</h3>
+				<h3><span class="fa fa-cube" > Materials Value</h3>
 				<ul class="list-group">
 					<% @materials_theoretical.each do |m| %>
 					<% material = Material.find_by(m.material_id) %>
