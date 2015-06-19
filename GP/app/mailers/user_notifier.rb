@@ -1,5 +1,5 @@
 class UserNotifier < ApplicationMailer
-	default from: "meetup1000@gmail.com"
+	default from: "firstcompany.for.solarcell@gmail.com"
   def forget_password(employee,password)
   	@employee = employee
   	@password=password
