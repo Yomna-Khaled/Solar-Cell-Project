@@ -77,8 +77,11 @@ class MachinesController < ApplicationController
     if current_category.category=="Buyer"
       @machinename = params[:machinename]
       @machineserialno = params[:machineserialno]
+      @vendormachine = params[:vendormachine]
       @machine = Machine.new(name: @machinename,serialNo: @machineserialno)
       if @machine.save
+        @vendormachine = VendorMachine.new(machine_id: @machine.id,vendor_id:@vendormachine)
+        @vendormachine.save
         render json: @machine
       else
         render json: @machine.errors.full_messages
@@ -98,7 +101,7 @@ class MachinesController < ApplicationController
     @vendororiginal_id =@current_vendor_record[0].vendor_id
     respond_to do |format|
       if @machine.update(machine_params)
-         if @vendoredit_id != @vendororiginal_id
+         if @vendoredit_id.to_i != @vendororiginal_id.to_i
         @record_id = @current_vendor_record[0].id
         # update last record to set end date for last vendor
         @last_machine_vendor = VendorMachine.find_by(id: @record_id)      

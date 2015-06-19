@@ -15,7 +15,7 @@
             <th class="text-center"><h3>Price</h3></th>
             <% end %>
             <th class="text-center"><h3>Show</h3></th>
-            <% if current_category.category!="Admin" %>
+            <% if current_category.category!="Admin"&& current_category.category!="Stock Keeper" %>
             <th class="text-center"><h3>Edit</h3></th>
             <%end%>
           </tr>
@@ -33,7 +33,7 @@
           <td class="text-center" ><%= spare_part.price %></td>
           <% end %>
           <td class="text-center" ><%= link_to 'Show', spare_part, class:"btn btn-info" %></td>
-          <% if current_category.category!="Admin" %>
+          <% if current_category.category!="Admin" && current_category.category!="Stock Keeper"  %>
           <td class="text-center" ><%= link_to 'Edit', edit_spare_part_path(spare_part), class:"btn btn-danger"  %></td>
           <%end%>
         </tr>

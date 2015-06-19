@@ -1,18 +1,22 @@
 class MaterialsController < ApplicationController
-   skip_before_action :verify_authenticity_token
+   
   before_action :set_material, only: [:show, :edit, :update, :destroy]
+
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
+
+  
+  skip_before_action :verify_authenticity_token
   # Render 404 page when record not found
     def render_404      
-       render :file => "/public/404.html", :status => 404
+       render :file => "/public/404.html", :status => 404,:layout => false
     end
 
     
   # GET /materials
   # GET /materials.json
   def index    
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @materials = Material.all
       @materials = Material.paginate(:page => params[:page], :per_page => 10)
       @material_vendor = MaterialVendor.all
@@ -26,11 +30,9 @@ class MaterialsController < ApplicationController
   # GET /materials/1
   # GET /materials/1.json
   def show
-    if current_category.category=="Sales" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
+    if current_category.category=="Buyer" or current_category.category=="Stock Keeper" or current_category.category=="Admin"
       @material_vendor = MaterialVendor.all
       @material_properties = MaterialProperty.where("material_id=?",@material.id)
-      
-
       #report part for materials 
       respond_to do |format|
         format.html
@@ -48,9 +50,9 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-    if logged_in? and current_category.category=="Sales"
+    if  current_category.category=="Buyer"
       @material = Material.new
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @flag = "new"
@@ -61,8 +63,8 @@ class MaterialsController < ApplicationController
 
   # GET /materials/1/edit
   def edit
-   if logged_in? and (current_category.category=="Sales" or current_category.category=="Stock Keeper") 
-      @vendors = Vendor.all
+   if logged_in? and (current_category.category=="Buyer" or current_category.category=="Stock Keeper") 
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @material_property = MaterialProperty.all
@@ -92,6 +94,8 @@ class MaterialsController < ApplicationController
   # POST /materials.json
   def create
     @vendor_id = params['vendor']; #to get vendor of certain material 
+    puts "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    puts @vendor_id
     @selected_properties = params['propertycheck']; #it is an array of selected properties
     # render plain: @selected_properties
     @material = Material.new(material_params)
@@ -113,14 +117,14 @@ class MaterialsController < ApplicationController
         @materialvendor.save
       
         @allcategories=Theoreticalcategory.all  
-        for i in 0..@allcategories.length
+        for i in 0...@allcategories.length
           @materialtheoritical=MaterialTheoretical.new(material_id: material_id, theoreticalcategory_id: @allcategories[i].id , value: 0)
           @materialtheoritical.save
         end
         format.html { redirect_to @material}
         format.json { render :show, status: :created, location: @material }
       else
-        @vendors = Vendor.all
+        @vendors = Vendor.where("blacklisted = ? " , "no")
         @quantites = Quantity.all
         @properties = Property.all
         @flag = "new"
@@ -141,7 +145,7 @@ def update
 
   respond_to do |format|
     if @material.update(material_params)
-      if @vendoredit_id != @vendororiginal_id
+      if @vendoredit_id.to_i != @vendororiginal_id.to_i
         @record_id = @current_vendor_record[0].id
         # update last record to set end date for last vendor
         @last_material_vendor = MaterialVendor.find_by(id: @record_id)
@@ -166,12 +170,12 @@ def update
         end  
       end
 
-      format.html { redirect_to @material, notice: 'Material was successfully updated.' }
+      format.html { redirect_to @material }
       format.json { render :show, status: :ok, location: @material }
     else
       format.html { render :edit }
       format.json { render json: @material.errors, status: :unprocessable_entity }
-      @vendors = Vendor.all
+      @vendors = Vendor.where("blacklisted = ? " , "no")
       @quantites = Quantity.all
       @properties = Property.all
       @material_property = MaterialProperty.all

@@ -1,34 +1,105 @@
 
-<br>
-  <table class="table table-striped">
-        <thead>
-          <tr>
-            <th text-align="center">Image</th>
-            <th text-align="center">Full Name</th>
-            <th text-align="center">Salary</th>
-            <th text-align="center">Education Level</th>
-            <th text-align="center">Education</th>
-            <th text-align="center">Governamental ID</th>
-            <th text-align="center">Category</th>
-            <th text-align="center">Show</th>
-            <th text-align="center">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @employees.each do |employee| %>
-          <tr>
-            <td text-align="center"><%= image_tag employee.image.url(:thumb) , class: "thumbnail" %></td>
-            <td><%= employee.full_name %></td>
-            <td><%= employee.salary %></td>
-            <td><%= employee.education_level %></td>
-            <td><%= employee.education %></td>
-            <td><%= employee.Governamental_ID %></td>
-            <% category=Category.find_by(id: employee.category_id )%>
-            <td><%= category.category %></td>
-            <td><%= link_to 'Show', employee , class:"btn btn-primary" %></td>
-            <td><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-default" %></td>
-          </tr>
-          <% end %>
-      </table>
-<%= will_paginate @employees %>
+<div class="container" style="width: calc(70%);">
 
+  <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-users"> All Employees</span></h1>
+  <section class="register" >  
+    <div class="reg_section">
+       <%= select_tag(:list, options_for_select([['ALL', 'all'], ['Current', 'current'],['Past','past']]),onchange: "searchemp()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px" ,id:"search") %>
+       <div id="emp">
+         <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th class="text-center"><h3>Image</h3></th>
+              <th class="text-center"><h3>Full Name</h3></th>
+              <th class="text-center"><h3>Salary</h3></th>
+              <th class="text-center"><h3>Education Level</h3></th>
+              <th class="text-center"><h3>Education</h3></th>
+              <th class="text-center"><h3>Category</h3></th>
+              <th class="text-center"><h3>Show</h3></th>
+              <% if current_category.category!="Admin" %>
+              <th class="text-center"><h3>Edit</h3></th>
+              <%end%>
+              <th class="text-center"><h3>Remove</h3></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @employees.each do |employee| %>
+            <tr>
+              <td text-align="center"><%= image_tag employee.image.url(:thumb), :style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
+              <td class="text-center"><%= employee.full_name %></td>
+              <td class="text-center"><%= employee.salary %></td>
+              <td class="text-center"><%= employee.education_level %></td>
+              <td class="text-center"><%= employee.education %></td>
+              <% category=Category.find_by(id: employee.category_id )%>
+              <td class="text-center"><%= category.category %></td>
+              <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
+             
+              
+            <% if employee.status=="yes" %>
+            <% if current_category.category!="Admin" %>
+            <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee) ,class: "btn btn-danger" , id: employee.id.to_s+"e"  %></td>
+
+               <% end %>
+
+              <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
+
+              <% else %>
+
+              <% if current_category.category!="Admin" %>
+
+              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true  %></td>
+              <% end %>
+              <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
+              <% end %>
+               <%end %>
+
+             
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+</div>      
+
+<script>
+$(".fire").click(function(){
+  var id =this.id;
+  $.ajax({
+      type: "POST",
+      url: "/employees/fire",
+      dataType: "JSON",
+      data: { 'id':this.id},
+      complete: function(data)
+      {
+        $("#"+id).html("Not Available");
+         $("#"+id+"e").attr('disabled',"disbaled");
+        $("#"+id+"e").click(function(){
+                alert('disabled');
+                return false;
+
+      });
+        //document.getElementById(id+"e").removeAttribute('href');    
+      }
+    });
+});
+function searchemp(){
+  console.log($("#search").val());
+  var type=$("#search").val();
+   $.ajax({
+      type: "POST",
+      url: "/employees/search",
+      dataType: "JSON",
+      data: { 'type':type},
+      complete: function(data)
+      {
+         $("#emp").html(data.responseText);
+        
+      }
+    });
+
+}
+
+</script>

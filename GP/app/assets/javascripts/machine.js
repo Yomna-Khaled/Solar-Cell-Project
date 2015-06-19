@@ -10,12 +10,13 @@ function machineajax () {
 	$("#machinelink").css("display", "block");
 	var machinename = $("#machinename").val();
 	var machineserialno = $("#machineserialno").val();
+	var vendormachine = $("#vendormachine").val();
 	if (machinename!="" && machineserialno!="") {
     $.ajax({
         method: "POST",
         url: '/machinecreate',
 		dataType: "JSON",
-		data: { 'machinename': machinename,'machineserialno': machineserialno},
+		data: { 'machinename': machinename,'machineserialno': machineserialno,'vendormachine': vendormachine},
 		complete: function(data)
 		{	
 			var machineid = JSON.parse(data.responseText).id

@@ -91,7 +91,7 @@ Rails.application.routes.draw do
   post 'materialvendorcreate' => 'vendors#materialvendorcreate'
   post 'machinecreate' => 'machines#machinecreate'
   post 'notification' => 'admin_shifts#notification'
-
+  post 'adminnotification' => 'sales_admins#adminnotification'
   get '*url' => 'errors#routing'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

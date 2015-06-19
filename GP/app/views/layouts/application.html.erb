@@ -52,7 +52,7 @@
 
 		        	<%  @Notification = 10 %>
 		        	<%  @Notification = @Notification +1 %>
-		        	<li><%= link_to 'Admin Requests', admin_shifts_path%><span id="shiftNotifi" class="badge"><%= puts "xx-" %></span></li>
+		        	<li><%= link_to 'Admin Requests', admin_shifts_path%><span id="shiftNotifi" class="badge"></span></li>
 		        	<li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
 		        	<li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
 	                <li><%= link_to ' Home', crew_home_path %></li>
@@ -71,7 +71,9 @@
 				<% end %>
 
 				<% if current_category.category == "Admin" %>
-					<li><%= link_to ' Requests', sales_admins_path %></li>
+                                          <%  @Notification = 10 %>   
+                                          <%  @Notification = @Notification +1 %>
+					<li><h3><%= link_to ' Requests', sales_admins_path  %><span id="adminNotifi" class="badge"></span></h3></li>
 				    <li><%= link_to ' Add Theoretical Category', new_theoreticalcategory_path %></li>
 				    <li><%= link_to ' All Theoretical Category', theoreticalcategories_path %></li>
 				    <li><%= link_to 'Production Rate', production_rates_path %></li>
@@ -83,7 +85,7 @@
 					<li><%= link_to ' All Pallets', containers_path %></li>
 					<li><%= link_to ' All Orders', sold_panels_path %></li>
 					<li><%= link_to ' All Buyers', buyers_path %></li>
-					<li><%= link_to ' prices', lookup_prices_path %></li>
+					<li><%= link_to ' Prices', lookup_prices_path %></li>
 					<li><%= link_to ' All Employee', employees_path  %></li>
 					<li><%= link_to ' All Crews', crews_path %></li>
 					<li><%= link_to ' All Shifts', shifts_allshifts_path %></li>
@@ -141,7 +143,17 @@
 			}
 	});
 
+        $.ajax({
+	        method: "POST",
+	        url: '/adminnotification',
+			dataType: "JSON",
+			complete: function(data)
+			{	
+				var machineid = JSON.parse(data.responseText)
+				   $("#adminNotifi").html(machineid);
 
+			}
+	});  
 
 
      

@@ -24,7 +24,7 @@ class SolarPanelsController < ApplicationController
         end
       else
        @solar_panels = SolarPanel.all
-       @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 2)
+       @solar_panels = SolarPanel.paginate(:page => params[:page], :per_page => 6)
      end
     else
       render :file => "/public/404.html",:status  => "404" 

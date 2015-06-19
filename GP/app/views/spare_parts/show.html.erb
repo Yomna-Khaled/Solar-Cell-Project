@@ -8,23 +8,24 @@
   <div class="col-md-3">
       <br>
       <img src="<%= @spare_part.avatar %>" class="img-thumbnail" style="width:200px ; height:200px;">
+      <% if current_category.category!="Admin" && current_category.category!="Stock Keeper" %>
+         
+            <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info , col-md-11" %>
+        
+         <%end%>  
   </div>
   
 
   <div class="col-md-9">
     <section class="register" > 
-        <% if current_category.category!="Admin" %>
-        <div style="float:right;">  
-            <%= link_to 'Edit', edit_spare_part_path(@spare_part), class:"btn btn-info" %>
-         </div> 
-         <%end%> 
+        
         <div class="reg_section">
           <h3><span class="fa fa-info-circle "> </span> Basic Information</h3>
       
 
           <ul class="list-group">
             <li class="list-group-item">Quantity: <%= @spare_part.quantity %></li>
-            <% if current_category.category=="Sales" or current_category.category=="Admin"%>
+            <% if current_category.category=="Buyer" or current_category.category=="Admin" %>
             <li class="list-group-item">Price: <%= @spare_part.price %></li>
             <% end -%>
           </ul>
@@ -38,7 +39,7 @@
         <li class="list-group-item">Machine Name: <% machine = Machine.find_by(id: @spare_part.machine_id) %><%= machine.name %></li>
       </ul>
      </div>
-      <% if current_category.category=="Sales" or current_category.category=="Admin"%>
+      <% if current_category.category=="Buyer" or current_category.category=="Admin"%>
        <div class="reg_section">
         <h3><span class="fa fa-user "> </span> Vendor Information</h3>
         <ul class="list-group">

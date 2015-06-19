@@ -87,17 +87,8 @@ $(document).ready(function() {
 		           
 		       }
 		  }
-                  else if(<%= @inserted_panels %> > $('#shift_production_rate').val() ){
-                         $('#btnadd').remove();
-                      if($('#warnmsg').length == 0){
-		       $('<div id="warnmsg"> <div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3> </div></div>' ).insertAfter( '#shift_production_rate' );
-                      
-		       } 
-		      if($('#submit').length != 0){
-		          $('#submit').remove();
-		     }  
-                  }
-		  else{
+                  
+		  else if ($('#shift_production_rate').val() % 1 === 0 && (<%= @inserted_panels %> < $('#shift_production_rate').val()  )){
 		       if($('#btnadd').length == 0){
                             if ($('#warnmsg').length == 0){
                                      $('<div id="warnmsg"><div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3></div></div>' ).insertAfter( '#shift_production_rate' );
@@ -109,6 +100,19 @@ $(document).ready(function() {
 		          $('#submit').remove();
 		     }
 		  }
+                  else {
+                         $('#btnadd').remove();
+
+                      if($('#warnmsg').length == 0){
+		       $('<div id="warnmsg"> <div class="reg_section"><h3> Number Of Panels Inserted Is : <%= @inserted_panels %> </h3> </div></div>' ).insertAfter( '#shift_production_rate' );
+                      
+		       } 
+		      if($('#submit').length != 0){
+		          $('#submit').remove();
+		     }  
+                  }     
+
+                 
          });       
           
         }
