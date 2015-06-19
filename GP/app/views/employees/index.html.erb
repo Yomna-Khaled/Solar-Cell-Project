@@ -38,15 +38,20 @@
             <% if employee.status=="yes" %>
             <% if current_category.category!="Admin" %>
             <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee) ,class: "btn btn-danger" , id: employee.id.to_s+"e"  %></td>
-            <%end %>
+
+               <% end %>
+
               <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
 
               <% else %>
-                  <% if current_category.category!="Admin" %>
+
+              <% if current_category.category!="Admin" %>
+
               <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true  %></td>
               <% end %>
               <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
-              <%end %>
+              <% end %>
+               <%end %>
 
              
             </tr>
