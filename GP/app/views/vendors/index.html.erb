@@ -17,7 +17,7 @@
 
               <%= select_tag(:searching, options_for_select([['Search_by_Date', 1], ['Search_by_Name', 2]]),onchange: "searchvendors()",class: "col-md-3" ,style:"width:300px;") %>
 
-              <%= text_field_tag :search, params[:search], placeholder: "Search Vendors",class:"col-md-3" %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search by name or serialNo ....",class:"col-md-3" %>
               <%= hidden_field_tag :searchtype, "date" %>
               <%= hidden_field_tag :searchbyvendortype, "all" %>
               <%= hidden_field_tag :searchby, session[:vendortype] %>

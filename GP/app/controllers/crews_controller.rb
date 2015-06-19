@@ -11,7 +11,7 @@ class CrewsController < ApplicationController
   
   def index
     if current_category.category=="HR" or current_category.category=="Admin"
-      @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 2)
+      @crews = Crew.where("id != ? " , "1").paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html", :status => 404 
     end  

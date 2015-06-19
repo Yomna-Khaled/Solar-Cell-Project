@@ -6,7 +6,7 @@
       <div class="form-group reg_section">
         <h1><span class="fa fa-arrows-alt"></span> Solar Panel Dimensions</h1>
         <h3><span class="fa fa-arrows-v"></span> Height </h3>
-        <%= f.number_field :height ,min:"1",step:0.01 ,required:true ,class: 'field' %>
+        <%= f.number_field :height ,min:"1",step:0.01 ,required:true ,class: 'field',placeholder:"Enter Panel Height....." %>
              <% if @solar_panel.errors[:height].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:height].each do |msg| %>
@@ -15,7 +15,7 @@
                            </div>
        	      <% end %>
         <h3><span class="fa fa-arrows-h"></span> Width </h3>
-        <%= f.number_field :width,min:"1" ,step:0.01 ,required:true ,class: 'field' %>
+        <%= f.number_field :width,min:"1" ,step:0.01 ,required:true ,class: 'field',placeholder:"Enter Panel Width....." %>
             <% if @solar_panel.errors[:width].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:width].each do |msg| %>
@@ -50,7 +50,7 @@
 
                      </div> 
     	        <h3><span class="fa fa-bolt"></span> Power </h3>
-		    <%= f.number_field :power ,min:"0",step:0.001 ,required:true ,class: 'field' %>
+		    <%= f.number_field :power ,min:"0",step:0.001 ,required:true ,class: 'field',placeholder:"Enter Panel Power....." %>
                         <% if @solar_panel.errors[:power].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:power].each do |msg| %>
@@ -59,7 +59,7 @@
                            </div>
        	                 <% end %>
 	        <h3><span class="fa fa-sort-numeric-asc"></span> Number Of Cells </h3>
-		    <%= f.number_field :cellno ,min:"0",step:1 ,required:true ,class: 'field' %>
+		    <%= f.number_field :cellno ,min:"0",step:1 ,required:true ,class: 'field',placeholder:"Enter No Of Cells....." %>
                     <% if @solar_panel.errors[:cellno].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:cellno].each do |msg| %>
@@ -86,7 +86,7 @@
                            </div>
        	             <% end %> 
 	        <h3><span class="fa fa-sort-numeric-asc"></span> Serial Number </h3>
-		<%= f.text_field :serialNo ,required:true %>
+		<%= f.text_field :serialNo ,required:true ,placeholder:"Enter Panel Serial No....."%>
 	        <% if @solar_panel.errors[:serialNo].present? %>
 		           <div class="text-danger">
 				<% @solar_panel.errors[:serialNo].each do |msg| %>

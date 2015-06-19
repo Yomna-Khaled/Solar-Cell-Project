@@ -4,7 +4,7 @@
 
       <h1><span class="fa fa-info-circle"></span> Vendor Information</h1>
       <h3><span class="fa fa-user"> Name</span></h3>
-      <%= f.text_field :name %>
+      <%= f.text_field :name ,placeholder: "Enter Vendor Name...."%>
 
       <% if @vendor.errors[:name] %>
         <div class="text-danger">
@@ -18,7 +18,7 @@
       <% end %>
 
       <h3><span class="fa fa-envelope"></span> Email</h3>
-      <%= f.text_field :email %>
+      <%= f.text_field :email ,placeholder: "Enter Vendor Email...."%>
       <% if @vendor.errors[:email] %>
         <div class="text-danger">
           <ul>

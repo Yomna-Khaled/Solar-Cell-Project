@@ -165,7 +165,7 @@ function propertyajax () {
 			append('<tr><td><input type="checkbox" id="'+propertyid+
 			'" name="propertycheck[]" onchange="checkproperty(this)" value='+propertyid+'/>'
 			+propertyname+'</td><td id="value_'+propertyid+
-			'" style="display:none" onkeyup="propertyvalue(this)"><h3 style="margin-left:100px;">value</h3><input type="text" style="width:100px;margin-left:100px;" id="'+propertyid+'_value" ></td></tr>');
+			'" style="display:none" onkeyup="propertyvalue(this)"><h3 style="margin-left:100px;">value</h3><input type="text" style="width:100px;margin-left:100px;" id="'+propertyid+'_value" placeholder="Enter value.... "></td></tr>');
 			$("#propertyname").val("");
 		}
 	});
