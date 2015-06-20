@@ -60,7 +60,7 @@ class EmployeesController < ApplicationController
     if current_category.category=="HR" or current_category.category=="Admin"
       admin = Category.find_by(category: "Admin")
        # @employees=Employee.where("status= ?","yes")
-      @employees = Employee.where("category_id != ? " , admin.id )
+      @employees = Employee.where("category_id != ? " , admin.id ).paginate(:page => params[:page], :per_page => 6)
 
     else
       render :file => "/public/404.html",:status  => "404"

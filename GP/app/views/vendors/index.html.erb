@@ -2,14 +2,25 @@
   <h1 class="page-header" style="font-size:30px; color:#2A4E6E" ><span class="fa fa-list"></span> All Vendors</h1>
 
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="/vendors?vendortype=material">Material Vendors</a></li>
-    <li role="presentation" ><a href="/vendors?vendortype=sparepart">SparePart Vendors</a></li>
-    <li role="presentation" ><a href="/vendors?vendortype=pallet">Pallet Vendors</a></li>
-    <li role="presentation" ><a href="/vendors?vendortype=machine">Machine Vendors</a></li>
+    <li role="presentation" <%if @listcriteria == 'all'%>
+      class="active"<%end%>><a href="/vendors?vendortype=all">All Vendors</a></li>
+    <li role="presentation" <%if @listcriteria == 'material'%>
+      class="active"
+    <%end%> ><a href="/vendors?vendortype=material">Material Vendors</a></li>
+    <li role="presentation" <%if @listcriteria == 'sparepart'%>
+      class="active"
+    <%end%> ><a href="/vendors?vendortype=sparepart">SparePart Vendors</a></li>
+    <li role="presentation" <%if @listcriteria == 'pallet'%>
+      class="active"
+    <%end%> ><a href="/vendors?vendortype=pallet">Pallet Vendors</a></li>
+    <li role="presentation" <%if @listcriteria == 'machine'%>
+      class="active"
+    <%end%> ><a href="/vendors?vendortype=machine">Machine Vendors</a></li>
   </ul>
   <!-- search part by name of date -->
   <section class="register" > 
     <div class="reg_section">
+    <%if @listcriteria != "all" || @listcriteria==nil %>
       <div class="row">
           <%= form_tag(vendors_path, :method => "get", id: "search-form" , :class => "navbar-form pull-right") do %>
 
@@ -17,13 +28,14 @@
 
               <%= select_tag(:searching, options_for_select([['Search_by_Date', 1], ['Search_by_Name', 2]]),onchange: "searchvendors()",class: "col-md-3" ,style:"width:300px;") %>
 
-              <%= text_field_tag :search, params[:search], placeholder: "Search Vendors",class:"col-md-3" %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search by name or serialNo ....",class:"col-md-3" %>
               <%= hidden_field_tag :searchtype, "date" %>
               <%= hidden_field_tag :searchbyvendortype, "all" %>
               <%= hidden_field_tag :searchby, session[:vendortype] %>
               <%= submit_tag "Search", :name => nil, :class => 'btn btn-primary col-md-3' ,style:"width:100px;margin-top:12px;"%>
           <% end %>
       </div>
+    <%end%>  
     </div>
 <!-- end of search -->
     <div class="reg_section">
@@ -59,18 +71,27 @@
         <tbody>
           <% @vendors.each do |vendor| %>
           <!-- local -->
-          <% if vendor.vendor.blacklisted =="yes" %>
-            <tr class="danger">
-              <%else %>
-              <tr>
-                <%end%>
+          <%=puts vendor.inspect%>
+          <% if @listcriteria != "all"%>
+            <% if vendor.vendor.blacklisted =="yes" %>
+              <tr class="danger">
+            <%else %>
+                <tr>
+            <%end%>
+          <%else%>
+            <% if vendor.blacklisted =="yes" %>
+              <tr class="danger">
+            <%else %>
+                <tr>
+            <%end%>           
+          <%end%>
               <%if @listcriteria == "all" %>
                 <%if @vendorcriteria != vendor.ventype &&  @vendorcriteria != 'all' &&  @vendorcriteria != nil%>
                 <%next%>
                 <%end%>
                 <td class="text-center" ><%= vendor.name %></td>
                 <td class="text-center" ><%= vendor.email %></td>
-                <td class="text-center" ><%= vendor.vendtype %></td>
+                <td class="text-center" ><%= vendor.ventype %></td>
               <%else%>
                 <%if @vendorcriteria != vendor.vendor.ventype &&  @vendorcriteria != 'all'&&  @vendorcriteria != nil %>
                 <%next%>
@@ -98,10 +119,19 @@
                   <td class="text-center" ><%= vendor.machine.name %></td>
                 <%end%>
               <%end%>
-              <td class="text-center" ><%= link_to 'Show', vendor.vendor, class:"btn btn-info" %></td>
-              <% if current_category.category!="Admin" &&  vendor.vendor.blacklisted == "no" %>
-              <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor.vendor), class:"btn btn-danger" %></td>
+              <%if @listcriteria != "all"%>
+                <td class="text-center" ><%= link_to 'Show', vendor.vendor, class:"btn btn-info" %></td>
+                <% if current_category.category!="Admin" &&  vendor.vendor.blacklisted == "no" %>
+                <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor.vendor), class:"btn btn-danger" %></td>
+                <%end%>                
+              <%else%>
+                <td class="text-center" ><%= link_to 'Show', vendor, class:"btn btn-info" %></td>
+                <% if current_category.category!="Admin" &&  vendor.blacklisted == "no" %>
+                <td class="text-center" ><%= link_to 'Edit', edit_vendor_path(vendor), class:"btn btn-danger" %></td>
+                <%end%>                
               <%end%>
+
+
             </tr>
           <% end %>
         </tbody>
