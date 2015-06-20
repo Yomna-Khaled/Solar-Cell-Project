@@ -56,7 +56,9 @@
 									<th text-align="center"><h3>power</h3></th>
 									<th text-align="center"><h3>celltype</h3></th>
 									<th text-align="center"><h3>sub type</h3></th>
+                                                                        <% if current_category.category!="Admin" %>
 							 		<th text-align="center"><h3> Edit</h3></th> 
+                                                                         <% end %>
 			                        <th text-align="center"><h3>show</h3></th>  
 						 		</tr>
 			                </thead>
@@ -68,8 +70,9 @@
 								    <td><%= solar_panel.power %></td>
 								    <td><%= solar_panel.celltype %></td>
 								    <td><%= solar_panel.subtype%></td>
-								    
+								    <% if current_category.category!="Admin" %>
 								    <td><%= link_to 'Edit', edit_solar_panel_path(solar_panel),method: :get , class: "btn btn-danger" %></td>
+                                                                    <% end %>
 							        <td><%= link_to 'show', solar_panel_path(solar_panel),method: :get , class: "btn btn-info"%></td>  
 						 
 							    </tr> 

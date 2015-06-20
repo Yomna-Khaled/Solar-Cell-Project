@@ -39,7 +39,7 @@
     <% end %>
   
     <h3><span class="fa fa-user"></span> Shift Manager </h3>
-    <%= f.select :employee_id , options_from_collection_for_select(@managers, "id", "full_name"),:required => true %>
+    <%= f.select :employee_id , options_from_collection_for_select(@managers, "id", "full_name"), {include_blank: false},:required => true %>
      <% if @admin_shift.errors[:employee_id] %>
         <div class="text-danger">
           <ul>

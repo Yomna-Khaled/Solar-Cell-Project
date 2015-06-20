@@ -25,8 +25,10 @@
                 <th class="text-center"><h3>Edit</h3></th>
 
               <% end %>
+              <% if current_category.category!="Stock Keeper" %>
               <th class="text-center"><h3>Report</h3></th>
-            </tr>
+               <%end%> 
+           </tr>
 
           </thead>
       <!-- @material_vendor.find(material.id).vendor_id -->
@@ -45,9 +47,9 @@
                 <% if current_category.category!="Admin" %>
                 <td class="text-center"><%= link_to 'Edit', edit_material_path(material), class:"btn btn-danger" %></td>
                 <%end %>
-                 
+                 <% if current_category.category!="Stock Keeper" %>
                  <td class="text-center"><%= link_to "Download", material_path( :id => material , :format => "pdf") , class: "btn btn-primary" %></td>
-
+                 <% end %>   
               </tr>
             <% end %>
           </tbody>

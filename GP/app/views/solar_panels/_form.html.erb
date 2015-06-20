@@ -23,7 +23,7 @@
 				<%end%> 
                            </div>
        	      <% end %>
-              <h3> Dimension Unit </h3>
+              <h3><span class="fa fa-cube"></span>  Dimension Unit </h3>
 		    <%= f.select :dimensionunit , [['mm','mm'],['inches','inches'],['feet','feet']] %>
                     <% if @solar_panel.errors[:dimensionunit].present? %>
 		           <div class="text-danger">
@@ -67,7 +67,7 @@
 				<%end%> 
                            </div>
        	             <% end %>
-	        <h3> Type </h3>
+	        <h3><span class="fa fa-sitemap">  </span>Type</h3>
 		    <%= f.select :celltype , [['mono crystalline', 'mono crystalline'], ['poly crystalline','poly crystalline']] %>
                        <% if @solar_panel.errors[:celltype].present? %>
 		           <div class="text-danger">
@@ -76,7 +76,7 @@
 				<%end%> 
                            </div>
        	             <% end %>
-	        <h3> Subtype </h3>
+	        <h3> <span class="fa fa-sitemap"> </span> Sub type </h3>
 		    <%= f.select :subtype , [['two pathbar','two pathbar'],['three pathbar','three pathbar']] %>
                     <% if @solar_panel.errors[:subtype].present? %>
 		           <div class="text-danger">

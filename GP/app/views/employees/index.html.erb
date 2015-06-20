@@ -6,7 +6,58 @@
     <div class="reg_section">
        <%= select_tag(:list, options_for_select([['ALL', 'all'], ['Current', 'current'],['Past','past']]),onchange: "searchemp()",class: "target col-md-3" ,style:"width:110px;margin-left:10px;margin-top:10px" ,id:"search") %>
        <div id="emp">
-         <%= render 'employee' %> 
+         <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th class="text-center"><h3>Image</h3></th>
+              <th class="text-center"><h3>Full Name</h3></th>
+              <th class="text-center"><h3>Salary</h3></th>
+              <th class="text-center"><h3>Education Level</h3></th>
+              <th class="text-center"><h3>Education</h3></th>
+              <th class="text-center"><h3>Category</h3></th>
+              <th class="text-center"><h3>Show</h3></th>
+              <% if current_category.category!="Admin" %>
+              <th class="text-center"><h3>Edit</h3></th>
+              <%end%>
+              <th class="text-center"><h3>Remove</h3></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @employees.each do |employee| %>
+            <tr>
+              <td text-align="center"><%= image_tag employee.image.url(:thumb), :style=>"margin-left: auto; margin-right: auto" , class: "thumbnail" %></td>
+              <td class="text-center"><%= employee.full_name %></td>
+              <td class="text-center"><%= employee.salary %></td>
+              <td class="text-center"><%= employee.education_level %></td>
+              <td class="text-center"><%= employee.education %></td>
+              <% category=Category.find_by(id: employee.category_id )%>
+              <td class="text-center"><%= category.category %></td>
+              <td class="text-center"><%= link_to 'Show', employee , class:"btn btn-info" %></td>
+             
+              
+            <% if employee.status=="yes" %>
+              <% if current_category.category!="Admin" %>
+              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee) ,class: "btn btn-danger" , id: employee.id.to_s+"e"  %></td>
+
+               <% end %>
+
+              <td class="text-center"><a class="btn btn-warning fire" id="<%= employee.id %>"> Remove</a></td>
+
+            <% else %>
+
+              <% if current_category.category!="Admin" %>
+
+              <td class="text-center"><%= link_to 'Edit', edit_employee_path(employee), class:"btn btn-danger" , disabled: true  %></td>
+              <% end %>
+              <td class="text-center"><a class="btn btn-warning" id="<%= employee.id %>"> Not Available</a></td>
+            <% end %>
+              
+
+             
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
