@@ -18,6 +18,10 @@ class VendorsController < ApplicationController
         session[:vendortype] = 'pallet'
       elsif params[:vendortype] == 'machine'
         session[:vendortype] = 'machine'
+      elsif params[:vendortype] == 'all'
+        session[:vendortype] = 'all'
+      else 
+        session[:vendortype] = 'all'
       end
 
       if session[:vendortype] == 'sparepart'  
@@ -82,7 +86,10 @@ class VendorsController < ApplicationController
           else
             @vendors = VendorMachine.all.order(created_at: :desc)
           end 
-       end
+        elsif session[:vendortype] == 'all'
+          @listcriteria = "all"
+          @vendors = Vendor.all
+        end
       @vendors = @vendors.paginate(:page => params[:page], :per_page => 6)
     else
       render :file => "/public/404.html",:status  => "404"  
